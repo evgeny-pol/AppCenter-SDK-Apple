@@ -166,6 +166,23 @@
 		CD09077F20CDD2F10026F862 /* AssetsSyncStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09077E20CDD2F10026F862 /* AssetsSyncStatus.h */; };
 		CD09078120CDD4A70026F862 /* AssetsUpdateState.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09078020CDD4A70026F862 /* AssetsUpdateState.h */; };
 		CD09078320CDD4E30026F862 /* ReportType.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09078220CDD4E30026F862 /* ReportType.h */; };
+		CD09078720CDE0E40026F862 /* MSDownloadPackageException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09078620CDE0E40026F862 /* MSDownloadPackageException.h */; };
+		CD09078920CDE10E0026F862 /* MSAssetsFinalizeException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09078820CDE10E0026F862 /* MSAssetsFinalizeException.h */; };
+		CD09078B20CDE1210026F862 /* MSAssetsGeneralException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09078A20CDE1210026F862 /* MSAssetsGeneralException.h */; };
+		CD09078D20CDE1310026F862 /* MSAssetsGetPackageException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09078C20CDE1310026F862 /* MSAssetsGetPackageException.h */; };
+		CD09078F20CDE1420026F862 /* MSAssetsIllegalArgumentException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09078E20CDE1420026F862 /* MSAssetsIllegalArgumentException.h */; };
+		CD09079120CDE1510026F862 /* MSAssetsInitializeException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09079020CDE1510026F862 /* MSAssetsInitializeException.h */; };
+		CD09079320CDE1610026F862 /* MSAssetsInstallException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09079220CDE1610026F862 /* MSAssetsInstallException.h */; };
+		CD09079520CDE16F0026F862 /* MSAssetsInvalidPublicKeyException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09079420CDE16F0026F862 /* MSAssetsInvalidPublicKeyException.h */; };
+		CD09079720CDE1BE0026F862 /* MSAssetsMalformedDataException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09079620CDE1BE0026F862 /* MSAssetsMalformedDataException.h */; };
+		CD09079920CDE1CC0026F862 /* MSAssetsMergeException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09079820CDE1CC0026F862 /* MSAssetsMergeException.h */; };
+		CD09079B20CDE1D90026F862 /* MSAssetsNativeApiCallException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09079A20CDE1D90026F862 /* MSAssetsNativeApiCallException.h */; };
+		CD09079D20CDE1ED0026F862 /* MSAssetsPlatformUtilsException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09079C20CDE1ED0026F862 /* MSAssetsPlatformUtilsException.h */; };
+		CD09079F20CDE21D0026F862 /* MSAssetsQueryUpdateException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09079E20CDE21D0026F862 /* MSAssetsQueryUpdateException.h */; };
+		CD0907A120CDE22A0026F862 /* MSAssetsReportStatusException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD0907A020CDE22A0026F862 /* MSAssetsReportStatusException.h */; };
+		CD0907A320CDE2370026F862 /* MSAssetsRollbackException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD0907A220CDE2370026F862 /* MSAssetsRollbackException.h */; };
+		CD0907A520CDE2440026F862 /* MSAssetsSignatureVerificationException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD0907A420CDE2440026F862 /* MSAssetsSignatureVerificationException.h */; };
+		CD0907A720CDE2540026F862 /* MSAssetsUnzipException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD0907A620CDE2540026F862 /* MSAssetsUnzipException.h */; };
 		E815912A1D526956003D5F3C /* MSStartSessionLogTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E81591291D526956003D5F3C /* MSStartSessionLogTests.m */; };
 		E815912C1D526A09003D5F3C /* MSSessionTrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E815912B1D526A09003D5F3C /* MSSessionTrackerTests.m */; };
 		E81591321D526C3B003D5F3C /* MSSessionTrackerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E81591311D526C3B003D5F3C /* MSSessionTrackerUtil.m */; };
@@ -319,6 +336,24 @@
 		CD09077E20CDD2F10026F862 /* AssetsSyncStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetsSyncStatus.h; sourceTree = "<group>"; };
 		CD09078020CDD4A70026F862 /* AssetsUpdateState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetsUpdateState.h; sourceTree = "<group>"; };
 		CD09078220CDD4E30026F862 /* ReportType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportType.h; sourceTree = "<group>"; };
+		CD09078520CDE0940026F862 /* MSApiHttpRequestException.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSApiHttpRequestException.h; sourceTree = "<group>"; };
+		CD09078620CDE0E40026F862 /* MSDownloadPackageException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSDownloadPackageException.h; sourceTree = "<group>"; };
+		CD09078820CDE10E0026F862 /* MSAssetsFinalizeException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsFinalizeException.h; sourceTree = "<group>"; };
+		CD09078A20CDE1210026F862 /* MSAssetsGeneralException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsGeneralException.h; sourceTree = "<group>"; };
+		CD09078C20CDE1310026F862 /* MSAssetsGetPackageException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsGetPackageException.h; sourceTree = "<group>"; };
+		CD09078E20CDE1420026F862 /* MSAssetsIllegalArgumentException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsIllegalArgumentException.h; sourceTree = "<group>"; };
+		CD09079020CDE1510026F862 /* MSAssetsInitializeException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsInitializeException.h; sourceTree = "<group>"; };
+		CD09079220CDE1610026F862 /* MSAssetsInstallException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsInstallException.h; sourceTree = "<group>"; };
+		CD09079420CDE16F0026F862 /* MSAssetsInvalidPublicKeyException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsInvalidPublicKeyException.h; sourceTree = "<group>"; };
+		CD09079620CDE1BE0026F862 /* MSAssetsMalformedDataException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsMalformedDataException.h; sourceTree = "<group>"; };
+		CD09079820CDE1CC0026F862 /* MSAssetsMergeException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsMergeException.h; sourceTree = "<group>"; };
+		CD09079A20CDE1D90026F862 /* MSAssetsNativeApiCallException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsNativeApiCallException.h; sourceTree = "<group>"; };
+		CD09079C20CDE1ED0026F862 /* MSAssetsPlatformUtilsException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsPlatformUtilsException.h; sourceTree = "<group>"; };
+		CD09079E20CDE21D0026F862 /* MSAssetsQueryUpdateException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsQueryUpdateException.h; sourceTree = "<group>"; };
+		CD0907A020CDE22A0026F862 /* MSAssetsReportStatusException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsReportStatusException.h; sourceTree = "<group>"; };
+		CD0907A220CDE2370026F862 /* MSAssetsRollbackException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsRollbackException.h; sourceTree = "<group>"; };
+		CD0907A420CDE2440026F862 /* MSAssetsSignatureVerificationException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsSignatureVerificationException.h; sourceTree = "<group>"; };
+		CD0907A620CDE2540026F862 /* MSAssetsUnzipException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsUnzipException.h; sourceTree = "<group>"; };
 		E81591291D526956003D5F3C /* MSStartSessionLogTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSStartSessionLogTests.m; sourceTree = "<group>"; };
 		E815912B1D526A09003D5F3C /* MSSessionTrackerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSSessionTrackerTests.m; sourceTree = "<group>"; };
 		E81591301D526C3B003D5F3C /* MSSessionTrackerUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSessionTrackerUtil.h; sourceTree = "<group>"; };
@@ -556,6 +591,31 @@
 			path = Enum;
 			sourceTree = "<group>";
 		};
+		CD09078420CDE0140026F862 /* Exceptions */ = {
+			isa = PBXGroup;
+			children = (
+				CD09078520CDE0940026F862 /* MSApiHttpRequestException.h */,
+				CD09078620CDE0E40026F862 /* MSDownloadPackageException.h */,
+				CD09078820CDE10E0026F862 /* MSAssetsFinalizeException.h */,
+				CD09078A20CDE1210026F862 /* MSAssetsGeneralException.h */,
+				CD09078C20CDE1310026F862 /* MSAssetsGetPackageException.h */,
+				CD09078E20CDE1420026F862 /* MSAssetsIllegalArgumentException.h */,
+				CD09079020CDE1510026F862 /* MSAssetsInitializeException.h */,
+				CD09079220CDE1610026F862 /* MSAssetsInstallException.h */,
+				CD09079420CDE16F0026F862 /* MSAssetsInvalidPublicKeyException.h */,
+				CD09079620CDE1BE0026F862 /* MSAssetsMalformedDataException.h */,
+				CD09079820CDE1CC0026F862 /* MSAssetsMergeException.h */,
+				CD09079A20CDE1D90026F862 /* MSAssetsNativeApiCallException.h */,
+				CD09079C20CDE1ED0026F862 /* MSAssetsPlatformUtilsException.h */,
+				CD09079E20CDE21D0026F862 /* MSAssetsQueryUpdateException.h */,
+				CD0907A020CDE22A0026F862 /* MSAssetsReportStatusException.h */,
+				CD0907A220CDE2370026F862 /* MSAssetsRollbackException.h */,
+				CD0907A420CDE2440026F862 /* MSAssetsSignatureVerificationException.h */,
+				CD0907A620CDE2540026F862 /* MSAssetsUnzipException.h */,
+			);
+			path = Exceptions;
+			sourceTree = "<group>";
+		};
 		E85547B71D2D6253002DF6E2 = {
 			isa = PBXGroup;
 			children = (
@@ -604,6 +664,7 @@
 				35BF19E21DF9C43F00193027 /* MSAssetsDelegate.h */,
 				351343352057093600E6DC7D /* MSAssetsTransmissionTargetInternal.h */,
 				CD09077820CDD1880026F862 /* Enum */,
+				CD09078420CDE0140026F862 /* Exceptions */,
 				6E3E2CC21D359D5E00B1EE50 /* Model */,
 				E8E48F9B1D515C1F00A8C1B0 /* Session */,
 				04A1409C1ECE7245001CEE94 /* Util */,
@@ -706,25 +767,42 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD09079520CDE16F0026F862 /* MSAssetsInvalidPublicKeyException.h in Headers */,
 				CD09078120CDD4A70026F862 /* AssetsUpdateState.h in Headers */,
 				CD09076A20CCBB0C0026F862 /* MSAssetsPackage.h in Headers */,
+				CD09078D20CDE1310026F862 /* MSAssetsGetPackageException.h in Headers */,
+				CD09078F20CDE1420026F862 /* MSAssetsIllegalArgumentException.h in Headers */,
 				358F9BC82019596500B9E22C /* MSAbstractLog.h in Headers */,
+				CD09079920CDE1CC0026F862 /* MSAssetsMergeException.h in Headers */,
+				CD09079F20CDE21D0026F862 /* MSAssetsQueryUpdateException.h in Headers */,
+				CD09079320CDE1610026F862 /* MSAssetsInstallException.h in Headers */,
 				E89B33EC1D5A8F3500FDE8FB /* MSSessionTrackerDelegate.h in Headers */,
 				04A082061F74BB8600DC776D /* MSService.h in Headers */,
+				CD09079D20CDE1ED0026F862 /* MSAssetsPlatformUtilsException.h in Headers */,
+				CD0907A120CDE22A0026F862 /* MSAssetsReportStatusException.h in Headers */,
+				CD09079B20CDE1D90026F862 /* MSAssetsNativeApiCallException.h in Headers */,
+				CD09079120CDE1510026F862 /* MSAssetsInitializeException.h in Headers */,
 				CD09077D20CDD2950026F862 /* AssetsInstallMode.h in Headers */,
+				CD0907A520CDE2440026F862 /* MSAssetsSignatureVerificationException.h in Headers */,
 				387C77051D6CC39400D68CC1 /* MSServiceAbstract.h in Headers */,
 				E85547F91D2D6A9B002DF6E2 /* AppCenter+Internal.h in Headers */,
+				CD09078B20CDE1210026F862 /* MSAssetsGeneralException.h in Headers */,
+				CD09079720CDE1BE0026F862 /* MSAssetsMalformedDataException.h in Headers */,
 				CD09077B20CDD24E0026F862 /* AssetsDeploymentStatus.h in Headers */,
 				CD09078320CDD4E30026F862 /* ReportType.h in Headers */,
 				351343462059DC1000E6DC7D /* MSAssetsTransmissionTarget.h in Headers */,
 				358F9BC62019590200B9E22C /* MSLogWithProperties.h in Headers */,
+				CD09078720CDE0E40026F862 /* MSDownloadPackageException.h in Headers */,
 				351343472059DC1200E6DC7D /* MSAssetsTransmissionTargetInternal.h in Headers */,
+				CD09078920CDE10E0026F862 /* MSAssetsFinalizeException.h in Headers */,
 				CD09077F20CDD2F10026F862 /* AssetsSyncStatus.h in Headers */,
 				0485AF8F1EAA852A00C10CAF /* MSAssetsCategory.h in Headers */,
 				E85547F71D2D6A7D002DF6E2 /* AppCenterAssets.h in Headers */,
 				3813B9651DBFE68200831214 /* MSAssetsInternal.h in Headers */,
 				E85547FA1D2D6A9E002DF6E2 /* MSAssetsPrivate.h in Headers */,
 				E85547F81D2D6A7D002DF6E2 /* MSAssets.h in Headers */,
+				CD0907A720CDE2540026F862 /* MSAssetsUnzipException.h in Headers */,
+				CD0907A320CDE2370026F862 /* MSAssetsRollbackException.h in Headers */,
 				E8E48F9E1D515C3900A8C1B0 /* MSSessionTracker.h in Headers */,
 				042B1D2A1FE3508100D6E04A /* MSSessionTrackerPrivate.h in Headers */,
 			);
