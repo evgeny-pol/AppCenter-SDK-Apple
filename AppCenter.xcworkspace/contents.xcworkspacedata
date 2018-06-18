@@ -2,10 +2,10 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:AppCenterAnalytics/AppCenterAnalytics.xcodeproj">
+      location = "group:AppCenter/AppCenter.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:AppCenter/AppCenter.xcodeproj">
+      location = "group:AppCenterAnalytics/AppCenterAnalytics.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:AppCenterAssets/AppCenterAssets.xcodeproj">
