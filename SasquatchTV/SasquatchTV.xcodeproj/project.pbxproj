@@ -70,6 +70,48 @@
 			remoteGlobalIDString = D322EFD71E8E97C800A8EDA5;
 			remoteInfo = SasquatchTVSwift;
 		};
+		CD6921C920CC79F700FA1631 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CD6921BA20CC79F700FA1631 /* AppCenterAssets.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E85547C01D2D6253002DF6E2;
+			remoteInfo = AppCenterAssetsIOS;
+		};
+		CD6921CB20CC79F700FA1631 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CD6921BA20CC79F700FA1631 /* AppCenterAssets.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E85547D51D2D6723002DF6E2;
+			remoteInfo = AppCenterAssetsIOSTests;
+		};
+		CD6921CD20CC79F700FA1631 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CD6921BA20CC79F700FA1631 /* AppCenterAssets.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0485AF851EAA79E300C10CAF;
+			remoteInfo = AppCenterAssetsMacOS;
+		};
+		CD6921CF20CC79F700FA1631 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CD6921BA20CC79F700FA1631 /* AppCenterAssets.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 046AEAC61ECA51AF00CBE511;
+			remoteInfo = AppCenterAssetsMacOSTests;
+		};
+		CD6921D120CC79F700FA1631 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CD6921BA20CC79F700FA1631 /* AppCenterAssets.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0431216C1EE0C20A007054C5;
+			remoteInfo = AppCenterAssetsTVOS;
+		};
+		CD6921D320CC79F700FA1631 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CD6921BA20CC79F700FA1631 /* AppCenterAssets.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0446DF541F3B8E6300C8E338;
+			remoteInfo = AppCenterAssetsTVOSTests;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -126,6 +168,7 @@
 		80F991611F0267B40040FAD7 /* CrashesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = CrashesViewController.swift; sourceTree = "<group>"; tabWidth = 2; };
 		80F9916A1F027D250040FAD7 /* CrashesDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrashesDetailViewController.swift; sourceTree = "<group>"; };
 		B2181B7D1F268AAD00D2EEAE /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		CD6921BA20CC79F700FA1631 /* AppCenterAssets.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AppCenterAssets.xcodeproj; path = ../AppCenterAssets/AppCenterAssets.xcodeproj; sourceTree = "<group>"; };
 		D322EFCA1E8E97A100A8EDA5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/SasquatchTV.storyboard; sourceTree = "<group>"; };
 		D322EFD81E8E97C800A8EDA5 /* SasquatchTVSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SasquatchTVSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D322EFDA1E8E97C800A8EDA5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -217,9 +260,23 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		CD6921BB20CC79F700FA1631 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CD6921CA20CC79F700FA1631 /* libAppCenterAssets.a */,
+				CD6921CC20CC79F700FA1631 /* AppCenterAssets.xctest */,
+				CD6921CE20CC79F700FA1631 /* libAppCenterAssets.a */,
+				CD6921D020CC79F700FA1631 /* AppCenterAssets.xctest */,
+				CD6921D220CC79F700FA1631 /* libAppCenterAssets.a */,
+				CD6921D420CC79F700FA1631 /* AppCenterAssets.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		D322EFB91E8E97A100A8EDA5 = {
 			isa = PBXGroup;
 			children = (
+				CD6921BA20CC79F700FA1631 /* AppCenterAssets.xcodeproj */,
 				D322EFC41E8E97A100A8EDA5 /* SasquatchTV */,
 				D322EFEC1E8E97DF00A8EDA5 /* SasquatchTVObjC */,
 				D322EFD91E8E97C800A8EDA5 /* SasquatchTVSwift */,
@@ -428,20 +485,24 @@
 				TargetAttributes = {
 					5C2CC6EC1EE6BE5400E2BDA4 = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = 5Z97G9NZQ6;
 						ProvisioningStyle = Automatic;
 						TestTargetID = D322EFEA1E8E97DF00A8EDA5;
 					};
 					5C2CC6FA1EE6BEE000E2BDA4 = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = 5Z97G9NZQ6;
 						ProvisioningStyle = Automatic;
 						TestTargetID = D322EFD71E8E97C800A8EDA5;
 					};
 					D322EFD71E8E97C800A8EDA5 = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = 5Z97G9NZQ6;
 						ProvisioningStyle = Automatic;
 					};
 					D322EFEA1E8E97DF00A8EDA5 = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = 5Z97G9NZQ6;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
@@ -458,6 +519,12 @@
 			mainGroup = D322EFB91E8E97A100A8EDA5;
 			productRefGroup = D322EFC31E8E97A100A8EDA5 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = CD6921BB20CC79F700FA1631 /* Products */;
+					ProjectRef = CD6921BA20CC79F700FA1631 /* AppCenterAssets.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				D322EFEA1E8E97DF00A8EDA5 /* SasquatchTVObjC */,
@@ -467,6 +534,51 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		CD6921CA20CC79F700FA1631 /* libAppCenterAssets.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAppCenterAssets.a;
+			remoteRef = CD6921C920CC79F700FA1631 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CD6921CC20CC79F700FA1631 /* AppCenterAssets.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = AppCenterAssets.xctest;
+			remoteRef = CD6921CB20CC79F700FA1631 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CD6921CE20CC79F700FA1631 /* libAppCenterAssets.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAppCenterAssets.a;
+			remoteRef = CD6921CD20CC79F700FA1631 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CD6921D020CC79F700FA1631 /* AppCenterAssets.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = AppCenterAssets.xctest;
+			remoteRef = CD6921CF20CC79F700FA1631 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CD6921D220CC79F700FA1631 /* libAppCenterAssets.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAppCenterAssets.a;
+			remoteRef = CD6921D120CC79F700FA1631 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CD6921D420CC79F700FA1631 /* AppCenterAssets.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = AppCenterAssets.xctest;
+			remoteRef = CD6921D320CC79F700FA1631 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		5C2CC6EB1EE6BE5400E2BDA4 /* Resources */ = {

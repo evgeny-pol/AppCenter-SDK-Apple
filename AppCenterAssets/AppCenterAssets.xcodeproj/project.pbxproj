@@ -1,0 +1,1314 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		0431216D1EE0C213007054C5 /* AppCenterAssetsTVOSFramework */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 0431216F1EE0C213007054C5 /* Build configuration list for PBXAggregateTarget "AppCenterAssetsTVOSFramework" */;
+			buildPhases = (
+				0431216E1EE0C213007054C5 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = AppCenterAssetsTVOSFramework;
+			productName = "Fat Framework";
+		};
+		0485AFEF1EAAADAC00C10CAF /* AppCenterAssetsMacOSFramework */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 0485AFF11EAAADAC00C10CAF /* Build configuration list for PBXAggregateTarget "AppCenterAssetsMacOSFramework" */;
+			buildPhases = (
+				0485AFF01EAAADAC00C10CAF /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = AppCenterAssetsMacOSFramework;
+			productName = "Fat Framework";
+		};
+		04FD11551EF2F818000C5A5C /* AppCenterAssetsMacOSDoc */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 04FD11591EF2F818000C5A5C /* Build configuration list for PBXAggregateTarget "AppCenterAssetsMacOSDoc" */;
+			buildPhases = (
+				04FD11581EF2F818000C5A5C /* Run Script */,
+			);
+			dependencies = (
+				04FD115D1EF2F849000C5A5C /* PBXTargetDependency */,
+			);
+			name = AppCenterAssetsMacOSDoc;
+			productName = "Jazzy Docs";
+		};
+		04FD11701EF2FE43000C5A5C /* AppCenterAssetsTVOSDoc */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 04FD11741EF2FE43000C5A5C /* Build configuration list for PBXAggregateTarget "AppCenterAssetsTVOSDoc" */;
+			buildPhases = (
+				04FD11731EF2FE43000C5A5C /* Run Script */,
+			);
+			dependencies = (
+				04FD11781EF2FE5B000C5A5C /* PBXTargetDependency */,
+			);
+			name = AppCenterAssetsTVOSDoc;
+			productName = "Jazzy Docs";
+		};
+		E85547E41D2D681F002DF6E2 /* AppCenterAssetsIOSFramework */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = E85547E51D2D681F002DF6E2 /* Build configuration list for PBXAggregateTarget "AppCenterAssetsIOSFramework" */;
+			buildPhases = (
+				E85547E81D2D6827002DF6E2 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = AppCenterAssetsIOSFramework;
+			productName = "Fat Framework";
+		};
+		E85547E91D2D68C5002DF6E2 /* AppCenterAssetsIOSDoc */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = E85547EA1D2D68C5002DF6E2 /* Build configuration list for PBXAggregateTarget "AppCenterAssetsIOSDoc" */;
+			buildPhases = (
+				E85547ED1D2D68CF002DF6E2 /* Run Script */,
+			);
+			dependencies = (
+				386352E41D51047400D0D450 /* PBXTargetDependency */,
+			);
+			name = AppCenterAssetsIOSDoc;
+			productName = "Jazzy Docs";
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		0420A6871ECA7A4B00915619 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0420A6861ECA7A4B00915619 /* OCMock.framework */; };
+		0420A6931ECA7B1100915619 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0420A6921ECA7B1100915619 /* OCMock.framework */; };
+		043121511EE0C20A007054C5 /* MSAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = E85547C51D2D6253002DF6E2 /* MSAssets.m */; };
+		0431215B1EE0C20A007054C5 /* AppCenter+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = E85547CF1D2D6521002DF6E2 /* AppCenter+Internal.h */; };
+		0431215F1EE0C20A007054C5 /* AppCenterAssets.h in Headers */ = {isa = PBXBuildFile; fileRef = E85547CC1D2D63EF002DF6E2 /* AppCenterAssets.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		043121601EE0C20A007054C5 /* MSServiceAbstract.h in Headers */ = {isa = PBXBuildFile; fileRef = 387C77041D6CC39400D68CC1 /* MSServiceAbstract.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		043121651EE0C20A007054C5 /* MSAssets.h in Headers */ = {isa = PBXBuildFile; fileRef = E85547C31D2D6253002DF6E2 /* MSAssets.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0446DF561F3B8EAC00C8E338 /* OCHamcrest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0484DD201F39096E0092B777 /* OCHamcrest.framework */; };
+		0446DF571F3B8EBD00C8E338 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0484DD231F39098B0092B777 /* OCMock.framework */; };
+		0446DF581F3B8ED000C8E338 /* libAppCenterAssets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0431216C1EE0C20A007054C5 /* libAppCenterAssets.a */; };
+		0446DF5F1F3B8FBA00C8E338 /* libAppCenter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0446DF5E1F3B8FBA00C8E338 /* libAppCenter.a */; };
+		0446DF621F3B95EB00C8E338 /* libAppCenter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0446DF611F3B95EB00C8E338 /* libAppCenter.a */; };
+		0446DF641F3B95F200C8E338 /* libAppCenter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0446DF631F3B95F200C8E338 /* libAppCenter.a */; };
+		046AEACB1ECA554600CBE511 /* libAppCenterAssets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0485AF851EAA79E300C10CAF /* libAppCenterAssets.a */; };
+		0485AF6A1EAA79E300C10CAF /* MSAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = E85547C51D2D6253002DF6E2 /* MSAssets.m */; };
+		0485AF741EAA79E300C10CAF /* AppCenter+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = E85547CF1D2D6521002DF6E2 /* AppCenter+Internal.h */; };
+		0485AF781EAA79E300C10CAF /* AppCenterAssets.h in Headers */ = {isa = PBXBuildFile; fileRef = E85547CC1D2D63EF002DF6E2 /* AppCenterAssets.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0485AF7E1EAA79E300C10CAF /* MSAssets.h in Headers */ = {isa = PBXBuildFile; fileRef = E85547C31D2D6253002DF6E2 /* MSAssets.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		04A082061F74BB8600DC776D /* MSService.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A082051F74BB8600DC776D /* MSService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		04A082071F74BB8C00DC776D /* MSService.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A082051F74BB8600DC776D /* MSService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		04BED7181ECB64FB00E20975 /* OCHamcrest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04BED7161ECB64CE00E20975 /* OCHamcrest.framework */; };
+		3568A7E0201A71D000F3B860 /* MSAbstractLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 358F9BC72019596400B9E22C /* MSAbstractLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3568A7E1201A71D000F3B860 /* MSLogWithProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 358F9BC52019590100B9E22C /* MSLogWithProperties.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3568A7ED201A9BBB00F3B860 /* MSAbstractLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 358F9BC72019596400B9E22C /* MSAbstractLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3568A7EE201A9BBB00F3B860 /* MSLogWithProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 358F9BC52019590100B9E22C /* MSLogWithProperties.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3568A7EF201A9BBB00F3B860 /* MSService.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A082051F74BB8600DC776D /* MSService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3568A7F0201A9BBB00F3B860 /* MSServiceAbstract.h in Headers */ = {isa = PBXBuildFile; fileRef = 387C77041D6CC39400D68CC1 /* MSServiceAbstract.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		358F9BC62019590200B9E22C /* MSLogWithProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 358F9BC52019590100B9E22C /* MSLogWithProperties.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		358F9BC82019596500B9E22C /* MSAbstractLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 358F9BC72019596400B9E22C /* MSAbstractLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		387C77051D6CC39400D68CC1 /* MSServiceAbstract.h in Headers */ = {isa = PBXBuildFile; fileRef = 387C77041D6CC39400D68CC1 /* MSServiceAbstract.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6E0684381D35A3B900A8CC6C /* OCHamcrestIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E0684371D35A3B900A8CC6C /* OCHamcrestIOS.framework */; };
+		CD09076A20CCBB0C0026F862 /* MSAssetsPackage.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09076920CCBB0C0026F862 /* MSAssetsPackage.h */; };
+		CD09077B20CDD24E0026F862 /* AssetsDeploymentStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09077A20CDD24E0026F862 /* AssetsDeploymentStatus.h */; };
+		CD09077D20CDD2950026F862 /* AssetsInstallMode.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09077C20CDD2950026F862 /* AssetsInstallMode.h */; };
+		CD09077F20CDD2F10026F862 /* AssetsSyncStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09077E20CDD2F10026F862 /* AssetsSyncStatus.h */; };
+		CD09078120CDD4A70026F862 /* AssetsUpdateState.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09078020CDD4A70026F862 /* AssetsUpdateState.h */; };
+		CD09078320CDD4E30026F862 /* ReportType.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09078220CDD4E30026F862 /* ReportType.h */; };
+		CD09078720CDE0E40026F862 /* MSDownloadPackageException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09078620CDE0E40026F862 /* MSDownloadPackageException.h */; };
+		CD09078920CDE10E0026F862 /* MSAssetsFinalizeException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09078820CDE10E0026F862 /* MSAssetsFinalizeException.h */; };
+		CD09078B20CDE1210026F862 /* MSAssetsGeneralException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09078A20CDE1210026F862 /* MSAssetsGeneralException.h */; };
+		CD09078D20CDE1310026F862 /* MSAssetsGetPackageException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09078C20CDE1310026F862 /* MSAssetsGetPackageException.h */; };
+		CD09078F20CDE1420026F862 /* MSAssetsIllegalArgumentException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09078E20CDE1420026F862 /* MSAssetsIllegalArgumentException.h */; };
+		CD09079120CDE1510026F862 /* MSAssetsInitializeException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09079020CDE1510026F862 /* MSAssetsInitializeException.h */; };
+		CD09079320CDE1610026F862 /* MSAssetsInstallException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09079220CDE1610026F862 /* MSAssetsInstallException.h */; };
+		CD09079520CDE16F0026F862 /* MSAssetsInvalidPublicKeyException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09079420CDE16F0026F862 /* MSAssetsInvalidPublicKeyException.h */; };
+		CD09079720CDE1BE0026F862 /* MSAssetsMalformedDataException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09079620CDE1BE0026F862 /* MSAssetsMalformedDataException.h */; };
+		CD09079920CDE1CC0026F862 /* MSAssetsMergeException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09079820CDE1CC0026F862 /* MSAssetsMergeException.h */; };
+		CD09079B20CDE1D90026F862 /* MSAssetsNativeApiCallException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09079A20CDE1D90026F862 /* MSAssetsNativeApiCallException.h */; };
+		CD09079D20CDE1ED0026F862 /* MSAssetsPlatformUtilsException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09079C20CDE1ED0026F862 /* MSAssetsPlatformUtilsException.h */; };
+		CD09079F20CDE21D0026F862 /* MSAssetsQueryUpdateException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09079E20CDE21D0026F862 /* MSAssetsQueryUpdateException.h */; };
+		CD0907A120CDE22A0026F862 /* MSAssetsReportStatusException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD0907A020CDE22A0026F862 /* MSAssetsReportStatusException.h */; };
+		CD0907A320CDE2370026F862 /* MSAssetsRollbackException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD0907A220CDE2370026F862 /* MSAssetsRollbackException.h */; };
+		CD0907A520CDE2440026F862 /* MSAssetsSignatureVerificationException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD0907A420CDE2440026F862 /* MSAssetsSignatureVerificationException.h */; };
+		CD0907A720CDE2540026F862 /* MSAssetsUnzipException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD0907A620CDE2540026F862 /* MSAssetsUnzipException.h */; };
+		E85547C61D2D6253002DF6E2 /* MSAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = E85547C51D2D6253002DF6E2 /* MSAssets.m */; };
+		E85547DA1D2D6723002DF6E2 /* libAppCenterAssets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E85547C01D2D6253002DF6E2 /* libAppCenterAssets.a */; };
+		E85547F71D2D6A7D002DF6E2 /* AppCenterAssets.h in Headers */ = {isa = PBXBuildFile; fileRef = E85547CC1D2D63EF002DF6E2 /* AppCenterAssets.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E85547F81D2D6A7D002DF6E2 /* MSAssets.h in Headers */ = {isa = PBXBuildFile; fileRef = E85547C31D2D6253002DF6E2 /* MSAssets.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E85547F91D2D6A9B002DF6E2 /* AppCenter+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = E85547CF1D2D6521002DF6E2 /* AppCenter+Internal.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0446DF591F3B8EFA00C8E338 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E85547B81D2D6253002DF6E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0431214E1EE0C20A007054C5;
+			remoteInfo = AppCenterAssetsTVOS;
+		};
+		046AEACD1ECA55BC00CBE511 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E85547B81D2D6253002DF6E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0485AF671EAA79E300C10CAF;
+			remoteInfo = AppCenterAssetsMacOS;
+		};
+		04FD115C1EF2F849000C5A5C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E85547B81D2D6253002DF6E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0485AFEF1EAAADAC00C10CAF;
+			remoteInfo = "Fat Framework";
+		};
+		04FD11771EF2FE5B000C5A5C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E85547B81D2D6253002DF6E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0431216D1EE0C213007054C5;
+			remoteInfo = "Fat Framework";
+		};
+		386352E31D51047400D0D450 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E85547B81D2D6253002DF6E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E85547E41D2D681F002DF6E2;
+			remoteInfo = "Fat Framework";
+		};
+		E85547DB1D2D6723002DF6E2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E85547B81D2D6253002DF6E2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E85547BF1D2D6253002DF6E2;
+			remoteInfo = AppCenterAssetsIOS;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		043121581EE0C20A007054C5 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0485AF711EAA79E300C10CAF /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E85547BE1D2D6253002DF6E2 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		041CFF8B1ECCFF6700B4654B /* Tests iOS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "Tests iOS.xcconfig"; path = "../../Config/Tests iOS.xcconfig"; sourceTree = "<group>"; };
+		0420A6861ECA7A4B00915619 /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMock.framework; path = ../../macOS/OCMock/OCMock.framework; sourceTree = "<group>"; };
+		0420A6921ECA7B1100915619 /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMock.framework; path = ../../iOS/OCMock/OCMock.framework; sourceTree = "<group>"; };
+		0431216C1EE0C20A007054C5 /* libAppCenterAssets.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAppCenterAssets.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		043121721EE0C248007054C5 /* tvOS.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = tvOS.modulemap; sourceTree = "<group>"; };
+		043121731EE0C248007054C5 /* tvOS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = tvOS.xcconfig; sourceTree = "<group>"; };
+		0446DF541F3B8E6300C8E338 /* AppCenterAssets.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppCenterAssets.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0446DF5E1F3B8FBA00C8E338 /* libAppCenter.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAppCenter.a; path = "../../../../../Library/Developer/Xcode/DerivedData/MobileCenter-atgozldoovnqvrcmynluxwlivwkq/Build/Products/Debug-appletvsimulator/libAppCenter.a"; sourceTree = "<group>"; };
+		0446DF611F3B95EB00C8E338 /* libAppCenter.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAppCenter.a; path = "../../../../../Library/Developer/Xcode/DerivedData/MobileCenter-atgozldoovnqvrcmynluxwlivwkq/Build/Products/Debug/libAppCenter.a"; sourceTree = "<group>"; };
+		0446DF631F3B95F200C8E338 /* libAppCenter.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAppCenter.a; path = "../../../../../Library/Developer/Xcode/DerivedData/MobileCenter-atgozldoovnqvrcmynluxwlivwkq/Build/Products/Debug-iphonesimulator/libAppCenter.a"; sourceTree = "<group>"; };
+		0469D1B21F4DFE4C00A43A8E /* AppCenterAssets Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "AppCenterAssets Release.xcconfig"; sourceTree = "<group>"; };
+		046AEAC61ECA51AF00CBE511 /* AppCenterAssets.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppCenterAssets.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0484DD201F39096E0092B777 /* OCHamcrest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCHamcrest.framework; path = ../../Vendor/tvOS/OCHamcrest/OCHamcrest.framework; sourceTree = "<group>"; };
+		0484DD231F39098B0092B777 /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMock.framework; path = ../../tvOS/OCMock/OCMock.framework; sourceTree = "<group>"; };
+		0484DD601F3910FF0092B777 /* Tests tvOS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "Tests tvOS.xcconfig"; path = "../../Config/Tests tvOS.xcconfig"; sourceTree = "<group>"; };
+		0485AF851EAA79E300C10CAF /* libAppCenterAssets.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAppCenterAssets.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		049BC82A1ECE3B9400FB6719 /* iOS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = iOS.xcconfig; sourceTree = "<group>"; };
+		049BC82B1ECE3B9A00FB6719 /* macOS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = macOS.xcconfig; sourceTree = "<group>"; };
+		049BC82C1ECE3CF000FB6719 /* Tests macOS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "Tests macOS.xcconfig"; path = "../../Config/Tests macOS.xcconfig"; sourceTree = "<group>"; };
+		04A082051F74BB8600DC776D /* MSService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSService.h; path = ../AppCenter/AppCenter/MSService.h; sourceTree = "<group>"; };
+		04BED7161ECB64CE00E20975 /* OCHamcrest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCHamcrest.framework; path = ../../Vendor/macOS/OCHamcrest/OCHamcrest.framework; sourceTree = "<group>"; };
+		04ED31E91EAAD32B0033BAAE /* macOS.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = macOS.modulemap; sourceTree = "<group>"; };
+		04ED31EB1EAAD3390033BAAE /* iOS.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = iOS.modulemap; sourceTree = "<group>"; };
+		358F9BC52019590100B9E22C /* MSLogWithProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSLogWithProperties.h; path = ../AppCenter/AppCenter/Model/MSLogWithProperties.h; sourceTree = "<group>"; };
+		358F9BC72019596400B9E22C /* MSAbstractLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSAbstractLog.h; path = ../AppCenter/AppCenter/Model/MSAbstractLog.h; sourceTree = "<group>"; };
+		387C77041D6CC39400D68CC1 /* MSServiceAbstract.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSServiceAbstract.h; path = ../AppCenter/AppCenter/MSServiceAbstract.h; sourceTree = "<group>"; };
+		6E0684371D35A3B900A8CC6C /* OCHamcrestIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCHamcrestIOS.framework; path = ../../Vendor/iOS/OCHamcrest/OCHamcrestIOS.framework; sourceTree = "<group>"; };
+		B2812EF21DA3148000307DCE /* AppCenterAssets Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "AppCenterAssets Debug.xcconfig"; sourceTree = "<group>"; };
+		CD09076920CCBB0C0026F862 /* MSAssetsPackage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsPackage.h; sourceTree = "<group>"; };
+		CD09076B20CCBC890026F862 /* MSDeploymentStatusReport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSDeploymentStatusReport.h; sourceTree = "<group>"; };
+		CD09076C20CCBF870026F862 /* MSDownloadPackageResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSDownloadPackageResult.h; sourceTree = "<group>"; };
+		CD09076D20CCC0BC0026F862 /* MSDownloadStatusReport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSDownloadStatusReport.h; sourceTree = "<group>"; };
+		CD09076E20CCC1A40026F862 /* MSLocalPackage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSLocalPackage.h; sourceTree = "<group>"; };
+		CD09076F20CCC5B50026F862 /* MSAssetsPackageInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsPackageInfo.h; sourceTree = "<group>"; };
+		CD09077020CCC62A0026F862 /* MSAssetsPendingUpdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsPendingUpdate.h; sourceTree = "<group>"; };
+		CD09077120CCC6B50026F862 /* MSRemotePackage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSRemotePackage.h; sourceTree = "<group>"; };
+		CD09077220CCF28F0026F862 /* MSReportStatusResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSReportStatusResult.h; sourceTree = "<group>"; };
+		CD09077320CCF3910026F862 /* MSAssetsSyncOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsSyncOptions.h; sourceTree = "<group>"; };
+		CD09077420CCF4DF0026F862 /* MSAssetsUpdateDialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsUpdateDialog.h; sourceTree = "<group>"; };
+		CD09077520CCF6CB0026F862 /* MSAssetsUpdateRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsUpdateRequest.h; sourceTree = "<group>"; };
+		CD09077620CCF9F10026F862 /* MSAssetsUpdateResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsUpdateResponse.h; sourceTree = "<group>"; };
+		CD09077720CCFB2C0026F862 /* MSAssetsUpdateResponseUpdateInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsUpdateResponseUpdateInfo.h; sourceTree = "<group>"; };
+		CD09077920CDD1A20026F862 /* AssetsCheckFrequency.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AssetsCheckFrequency.h; sourceTree = "<group>"; };
+		CD09077A20CDD24E0026F862 /* AssetsDeploymentStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetsDeploymentStatus.h; sourceTree = "<group>"; };
+		CD09077C20CDD2950026F862 /* AssetsInstallMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetsInstallMode.h; sourceTree = "<group>"; };
+		CD09077E20CDD2F10026F862 /* AssetsSyncStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetsSyncStatus.h; sourceTree = "<group>"; };
+		CD09078020CDD4A70026F862 /* AssetsUpdateState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetsUpdateState.h; sourceTree = "<group>"; };
+		CD09078220CDD4E30026F862 /* ReportType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportType.h; sourceTree = "<group>"; };
+		CD09078520CDE0940026F862 /* MSApiHttpRequestException.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSApiHttpRequestException.h; sourceTree = "<group>"; };
+		CD09078620CDE0E40026F862 /* MSDownloadPackageException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSDownloadPackageException.h; sourceTree = "<group>"; };
+		CD09078820CDE10E0026F862 /* MSAssetsFinalizeException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsFinalizeException.h; sourceTree = "<group>"; };
+		CD09078A20CDE1210026F862 /* MSAssetsGeneralException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsGeneralException.h; sourceTree = "<group>"; };
+		CD09078C20CDE1310026F862 /* MSAssetsGetPackageException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsGetPackageException.h; sourceTree = "<group>"; };
+		CD09078E20CDE1420026F862 /* MSAssetsIllegalArgumentException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsIllegalArgumentException.h; sourceTree = "<group>"; };
+		CD09079020CDE1510026F862 /* MSAssetsInitializeException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsInitializeException.h; sourceTree = "<group>"; };
+		CD09079220CDE1610026F862 /* MSAssetsInstallException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsInstallException.h; sourceTree = "<group>"; };
+		CD09079420CDE16F0026F862 /* MSAssetsInvalidPublicKeyException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsInvalidPublicKeyException.h; sourceTree = "<group>"; };
+		CD09079620CDE1BE0026F862 /* MSAssetsMalformedDataException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsMalformedDataException.h; sourceTree = "<group>"; };
+		CD09079820CDE1CC0026F862 /* MSAssetsMergeException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsMergeException.h; sourceTree = "<group>"; };
+		CD09079A20CDE1D90026F862 /* MSAssetsNativeApiCallException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsNativeApiCallException.h; sourceTree = "<group>"; };
+		CD09079C20CDE1ED0026F862 /* MSAssetsPlatformUtilsException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsPlatformUtilsException.h; sourceTree = "<group>"; };
+		CD09079E20CDE21D0026F862 /* MSAssetsQueryUpdateException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsQueryUpdateException.h; sourceTree = "<group>"; };
+		CD0907A020CDE22A0026F862 /* MSAssetsReportStatusException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsReportStatusException.h; sourceTree = "<group>"; };
+		CD0907A220CDE2370026F862 /* MSAssetsRollbackException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsRollbackException.h; sourceTree = "<group>"; };
+		CD0907A420CDE2440026F862 /* MSAssetsSignatureVerificationException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsSignatureVerificationException.h; sourceTree = "<group>"; };
+		CD0907A620CDE2540026F862 /* MSAssetsUnzipException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsUnzipException.h; sourceTree = "<group>"; };
+		E85547C01D2D6253002DF6E2 /* libAppCenterAssets.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAppCenterAssets.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E85547C31D2D6253002DF6E2 /* MSAssets.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssets.h; sourceTree = "<group>"; };
+		E85547C51D2D6253002DF6E2 /* MSAssets.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MSAssets.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		E85547CC1D2D63EF002DF6E2 /* AppCenterAssets.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppCenterAssets.h; sourceTree = "<group>"; };
+		E85547CF1D2D6521002DF6E2 /* AppCenter+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AppCenter+Internal.h"; path = "../../../AppCenter/AppCenter/Internals/AppCenter+Internal.h"; sourceTree = "<group>"; };
+		E85547D51D2D6723002DF6E2 /* AppCenterAssets.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppCenterAssets.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		043121571EE0C20A007054C5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0446DF481F3B8E6300C8E338 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0446DF5F1F3B8FBA00C8E338 /* libAppCenter.a in Frameworks */,
+				0446DF581F3B8ED000C8E338 /* libAppCenterAssets.a in Frameworks */,
+				0446DF571F3B8EBD00C8E338 /* OCMock.framework in Frameworks */,
+				0446DF561F3B8EAC00C8E338 /* OCHamcrest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		046AEABD1ECA51AF00CBE511 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0446DF621F3B95EB00C8E338 /* libAppCenter.a in Frameworks */,
+				046AEACB1ECA554600CBE511 /* libAppCenterAssets.a in Frameworks */,
+				04BED7181ECB64FB00E20975 /* OCHamcrest.framework in Frameworks */,
+				0420A6871ECA7A4B00915619 /* OCMock.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0485AF701EAA79E300C10CAF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E85547BD1D2D6253002DF6E2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E85547D21D2D6723002DF6E2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0446DF641F3B95F200C8E338 /* libAppCenter.a in Frameworks */,
+				E85547DA1D2D6723002DF6E2 /* libAppCenterAssets.a in Frameworks */,
+				6E0684381D35A3B900A8CC6C /* OCHamcrestIOS.framework in Frameworks */,
+				0420A6931ECA7B1100915619 /* OCMock.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0420A68F1ECA7ACD00915619 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				0420A6921ECA7B1100915619 /* OCMock.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		0420A6901ECA7AD400915619 /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				0420A6861ECA7A4B00915619 /* OCMock.framework */,
+			);
+			name = macOS;
+			sourceTree = "<group>";
+		};
+		0484DD1E1F3909470092B777 /* tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				0484DD231F39098B0092B777 /* OCMock.framework */,
+			);
+			name = tvOS;
+			sourceTree = "<group>";
+		};
+		0484DD1F1F3909580092B777 /* tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				0484DD201F39096E0092B777 /* OCHamcrest.framework */,
+			);
+			name = tvOS;
+			sourceTree = "<group>";
+		};
+		04A1409C1ECE7245001CEE94 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		04A140AE1ECE806B001CEE94 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				041CFF8B1ECCFF6700B4654B /* Tests iOS.xcconfig */,
+				049BC82C1ECE3CF000FB6719 /* Tests macOS.xcconfig */,
+				0484DD601F3910FF0092B777 /* Tests tvOS.xcconfig */,
+			);
+			name = Support;
+			sourceTree = "<group>";
+		};
+		04A140B11ECE811D001CEE94 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		04A140B21ECE814E001CEE94 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		04BED7131ECB64B100E20975 /* OCHamcrest */ = {
+			isa = PBXGroup;
+			children = (
+				04BED7151ECB64C000E20975 /* iOS */,
+				04BED7141ECB64BB00E20975 /* macOS */,
+				0484DD1F1F3909580092B777 /* tvOS */,
+			);
+			name = OCHamcrest;
+			sourceTree = "<group>";
+		};
+		04BED7141ECB64BB00E20975 /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				04BED7161ECB64CE00E20975 /* OCHamcrest.framework */,
+			);
+			name = macOS;
+			sourceTree = "<group>";
+		};
+		04BED7151ECB64C000E20975 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				6E0684371D35A3B900A8CC6C /* OCHamcrestIOS.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		6E0684361D35A39300A8CC6C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0446DF631F3B95F200C8E338 /* libAppCenter.a */,
+				0446DF611F3B95EB00C8E338 /* libAppCenter.a */,
+				0446DF5E1F3B8FBA00C8E338 /* libAppCenter.a */,
+				04BED7131ECB64B100E20975 /* OCHamcrest */,
+				6E0684391D35A3C800A8CC6C /* OCMock */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6E0684391D35A3C800A8CC6C /* OCMock */ = {
+			isa = PBXGroup;
+			children = (
+				0420A68F1ECA7ACD00915619 /* iOS */,
+				0420A6901ECA7AD400915619 /* macOS */,
+				0484DD1E1F3909470092B777 /* tvOS */,
+			);
+			name = OCMock;
+			path = ../../Vendor/Common/OCMock;
+			sourceTree = "<group>";
+		};
+		6E3E2CC21D359D5E00B1EE50 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CD09076920CCBB0C0026F862 /* MSAssetsPackage.h */,
+				CD09076F20CCC5B50026F862 /* MSAssetsPackageInfo.h */,
+				CD09077020CCC62A0026F862 /* MSAssetsPendingUpdate.h */,
+				CD09076B20CCBC890026F862 /* MSDeploymentStatusReport.h */,
+				CD09076C20CCBF870026F862 /* MSDownloadPackageResult.h */,
+				CD09076D20CCC0BC0026F862 /* MSDownloadStatusReport.h */,
+				CD09076E20CCC1A40026F862 /* MSLocalPackage.h */,
+				CD09077120CCC6B50026F862 /* MSRemotePackage.h */,
+				CD09077220CCF28F0026F862 /* MSReportStatusResult.h */,
+				CD09077320CCF3910026F862 /* MSAssetsSyncOptions.h */,
+				CD09077420CCF4DF0026F862 /* MSAssetsUpdateDialog.h */,
+				CD09077520CCF6CB0026F862 /* MSAssetsUpdateRequest.h */,
+				CD09077620CCF9F10026F862 /* MSAssetsUpdateResponse.h */,
+				CD09077720CCFB2C0026F862 /* MSAssetsUpdateResponseUpdateInfo.h */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CD09077820CDD1880026F862 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				CD09077920CDD1A20026F862 /* AssetsCheckFrequency.h */,
+				CD09077A20CDD24E0026F862 /* AssetsDeploymentStatus.h */,
+				CD09077C20CDD2950026F862 /* AssetsInstallMode.h */,
+				CD09077E20CDD2F10026F862 /* AssetsSyncStatus.h */,
+				CD09078020CDD4A70026F862 /* AssetsUpdateState.h */,
+				CD09078220CDD4E30026F862 /* ReportType.h */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
+		CD09078420CDE0140026F862 /* Exceptions */ = {
+			isa = PBXGroup;
+			children = (
+				CD09078520CDE0940026F862 /* MSApiHttpRequestException.h */,
+				CD09078620CDE0E40026F862 /* MSDownloadPackageException.h */,
+				CD09078820CDE10E0026F862 /* MSAssetsFinalizeException.h */,
+				CD09078A20CDE1210026F862 /* MSAssetsGeneralException.h */,
+				CD09078C20CDE1310026F862 /* MSAssetsGetPackageException.h */,
+				CD09078E20CDE1420026F862 /* MSAssetsIllegalArgumentException.h */,
+				CD09079020CDE1510026F862 /* MSAssetsInitializeException.h */,
+				CD09079220CDE1610026F862 /* MSAssetsInstallException.h */,
+				CD09079420CDE16F0026F862 /* MSAssetsInvalidPublicKeyException.h */,
+				CD09079620CDE1BE0026F862 /* MSAssetsMalformedDataException.h */,
+				CD09079820CDE1CC0026F862 /* MSAssetsMergeException.h */,
+				CD09079A20CDE1D90026F862 /* MSAssetsNativeApiCallException.h */,
+				CD09079C20CDE1ED0026F862 /* MSAssetsPlatformUtilsException.h */,
+				CD09079E20CDE21D0026F862 /* MSAssetsQueryUpdateException.h */,
+				CD0907A020CDE22A0026F862 /* MSAssetsReportStatusException.h */,
+				CD0907A220CDE2370026F862 /* MSAssetsRollbackException.h */,
+				CD0907A420CDE2440026F862 /* MSAssetsSignatureVerificationException.h */,
+				CD0907A620CDE2540026F862 /* MSAssetsUnzipException.h */,
+			);
+			path = Exceptions;
+			sourceTree = "<group>";
+		};
+		E85547B71D2D6253002DF6E2 = {
+			isa = PBXGroup;
+			children = (
+				358F9BC72019596400B9E22C /* MSAbstractLog.h */,
+				358F9BC52019590100B9E22C /* MSLogWithProperties.h */,
+				04A082051F74BB8600DC776D /* MSService.h */,
+				387C77041D6CC39400D68CC1 /* MSServiceAbstract.h */,
+				E85547C21D2D6253002DF6E2 /* AppCenterAssets */,
+				E85547D61D2D6723002DF6E2 /* AppCenterAssetsTests */,
+				E85547C11D2D6253002DF6E2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E85547C11D2D6253002DF6E2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E85547C01D2D6253002DF6E2 /* libAppCenterAssets.a */,
+				E85547D51D2D6723002DF6E2 /* AppCenterAssets.xctest */,
+				0485AF851EAA79E300C10CAF /* libAppCenterAssets.a */,
+				046AEAC61ECA51AF00CBE511 /* AppCenterAssets.xctest */,
+				0431216C1EE0C20A007054C5 /* libAppCenterAssets.a */,
+				0446DF541F3B8E6300C8E338 /* AppCenterAssets.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E85547C21D2D6253002DF6E2 /* AppCenterAssets */ = {
+			isa = PBXGroup;
+			children = (
+				E85547CC1D2D63EF002DF6E2 /* AppCenterAssets.h */,
+				E85547C31D2D6253002DF6E2 /* MSAssets.h */,
+				E85547C51D2D6253002DF6E2 /* MSAssets.m */,
+				E85547CD1D2D64B0002DF6E2 /* Internals */,
+				E85547D01D2D65AF002DF6E2 /* Support */,
+			);
+			path = AppCenterAssets;
+			sourceTree = "<group>";
+		};
+		E85547CD1D2D64B0002DF6E2 /* Internals */ = {
+			isa = PBXGroup;
+			children = (
+				E85547CF1D2D6521002DF6E2 /* AppCenter+Internal.h */,
+				CD09077820CDD1880026F862 /* Enum */,
+				CD09078420CDE0140026F862 /* Exceptions */,
+				6E3E2CC21D359D5E00B1EE50 /* Model */,
+				04A1409C1ECE7245001CEE94 /* Util */,
+			);
+			path = Internals;
+			sourceTree = "<group>";
+		};
+		E85547D01D2D65AF002DF6E2 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				B2812EF21DA3148000307DCE /* AppCenterAssets Debug.xcconfig */,
+				0469D1B21F4DFE4C00A43A8E /* AppCenterAssets Release.xcconfig */,
+				049BC82A1ECE3B9400FB6719 /* iOS.xcconfig */,
+				04ED31EB1EAAD3390033BAAE /* iOS.modulemap */,
+				049BC82B1ECE3B9A00FB6719 /* macOS.xcconfig */,
+				04ED31E91EAAD32B0033BAAE /* macOS.modulemap */,
+				043121731EE0C248007054C5 /* tvOS.xcconfig */,
+				043121721EE0C248007054C5 /* tvOS.modulemap */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		E85547D61D2D6723002DF6E2 /* AppCenterAssetsTests */ = {
+			isa = PBXGroup;
+			children = (
+				6E0684361D35A39300A8CC6C /* Frameworks */,
+				04A140B11ECE811D001CEE94 /* Model */,
+				04A140AE1ECE806B001CEE94 /* Support */,
+				04A140B21ECE814E001CEE94 /* Util */,
+			);
+			path = AppCenterAssetsTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		043121591EE0C20A007054C5 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0431215B1EE0C20A007054C5 /* AppCenter+Internal.h in Headers */,
+				3568A7E0201A71D000F3B860 /* MSAbstractLog.h in Headers */,
+				3568A7E1201A71D000F3B860 /* MSLogWithProperties.h in Headers */,
+				0431215F1EE0C20A007054C5 /* AppCenterAssets.h in Headers */,
+				043121601EE0C20A007054C5 /* MSServiceAbstract.h in Headers */,
+				043121651EE0C20A007054C5 /* MSAssets.h in Headers */,
+				04A082071F74BB8C00DC776D /* MSService.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0485AF721EAA79E300C10CAF /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0485AF741EAA79E300C10CAF /* AppCenter+Internal.h in Headers */,
+				3568A7ED201A9BBB00F3B860 /* MSAbstractLog.h in Headers */,
+				3568A7EE201A9BBB00F3B860 /* MSLogWithProperties.h in Headers */,
+				3568A7EF201A9BBB00F3B860 /* MSService.h in Headers */,
+				3568A7F0201A9BBB00F3B860 /* MSServiceAbstract.h in Headers */,
+				0485AF781EAA79E300C10CAF /* AppCenterAssets.h in Headers */,
+				0485AF7E1EAA79E300C10CAF /* MSAssets.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E85547F61D2D6A73002DF6E2 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD09079520CDE16F0026F862 /* MSAssetsInvalidPublicKeyException.h in Headers */,
+				CD09078120CDD4A70026F862 /* AssetsUpdateState.h in Headers */,
+				CD09076A20CCBB0C0026F862 /* MSAssetsPackage.h in Headers */,
+				CD09078D20CDE1310026F862 /* MSAssetsGetPackageException.h in Headers */,
+				CD09078F20CDE1420026F862 /* MSAssetsIllegalArgumentException.h in Headers */,
+				358F9BC82019596500B9E22C /* MSAbstractLog.h in Headers */,
+				CD09079920CDE1CC0026F862 /* MSAssetsMergeException.h in Headers */,
+				CD09079F20CDE21D0026F862 /* MSAssetsQueryUpdateException.h in Headers */,
+				CD09079320CDE1610026F862 /* MSAssetsInstallException.h in Headers */,
+				04A082061F74BB8600DC776D /* MSService.h in Headers */,
+				CD09079D20CDE1ED0026F862 /* MSAssetsPlatformUtilsException.h in Headers */,
+				CD0907A120CDE22A0026F862 /* MSAssetsReportStatusException.h in Headers */,
+				CD09079B20CDE1D90026F862 /* MSAssetsNativeApiCallException.h in Headers */,
+				CD09079120CDE1510026F862 /* MSAssetsInitializeException.h in Headers */,
+				CD09077D20CDD2950026F862 /* AssetsInstallMode.h in Headers */,
+				CD0907A520CDE2440026F862 /* MSAssetsSignatureVerificationException.h in Headers */,
+				387C77051D6CC39400D68CC1 /* MSServiceAbstract.h in Headers */,
+				E85547F91D2D6A9B002DF6E2 /* AppCenter+Internal.h in Headers */,
+				CD09078B20CDE1210026F862 /* MSAssetsGeneralException.h in Headers */,
+				CD09079720CDE1BE0026F862 /* MSAssetsMalformedDataException.h in Headers */,
+				CD09077B20CDD24E0026F862 /* AssetsDeploymentStatus.h in Headers */,
+				CD09078320CDD4E30026F862 /* ReportType.h in Headers */,
+				358F9BC62019590200B9E22C /* MSLogWithProperties.h in Headers */,
+				CD09078720CDE0E40026F862 /* MSDownloadPackageException.h in Headers */,
+				CD09078920CDE10E0026F862 /* MSAssetsFinalizeException.h in Headers */,
+				CD09077F20CDD2F10026F862 /* AssetsSyncStatus.h in Headers */,
+				E85547F71D2D6A7D002DF6E2 /* AppCenterAssets.h in Headers */,
+				E85547F81D2D6A7D002DF6E2 /* MSAssets.h in Headers */,
+				CD0907A720CDE2540026F862 /* MSAssetsUnzipException.h in Headers */,
+				CD0907A320CDE2370026F862 /* MSAssetsRollbackException.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		0431214E1EE0C20A007054C5 /* AppCenterAssetsTVOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 043121691EE0C20A007054C5 /* Build configuration list for PBXNativeTarget "AppCenterAssetsTVOS" */;
+			buildPhases = (
+				0431214F1EE0C20A007054C5 /* Sources */,
+				043121571EE0C20A007054C5 /* Frameworks */,
+				043121581EE0C20A007054C5 /* CopyFiles */,
+				043121591EE0C20A007054C5 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AppCenterAssetsTVOS;
+			productName = AppCenterAssets;
+			productReference = 0431216C1EE0C20A007054C5 /* libAppCenterAssets.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		0446DF3D1F3B8E6300C8E338 /* AppCenterAssetsTVOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0446DF511F3B8E6300C8E338 /* Build configuration list for PBXNativeTarget "AppCenterAssetsTVOSTests" */;
+			buildPhases = (
+				0446DF401F3B8E6300C8E338 /* Sources */,
+				0446DF481F3B8E6300C8E338 /* Frameworks */,
+				0446DF4D1F3B8E6300C8E338 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0446DF5A1F3B8EFA00C8E338 /* PBXTargetDependency */,
+			);
+			name = AppCenterAssetsTVOSTests;
+			productName = AppCenterAssetsTests;
+			productReference = 0446DF541F3B8E6300C8E338 /* AppCenterAssets.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		046AEAB21ECA51AF00CBE511 /* AppCenterAssetsMacOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 046AEAC31ECA51AF00CBE511 /* Build configuration list for PBXNativeTarget "AppCenterAssetsMacOSTests" */;
+			buildPhases = (
+				046AEAB51ECA51AF00CBE511 /* Sources */,
+				046AEABD1ECA51AF00CBE511 /* Frameworks */,
+				046AEAC21ECA51AF00CBE511 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				046AEACE1ECA55BC00CBE511 /* PBXTargetDependency */,
+			);
+			name = AppCenterAssetsMacOSTests;
+			productName = AppCenterAssetsTests;
+			productReference = 046AEAC61ECA51AF00CBE511 /* AppCenterAssets.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		0485AF671EAA79E300C10CAF /* AppCenterAssetsMacOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0485AF821EAA79E300C10CAF /* Build configuration list for PBXNativeTarget "AppCenterAssetsMacOS" */;
+			buildPhases = (
+				0485AF681EAA79E300C10CAF /* Sources */,
+				0485AF701EAA79E300C10CAF /* Frameworks */,
+				0485AF711EAA79E300C10CAF /* CopyFiles */,
+				0485AF721EAA79E300C10CAF /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AppCenterAssetsMacOS;
+			productName = AppCenterAssets;
+			productReference = 0485AF851EAA79E300C10CAF /* libAppCenterAssets.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		E85547BF1D2D6253002DF6E2 /* AppCenterAssetsIOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E85547C91D2D6253002DF6E2 /* Build configuration list for PBXNativeTarget "AppCenterAssetsIOS" */;
+			buildPhases = (
+				E85547BC1D2D6253002DF6E2 /* Sources */,
+				E85547BD1D2D6253002DF6E2 /* Frameworks */,
+				E85547BE1D2D6253002DF6E2 /* CopyFiles */,
+				E85547F61D2D6A73002DF6E2 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AppCenterAssetsIOS;
+			productName = AppCenterAssets;
+			productReference = E85547C01D2D6253002DF6E2 /* libAppCenterAssets.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		E85547D41D2D6723002DF6E2 /* AppCenterAssetsIOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E85547DD1D2D6723002DF6E2 /* Build configuration list for PBXNativeTarget "AppCenterAssetsIOSTests" */;
+			buildPhases = (
+				E85547D11D2D6723002DF6E2 /* Sources */,
+				E85547D21D2D6723002DF6E2 /* Frameworks */,
+				E85547D31D2D6723002DF6E2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E85547DC1D2D6723002DF6E2 /* PBXTargetDependency */,
+			);
+			name = AppCenterAssetsIOSTests;
+			productName = AppCenterAssetsTests;
+			productReference = E85547D51D2D6723002DF6E2 /* AppCenterAssets.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E85547B81D2D6253002DF6E2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = MS;
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = Microsoft;
+			};
+			buildConfigurationList = E85547BB1D2D6253002DF6E2 /* Build configuration list for PBXProject "AppCenterAssets" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E85547B71D2D6253002DF6E2;
+			productRefGroup = E85547C11D2D6253002DF6E2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E85547BF1D2D6253002DF6E2 /* AppCenterAssetsIOS */,
+				E85547E41D2D681F002DF6E2 /* AppCenterAssetsIOSFramework */,
+				E85547D41D2D6723002DF6E2 /* AppCenterAssetsIOSTests */,
+				E85547E91D2D68C5002DF6E2 /* AppCenterAssetsIOSDoc */,
+				0485AF671EAA79E300C10CAF /* AppCenterAssetsMacOS */,
+				0485AFEF1EAAADAC00C10CAF /* AppCenterAssetsMacOSFramework */,
+				046AEAB21ECA51AF00CBE511 /* AppCenterAssetsMacOSTests */,
+				04FD11551EF2F818000C5A5C /* AppCenterAssetsMacOSDoc */,
+				0431214E1EE0C20A007054C5 /* AppCenterAssetsTVOS */,
+				0431216D1EE0C213007054C5 /* AppCenterAssetsTVOSFramework */,
+				0446DF3D1F3B8E6300C8E338 /* AppCenterAssetsTVOSTests */,
+				04FD11701EF2FE43000C5A5C /* AppCenterAssetsTVOSDoc */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0446DF4D1F3B8E6300C8E338 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		046AEAC21ECA51AF00CBE511 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E85547D31D2D6723002DF6E2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0431216E1EE0C213007054C5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Sets the target folders and the final framework product.\nFMK_NAME=AppCenterAssets\nTGT_NAME=${FMK_NAME}TVOS\n\n# Install dir will be the final output to the framework.\n# The following line create it in the root folder of the current project.\nPRODUCTS_DIR=${SRCROOT}/../AppCenter-SDK-Apple/tvOS\nINSTALL_DIR=${PRODUCTS_DIR}/${FMK_NAME}.framework\n\n# Working dir will be deleted after the framework creation.\nWRK_DIR=build\nDEVICE_DIR=${WRK_DIR}/Release-appletvos\nSIMULATOR_DIR=${WRK_DIR}/Release-appletvsimulator\n\n# Cleaning previous build\nxcodebuild -project \"${FMK_NAME}.xcodeproj\" -configuration \"Release\" -target \"${TGT_NAME}\" clean\n\n# Building both architectures.\nxcodebuild -project \"${FMK_NAME}.xcodeproj\" -configuration \"Release\" -target \"${TGT_NAME}\" -sdk appletvos\nxcodebuild -project \"${FMK_NAME}.xcodeproj\" -configuration \"Release\" -target \"${TGT_NAME}\" -sdk appletvsimulator\n\n# Cleaning the oldest.\nif [ -d \"${INSTALL_DIR}\" ]\nthen\nrm -rf \"${INSTALL_DIR}\"\nfi\n\n# Creates and renews the final product folder.\nmkdir -p \"${INSTALL_DIR}\"\nmkdir -p \"${INSTALL_DIR}/Headers\"\nmkdir -p \"${INSTALL_DIR}/Modules\"\n\n# Copy the swift import file\ncp -f \"${SRCROOT}/${FMK_NAME}/Support/tvOS.modulemap\" \"${INSTALL_DIR}/Modules/module.modulemap\"\n\n# Copies the headers and resources files to the final product folder.\ncp -R \"${SRCROOT}/${WRK_DIR}/Release-appletvos/include/${FMK_NAME}/\" \"${INSTALL_DIR}/Headers/\"\n\n\n# Uses the Lipo Tool to merge both binary files (i386 + arm64) into one Universal final product.\nlipo -create \"${DEVICE_DIR}/lib${FMK_NAME}.a\" \"${SIMULATOR_DIR}/lib${FMK_NAME}.a\" -output \"${INSTALL_DIR}/${FMK_NAME}\"\n\nrm -r \"${WRK_DIR}\"";
+		};
+		0485AFF01EAAADAC00C10CAF /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Sets the target folders and the final framework product.\nFMK_NAME=AppCenterAssets\nTGT_NAME=${FMK_NAME}MacOS\n\n# Install dir will be the final output to the framework.\n# The following line create it in the root folder of the current project.\nPRODUCTS_DIR=${SRCROOT}/../AppCenter-SDK-Apple/macOS\nINSTALL_DIR=${PRODUCTS_DIR}/${FMK_NAME}.framework\n\n# Working dir will be deleted after the framework creation.\nWRK_DIR=build\nDEVICE_DIR=${WRK_DIR}/Release\n\n# Cleaning previous build\nxcodebuild -project \"${FMK_NAME}.xcodeproj\" -configuration \"Release\" -target \"${TGT_NAME}\" clean\n\n# Building both architectures.\nxcodebuild -project \"${FMK_NAME}.xcodeproj\" -configuration \"Release\" -target \"${TGT_NAME}\"\n\n# Cleaning the oldest.\nif [ -d \"${INSTALL_DIR}\" ]\nthen\nrm -rf \"${INSTALL_DIR}\"\nfi\n\n# Creates and renews the final product folder.\nmkdir -p \"${INSTALL_DIR}\"\nmkdir -p \"${INSTALL_DIR}/Headers\"\nmkdir -p \"${INSTALL_DIR}/Modules\"\n\n# Copy the swift import file\ncp -f \"${SRCROOT}/${FMK_NAME}/Support/macOS.modulemap\" \"${INSTALL_DIR}/Modules/module.modulemap\"\n\n# Copies the headers and resources files to the final product folder.\ncp -R \"${SRCROOT}/${WRK_DIR}/Release/include/${FMK_NAME}/\" \"${INSTALL_DIR}/Headers/\"\n\n# Uses the Lipo Tool to copy binary file (x86_64) into final product.\nlipo -create \"${DEVICE_DIR}/lib${FMK_NAME}.a\" -output \"${INSTALL_DIR}/${FMK_NAME}\"\n\nrm -r \"${WRK_DIR}\"";
+		};
+		04FD11581EF2F818000C5A5C /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ ! -x \"$(command -v jazzy)\" ]\nthen\necho \"Couldn't find jazzy. Install jazzy before building frameworks\"\nexit 1\nfi\n\njazzy --config ../Documentation/macOS/AppCenterAssets/.jazzy.yaml\n\nFMK_NAME=AppCenterAssets\nPRODUCTS_DIR=${SRCROOT}/../AppCenter-SDK-Apple/macOS\nINSTALL_DIR=${PRODUCTS_DIR}/${FMK_NAME}.framework\nDOCUMENTATION_DIR=${PRODUCTS_DIR}/Documentation/${FMK_NAME}\n\n# Create Documentation directory within folder.\nif [ ! -d \"${DOCUMENTATION_DIR}\" ]\nthen\nmkdir -p \"${DOCUMENTATION_DIR}\"\nfi\n\n# Copy generated documentation into the documentation folder\ncp -R \"${SRCROOT}/../Documentation/macOS/${FMK_NAME}/Generated/\" \"${DOCUMENTATION_DIR}\"";
+		};
+		04FD11731EF2FE43000C5A5C /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ ! -x \"$(command -v jazzy)\" ]\nthen\necho \"Couldn't find jazzy. Install jazzy before building frameworks\"\nexit 1\nfi\n\njazzy --config ../Documentation/tvOS/AppCenterAssets/.jazzy.yaml\n\nFMK_NAME=AppCenterAssets\nPRODUCTS_DIR=${SRCROOT}/../AppCenter-SDK-Apple/tvOS\nINSTALL_DIR=${PRODUCTS_DIR}/${FMK_NAME}.framework\nDOCUMENTATION_DIR=${PRODUCTS_DIR}/Documentation/${FMK_NAME}\n\n# Create Documentation directory within folder.\nif [ ! -d \"${DOCUMENTATION_DIR}\" ]\nthen\nmkdir -p \"${DOCUMENTATION_DIR}\"\nfi\n\n# Copy generated documentation into the documentation folder\ncp -R \"${SRCROOT}/../Documentation/tvOS/${FMK_NAME}/Generated/\" \"${DOCUMENTATION_DIR}\"";
+		};
+		E85547E81D2D6827002DF6E2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Sets the target folders and the final framework product.\nFMK_NAME=AppCenterAssets\nTGT_NAME=${FMK_NAME}IOS\n\n# Install dir will be the final output to the framework.\n# The following line create it in the root folder of the current project.\nPRODUCTS_DIR=${SRCROOT}/../AppCenter-SDK-Apple/iOS\nINSTALL_DIR=${PRODUCTS_DIR}/${FMK_NAME}.framework\n\n# Working dir will be deleted after the framework creation.\nWRK_DIR=build\nDEVICE_DIR=${WRK_DIR}/Release-iphoneos\nSIMULATOR_DIR=${WRK_DIR}/Release-iphonesimulator\n\n# Cleaning previous build\nxcodebuild -project \"${FMK_NAME}.xcodeproj\" -configuration \"Release\" -target \"${TGT_NAME}\" clean\n\n# Building both architectures.\nxcodebuild -project \"${FMK_NAME}.xcodeproj\" -configuration \"Release\" -target \"${TGT_NAME}\" -sdk iphoneos\nxcodebuild -project \"${FMK_NAME}.xcodeproj\" -configuration \"Release\" -target \"${TGT_NAME}\" -sdk iphonesimulator\n\n# Cleaning the oldest.\nif [ -d \"${INSTALL_DIR}\" ]\nthen\nrm -rf \"${INSTALL_DIR}\"\nfi\n\n# Creates and renews the final product folder.\nmkdir -p \"${INSTALL_DIR}\"\nmkdir -p \"${INSTALL_DIR}/Headers\"\nmkdir -p \"${INSTALL_DIR}/Modules\"\n\n# Copy the swift import file\ncp -f \"${SRCROOT}/${FMK_NAME}/Support/iOS.modulemap\" \"${INSTALL_DIR}/Modules/module.modulemap\"\n\n# Copies the headers and resources files to the final product folder.\ncp -R \"${SRCROOT}/${WRK_DIR}/Release-iphoneos/include/${FMK_NAME}/\" \"${INSTALL_DIR}/Headers/\"\n\n\n# Uses the Lipo Tool to merge both binary files (i386 + armv6/armv7) into one Universal final product.\nlipo -create \"${DEVICE_DIR}/lib${FMK_NAME}.a\" \"${SIMULATOR_DIR}/lib${FMK_NAME}.a\" -output \"${INSTALL_DIR}/${FMK_NAME}\"\n\nrm -r \"${WRK_DIR}\"";
+		};
+		E85547ED1D2D68CF002DF6E2 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ ! -x \"$(command -v jazzy)\" ]\nthen\necho \"Couldn't find jazzy. Install jazzy before building frameworks\"\nexit 1\nfi\n\njazzy --config ../Documentation/iOS/AppCenterAssets/.jazzy.yaml\n\nFMK_NAME=AppCenterAssets\nPRODUCTS_DIR=${SRCROOT}/../AppCenter-SDK-Apple/iOS\nINSTALL_DIR=${PRODUCTS_DIR}/${FMK_NAME}.framework\nDOCUMENTATION_DIR=${PRODUCTS_DIR}/Documentation/${FMK_NAME}\n\n# Create Documentation directory within folder.\nif [ ! -d \"${DOCUMENTATION_DIR}\" ]\nthen\nmkdir -p \"${DOCUMENTATION_DIR}\"\nfi\n\n# Copy generated documentation into the documentation folder\ncp -R \"${SRCROOT}/../Documentation/iOS/${FMK_NAME}/Generated/\" \"${DOCUMENTATION_DIR}\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0431214F1EE0C20A007054C5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				043121511EE0C20A007054C5 /* MSAssets.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0446DF401F3B8E6300C8E338 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		046AEAB51ECA51AF00CBE511 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0485AF681EAA79E300C10CAF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0485AF6A1EAA79E300C10CAF /* MSAssets.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E85547BC1D2D6253002DF6E2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E85547C61D2D6253002DF6E2 /* MSAssets.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E85547D11D2D6723002DF6E2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0446DF5A1F3B8EFA00C8E338 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0431214E1EE0C20A007054C5 /* AppCenterAssetsTVOS */;
+			targetProxy = 0446DF591F3B8EFA00C8E338 /* PBXContainerItemProxy */;
+		};
+		046AEACE1ECA55BC00CBE511 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0485AF671EAA79E300C10CAF /* AppCenterAssetsMacOS */;
+			targetProxy = 046AEACD1ECA55BC00CBE511 /* PBXContainerItemProxy */;
+		};
+		04FD115D1EF2F849000C5A5C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0485AFEF1EAAADAC00C10CAF /* AppCenterAssetsMacOSFramework */;
+			targetProxy = 04FD115C1EF2F849000C5A5C /* PBXContainerItemProxy */;
+		};
+		04FD11781EF2FE5B000C5A5C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0431216D1EE0C213007054C5 /* AppCenterAssetsTVOSFramework */;
+			targetProxy = 04FD11771EF2FE5B000C5A5C /* PBXContainerItemProxy */;
+		};
+		386352E41D51047400D0D450 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E85547E41D2D681F002DF6E2 /* AppCenterAssetsIOSFramework */;
+			targetProxy = 386352E31D51047400D0D450 /* PBXContainerItemProxy */;
+		};
+		E85547DC1D2D6723002DF6E2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E85547BF1D2D6253002DF6E2 /* AppCenterAssetsIOS */;
+			targetProxy = E85547DB1D2D6723002DF6E2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0431216A1EE0C20A007054C5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 043121731EE0C248007054C5 /* tvOS.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		0431216B1EE0C20A007054C5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 043121731EE0C248007054C5 /* tvOS.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		043121701EE0C213007054C5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 043121731EE0C248007054C5 /* tvOS.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		043121711EE0C213007054C5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 043121731EE0C248007054C5 /* tvOS.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		0446DF521F3B8E6300C8E338 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0484DD601F3910FF0092B777 /* Tests tvOS.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		0446DF531F3B8E6300C8E338 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0484DD601F3910FF0092B777 /* Tests tvOS.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		046AEAC41ECA51AF00CBE511 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 049BC82C1ECE3CF000FB6719 /* Tests macOS.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		046AEAC51ECA51AF00CBE511 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 049BC82C1ECE3CF000FB6719 /* Tests macOS.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		0485AF831EAA79E300C10CAF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 049BC82B1ECE3B9A00FB6719 /* macOS.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		0485AF841EAA79E300C10CAF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 049BC82B1ECE3B9A00FB6719 /* macOS.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		0485AFF21EAAADAC00C10CAF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 049BC82B1ECE3B9A00FB6719 /* macOS.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		0485AFF31EAAADAC00C10CAF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 049BC82B1ECE3B9A00FB6719 /* macOS.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		04FD115A1EF2F818000C5A5C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 049BC82B1ECE3B9A00FB6719 /* macOS.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		04FD115B1EF2F818000C5A5C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 049BC82B1ECE3B9A00FB6719 /* macOS.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		04FD11751EF2FE43000C5A5C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 043121731EE0C248007054C5 /* tvOS.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		04FD11761EF2FE43000C5A5C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 043121731EE0C248007054C5 /* tvOS.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		E85547C71D2D6253002DF6E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B2812EF21DA3148000307DCE /* AppCenterAssets Debug.xcconfig */;
+			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+			};
+			name = Debug;
+		};
+		E85547C81D2D6253002DF6E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0469D1B21F4DFE4C00A43A8E /* AppCenterAssets Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		E85547CA1D2D6253002DF6E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 049BC82A1ECE3B9400FB6719 /* iOS.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		E85547CB1D2D6253002DF6E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 049BC82A1ECE3B9400FB6719 /* iOS.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		E85547DE1D2D6723002DF6E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 041CFF8B1ECCFF6700B4654B /* Tests iOS.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		E85547DF1D2D6723002DF6E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 041CFF8B1ECCFF6700B4654B /* Tests iOS.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		E85547E61D2D681F002DF6E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 049BC82A1ECE3B9400FB6719 /* iOS.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		E85547E71D2D681F002DF6E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 049BC82A1ECE3B9400FB6719 /* iOS.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		E85547EB1D2D68C5002DF6E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 049BC82A1ECE3B9400FB6719 /* iOS.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		E85547EC1D2D68C5002DF6E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 049BC82A1ECE3B9400FB6719 /* iOS.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		043121691EE0C20A007054C5 /* Build configuration list for PBXNativeTarget "AppCenterAssetsTVOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0431216A1EE0C20A007054C5 /* Debug */,
+				0431216B1EE0C20A007054C5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0431216F1EE0C213007054C5 /* Build configuration list for PBXAggregateTarget "AppCenterAssetsTVOSFramework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				043121701EE0C213007054C5 /* Debug */,
+				043121711EE0C213007054C5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0446DF511F3B8E6300C8E338 /* Build configuration list for PBXNativeTarget "AppCenterAssetsTVOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0446DF521F3B8E6300C8E338 /* Debug */,
+				0446DF531F3B8E6300C8E338 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		046AEAC31ECA51AF00CBE511 /* Build configuration list for PBXNativeTarget "AppCenterAssetsMacOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				046AEAC41ECA51AF00CBE511 /* Debug */,
+				046AEAC51ECA51AF00CBE511 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0485AF821EAA79E300C10CAF /* Build configuration list for PBXNativeTarget "AppCenterAssetsMacOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0485AF831EAA79E300C10CAF /* Debug */,
+				0485AF841EAA79E300C10CAF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0485AFF11EAAADAC00C10CAF /* Build configuration list for PBXAggregateTarget "AppCenterAssetsMacOSFramework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0485AFF21EAAADAC00C10CAF /* Debug */,
+				0485AFF31EAAADAC00C10CAF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		04FD11591EF2F818000C5A5C /* Build configuration list for PBXAggregateTarget "AppCenterAssetsMacOSDoc" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04FD115A1EF2F818000C5A5C /* Debug */,
+				04FD115B1EF2F818000C5A5C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		04FD11741EF2FE43000C5A5C /* Build configuration list for PBXAggregateTarget "AppCenterAssetsTVOSDoc" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04FD11751EF2FE43000C5A5C /* Debug */,
+				04FD11761EF2FE43000C5A5C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E85547BB1D2D6253002DF6E2 /* Build configuration list for PBXProject "AppCenterAssets" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E85547C71D2D6253002DF6E2 /* Debug */,
+				E85547C81D2D6253002DF6E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E85547C91D2D6253002DF6E2 /* Build configuration list for PBXNativeTarget "AppCenterAssetsIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E85547CA1D2D6253002DF6E2 /* Debug */,
+				E85547CB1D2D6253002DF6E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E85547DD1D2D6723002DF6E2 /* Build configuration list for PBXNativeTarget "AppCenterAssetsIOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E85547DE1D2D6723002DF6E2 /* Debug */,
+				E85547DF1D2D6723002DF6E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E85547E51D2D681F002DF6E2 /* Build configuration list for PBXAggregateTarget "AppCenterAssetsIOSFramework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E85547E61D2D681F002DF6E2 /* Debug */,
+				E85547E71D2D681F002DF6E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E85547EA1D2D68C5002DF6E2 /* Build configuration list for PBXAggregateTarget "AppCenterAssetsIOSDoc" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E85547EB1D2D68C5002DF6E2 /* Debug */,
+				E85547EC1D2D68C5002DF6E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E85547B81D2D6253002DF6E2 /* Project object */;
+}
