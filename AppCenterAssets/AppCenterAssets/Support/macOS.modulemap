@@ -1,0 +1,9 @@
+framework module AppCenterAssets {
+  umbrella header "AppCenterAssets.h"
+
+  export *
+  module * { export * }
+  
+  link framework "Foundation"
+  link framework "AppKit"
+}
