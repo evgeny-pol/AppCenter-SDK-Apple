@@ -23,6 +23,7 @@
 		380A4DC91DD68D3F00E99219 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EC99A271D4152FA0016C325 /* libc++.tbd */; };
 		38484F6D1E53D57E00C5631C /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38484F691E537B9300C5631C /* SafariServices.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		38E1B65A1DDCDDF4000EFED1 /* MSAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38E1B6591DDCDDF4000EFED1 /* MSAlertController.m */; };
+		4BC2B54120DAB1E80002A9C7 /* libAppCenterAssets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BC2B52120DAB1B10002A9C7 /* libAppCenterAssets.a */; };
 		5C2BD19B1ED5D44400FB20C8 /* MSAnalyticsResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C2BD19A1ED5D44400FB20C8 /* MSAnalyticsResultViewController.m */; };
 		5C2BD1A31ED5DE5700FB20C8 /* EventLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C2BD1A21ED5DE5700FB20C8 /* EventLog.m */; };
 		5C4E0BFF1EE6F50F00FB0CF2 /* AppCenterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4E0BFE1EE6F50F00FB0CF2 /* AppCenterUITests.swift */; };
@@ -256,6 +257,48 @@
 			remoteGlobalIDString = 0446DF9D1F3B977100C8E338;
 			remoteInfo = AppCenterCrashesTVOSTests;
 		};
+		4BC2B52020DAB1B10002A9C7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4BC2B4FB20DAB1B10002A9C7 /* AppCenterAssets.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E85547C01D2D6253002DF6E2;
+			remoteInfo = AppCenterAssetsIOS;
+		};
+		4BC2B52220DAB1B10002A9C7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4BC2B4FB20DAB1B10002A9C7 /* AppCenterAssets.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E85547D51D2D6723002DF6E2;
+			remoteInfo = AppCenterAssetsIOSTests;
+		};
+		4BC2B52420DAB1B10002A9C7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4BC2B4FB20DAB1B10002A9C7 /* AppCenterAssets.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0485AF851EAA79E300C10CAF;
+			remoteInfo = AppCenterAssetsMacOS;
+		};
+		4BC2B52620DAB1B10002A9C7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4BC2B4FB20DAB1B10002A9C7 /* AppCenterAssets.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 046AEAC61ECA51AF00CBE511;
+			remoteInfo = AppCenterAssetsMacOSTests;
+		};
+		4BC2B52820DAB1B10002A9C7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4BC2B4FB20DAB1B10002A9C7 /* AppCenterAssets.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0431216C1EE0C20A007054C5;
+			remoteInfo = AppCenterAssetsTVOS;
+		};
+		4BC2B52A20DAB1B10002A9C7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4BC2B4FB20DAB1B10002A9C7 /* AppCenterAssets.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0446DF541F3B8E6300C8E338;
+			remoteInfo = AppCenterAssetsTVOSTests;
+		};
 		5CE2583C1EA5097100DA8FB9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E82E1B571D1CA58D00D281C1 /* Project object */;
@@ -390,6 +433,7 @@
 		38E1B6581DDCDDF4000EFED1 /* MSAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAlertController.h; sourceTree = "<group>"; };
 		38E1B6591DDCDDF4000EFED1 /* MSAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSAlertController.m; sourceTree = "<group>"; };
 		38F2606E1E649FE5004F0FDC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		4BC2B4FB20DAB1B10002A9C7 /* AppCenterAssets.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AppCenterAssets.xcodeproj; path = ../../AppCenterAssets/AppCenterAssets.xcodeproj; sourceTree = "<group>"; };
 		5C2BD1891ED5D3F200FB20C8 /* MSAnalyticsResultViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAnalyticsResultViewController.h; sourceTree = "<group>"; };
 		5C2BD19A1ED5D44400FB20C8 /* MSAnalyticsResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSAnalyticsResultViewController.m; sourceTree = "<group>"; };
 		5C2BD1A11ED5DE4400FB20C8 /* EventLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = EventLog.h; path = Utils/EventLog.h; sourceTree = "<group>"; };
@@ -468,6 +512,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BC2B54120DAB1E80002A9C7 /* libAppCenterAssets.a in Frameworks */,
 				B2F3FA8B1E96DB5A0065A3BE /* libsqlite3.tbd in Frameworks */,
 				38484F6D1E53D57E00C5631C /* SafariServices.framework in Frameworks */,
 				6EC99A281D4152FA0016C325 /* libc++.tbd in Frameworks */,
@@ -548,6 +593,19 @@
 			);
 			name = MSAlertController;
 			path = ../../Vendor/iOS/MSAlertController;
+			sourceTree = "<group>";
+		};
+		4BC2B4FC20DAB1B10002A9C7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4BC2B52120DAB1B10002A9C7 /* libAppCenterAssets.a */,
+				4BC2B52320DAB1B10002A9C7 /* AppCenterAssets.xctest */,
+				4BC2B52520DAB1B10002A9C7 /* libAppCenterAssets.a */,
+				4BC2B52720DAB1B10002A9C7 /* AppCenterAssets.xctest */,
+				4BC2B52920DAB1B10002A9C7 /* libAppCenterAssets.a */,
+				4BC2B52B20DAB1B10002A9C7 /* AppCenterAssets.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		5C2BD1A01ED5DE2100FB20C8 /* Utils */ = {
@@ -635,6 +693,7 @@
 		E82E1B7B1D1CA61000D281C1 /* AppCenter */ = {
 			isa = PBXGroup;
 			children = (
+				4BC2B4FB20DAB1B10002A9C7 /* AppCenterAssets.xcodeproj */,
 				E82E1B821D1CA63000D281C1 /* AppCenter.xcodeproj */,
 				E85547FB1D2D6C8D002DF6E2 /* AppCenterAnalytics.xcodeproj */,
 				E82E1B7C1D1CA62900D281C1 /* AppCenterCrashes.xcodeproj */,
@@ -889,6 +948,10 @@
 					ProjectRef = E85547FB1D2D6C8D002DF6E2 /* AppCenterAnalytics.xcodeproj */;
 				},
 				{
+					ProductGroup = 4BC2B4FC20DAB1B10002A9C7 /* Products */;
+					ProjectRef = 4BC2B4FB20DAB1B10002A9C7 /* AppCenterAssets.xcodeproj */;
+				},
+				{
 					ProductGroup = E82E1B7D1D1CA62900D281C1 /* Products */;
 					ProjectRef = E82E1B7C1D1CA62900D281C1 /* AppCenterCrashes.xcodeproj */;
 				},
@@ -1050,6 +1113,48 @@
 			fileType = wrapper.cfbundle;
 			path = AppCenterCrashes.xctest;
 			remoteRef = 388CCA221F699BFF00780C59 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4BC2B52120DAB1B10002A9C7 /* libAppCenterAssets.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAppCenterAssets.a;
+			remoteRef = 4BC2B52020DAB1B10002A9C7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4BC2B52320DAB1B10002A9C7 /* AppCenterAssets.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = AppCenterAssets.xctest;
+			remoteRef = 4BC2B52220DAB1B10002A9C7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4BC2B52520DAB1B10002A9C7 /* libAppCenterAssets.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAppCenterAssets.a;
+			remoteRef = 4BC2B52420DAB1B10002A9C7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4BC2B52720DAB1B10002A9C7 /* AppCenterAssets.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = AppCenterAssets.xctest;
+			remoteRef = 4BC2B52620DAB1B10002A9C7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4BC2B52920DAB1B10002A9C7 /* libAppCenterAssets.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAppCenterAssets.a;
+			remoteRef = 4BC2B52820DAB1B10002A9C7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4BC2B52B20DAB1B10002A9C7 /* AppCenterAssets.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = AppCenterAssets.xctest;
+			remoteRef = 4BC2B52A20DAB1B10002A9C7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		B2C070CB1E5F59A90076D6A9 /* AppCenterDistributeResources.bundle */ = {
@@ -1555,7 +1660,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../AppCenter/AppCenter/** $(SRCROOT)/../AppCenterAnalytics/AppCenterAnalytics/** $(SRCROOT)/../AppCenterCrashes/AppCenterCrashes/** $(SRCROOT)/../AppCenterDistribute/AppCenterDistribute/** $(SRCROOT)/../AppCenterPush/AppCenterPush/**";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../AppCenter/AppCenter/** $(SRCROOT)/../AppCenterAnalytics/AppCenterAnalytics/** $(SRCROOT)/../AppCenterCrashes/AppCenterCrashes/** $(SRCROOT)/../AppCenterDistribute/AppCenterDistribute/** $(SRCROOT)/../AppCenterPush/AppCenterPush/** $(SRCROOT)/../AppCenterAssets/AppCenterAssets";
 			};
 			name = Debug;
 		};
@@ -1581,7 +1686,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../AppCenter/AppCenter/** $(SRCROOT)/../AppCenterAnalytics/AppCenterAnalytics/** $(SRCROOT)/../AppCenterCrashes/AppCenterCrashes/** $(SRCROOT)/../AppCenterDistribute/AppCenterDistribute/** $(SRCROOT)/../AppCenterPush/AppCenterPush/**";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../AppCenter/AppCenter/** $(SRCROOT)/../AppCenterAnalytics/AppCenterAnalytics/** $(SRCROOT)/../AppCenterCrashes/AppCenterCrashes/** $(SRCROOT)/../AppCenterDistribute/AppCenterDistribute/** $(SRCROOT)/../AppCenterPush/AppCenterPush/** $(SRCROOT)/../AppCenterAssets/AppCenterAssets";
 			};
 			name = Release;
 		};
