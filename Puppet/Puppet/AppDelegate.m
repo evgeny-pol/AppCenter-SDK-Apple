@@ -24,6 +24,7 @@
 #import "MSEventLog.h"
 #import "MSPush.h"
 #import "MSPushNotification.h"
+#import "MSAssets.h"
 
 static UIViewController *crashResultViewController = nil;
 
