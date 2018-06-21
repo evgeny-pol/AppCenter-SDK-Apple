@@ -1,15 +1,14 @@
 /**
- * @ingroup enums
  * Type of the sent report.
  */
-typedef NS_ENUM(NSString, AssetsDeploymentStatus) {
+typedef NS_ENUM(NSUInteger, MSAssetsDeploymentStatus) {
     /**
-     * {@link AssetsDownloadStatusReport}.
+     * AssetsDownloadStatusReport value.
      */
-    DOWNLOAD = "Error occurred during delivering download status report.",
+    MSAssetsDeploymentStatusDownload,
     
     /**
-     * {@link AssetsDeploymentStatusReport}.
+     * AssetsDeploymentStatusReport value.
      */
-    DEPLOY = "Error occurred during delivering deploy status report."
+    MSAssetsDeploymentStatusDeploy
 };
