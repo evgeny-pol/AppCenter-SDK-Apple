@@ -23,6 +23,7 @@
 		380A4DC91DD68D3F00E99219 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EC99A271D4152FA0016C325 /* libc++.tbd */; };
 		38484F6D1E53D57E00C5631C /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38484F691E537B9300C5631C /* SafariServices.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		38E1B65A1DDCDDF4000EFED1 /* MSAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38E1B6591DDCDDF4000EFED1 /* MSAlertController.m */; };
+		4B49FFD820DBEB89005C4F46 /* MSAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B49FFD720DBEB89005C4F46 /* MSAssetsViewController.m */; };
 		4BC2B54120DAB1E80002A9C7 /* libAppCenterAssets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BC2B52120DAB1B10002A9C7 /* libAppCenterAssets.a */; };
 		5C2BD19B1ED5D44400FB20C8 /* MSAnalyticsResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C2BD19A1ED5D44400FB20C8 /* MSAnalyticsResultViewController.m */; };
 		5C2BD1A31ED5DE5700FB20C8 /* EventLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C2BD1A21ED5DE5700FB20C8 /* EventLog.m */; };
@@ -433,6 +434,8 @@
 		38E1B6581DDCDDF4000EFED1 /* MSAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAlertController.h; sourceTree = "<group>"; };
 		38E1B6591DDCDDF4000EFED1 /* MSAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSAlertController.m; sourceTree = "<group>"; };
 		38F2606E1E649FE5004F0FDC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		4B49FF9F20DBEB88005C4F46 /* MSAssetsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsViewController.h; sourceTree = "<group>"; };
+		4B49FFD720DBEB89005C4F46 /* MSAssetsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSAssetsViewController.m; sourceTree = "<group>"; };
 		4BC2B4FB20DAB1B10002A9C7 /* AppCenterAssets.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AppCenterAssets.xcodeproj; path = ../../AppCenterAssets/AppCenterAssets.xcodeproj; sourceTree = "<group>"; };
 		5C2BD1891ED5D3F200FB20C8 /* MSAnalyticsResultViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAnalyticsResultViewController.h; sourceTree = "<group>"; };
 		5C2BD19A1ED5D44400FB20C8 /* MSAnalyticsResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSAnalyticsResultViewController.m; sourceTree = "<group>"; };
@@ -745,17 +748,18 @@
 		E89E6A271D396D6700CAA2CD /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				5C2BD1A01ED5DE2100FB20C8 /* Utils */,
 				E82E1B651D1CA58D00D281C1 /* AppDelegate.h */,
 				E82E1B661D1CA58D00D281C1 /* AppDelegate.m */,
 				384959D81D4972DA008F6B3A /* Constants.h */,
+				F8EB8ED21FD83A1F00F7ADC1 /* MSAnalyticsPropertyTableViewCell.h */,
+				F8EB8ED31FD83A1F00F7ADC1 /* MSAnalyticsPropertyTableViewCell.m */,
+				F8EB8ED41FD83A1F00F7ADC1 /* MSAnalyticsPropertyTableViewCell.xib */,
 				5C2BD1891ED5D3F200FB20C8 /* MSAnalyticsResultViewController.h */,
 				5C2BD19A1ED5D44400FB20C8 /* MSAnalyticsResultViewController.m */,
 				E89E6A2E1D39704900CAA2CD /* MSAnalyticsViewController.h */,
 				E89E6A2F1D39704900CAA2CD /* MSAnalyticsViewController.m */,
-				F8EB8ED21FD83A1F00F7ADC1 /* MSAnalyticsPropertyTableViewCell.h */,
-				F8EB8ED31FD83A1F00F7ADC1 /* MSAnalyticsPropertyTableViewCell.m */,
-				F8EB8ED41FD83A1F00F7ADC1 /* MSAnalyticsPropertyTableViewCell.xib */,
+				4B49FF9F20DBEB88005C4F46 /* MSAssetsViewController.h */,
+				4B49FFD720DBEB89005C4F46 /* MSAssetsViewController.m */,
 				E89E6A281D396D7900CAA2CD /* MSCrashesViewController.h */,
 				E89E6A291D396D7900CAA2CD /* MSCrashesViewController.m */,
 				5CE60DE01EDF0B3C0060303A /* MSCrashResultViewController.h */,
@@ -774,6 +778,7 @@
 				E89E6A2B1D396D7900CAA2CD /* MSMainViewController.m */,
 				80493AB51F6A701900E6E895 /* MSPushViewController.h */,
 				80493AB61F6A701900E6E895 /* MSPushViewController.m */,
+				5C2BD1A01ED5DE2100FB20C8 /* Utils */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1267,6 +1272,7 @@
 			files = (
 				F8F73BD41FD803C200CB7144 /* MSCustomPropertyTableViewCell.m in Sources */,
 				F85AAE251E890226006797CA /* MSDeviceInfoViewController.m in Sources */,
+				4B49FFD820DBEB89005C4F46 /* MSAssetsViewController.m in Sources */,
 				38E1B65A1DDCDDF4000EFED1 /* MSAlertController.m in Sources */,
 				E82E1B671D1CA58D00D281C1 /* AppDelegate.m in Sources */,
 				F8FF73DD1E922C9100D2B67D /* MSCustomPropertiesViewController.m in Sources */,
