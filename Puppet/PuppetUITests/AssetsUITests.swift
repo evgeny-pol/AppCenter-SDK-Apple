@@ -60,7 +60,7 @@ class AssetsUITests: XCTestCase {
     // Disable SDK.
     appCenterButton.tap()
 
-    // Go to crash page again.
+    // Go to assets page again.
     app.tables["App Center"].staticTexts["Assets"].tap()
 
     // Button should be disabled.
@@ -72,7 +72,7 @@ class AssetsUITests: XCTestCase {
     // Enable SDK.
     appCenterButton.tap()
 
-    // Go to crashes page.
+    // Go to assets page.
     app.tables["App Center"].staticTexts["Assets"].tap()
 
     // Service should be enabled.
