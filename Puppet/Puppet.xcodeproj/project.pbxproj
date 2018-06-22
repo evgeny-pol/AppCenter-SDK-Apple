@@ -23,6 +23,7 @@
 		380A4DC91DD68D3F00E99219 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EC99A271D4152FA0016C325 /* libc++.tbd */; };
 		38484F6D1E53D57E00C5631C /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38484F691E537B9300C5631C /* SafariServices.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		38E1B65A1DDCDDF4000EFED1 /* MSAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38E1B6591DDCDDF4000EFED1 /* MSAlertController.m */; };
+		4B49001F20DCEF14005C4F46 /* AssetsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B49FFE720DCEF13005C4F46 /* AssetsUITests.swift */; };
 		4B49FFD820DBEB89005C4F46 /* MSAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B49FFD720DBEB89005C4F46 /* MSAssetsViewController.m */; };
 		4BC2B54120DAB1E80002A9C7 /* libAppCenterAssets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BC2B52120DAB1B10002A9C7 /* libAppCenterAssets.a */; };
 		5C2BD19B1ED5D44400FB20C8 /* MSAnalyticsResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C2BD19A1ED5D44400FB20C8 /* MSAnalyticsResultViewController.m */; };
@@ -436,6 +437,7 @@
 		38F2606E1E649FE5004F0FDC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		4B49FF9F20DBEB88005C4F46 /* MSAssetsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsViewController.h; sourceTree = "<group>"; };
 		4B49FFD720DBEB89005C4F46 /* MSAssetsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSAssetsViewController.m; sourceTree = "<group>"; };
+		4B49FFE720DCEF13005C4F46 /* AssetsUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsUITests.swift; sourceTree = "<group>"; };
 		4BC2B4FB20DAB1B10002A9C7 /* AppCenterAssets.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AppCenterAssets.xcodeproj; path = ../../AppCenterAssets/AppCenterAssets.xcodeproj; sourceTree = "<group>"; };
 		5C2BD1891ED5D3F200FB20C8 /* MSAnalyticsResultViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAnalyticsResultViewController.h; sourceTree = "<group>"; };
 		5C2BD19A1ED5D44400FB20C8 /* MSAnalyticsResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSAnalyticsResultViewController.m; sourceTree = "<group>"; };
@@ -623,12 +625,13 @@
 		5CE258381EA5097100DA8FB9 /* PuppetUITests */ = {
 			isa = PBXGroup;
 			children = (
-				5CE2583B1EA5097100DA8FB9 /* Info.plist */,
 				5CE258981EA5FBCA00DA8FB9 /* AnalyticsUITests.swift */,
+				5C4E0BFE1EE6F50F00FB0CF2 /* AppCenterUITests.swift */,
+				4B49FFE720DCEF13005C4F46 /* AssetsUITests.swift */,
 				5CE2589A1EA5FBD400DA8FB9 /* CrashesUITests.swift */,
 				5CE2589C1EA5FBE900DA8FB9 /* DistributeUITests.swift */,
-				5C4E0BFE1EE6F50F00FB0CF2 /* AppCenterUITests.swift */,
 				F8650EE3201F74180017E0FE /* Helpers.swift */,
+				5CE2583B1EA5097100DA8FB9 /* Info.plist */,
 			);
 			path = PuppetUITests;
 			sourceTree = "<group>";
@@ -1258,6 +1261,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B49001F20DCEF14005C4F46 /* AssetsUITests.swift in Sources */,
 				F8650EE4201F74180017E0FE /* Helpers.swift in Sources */,
 				5CE258991EA5FBCA00DA8FB9 /* AnalyticsUITests.swift in Sources */,
 				5CE2589D1EA5FBE900DA8FB9 /* DistributeUITests.swift in Sources */,
