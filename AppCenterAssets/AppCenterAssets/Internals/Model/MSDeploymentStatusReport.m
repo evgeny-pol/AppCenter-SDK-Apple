@@ -28,7 +28,7 @@ static NSString *const kMSAssetsPackage = @"package";
     if (self.previousLabelOrAppVersion) {
         dict[kMSPreviousLabelOrAppVersion] = self.previousLabelOrAppVersion;
     }
-    dict[kMSStatus] = @""; //[self.status ];
+    dict[kMSStatus] = [NSNumber numberWithInt:self.status];
     if (self.assetsPackage) {
         dict[kMSAssetsPackage] = @""; // [self.assetsPackage serializeToDictionary];
     }
@@ -62,7 +62,7 @@ static NSString *const kMSAssetsPackage = @"package";
     [coder encodeObject:self.appVersion forKey:kMSAppVersion];
     [coder encodeObject:self.previousDeploymentKey forKey:kMSPreviousDeploymentKey];
     [coder encodeObject:self.previousLabelOrAppVersion forKey:kMSPreviousLabelOrAppVersion];
-    [coder encodeObject:[NSNumber numberWithInt: self.status] forKey:kMSStatus]; //status
+    [coder encodeObject:[NSNumber numberWithInt: self.status] forKey:kMSStatus];
     [coder encodeObject:self.assetsPackage forKey:kMSAssetsPackage];
 }
 
