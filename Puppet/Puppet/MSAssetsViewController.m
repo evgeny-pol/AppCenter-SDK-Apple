@@ -8,6 +8,7 @@
 @interface MSAssetsViewController ()
 
 @property (weak, nonatomic) IBOutlet UISwitch *enabled;
+@property (nonatomic) MSAssetsAPI *assets;
 
 @end
 
@@ -15,7 +16,12 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  self.enabled.on = [MSAssets isEnabled];
+    self.enabled.on = [MSAssets isEnabled];
+    
+    _assets = [MSAssets makeAPIWithBuilder:^(MSAssetsBuilder *builder) {
+        [builder setDeplymentKey:@"123"];
+    }];
+    [_assets checkForUpdate:@"123"];
 }
 
 - (IBAction)enabledSwitchUpdated:(UISwitch *)sender {
