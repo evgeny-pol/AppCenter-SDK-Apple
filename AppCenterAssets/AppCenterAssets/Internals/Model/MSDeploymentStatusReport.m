@@ -30,7 +30,7 @@ static NSString *const kMSAssetsPackage = @"package";
     }
     dict[kMSStatus] = [NSNumber numberWithInt:self.status];
     if (self.assetsPackage) {
-        dict[kMSAssetsPackage] = @""; // [self.assetsPackage serializeToDictionary];
+        dict[kMSAssetsPackage] = [self.assetsPackage serializeToDictionary];
     }
     return dict;
 }

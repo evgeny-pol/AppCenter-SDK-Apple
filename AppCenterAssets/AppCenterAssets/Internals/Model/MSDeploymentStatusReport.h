@@ -28,7 +28,7 @@
 /**
  * Stores information about installed/failed package.
  */
-@property(nonatomic, copy) MSAssetsPackage *assetsPackage;
+@property(nonatomic) MSAssetsPackage *assetsPackage;
 
 
 
