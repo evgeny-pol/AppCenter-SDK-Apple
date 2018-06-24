@@ -4,7 +4,7 @@
 
 - (instancetype)init {
     if (self == [super init]) {
-        _deplymentKey = nil;
+        _deploymentKey = nil;
         _serverUrl = nil;
         _updateSubFolder = nil;
     }

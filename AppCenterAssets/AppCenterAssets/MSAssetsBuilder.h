@@ -2,7 +2,7 @@
 
 @interface MSAssetsBuilder : NSObject
 
-@property (nonatomic, copy) NSString *deplymentKey;
+@property (nonatomic, copy) NSString *deploymentKey;
 @property (nonatomic, copy) NSString *serverUrl;
 @property (nonatomic, copy) NSString *updateSubFolder;
 

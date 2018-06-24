@@ -477,17 +477,17 @@
 				CD09076920CCBB0C0026F862 /* MSAssetsPackage.h */,
 				CD09076F20CCC5B50026F862 /* MSAssetsPackageInfo.h */,
 				CD09077020CCC62A0026F862 /* MSAssetsPendingUpdate.h */,
+				CD09077320CCF3910026F862 /* MSAssetsSyncOptions.h */,
+				CD09077420CCF4DF0026F862 /* MSAssetsUpdateDialog.h */,
+				CD09077520CCF6CB0026F862 /* MSAssetsUpdateRequest.h */,
+				CD09077620CCF9F10026F862 /* MSAssetsUpdateResponse.h */,
+				CD09077720CCFB2C0026F862 /* MSAssetsUpdateResponseUpdateInfo.h */,
 				CD09076B20CCBC890026F862 /* MSDeploymentStatusReport.h */,
 				CD09076C20CCBF870026F862 /* MSDownloadPackageResult.h */,
 				CD09076D20CCC0BC0026F862 /* MSDownloadStatusReport.h */,
 				CD09076E20CCC1A40026F862 /* MSLocalPackage.h */,
 				CD09077120CCC6B50026F862 /* MSRemotePackage.h */,
 				CD09077220CCF28F0026F862 /* MSReportStatusResult.h */,
-				CD09077320CCF3910026F862 /* MSAssetsSyncOptions.h */,
-				CD09077420CCF4DF0026F862 /* MSAssetsUpdateDialog.h */,
-				CD09077520CCF6CB0026F862 /* MSAssetsUpdateRequest.h */,
-				CD09077620CCF9F10026F862 /* MSAssetsUpdateResponse.h */,
-				CD09077720CCFB2C0026F862 /* MSAssetsUpdateResponseUpdateInfo.h */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -560,12 +560,12 @@
 			isa = PBXGroup;
 			children = (
 				E85547CC1D2D63EF002DF6E2 /* AppCenterAssets.h */,
+				E85547CD1D2D64B0002DF6E2 /* Internals */,
 				E85547C31D2D6253002DF6E2 /* MSAssets.h */,
 				E85547C51D2D6253002DF6E2 /* MSAssets.m */,
+				A31B561820DD093700D81CA1 /* MSAssetsAPI.m */,
 				A31B562920DD3FAE00D81CA1 /* MSAssetsBuilder.h */,
 				A31B562720DD3FA000D81CA1 /* MSAssetsBuilder.m */,
-				A31B561820DD093700D81CA1 /* MSAssetsAPI.m */,
-				E85547CD1D2D64B0002DF6E2 /* Internals */,
 				E85547D01D2D65AF002DF6E2 /* Support */,
 			);
 			path = AppCenterAssets;
@@ -1140,6 +1140,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../AppCenter/AppCenter\"/**";
 			};
 			name = Debug;
 		};
@@ -1147,6 +1148,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0469D1B21F4DFE4C00A43A8E /* AppCenterAssets Release.xcconfig */;
 			buildSettings = {
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../AppCenter/AppCenter\"/**";
 			};
 			name = Release;
 		};

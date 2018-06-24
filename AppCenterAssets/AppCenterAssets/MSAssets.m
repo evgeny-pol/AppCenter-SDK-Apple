@@ -30,7 +30,7 @@ static dispatch_once_t onceToken;
 + (MSAssetsAPI *)initAPIWithBuilder:(MSAssetsBuilder *)builder {
     MSAssetsAPI *publicAssetsApi = [[MSAssetsAPI alloc] init];
     [publicAssetsApi setServerUrl:builder.serverUrl];
-    [publicAssetsApi setDeplymentKey:builder.deplymentKey];
+    [publicAssetsApi setDeploymentKey:builder.deploymentKey];
     [publicAssetsApi setUpdateSubFolder:builder.updateSubFolder];
     return publicAssetsApi;
 }
