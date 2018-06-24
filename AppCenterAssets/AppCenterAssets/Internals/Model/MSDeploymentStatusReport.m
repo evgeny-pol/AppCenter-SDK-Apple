@@ -38,6 +38,7 @@ static NSString *const kMSAssetsPackage = @"package";
 #pragma mark - NSCoding
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
+    self = [super init];
     if (self) {
         NSString *appVersion = [coder decodeObjectForKey:kMSAppVersion];
         if (appVersion != nil) {

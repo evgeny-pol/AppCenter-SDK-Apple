@@ -29,12 +29,9 @@ static NSString *const kMSPackageHash = @"packageHash";
     if (self.updateDescription) {
         dict[kMSDescription] = self.updateDescription;
     }
-    if (self.failedInstall) {
-        dict[kMSFailedInstall] = self.failedInstall ? @"YES" : @"NO";
-    }
-    if (self.isMandatory) {
-        dict[kMSIsMandatory] = self.isMandatory ? @"YES" : @"NO";
-    }
+    dict[kMSFailedInstall] = self.failedInstall ? @"YES" : @"NO";
+    dict[kMSIsMandatory] = self.isMandatory ? @"YES" : @"NO";
+    
     if (self.label) {
         dict[kMSLabel] = self.label;
     }
@@ -47,6 +44,7 @@ static NSString *const kMSPackageHash = @"packageHash";
 #pragma mark - NSCoding
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
+    self = [super init];
     if (self) {
         _appVersion = [coder decodeObjectForKey:kMSAppVersion];
         _deploymentKey = [coder decodeObjectForKey:kMSDeploymentKey];
