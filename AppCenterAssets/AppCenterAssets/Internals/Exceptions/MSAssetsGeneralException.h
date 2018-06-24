@@ -1,6 +1,9 @@
+#import <Foundation/Foundation.h>
 /**
- * An exception occurred during making HTTP request to CodePush server.
+ * General code push exception that has no specified sub type or occasion.
  */
 @interface MSAssetsGeneralException : NSException
+
+- (instancetype)init:(NSString *)reason;
 
 @end

@@ -1,6 +1,13 @@
+#import <Foundation/Foundation.h>
+#import "MSSignatureExceptionType.h"
+
 /**
- * An exception occurred during making HTTP request to CodePush server.
+ * Exception class for handling signature verification errors.
  */
-@interface MSAssetsQueryUpdateException : NSException
+@interface MSAssetsSignatureVerificationException : NSException
+
+- (instancetype)initWithType:(MSSignatureExceptionType)type reason(NSString *);
+- (instancetype)init:(NSString *)reason;
+- (instancetype)initWithType:(MSSignatureExceptionType)type;
 
 @end

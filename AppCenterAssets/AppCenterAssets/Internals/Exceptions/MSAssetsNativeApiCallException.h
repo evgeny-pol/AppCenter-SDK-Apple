@@ -1,6 +1,10 @@
+#import <Foundation/Foundation.h>
+
 /**
- * An exception occurred during making HTTP request to CodePush server.
+ * Class for all exceptions that is coming from {@link AssetsBaseCore} public methods.
  */
 @interface MSAssetsNativeApiCallException : NSException
+
+- (instancetype)init:(NSString *)reason;
 
 @end
