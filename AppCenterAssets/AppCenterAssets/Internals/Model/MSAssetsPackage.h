@@ -22,13 +22,13 @@
 /**
  * Indicates whether this update has been previously installed but was rolled back.
  */
-@property(nonatomic) BOOL *failedInstall;
+@property(nonatomic) BOOL failedInstall;
 
 /**
  * Indicates whether the update is considered mandatory.
  * This is the value that was specified in the CLI when the update was released.
  */
-@property(nonatomic) BOOL *isMandatory;
+@property(nonatomic) BOOL isMandatory;
 
 /**
  * The internal label automatically given to the update by the CodePush server.
