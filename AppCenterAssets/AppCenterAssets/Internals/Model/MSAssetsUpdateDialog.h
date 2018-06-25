@@ -1,13 +1,14 @@
 #import <Foundation/Foundation.h>
+#import "MSSerializableObject.h"
 
-@interface MSAssetsUpdateDialog
+@interface MSAssetsUpdateDialog : NSObject <MSSerializableObject>
 
 /**
  * Indicates whether you would like to append the description of an available release to the
  * notification message which is displayed to the end user.
  * Defaults to <code>false</code>.
  */
-@property(nonatomic, copy) BOOL appendReleaseDescription;
+@property(nonatomic) BOOL appendReleaseDescription;
 
 /**
  * Indicates the string you would like to prefix the release description with, if any, when

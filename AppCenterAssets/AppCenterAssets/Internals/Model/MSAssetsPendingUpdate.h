@@ -1,15 +1,16 @@
 #import <Foundation/Foundation.h>
+#import "MSSerializableObject.h"
 
-@interface MSAssetsPendingUpdate
+@interface MSAssetsPendingUpdate : NSObject <MSSerializableObject>
 
 /**
  * Whether the update is loading.
  */
-@property(nonatomic, copy) BOOL isLoading;
+@property(nonatomic) BOOL isLoading;
 
 /**
  * Pending update package hash.
  */
-@property(nonatomic, copy) NSString *hash;
+@property(nonatomic, copy) NSString *pendingUpdateHash;
 
 @end
