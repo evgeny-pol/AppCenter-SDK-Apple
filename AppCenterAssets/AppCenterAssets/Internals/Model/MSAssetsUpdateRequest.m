@@ -29,7 +29,7 @@ static NSString *const kMSPackageHash = @"packageHash";
     if (self.clientUniqueId) {
         dict[kMSClientUniqueId] = self.clientUniqueId;
     }
-    dict[kMSIsCompanion] = self.isCompanion ? @"YES" : @"NO";
+    dict[kMSIsCompanion] = @(self.isCompanion);
     
     if (self.label) {
         dict[kMSLabel] = self.label;

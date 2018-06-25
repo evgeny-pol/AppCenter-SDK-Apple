@@ -17,6 +17,36 @@ static NSString *const kMSPackageHash = @"packageHash";
     return self;
 }
 
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
+    if (!dictionary) {
+        return nil;
+    }
+    if ((self = [super init])) {
+        if (dictionary[kMSAppVersion]) {
+            self.appVersion = dictionary[kMSAppVersion];
+        }
+        if (dictionary[kMSDeploymentKey]) {
+            self.deploymentKey = dictionary[kMSDeploymentKey];
+        }
+        if (dictionary[kMSDescription]) {
+            self.updateDescription = dictionary[kMSDescription];
+        }
+        if (dictionary[kMSFailedInstall]) {
+            self.failedInstall = [dictionary[kMSFailedInstall] isEqual:@YES] ? YES : NO;
+        }
+        if (dictionary[kMSIsMandatory]) {
+            self.isMandatory = [dictionary[kMSIsMandatory] isEqual:@YES] ? YES : NO;
+        }
+        if (dictionary[kMSLabel]) {
+            self.label = dictionary[kMSLabel];
+        }
+        if (dictionary[kMSPackageHash]) {
+            self.packageHash = dictionary[kMSPackageHash];
+        }
+    }
+    return self;
+}
+
 - (NSMutableDictionary *)serializeToDictionary {
     NSMutableDictionary *dict = [NSMutableDictionary new];
     
@@ -29,8 +59,8 @@ static NSString *const kMSPackageHash = @"packageHash";
     if (self.updateDescription) {
         dict[kMSDescription] = self.updateDescription;
     }
-    dict[kMSFailedInstall] = self.failedInstall ? @"YES" : @"NO";
-    dict[kMSIsMandatory] = self.isMandatory ? @"YES" : @"NO";
+    dict[kMSFailedInstall] = @(self.failedInstall);
+    dict[kMSIsMandatory] = @(self.isMandatory);
     
     if (self.label) {
         dict[kMSLabel] = self.label;

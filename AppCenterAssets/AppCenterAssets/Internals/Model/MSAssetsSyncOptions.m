@@ -33,8 +33,8 @@ static NSString *const kMSShouldRestart = @"shouldRestart";
     if (self.updateDialog) {
         dict[kMSUpdateDialog] = [self.updateDialog serializeToDictionary];
     }
-    dict[kMSIgnoreFailedUpdates] = self.ignoreFailedUpdates ? @"YES" : @"NO";
-    dict[kMSShouldRestart] = self.shouldRestart ? @"YES" : @"NO";
+    dict[kMSIgnoreFailedUpdates] = @(self.ignoreFailedUpdates);
+    dict[kMSShouldRestart] = @(self.shouldRestart);
     return dict;
 }
 

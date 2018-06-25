@@ -57,4 +57,6 @@
  */
 @property(nonatomic) BOOL shouldRunBinaryVersion;
 
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
+
 @end

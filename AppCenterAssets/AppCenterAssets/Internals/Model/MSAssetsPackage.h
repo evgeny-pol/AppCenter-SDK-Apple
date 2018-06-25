@@ -42,4 +42,6 @@
  */
 @property(nonatomic, copy) NSString *packageHash;
 
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
+
 @end
