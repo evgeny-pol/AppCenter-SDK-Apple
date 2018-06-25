@@ -27,18 +27,16 @@ static dispatch_once_t onceToken;
   return self;
 }
 
-+ (MSAssetsAPI *)initAPIWithBuilder:(MSAssetsBuilder *)builder {
-    MSAssetsAPI *publicAssetsApi = [[MSAssetsAPI alloc] init];
-    [publicAssetsApi setServerUrl:builder.serverUrl];
-    [publicAssetsApi setDeploymentKey:builder.deploymentKey];
-    [publicAssetsApi setUpdateSubFolder:builder.updateSubFolder];
-    return publicAssetsApi;
-}
-
-+ (MSAssetsAPI *)makeAPIWithBuilder:(void (^)(MSAssetsBuilder *))updateBlock {
++ (MSAssetsDeploymentInstance *)makeDeploymentInstanceWithBuilder:(void (^)(MSAssetsBuilder *))updateBlock {
     MSAssetsBuilder *builder = [MSAssetsBuilder new];
     updateBlock(builder);
-    return [self initAPIWithBuilder:builder];
+    
+    MSAssetsDeploymentInstance *assetsDeploymentInstance = [[MSAssetsDeploymentInstance alloc] init];
+    [assetsDeploymentInstance setServerUrl:builder.serverUrl];
+    [assetsDeploymentInstance setDeploymentKey:builder.deploymentKey];
+    [assetsDeploymentInstance setUpdateSubFolder:builder.updateSubFolder];
+    
+    return assetsDeploymentInstance;
 }
 
 #pragma mark - MSServiceInternal
