@@ -1,6 +1,8 @@
 #import <Foundation/Foundation.h>
+#import "MSAssetsPackage.h"
+#import "MSAssetsUpdateResponseUpdateInfo.h"
 
-@interface MSRemotePackage
+@interface MSRemotePackage : MSAssetsPackage
 
 /**
  * Url to access package on server.
@@ -10,12 +12,12 @@
 /**
  * Size of the package.
  */
-@property(nonatomic, copy) long packageSize;
+@property(nonatomic) long packageSize;
 
 /**
  * Whether the client should trigger a store update.
  */
-@property(nonatomic, copy) BOOL updateAppVersion;
+@property(nonatomic) BOOL updateAppVersion;
 
 /**
  * Creates an instance of the class from the basic package.
@@ -41,7 +43,7 @@
  * @return instance of the {@link AssetsRemotePackage}.
  */
 + (MSRemotePackage *)createRemotePackageFromUpdateInfo:(NSString *)deploymentKey
-                                            updateInfo:(MSUpdateResponseUpdateInfo)updateInfo;
+                                            updateInfo:(MSUpdateResponseUpdateInfo *)updateInfo;
 
 /**
  * Creates a default package from the app version.

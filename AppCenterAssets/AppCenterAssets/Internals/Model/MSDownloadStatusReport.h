@@ -1,9 +1,7 @@
 #import <Foundation/Foundation.h>
+#import "MSSerializableObject.h"
 
-#import "MSAssetsPackage.h"
-#import "MSDeploymentStatus.h"
-
-@interface MSDeploymentStatusReports
+@interface MSDownloadStatusReport : NSObject <MSSerializableObject>
 
 /**
  * The id of the device.
@@ -20,16 +18,6 @@
  * This value uniquely identifies the update within its deployment.
  */
 @property(nonatomic, copy) NSString *label;
-
-/**
- * Whether the deployment succeeded or failed.
- */
-@property(nonatomic, copy) MSDeploymentStatus *status;
-
-/**
- * Stores information about installed/failed package.
- */
-@property(nonatomic, copy) MSAssetsPackage *assetsPackage;
 
 /**
  * Creates a report using the provided information.

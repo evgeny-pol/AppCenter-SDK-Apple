@@ -1,8 +1,10 @@
 #import <Foundation/Foundation.h>
-
+#import "MSSerializableObject.h"
+#import "MSAssetsInstallMode.h"
+#import "MSAssetsCheckFrequency.h"
 #import "MSAssetsUpdateDialog.h"
 
-@interface MSAssetsSyncOptions
+@interface MSAssetsSyncOptions : NSObject <MSSerializableObject>
 
 /**
  * Specifies the deployment key you want to query for an update against.
@@ -16,13 +18,13 @@
  * Specifies when you would like to install optional updates (i.e. those that aren't marked as mandatory).
  * Defaults to {@link AssetsInstallMode#ON_NEXT_RESTART}.
  */
-@property(nonatomic, copy) MSAssetsInstallMode *installMode;
+@property(nonatomic) MSAssetsInstallMode installMode;
 
 /**
  * Specifies when you would like to install updates which are marked as mandatory.
  * Defaults to {@link AssetsInstallMode#IMMEDIATE}.
  */
-@property(nonatomic, copy) MSAssetsInstallMode *mandatoryInstallMode;
+@property(nonatomic) MSAssetsInstallMode mandatoryInstallMode;
 
 /**
  * Specifies the minimum number of seconds that the app needs to have been in the background before restarting the app.
@@ -31,13 +33,13 @@
  * Defaults to `0`, which has the effect of applying the update immediately after a resume, regardless
  * how long it was in the background.
  */
-@property(nonatomic, copy) int minimumBackgroundDuration;
+@property(nonatomic) int minimumBackgroundDuration;
 
 /**
  * Specifies whether to ignore failed updates.
  * Defaults to <code>true</code>.
  */
-@property(nonatomic, copy) BOOL ignoreFailedUpdates;
+@property(nonatomic) BOOL ignoreFailedUpdates;
 
 /**
  * An "options" object used to determine whether a confirmation dialog should be displayed to the end user when an update is available,
@@ -45,20 +47,27 @@
  * Setting this to any truthy value will enable the dialog with the default strings, and passing an object to this parameter allows
  * enabling the dialog as well as overriding one or more of the default strings.
  */
-@property(nonatomic, copy) MSAssetsUpdateDialog *updateDialog;
+@property(nonatomic) MSAssetsUpdateDialog *updateDialog;
 
 /**
  * Specifies when you would like to synchronize updates with the CodePush server.
  * Defaults to {@link AssetsCheckFrequency#ON_APP_START}.
  */
-@property(nonatomic, copy) MSAssetsCheckFrequency *checkFrequency;
+@property(nonatomic) MSAssetsCheckFrequency checkFrequency;
 
 /**
  * Whether sdk should restart the application after an update is made.
  * In case of assets replacement this flag is recommended to be set to <code>false</code>,
  * although in Android application, a restart is not going to be made anyway.
  */
-@property(nonatomic, copy) BOOL shouldRestart;
+@property(nonatomic) BOOL shouldRestart;
+
+/**
+ * Creates default instance of sync options.
+ *
+ * @param deploymentKey the deployment key you want to query for an update against.
+ */
+- (instancetype)init:(NSString *)deploymentKey;
 
 @end
 

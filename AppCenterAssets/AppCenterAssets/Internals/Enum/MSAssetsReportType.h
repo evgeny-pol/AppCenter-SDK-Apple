@@ -1,14 +1,14 @@
 /**
  * Type of the sent report.
  */
-typedef NS_ENUM(NSUInteger, MSAssetsDeploymentStatus) {
+typedef NS_ENUM(NSUInteger, MsAssetsReportType) {
     /**
      * AssetsDownloadStatusReport value.
      */
-    MSAssetsDeploymentStatusDownload,
+    MsAssetsReportTypeDownload,
     
     /**
      * AssetsDeploymentStatusReport value.
      */
-    MSAssetsDeploymentStatusDeploy
+    MsAssetsReportTypeDeploy
 };

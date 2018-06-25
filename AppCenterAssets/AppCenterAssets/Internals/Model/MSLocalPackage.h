@@ -1,15 +1,14 @@
 #import <Foundation/Foundation.h>
-
 #import "MSAssetsPackage.h"
 
-@interface MSLocalPackage
+@interface MSLocalPackage : MSAssetsPackage
 
 /**
  * Indicates whether this update is in a "pending" state.
  * When <code>true</code>, that means the update has been downloaded and installed, but the app restart
  * needed to apply it hasn't occurred yet, and therefore, its changes aren't currently visible to the end-user.
  */
-@property(nonatomic, copy) BOOL isPending;
+@property(nonatomic) BOOL isPending;
 
 /**
  * The path to the update entry point.
@@ -19,12 +18,12 @@
 /**
  * Indicates whether this is the first time the update has been run after being installed.
  */
-@property(nonatomic, copy) BOOL isFirstRun;
+@property(nonatomic) BOOL isFirstRun;
 
 /**
  * Whether this package is intended for debug mode.
  */
-@property(nonatomic, copy) BOOL isDebugOnly;
+@property(nonatomic) BOOL isDebugOnly;
 
 /**
  * The time when binary of the update was modified (built).

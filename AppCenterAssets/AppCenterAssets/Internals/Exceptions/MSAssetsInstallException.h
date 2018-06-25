@@ -1,6 +1,10 @@
+#import <Foundation/Foundation.h>
+
 /**
- * An exception occurred during making HTTP request to CodePush server.
+ * An exception occurred during installing the package.
  */
-@interface MSAssetsIllegalArgumentException : NSException
+@interface MSAssetsInstallException : NSException
+
+- (instancetype)init:(NSString *)reason;
 
 @end
