@@ -1,17 +1,19 @@
 #import "MSServiceAbstract.h"
 #import "MSAssetsBuilder.h"
 
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MSAssetsAPI : NSObject
 
 - (NSDictionary *)checkForUpdate:(NSString *)deploymentKey;
 
-@property (nonatomic, copy) NSString *deplymentKey;
+@property (nonatomic, copy) NSString *deploymentKey;
 @property (nonatomic, copy) NSString *serverUrl;
 @property (nonatomic, copy) NSString *updateSubFolder;
 
 @end
+
 
 /**
  * App Center Assets service.

@@ -18,5 +18,5 @@ typedef NS_ENUM(NSUInteger, MSAssetsUpdateState) {
      * Indicates than an update represents the latest available
      * release, and can be either currently running or pending.
      */
-    MSAssetsUpdateStateLatest = 2;
+    MSAssetsUpdateStateLatest = 2
 };
