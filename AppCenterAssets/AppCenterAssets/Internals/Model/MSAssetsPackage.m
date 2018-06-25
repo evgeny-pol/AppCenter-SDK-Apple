@@ -1,6 +1,7 @@
 #import <Foundation/Foundation.h>
 #import "MSAssetsPackage.h"
 #import "MSAssetsIllegalArgumentException.h"
+#import "MSAssetsPackageInfo.h"
 
 static NSString *const kMSAppVersion = @"appVersion";
 static NSString *const kMSDeploymentKey = @"deploymentKey";
@@ -118,7 +119,7 @@ static NSString *const UnzippedFolderName = @"unzipped";
 
 #pragma mark - Public API methods
 
-+ (NSDictionary *)getCurrentPackage:(NSError * __autoreleasing *)error
++ (MSAssetsPackage *)getCurrentPackage:(NSError * __autoreleasing *)error
 {
     NSString *packageHash = [MSAssetsPackage getCurrentPackageHash:error];
     if (!packageHash) {
@@ -130,19 +131,19 @@ static NSString *const UnzippedFolderName = @"unzipped";
 
 + (NSString *)getCurrentPackageHash:(NSError * __autoreleasing *)error
 {
-    NSDictionary *info = [self getCurrentPackageInfo:error];
+    MSAssetsPackageInfo *info = [self getCurrentPackageInfo:error];
     if (!info) {
         return nil;
     }
 
-    return info[@"currentPackage"];
+    return info.currentPackage;
 }
 
-+ (NSMutableDictionary *)getCurrentPackageInfo:(NSError * __autoreleasing *)error
++ (MSAssetsPackageInfo *)getCurrentPackageInfo:(NSError * __autoreleasing *)error
 {
     NSString *statusFilePath = [self getStatusFilePath];
     if (![[NSFileManager defaultManager] fileExistsAtPath:statusFilePath]) {
-        return [NSMutableDictionary dictionary];
+        return [[MSAssetsPackageInfo alloc] init];
     }
 
     NSString *content = [NSString stringWithContentsOfFile:statusFilePath
@@ -160,10 +161,10 @@ static NSString *const UnzippedFolderName = @"unzipped";
         return nil;
     }
 
-    return [json mutableCopy];
+    return [[MSAssetsPackageInfo alloc] initWithDictionary:json];
 }
 
-+ (NSDictionary *)getPackage:(NSString *)packageHash
++ (MSAssetsPackage *)getPackage:(NSString *)packageHash
                        error:(NSError * __autoreleasing *)error
 {
     NSString *updateDirectoryPath = [self getPackageFolderPath:packageHash];
@@ -181,9 +182,16 @@ static NSString *const UnzippedFolderName = @"unzipped";
     }
 
     NSData *updateMetadata = [updateMetadataString dataUsingEncoding:NSUTF8StringEncoding];
-    return [NSJSONSerialization JSONObjectWithData:updateMetadata
-                                           options:kNilOptions
-                                             error:error];
+
+    NSDictionary* json = [NSJSONSerialization JSONObjectWithData:updateMetadata
+                                                         options:kNilOptions
+                                                           error:error];
+
+    if (!json) {
+        return nil;
+    }
+
+    return [[MSAssetsPackage alloc] initWithDictionary:json];
 }
 
 + (NSString *)getPackageFolderPath:(NSString *)packageHash

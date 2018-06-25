@@ -8,17 +8,17 @@
 /**
  * The version of the app that was deployed (for a native app upgrade).
  */
-@property(nonatomic, copy) NSString * _Nonnull appVersion;
+@property(nonatomic, copy, nonnull) NSString *appVersion;
 
 /**
  * Deployment key used when deploying the previous package.
  */
-@property(nonatomic, copy) NSString * _Nonnull previousDeploymentKey;
+@property(nonatomic, copy, nonnull) NSString *previousDeploymentKey;
 
 /**
  * The label (v#) of the package that was upgraded from.
  */
-@property(nonatomic, copy) NSString *previousLabelOrAppVersion;
+@property(nonatomic, copy, null_unspecified) NSString *previousLabelOrAppVersion;
 
 /**
  * Whether the deployment succeeded or failed.
@@ -28,8 +28,8 @@
 /**
  * Stores information about installed/failed package.
  */
-@property(nonatomic) MSAssetsPackage *assetsPackage;
+@property(nonatomic, null_unspecified) MSAssetsPackage *assetsPackage;
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
+- (null_unspecified instancetype)initWithDictionary:(null_unspecified NSDictionary *)dictionary;
 
 @end

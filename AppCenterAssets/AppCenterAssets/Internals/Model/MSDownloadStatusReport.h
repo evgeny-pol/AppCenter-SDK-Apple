@@ -6,18 +6,18 @@
 /**
  * The id of the device.
  */
-@property(nonatomic, copy) NSString * _Nonnull clientUniqueId;
+@property(nonatomic, copy, nonnull) NSString *clientUniqueId;
 
 /**
  * The deployment key to use to query the CodePush server for an update.
  */
-@property(nonatomic, copy) NSString * _Nonnull deploymentKey;
+@property(nonatomic, copy, nonnull) NSString *deploymentKey;
 
 /**
  * The internal label automatically given to the update by the CodePush server.
  * This value uniquely identifies the update within its deployment.
  */
-@property(nonatomic, copy) NSString * _Nonnull label;
+@property(nonatomic, copy, nonnull) NSString *label;
 
 /**
  * Creates a report using the provided information.
@@ -27,8 +27,8 @@
  * @param label          internal label automatically given to the update by the CodePush server.
  * @return instance of {@link MSDownloadStatusReport}.
  */
-+ (MSDownloadStatusReport *)createReport:(NSString *)clientUniqueId
-                       withDeploymentKey:(NSString *)deploymentKey
-                                andLabel:(NSString *)label;
++ (nonnull MSDownloadStatusReport *)createReport:(nonnull NSString *)clientUniqueId
+                       withDeploymentKey:(nonnull NSString *) deploymentKey
+                                andLabel:(nonnull NSString *)label;
 
 @end
