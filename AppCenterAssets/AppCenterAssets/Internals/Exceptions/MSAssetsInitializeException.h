@@ -1,6 +1,10 @@
+#import <Foundation/Foundation.h>
+
 /**
- * An exception occurred during making HTTP request to CodePush server.
+ * Exception class for handling {@link AssetsBaseCore} creating exceptions.
  */
-@interface MSAssetsIllegalArgumentException : NSException
+@interface MSAssetsInitializeException : NSException
+
+- (instancetype)init:(NSString *)reason;
 
 @end

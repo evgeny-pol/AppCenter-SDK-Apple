@@ -1,6 +1,10 @@
+#import <Foundation/Foundation.h>
+
 /**
- * An exception occurred during making HTTP request to CodePush server.
+ * Class to handle exception occurred when obtaining public key.
  */
 @interface MSAssetsInvalidPublicKeyException : NSException
+
+- (instancetype)init:(NSString *)reason;
 
 @end

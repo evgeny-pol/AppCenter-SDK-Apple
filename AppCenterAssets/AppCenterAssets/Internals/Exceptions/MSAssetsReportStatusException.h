@@ -1,6 +1,11 @@
+#import <Foundation/Foundation.h>
+#import "MSAssetsReportType.h"
+
 /**
- * An exception occurred during making HTTP request to CodePush server.
+ * An exception occurred during reporting the status to server.
  */
-@interface MSAssetsQueryUpdateException : NSException
+@interface MSAssetsReportStatusException : NSException
+
+- (instancetype)initWithReportType:(MsAssetsReportType)reportType reason:(NSString *)reason;
 
 @end
