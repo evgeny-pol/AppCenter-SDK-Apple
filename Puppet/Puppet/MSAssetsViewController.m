@@ -18,7 +18,7 @@
   [super viewDidLoad];
     self.enabled.on = [MSAssets isEnabled];
     
-    _assetsDeployment = [MSAssets makeAPIWithBuilder:^(MSAssetsBuilder *builder) {
+    _assetsDeployment = [MSAssets makeDeploymentInstanceWithBuilder:^(MSAssetsBuilder *builder) {
         [builder setDeploymentKey:@"123"];
     }];
 }
