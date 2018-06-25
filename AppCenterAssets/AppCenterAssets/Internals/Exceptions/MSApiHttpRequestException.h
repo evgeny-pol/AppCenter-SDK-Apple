@@ -5,4 +5,6 @@
  */
 @interface MSApiHttpRequestException : NSException
 
+- (instancetype)init:(NSString *)reason;
+
 @end

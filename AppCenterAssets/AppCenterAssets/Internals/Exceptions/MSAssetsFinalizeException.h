@@ -6,6 +6,7 @@
  */
 @interface MSAssetsFinalizeException : NSException
 
-- (instancetype)init:(MSOperationType)received total:(long)total;
+- (instancetype)init:(MSOperationType)type reason:(NSString *)reason;
+- (instancetype)init:(NSString *)reason;
 
 @end

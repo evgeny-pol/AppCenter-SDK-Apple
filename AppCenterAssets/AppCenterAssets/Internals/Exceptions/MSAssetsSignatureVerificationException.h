@@ -6,7 +6,7 @@
  */
 @interface MSAssetsSignatureVerificationException : NSException
 
-- (instancetype)initWithType:(MSSignatureExceptionType)type reason(NSString *);
+- (instancetype)initWithType:(MSSignatureExceptionType)type reason:(NSString *)reason;
 - (instancetype)init:(NSString *)reason;
 - (instancetype)initWithType:(MSSignatureExceptionType)type;
 

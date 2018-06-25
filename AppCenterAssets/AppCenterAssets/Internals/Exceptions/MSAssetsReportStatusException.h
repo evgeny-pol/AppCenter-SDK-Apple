@@ -4,8 +4,8 @@
 /**
  * An exception occurred during reporting the status to server.
  */
-@interface MSAssetsQueryUpdateException : NSException
+@interface MSAssetsReportStatusException : NSException
 
-- (instancetype)initWithReportType:(MSAssetsReportType)reportType reason(NSString *)reason;
+- (instancetype)initWithReportType:(MsAssetsReportType)reportType reason:(NSString *)reason;
 
 @end
