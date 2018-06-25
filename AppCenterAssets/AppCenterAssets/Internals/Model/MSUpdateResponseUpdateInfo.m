@@ -39,7 +39,7 @@ static NSString *const kMSUpdateAppVersion = @"updateAppVersion";
     if (self.packageHash) {
         dict[kMSPackageHash] = self.packageHash;
     }
-    dict[kMSPackageSize] = [NSNumber numberWithLong:self.packageSize];
+    dict[kMSPackageSize] = [NSNumber numberWithLongLong:self.packageSize];
     dict[kMSUpdateAppVersion] = self.updateAppVersion ? @"YES" : @"NO";
     return dict;
 }
@@ -71,7 +71,7 @@ static NSString *const kMSUpdateAppVersion = @"updateAppVersion";
     [coder encodeInt64:self.packageSize forKey:kMSPackageSize];
     [coder encodeObject:self.label forKey:kMSLabel];
     [coder encodeObject:self.packageHash forKey:kMSPackageHash];
-    [coder encodeBool:self.updateDescription forKey:kMSDescription];
+    [coder encodeObject:self.updateDescription forKey:kMSDescription];
 }
 
 @end

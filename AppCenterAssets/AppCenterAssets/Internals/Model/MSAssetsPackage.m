@@ -64,7 +64,7 @@ static NSString *const kMSPackageHash = @"packageHash";
     [coder encodeBool:self.isMandatory forKey:kMSIsMandatory];
     [coder encodeObject:self.label forKey:kMSLabel];
     [coder encodeObject:self.packageHash forKey:kMSPackageHash];
-    [coder encodeBool:self.updateDescription forKey:kMSDescription];
+    [coder encodeObject:self.updateDescription forKey:kMSDescription];
 }
 
 @end
