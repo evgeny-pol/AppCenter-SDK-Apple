@@ -210,6 +210,13 @@
 			remoteGlobalIDString = 04EBBEE81F01C0C90006B8AE;
 			remoteInfo = AppCenterCrashesTVOS;
 		};
+		113F3B1D20E1236F0018815F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4BC2B4FB20DAB1B10002A9C7 /* AppCenterAssets.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = E85547BF1D2D6253002DF6E2;
+			remoteInfo = AppCenterAssetsIOS;
+		};
 		380A4DA21DD6892F00E99219 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E82E1B571D1CA58D00D281C1 /* Project object */;
@@ -857,6 +864,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				113F3B1E20E1236F0018815F /* PBXTargetDependency */,
 				E82E1B8C1D1CA65600D281C1 /* PBXTargetDependency */,
 				E85548071D2D6C98002DF6E2 /* PBXTargetDependency */,
 				E82E1B8E1D1CA65600D281C1 /* PBXTargetDependency */,
@@ -1317,6 +1325,11 @@
 			name = AppCenterPush;
 			targetProxy = 048A76C01E9EC2EF0075A6D6 /* PBXContainerItemProxy */;
 		};
+		113F3B1E20E1236F0018815F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AppCenterAssetsIOS;
+			targetProxy = 113F3B1D20E1236F0018815F /* PBXContainerItemProxy */;
+		};
 		380A4DA31DD6892F00E99219 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 380A4D951DD6892F00E99219 /* PuppetWidget */;
@@ -1670,7 +1683,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../AppCenter/AppCenter/** $(SRCROOT)/../AppCenterAnalytics/AppCenterAnalytics/** $(SRCROOT)/../AppCenterCrashes/AppCenterCrashes/** $(SRCROOT)/../AppCenterDistribute/AppCenterDistribute/** $(SRCROOT)/../AppCenterPush/AppCenterPush/** $(SRCROOT)/../AppCenterAssets/AppCenterAssets";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../AppCenter/AppCenter/** $(SRCROOT)/../AppCenterAnalytics/AppCenterAnalytics/** $(SRCROOT)/../AppCenterCrashes/AppCenterCrashes/** $(SRCROOT)/../AppCenterDistribute/AppCenterDistribute/** $(SRCROOT)/../AppCenterPush/AppCenterPush/** $(SRCROOT)/../AppCenterAssets/AppCenterAssets/**";
 			};
 			name = Debug;
 		};
@@ -1696,7 +1709,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../AppCenter/AppCenter/** $(SRCROOT)/../AppCenterAnalytics/AppCenterAnalytics/** $(SRCROOT)/../AppCenterCrashes/AppCenterCrashes/** $(SRCROOT)/../AppCenterDistribute/AppCenterDistribute/** $(SRCROOT)/../AppCenterPush/AppCenterPush/** $(SRCROOT)/../AppCenterAssets/AppCenterAssets";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../AppCenter/AppCenter/** $(SRCROOT)/../AppCenterAnalytics/AppCenterAnalytics/** $(SRCROOT)/../AppCenterCrashes/AppCenterCrashes/** $(SRCROOT)/../AppCenterDistribute/AppCenterDistribute/** $(SRCROOT)/../AppCenterPush/AppCenterPush/** $(SRCROOT)/../AppCenterAssets/AppCenterAssets/**";
 			};
 			name = Release;
 		};
