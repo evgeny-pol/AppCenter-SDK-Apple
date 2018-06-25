@@ -1,6 +1,10 @@
+#import <Foundation/Foundation.h>
+
 /**
- * An exception occurred during making HTTP request to CodePush server.
+ * An exception occurred during rollback.
  */
-@interface MSAssetsQueryUpdateException : NSException
+@interface MSAssetsRollbackException : NSException
+
+- (instancetype)init:(NSString *)reason;
 
 @end

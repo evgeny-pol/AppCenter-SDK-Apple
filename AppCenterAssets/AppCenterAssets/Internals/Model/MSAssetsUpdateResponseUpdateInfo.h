@@ -45,7 +45,7 @@
 /**
  * Size of the package.
  */
-@property(nonatomic) long packageSize;
+@property(nonatomic) long long packageSize;
 
 /**
  * Whether the client should trigger a store update.
@@ -56,5 +56,7 @@
  * Set to <code>true</code> if the update directs to use the binary version of the application.
  */
 @property(nonatomic) BOOL shouldRunBinaryVersion;
+
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
 @end

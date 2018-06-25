@@ -7,12 +7,12 @@
 /**
  * Specifies the deployment key you want to query for an update against.
  */
-@property(nonatomic, copy) NSString *deploymentKey;
+@property(nonatomic, copy) NSString * _Nonnull deploymentKey;
 
 /**
  * Specifies the current app version.
  */
-@property(nonatomic, copy) NSString *appVersion;
+@property(nonatomic, copy) NSString * _Nonnull appVersion;
 
 /**
  * Specifies the current local package hash.

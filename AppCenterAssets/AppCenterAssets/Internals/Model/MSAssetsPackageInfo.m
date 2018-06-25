@@ -11,6 +11,21 @@ static NSString *const kMSPreviousPackage = @"previousPackage";
     return self;
 }
 
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
+    if (!dictionary) {
+        return nil;
+    }
+    if ((self = [super init])) {
+        if (dictionary[kMSPreviousPackage]) {
+            self.previousPackage = dictionary[kMSPreviousPackage];
+        }
+        if (dictionary[kMSCurrentPackage]) {
+            self.currentPackage = dictionary[kMSCurrentPackage];
+        }
+    }
+    return self;
+}
+
 - (NSMutableDictionary *)serializeToDictionary {
     NSMutableDictionary *dict = [NSMutableDictionary new];
     
