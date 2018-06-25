@@ -1,5 +1,5 @@
 #import "MSServiceAbstract.h"
-#import "MSAssetsBuilder.h"
+#import "AssetsBuilder/MSAssetsBuilder.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
