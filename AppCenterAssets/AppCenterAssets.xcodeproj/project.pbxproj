@@ -110,6 +110,9 @@
 		358F9BC82019596500B9E22C /* MSAbstractLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 358F9BC72019596400B9E22C /* MSAbstractLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		387C77051D6CC39400D68CC1 /* MSServiceAbstract.h in Headers */ = {isa = PBXBuildFile; fileRef = 387C77041D6CC39400D68CC1 /* MSServiceAbstract.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6E0684381D35A3B900A8CC6C /* OCHamcrestIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E0684371D35A3B900A8CC6C /* OCHamcrestIOS.framework */; };
+		A31B561920DD093700D81CA1 /* MSAssetsAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B561820DD093700D81CA1 /* MSAssetsAPI.m */; };
+		A31B562820DD3FA000D81CA1 /* MSAssetsBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B562720DD3FA000D81CA1 /* MSAssetsBuilder.m */; };
+		A31B562C20DD422100D81CA1 /* MSAssetsBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = A31B562920DD3FAE00D81CA1 /* MSAssetsBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A3898E7C20DB9D7800E9BF37 /* MSAssetsConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = A3898E7B20DB9D7800E9BF37 /* MSAssetsConstants.m */; };
 		CD09076A20CCBB0C0026F862 /* MSAssetsPackage.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09076920CCBB0C0026F862 /* MSAssetsPackage.h */; };
 		CD09077B20CDD24E0026F862 /* MSAssetsDeploymentStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09077A20CDD24E0026F862 /* MSAssetsDeploymentStatus.h */; };
@@ -244,6 +247,9 @@
 		358F9BC72019596400B9E22C /* MSAbstractLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSAbstractLog.h; path = ../AppCenter/AppCenter/Model/MSAbstractLog.h; sourceTree = "<group>"; };
 		387C77041D6CC39400D68CC1 /* MSServiceAbstract.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSServiceAbstract.h; path = ../AppCenter/AppCenter/MSServiceAbstract.h; sourceTree = "<group>"; };
 		6E0684371D35A3B900A8CC6C /* OCHamcrestIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCHamcrestIOS.framework; path = ../../Vendor/iOS/OCHamcrest/OCHamcrestIOS.framework; sourceTree = "<group>"; };
+		A31B561820DD093700D81CA1 /* MSAssetsAPI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsAPI.m; sourceTree = "<group>"; };
+		A31B562720DD3FA000D81CA1 /* MSAssetsBuilder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsBuilder.m; sourceTree = "<group>"; };
+		A31B562920DD3FAE00D81CA1 /* MSAssetsBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsBuilder.h; sourceTree = "<group>"; };
 		A3898E7A20DB9C8C00E9BF37 /* MSAssetsConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsConstants.h; sourceTree = "<group>"; };
 		A3898E7B20DB9D7800E9BF37 /* MSAssetsConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsConstants.m; sourceTree = "<group>"; };
 		B2812EF21DA3148000307DCE /* AppCenterAssets Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "AppCenterAssets Debug.xcconfig"; sourceTree = "<group>"; };
@@ -471,17 +477,17 @@
 				CD09076920CCBB0C0026F862 /* MSAssetsPackage.h */,
 				CD09076F20CCC5B50026F862 /* MSAssetsPackageInfo.h */,
 				CD09077020CCC62A0026F862 /* MSAssetsPendingUpdate.h */,
+				CD09077320CCF3910026F862 /* MSAssetsSyncOptions.h */,
+				CD09077420CCF4DF0026F862 /* MSAssetsUpdateDialog.h */,
+				CD09077520CCF6CB0026F862 /* MSAssetsUpdateRequest.h */,
+				CD09077620CCF9F10026F862 /* MSAssetsUpdateResponse.h */,
+				CD09077720CCFB2C0026F862 /* MSAssetsUpdateResponseUpdateInfo.h */,
 				CD09076B20CCBC890026F862 /* MSDeploymentStatusReport.h */,
 				CD09076C20CCBF870026F862 /* MSDownloadPackageResult.h */,
 				CD09076D20CCC0BC0026F862 /* MSDownloadStatusReport.h */,
 				CD09076E20CCC1A40026F862 /* MSLocalPackage.h */,
 				CD09077120CCC6B50026F862 /* MSRemotePackage.h */,
 				CD09077220CCF28F0026F862 /* MSReportStatusResult.h */,
-				CD09077320CCF3910026F862 /* MSAssetsSyncOptions.h */,
-				CD09077420CCF4DF0026F862 /* MSAssetsUpdateDialog.h */,
-				CD09077520CCF6CB0026F862 /* MSAssetsUpdateRequest.h */,
-				CD09077620CCF9F10026F862 /* MSAssetsUpdateResponse.h */,
-				CD09077720CCFB2C0026F862 /* MSAssetsUpdateResponseUpdateInfo.h */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -554,9 +560,12 @@
 			isa = PBXGroup;
 			children = (
 				E85547CC1D2D63EF002DF6E2 /* AppCenterAssets.h */,
+				E85547CD1D2D64B0002DF6E2 /* Internals */,
 				E85547C31D2D6253002DF6E2 /* MSAssets.h */,
 				E85547C51D2D6253002DF6E2 /* MSAssets.m */,
-				E85547CD1D2D64B0002DF6E2 /* Internals */,
+				A31B561820DD093700D81CA1 /* MSAssetsAPI.m */,
+				A31B562920DD3FAE00D81CA1 /* MSAssetsBuilder.h */,
+				A31B562720DD3FA000D81CA1 /* MSAssetsBuilder.m */,
 				E85547D01D2D65AF002DF6E2 /* Support */,
 			);
 			path = AppCenterAssets;
@@ -635,6 +644,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A31B562C20DD422100D81CA1 /* MSAssetsBuilder.h in Headers */,
 				CD09079520CDE16F0026F862 /* MSAssetsInvalidPublicKeyException.h in Headers */,
 				CD09078120CDD4A70026F862 /* MSAssetsUpdateState.h in Headers */,
 				CD09076A20CCBB0C0026F862 /* MSAssetsPackage.h in Headers */,
@@ -961,6 +971,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A3898E7C20DB9D7800E9BF37 /* MSAssetsConstants.m in Sources */,
+				A31B561920DD093700D81CA1 /* MSAssetsAPI.m in Sources */,
+				A31B562820DD3FA000D81CA1 /* MSAssetsBuilder.m in Sources */,
 				E85547C61D2D6253002DF6E2 /* MSAssets.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1128,6 +1140,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../AppCenter/AppCenter\"/**";
 			};
 			name = Debug;
 		};
@@ -1135,6 +1148,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0469D1B21F4DFE4C00A43A8E /* AppCenterAssets Release.xcconfig */;
 			buildSettings = {
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../AppCenter/AppCenter\"/**";
 			};
 			name = Release;
 		};

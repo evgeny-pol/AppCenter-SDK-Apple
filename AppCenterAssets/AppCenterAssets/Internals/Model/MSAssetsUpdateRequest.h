@@ -1,6 +1,8 @@
 #import <Foundation/Foundation.h>
+#import "MSSerializableObject.h"
+#import "MSAssetsPackage.h"
 
-@interface MSAssetsUpdateRequest
+@interface MSAssetsUpdateRequest : NSObject <MSSerializableObject>
 
 /**
  * Specifies the deployment key you want to query for an update against.
@@ -20,9 +22,7 @@
 /**
  * Whether to ignore the application version.
  */
-@SerializedName("isCompanion")
-private boolean isCompanion;
-@property(nonatomic, copy) BOOL isCompanion;
+@property(nonatomic) BOOL isCompanion;
 
 /**
  * Specifies the current package label.
@@ -35,12 +35,6 @@ private boolean isCompanion;
 @property(nonatomic, copy) NSString *clientUniqueId;
 
 /**
- * Creates an instance of the class from the basic package.
- *
- * @param failedInstall    whether this update has been previously installed but was rolled back.
- * @param packageSize      the size of the package.
- * @param downloadUrl      url to access package on server.
- * @param updateAppVersion whether the client should trigger a store update.
  * @param assetsPackage  basic package containing the information.
  * @return instance of the {@link AssetsRemotePackage}.
  */

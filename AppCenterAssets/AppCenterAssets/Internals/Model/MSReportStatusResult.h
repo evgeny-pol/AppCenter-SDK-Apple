@@ -1,6 +1,7 @@
 #import <Foundation/Foundation.h>
+#import "MSSerializableObject.h"
 
-@interface MSReportStatusResult
+@interface MSReportStatusResult : NSObject <MSSerializableObject>
 
 /**
  * The result string from server.

@@ -1,6 +1,7 @@
 #import <Foundation/Foundation.h>
+#import "MSSerializableObject.h"
 
-@interface MSAssetsPackageInfo
+@interface MSAssetsPackageInfo : NSObject <MSSerializableObject>
 
 /**
  * Currently installed package hash.
