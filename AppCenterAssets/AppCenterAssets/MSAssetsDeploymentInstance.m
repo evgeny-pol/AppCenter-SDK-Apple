@@ -1,7 +1,7 @@
 #import "MSAssets.h"
 #import "MSAssetsUpdateState.h"
 
-@implementation MSAssetsAPI
+@implementation MSAssetsDeploymentInstance
 
 - (NSDictionary *)checkForUpdate:(NSString *)deploymentKey {
 
@@ -9,7 +9,7 @@
         [self setDeploymentKey:deploymentKey];
     }
 
-    NSMutableDictionary *localPackage = [[[MSAssetsAPI class] getCurrentPackage] mutableCopy];
+    NSMutableDictionary *localPackage = [[[MSAssetsDeploymentInstance class] getCurrentPackage] mutableCopy];
 
     if (localPackage){
         NSLog(@"Got local package");
@@ -33,7 +33,7 @@
 + (NSDictionary *)getCurrentPackage
 {
     NSError *error;
-    NSDictionary *currentPackage = [[MSAssetsAPI class] getUpdateMetadataForState:MSAssetsUpdateStateLatest currentPackageGettingError:&error];
+    NSDictionary *currentPackage = [[MSAssetsDeploymentInstance class] getUpdateMetadataForState:MSAssetsUpdateStateLatest currentPackageGettingError:&error];
     if (error){
         NSLog(@"An error occured: %@", [error localizedDescription]);
         return nil;
