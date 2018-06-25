@@ -42,4 +42,11 @@
  */
 @property(nonatomic, copy) NSString *packageHash;
 
+
++ (NSDictionary *)getCurrentPackage:(NSError **)error;
++ (NSString *)getCurrentPackageHash:(NSError **)error;
++ (NSDictionary *)getPackage:(NSString *)packageHash
+                       error:(NSError **)error;
++ (NSString *)getPackageFolderPath:(NSString *)packageHash;
+
 @end

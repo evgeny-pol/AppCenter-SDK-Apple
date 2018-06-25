@@ -1,5 +1,6 @@
 #import "MSAssets.h"
 #import "MSAssetsUpdateState.h"
+#import "MSAssetsPackage.h"
 
 @implementation MSAssetsAPI
 
@@ -24,6 +25,15 @@
 + (NSDictionary *)getUpdateMetadataForState:(MSAssetsUpdateState)updateState
                  currentPackageGettingError:(NSError * __autoreleasing *)error
 {
+    NSError *__autoreleasing internalError;
+
+    NSMutableDictionary *package = [[MSAssetsPackage getCurrentPackage:&internalError] mutableCopy];
+    if (internalError){
+        error = &internalError;
+        return nil;
+    }
+
+    if (package) return @{@"fake": @"fake"};
     if (updateState) return @{@"fake": @"fake"};
     if (error) return @{@"fake": @"fake"};
     return @{@"fake": @"fake"};
