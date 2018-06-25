@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (MSAssetsAPI *)initAPIWithBuilder:(MSAssetsBuilder *)builder;
 
-+ (MSAssetsAPI *)makeAPIWithBuilder:(void (^)(MSAssetsBuilder *))builder;;
++ (MSAssetsAPI *)makeAPIWithBuilder:(void (^)(MSAssetsBuilder *))builder;
 
 @end
 

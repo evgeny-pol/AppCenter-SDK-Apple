@@ -568,12 +568,12 @@
 		E85547C21D2D6253002DF6E2 /* AppCenterAssets */ = {
 			isa = PBXGroup;
 			children = (
-				1182FBF520E0DCD300CC9460 /* AssetsBuilder */,
 				E85547CC1D2D63EF002DF6E2 /* AppCenterAssets.h */,
-				E85547CD1D2D64B0002DF6E2 /* Internals */,
 				E85547C31D2D6253002DF6E2 /* MSAssets.h */,
 				E85547C51D2D6253002DF6E2 /* MSAssets.m */,
 				A31B561820DD093700D81CA1 /* MSAssetsAPI.m */,
+				1182FBF520E0DCD300CC9460 /* AssetsBuilder */,
+				E85547CD1D2D64B0002DF6E2 /* Internals */,
 				E85547D01D2D65AF002DF6E2 /* Support */,
 			);
 			path = AppCenterAssets;
