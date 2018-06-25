@@ -20,7 +20,7 @@ static NSString *const kMSUpdateAppVersion = @"updateAppVersion";
         dict[kMSDownloadUrl] = self.downloadUrl;
     }
     dict[kMSPackageSize] = [NSNumber numberWithLong: self.packageSize];    
-    dict[kMSUpdateAppVersion] = self.updateAppVersion ? @"YES" : @"NO";
+    dict[kMSUpdateAppVersion] = @(self.updateAppVersion);
     
     return dict;
 }

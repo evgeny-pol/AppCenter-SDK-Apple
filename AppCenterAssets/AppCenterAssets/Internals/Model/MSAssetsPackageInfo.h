@@ -13,5 +13,7 @@
  */
 @property(nonatomic, copy) NSString *previousPackage;
 
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
+
 @end
 

@@ -14,16 +14,40 @@ static NSString *const kMSBinaryModifiedTime = @"binaryModifiedTime";
     return self;
 }
 
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
+    if (!dictionary) {
+        return nil;
+    }
+    if ((self = [super initWithDictionary:dictionary])) {
+        if (dictionary[kMSEntryPoint]) {
+            self.entryPoint = dictionary[kMSEntryPoint];
+        }
+        if (dictionary[kMSBinaryModifiedTime]) {
+            self.binaryModifiedTime = dictionary[kMSBinaryModifiedTime];
+        }
+        if (dictionary[kMSIsPending]) {
+            self.isPending = [dictionary[kMSIsPending] isEqual:@YES] ? YES : NO;
+        }
+        if (dictionary[kMSIsFirstRun]) {
+            self.isFirstRun = [dictionary[kMSIsFirstRun] isEqual:@YES] ? YES : NO;
+        }
+        if (dictionary[kMSIsDebugOnly]) {
+            self.isDebugOnly = [dictionary[kMSIsDebugOnly] isEqual:@YES] ? YES : NO;
+        }
+    }
+    return self;
+}
+
 - (NSMutableDictionary *)serializeToDictionary {
     NSMutableDictionary *dict = [super serializeToDictionary];
     
-    dict[kMSIsPending] = self.isPending ? @"YES" : @"NO";
+    dict[kMSIsPending] = @(self.isPending);
     
     if (self.entryPoint) {
         dict[kMSEntryPoint] = self.entryPoint;
     }
-    dict[kMSIsFirstRun] = self.isFirstRun ? @"YES" : @"NO";
-    dict[kMSIsDebugOnly] = self.isDebugOnly ? @"YES" : @"NO";
+    dict[kMSIsFirstRun] = @(self.isFirstRun);
+    dict[kMSIsDebugOnly] = @(self.isDebugOnly);
     
     if (self.binaryModifiedTime) {
         dict[kMSBinaryModifiedTime] = self.binaryModifiedTime;

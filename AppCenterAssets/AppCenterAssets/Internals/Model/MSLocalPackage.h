@@ -50,4 +50,6 @@
 
 + (MSLocalPackage *)createLocalPackage:(NSString *)appVersion;
 
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
+
 @end

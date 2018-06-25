@@ -30,6 +30,6 @@
  */
 @property(nonatomic) MSAssetsPackage *assetsPackage;
 
-
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
 @end

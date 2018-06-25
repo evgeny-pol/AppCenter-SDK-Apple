@@ -11,10 +11,25 @@ static NSString *const kMSHash = @"pendingUpdateHash";
     return self;
 }
 
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
+    if (!dictionary) {
+        return nil;
+    }
+    if ((self = [super init])) {
+        if (dictionary[kMSIsLoading]) {
+            self.isLoading = [dictionary[kMSIsLoading] isEqual:@YES] ? YES : NO;
+        }
+        if (dictionary[kMSHash]) {
+            self.pendingUpdateHash = dictionary[kMSHash];
+        }
+    }
+    return self;
+}
+
 - (NSMutableDictionary *)serializeToDictionary {
     NSMutableDictionary *dict = [NSMutableDictionary new];
     
-    dict[kMSIsLoading] = self.isLoading ? @"YES" : @"NO";
+    dict[kMSIsLoading] = @(self.isLoading);
     if (self.pendingUpdateHash) {
         dict[kMSHash] = self.pendingUpdateHash;
     }

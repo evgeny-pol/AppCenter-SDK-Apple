@@ -31,7 +31,7 @@ static NSString *const kMSTitle = @"title";
     if (self.descriptionPrefix) {
         dict[kMSDescriptionPrefix] = self.descriptionPrefix;
     }
-    dict[kMSAppendReleaseDescription] = self.appendReleaseDescription ? @"YES" : @"NO";
+    dict[kMSAppendReleaseDescription] = @(self.appendReleaseDescription);
     if (self.mandatoryContinueButtonLabel) {
         dict[kMSMandatoryContinueButtonLabel] = self.mandatoryContinueButtonLabel;
     }
