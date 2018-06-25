@@ -2,6 +2,7 @@
 #import "MSAssetsPackage.h"
 #import "MSAssetsIllegalArgumentException.h"
 #import "MSAssetsPackageInfo.h"
+#import "MSAssets.h"
 
 static NSString *const kMSAppVersion = @"appVersion";
 static NSString *const kMSDeploymentKey = @"deploymentKey";
@@ -114,7 +115,12 @@ static NSString *const UnzippedFolderName = @"unzipped";
 
 + (NSString *)getMSAssetsPath
 {
-    return @"fake";
+    NSString* assetsPath = [[MSAssetsDeploymentInstance getApplicationSupportDirectory] stringByAppendingPathComponent:@"Assets"];
+    if ([MSAssetsDeploymentInstance isUsingTestConfiguration]) {
+        assetsPath = [assetsPath stringByAppendingPathComponent:@"TestPackages"];
+    }
+
+    return assetsPath;
 }
 
 #pragma mark - Public API methods

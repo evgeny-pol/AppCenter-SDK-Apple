@@ -4,6 +4,12 @@
 
 @implementation MSAssetsDeploymentInstance
 
++ (NSString *)getApplicationSupportDirectory
+{
+    NSString *applicationSupportDirectory = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    return applicationSupportDirectory;
+}
+
 - (NSDictionary *)checkForUpdate:(NSString *)deploymentKey {
 
     if (deploymentKey){
@@ -19,8 +25,6 @@
     NSLog(@"Check for update called");
     return @{@"fake": @"fake"};
 }
-
-#pragma mark - Private API methods
 
 + (NSDictionary *)getUpdateMetadataForState:(MSAssetsUpdateState)updateState
                  currentPackageGettingError:(NSError * __autoreleasing *)error
@@ -50,5 +54,12 @@
     }
     return currentPackage;
 }
+
++ (BOOL)isUsingTestConfiguration
+{
+    return NO;
+}
+
+
 
 @end
