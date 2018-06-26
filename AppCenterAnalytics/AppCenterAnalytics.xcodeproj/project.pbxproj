@@ -165,7 +165,6 @@
 		3568A7EF201A9BBB00F3B860 /* MSService.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A082051F74BB8600DC776D /* MSService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3568A7F0201A9BBB00F3B860 /* MSServiceAbstract.h in Headers */ = {isa = PBXBuildFile; fileRef = 387C77041D6CC39400D68CC1 /* MSServiceAbstract.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		358F9BC62019590200B9E22C /* MSLogWithProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 358F9BC52019590100B9E22C /* MSLogWithProperties.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		358F9BC82019596500B9E22C /* MSAbstractLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 358F9BC72019596400B9E22C /* MSAbstractLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		35BF19E51DF9D59E00193027 /* MSMockAnalyticsDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 35BF19E41DF9D59E00193027 /* MSMockAnalyticsDelegate.m */; };
 		3813B9651DBFE68200831214 /* MSAnalyticsInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 3813B9641DBFE68200831214 /* MSAnalyticsInternal.h */; };
 		387C77051D6CC39400D68CC1 /* MSServiceAbstract.h in Headers */ = {isa = PBXBuildFile; fileRef = 387C77041D6CC39400D68CC1 /* MSServiceAbstract.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -688,7 +687,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				358F9BC82019596500B9E22C /* MSAbstractLog.h in Headers */,
 				E89B33EC1D5A8F3500FDE8FB /* MSSessionTrackerDelegate.h in Headers */,
 				04A082061F74BB8600DC776D /* MSService.h in Headers */,
 				387C77051D6CC39400D68CC1 /* MSServiceAbstract.h in Headers */,

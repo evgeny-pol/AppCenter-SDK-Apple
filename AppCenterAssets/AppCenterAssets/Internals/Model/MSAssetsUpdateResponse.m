@@ -12,6 +12,22 @@ static NSString *const kMSUpdateInfo = @"updateInfo";
     return self;
 }
 
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
+    if (!dictionary) {
+        return nil;
+    }
+    if ((self = [super init])) {
+        if (dictionary[kMSUpdateInfo]) {
+            if ([dictionary[kMSUpdateInfo] isKindOfClass:[NSNull class]]) {
+                self.updateInfo = nil;
+            } else {
+                self.updateInfo = [[MSUpdateResponseUpdateInfo alloc] initWithDictionary: dictionary[kMSUpdateInfo]];
+            }
+        }
+    }
+    return self;
+}
+
 - (NSMutableDictionary *)serializeToDictionary {
     NSMutableDictionary *dict = [NSMutableDictionary new];
     

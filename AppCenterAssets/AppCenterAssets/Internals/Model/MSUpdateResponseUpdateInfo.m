@@ -18,6 +18,42 @@ static NSString *const kMSUpdateAppVersion = @"updateAppVersion";
     return self;
 }
 
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
+    if (!dictionary) {
+        return nil;
+    }
+    if ((self = [super init])) {
+        if (dictionary[kMSDownloadUrl]) {
+            self.downloadUrl = dictionary[kMSDownloadUrl];
+        }
+        if (dictionary[kMSDescription]) {
+            self.updateDescription = dictionary[kMSDescription];
+        }
+        if (dictionary[kMSIsAvailable]) {
+            self.isAvailable = [dictionary[kMSIsAvailable] isEqual:@YES] ? YES : NO;
+        }
+        if (dictionary[kMSisMandatory]) {
+            self.isMandatory = [dictionary[kMSisMandatory] isEqual:@YES] ? YES : NO;
+        }
+        if (dictionary[kMSUpdateAppVersion]) {
+            self.updateAppVersion = [dictionary[kMSUpdateAppVersion] isEqual:@YES] ? YES : NO;
+        }
+        if (dictionary[kMSLabel]) {
+            self.label = dictionary[kMSLabel];
+        }
+        if (dictionary[kMSPackageHash]) {
+            self.packageHash = dictionary[kMSPackageHash];
+        }
+        if (dictionary[kMSAppVersion]) {
+            self.appVersion = dictionary[kMSAppVersion];
+        }
+        if (dictionary[kMSPackageSize]) {
+            self.packageSize = [dictionary[kMSPackageSize] longLongValue];
+        }
+    }
+    return self;
+}
+
 - (NSMutableDictionary *)serializeToDictionary {
     NSMutableDictionary *dict = [NSMutableDictionary new];
     
@@ -30,8 +66,8 @@ static NSString *const kMSUpdateAppVersion = @"updateAppVersion";
     if (self.updateDescription) {
         dict[kMSDescription] = self.updateDescription;
     }
-    dict[kMSIsAvailable] = self.isAvailable ? @"YES" : @"NO";
-    dict[kMSisMandatory] = self.isMandatory ? @"YES" : @"NO";
+    dict[kMSIsAvailable] = @(self.isAvailable);
+    dict[kMSisMandatory] = @(self.isMandatory);
     
     if (self.label) {
         dict[kMSLabel] = self.label;
@@ -39,8 +75,8 @@ static NSString *const kMSUpdateAppVersion = @"updateAppVersion";
     if (self.packageHash) {
         dict[kMSPackageHash] = self.packageHash;
     }
-    dict[kMSPackageSize] = [NSNumber numberWithLong:self.packageSize];
-    dict[kMSUpdateAppVersion] = self.updateAppVersion ? @"YES" : @"NO";
+    dict[kMSUpdateAppVersion] = @(self.updateAppVersion);
+    dict[kMSPackageSize] = [NSNumber numberWithLongLong:self.packageSize];
     return dict;
 }
 
@@ -71,7 +107,7 @@ static NSString *const kMSUpdateAppVersion = @"updateAppVersion";
     [coder encodeInt64:self.packageSize forKey:kMSPackageSize];
     [coder encodeObject:self.label forKey:kMSLabel];
     [coder encodeObject:self.packageHash forKey:kMSPackageHash];
-    [coder encodeBool:self.updateDescription forKey:kMSDescription];
+    [coder encodeObject:self.updateDescription forKey:kMSDescription];
 }
 
 @end

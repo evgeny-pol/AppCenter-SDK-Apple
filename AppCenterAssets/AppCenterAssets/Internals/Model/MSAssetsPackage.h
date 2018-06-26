@@ -42,4 +42,12 @@
  */
 @property(nonatomic, copy) NSString *packageHash;
 
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
+
++ (MSAssetsPackage *)getCurrentPackage:(NSError **)error;
++ (NSString *)getCurrentPackageHash:(NSError **)error;
++ (MSAssetsPackage *)getPackage:(NSString *)packageHash
+                          error:(NSError **)error;
++ (NSString *)getPackageFolderPath:(NSString *)packageHash;
+
 @end

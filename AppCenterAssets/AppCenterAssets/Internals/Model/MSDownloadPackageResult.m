@@ -14,7 +14,7 @@ static NSString *const kMSisZip = @"isZip";
 - (NSMutableDictionary *)serializeToDictionary {
     NSMutableDictionary *dict = [NSMutableDictionary new];
     
-    dict[kMSisZip] = self.isZip ? @"YES" : @"NO";
+    dict[kMSisZip] = @(self.isZip);
     if (self.downloadFile) {
         dict[kMSDownloadFile] = self.downloadFile;
     }

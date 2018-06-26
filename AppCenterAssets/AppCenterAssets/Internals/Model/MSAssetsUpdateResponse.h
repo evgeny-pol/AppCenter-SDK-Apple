@@ -9,4 +9,6 @@
  */
 @property(nonatomic) MSUpdateResponseUpdateInfo *updateInfo;
 
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
+
 @end

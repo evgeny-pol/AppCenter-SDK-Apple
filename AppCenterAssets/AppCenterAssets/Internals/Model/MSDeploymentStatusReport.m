@@ -16,6 +16,40 @@ static NSString *const kMSAssetsPackage = @"package";
     return self;
 }
 
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
+    if (!dictionary) {
+        return nil;
+    }
+    if ((self = [super init])) {
+        NSString *appVersion = dictionary[kMSAppVersion];
+        if (appVersion != nil) {
+            _appVersion = appVersion;
+        } else {
+            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSDeploymentStatusReport.class) argument:kMSAppVersion];
+        }
+        NSString *previousKey = dictionary[kMSPreviousDeploymentKey];
+        if (previousKey != nil) {
+            _previousDeploymentKey = previousKey;
+        } else {
+            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSDeploymentStatusReport.class) argument:kMSPreviousDeploymentKey];
+        }
+        if (dictionary[kMSPreviousLabelOrAppVersion]) {
+            self.previousLabelOrAppVersion = dictionary[kMSPreviousLabelOrAppVersion];
+        }
+        if (dictionary[kMSAssetsPackage]) {
+            if ([dictionary[kMSAssetsPackage] isKindOfClass:[NSNull class]]) {
+                self.assetsPackage = nil;
+            } else {
+                self.assetsPackage = [[MSAssetsPackage alloc] initWithDictionary: dictionary[kMSAssetsPackage]];
+            }
+        }
+        if (dictionary[kMSStatus]) {
+            self.status = [dictionary[kMSStatus] intValue];
+        }
+    }
+    return self;
+}
+
 - (NSMutableDictionary *)serializeToDictionary {
     NSMutableDictionary *dict = [NSMutableDictionary new];
     

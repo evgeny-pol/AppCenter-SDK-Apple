@@ -8,7 +8,7 @@
 @interface MSAssetsViewController ()
 
 @property (weak, nonatomic) IBOutlet UISwitch *enabled;
-@property (nonatomic) MSAssetsAPI *assets;
+@property (nonatomic) MSAssetsDeploymentInstance *assetsDeployment;
 
 @end
 
@@ -18,7 +18,7 @@
   [super viewDidLoad];
     self.enabled.on = [MSAssets isEnabled];
     
-    _assets = [MSAssets makeAPIWithBuilder:^(MSAssetsBuilder *builder) {
+    _assetsDeployment = [MSAssets makeDeploymentInstanceWithBuilder:^(MSAssetsBuilder *builder) {
         [builder setDeploymentKey:@"123"];
     }];
 }
@@ -29,7 +29,7 @@
 }
 
 - (IBAction)checkForUpdate {
-    [_assets checkForUpdate:@"123"];
+    [_assetsDeployment checkForUpdate:@"123"];
 }
 
 

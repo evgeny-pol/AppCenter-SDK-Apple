@@ -12,7 +12,7 @@
 /**
  * Size of the package.
  */
-@property(nonatomic) long packageSize;
+@property(nonatomic) long long packageSize;
 
 /**
  * Whether the client should trigger a store update.
