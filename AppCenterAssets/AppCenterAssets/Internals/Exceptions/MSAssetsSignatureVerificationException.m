@@ -33,8 +33,9 @@
         case MSSignatureExceptionTypePublicKeyNotParsed:
             return @"Unable to parse public key.";
         case MSSignatureExceptionTypeReadSignatureFileError:
-        case MSSignatureExceptionTypeNoContentHash:
             return @"Unable to read signature file.";
+        case MSSignatureExceptionTypeNoContentHash:
+            return @"Signature file did not specify a content hash.";
         case MSSignatureExceptionTypeDefault:
         default:
             return @"Error occurred during signature verification.";

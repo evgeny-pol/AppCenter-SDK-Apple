@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 #import "MSAssetsUpdateRequest.h"
-#import "MSAssetsPackage.h"
+#import "MSLocalPackage.h"
 #import "MSAssetsIllegalArgumentException.h"
 
 static NSString *const kMSAppVersion = @"appVersion";
@@ -40,9 +40,9 @@ static NSString *const kMSPackageHash = @"packageHash";
     return dict;
 }
 
-+ (MSAssetsUpdateRequest *)createUpdateRequest:(NSString *)deploymentKey
-                                 assetsPackage:(MSAssetsPackage *)assetsPackage
-                                clientUniqueId:(NSString *)clientUniqueId {
++ (MSAssetsUpdateRequest *)createUpdateRequestWithDeploymentKey:(NSString *)deploymentKey
+                                 assetsPackage:(MSLocalPackage *)assetsPackage
+                                andDeviceId:(NSString *)clientUniqueId {
     MSAssetsUpdateRequest *request = [[MSAssetsUpdateRequest alloc] init];
     if (deploymentKey != nil) {
         [request setDeploymentKey:deploymentKey];

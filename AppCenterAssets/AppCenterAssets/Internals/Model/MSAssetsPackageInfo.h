@@ -1,6 +1,9 @@
 #import <Foundation/Foundation.h>
 #import "MSSerializableObject.h"
 
+/**
+ * Contains information about packages available for user.
+ */
 @interface MSAssetsPackageInfo : NSObject <MSSerializableObject>
 
 /**

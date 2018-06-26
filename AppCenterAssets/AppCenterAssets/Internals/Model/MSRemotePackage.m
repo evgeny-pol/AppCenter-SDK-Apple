@@ -24,11 +24,11 @@ static NSString *const kMSUpdateAppVersion = @"updateAppVersion";
     return dict;
 }
 
-+ (MSRemotePackage *)createRemotePackage:(BOOL)failedInstall
-                             packageSize:(long)packageSize
-                             downloadUrl:(NSString *)downloadUrl
-                        updateAppVersion:(BOOL)updateAppVersion
-                           assetsPackage:(MSAssetsPackage *)assetsPackage {
++ (MSRemotePackage *)createRemotePackageFromPackage:(MSAssetsPackage *)assetsPackage
+                                      failedInstall:(BOOL)failedInstall
+                                        packageSize:(long)packageSize
+                                        downloadUrl:(NSString *)downloadUrl
+                                   updateAppVersion:(BOOL)updateAppVersion {
     MSRemotePackage *remotePackage = [[MSRemotePackage alloc] init];
     [remotePackage setAppVersion:[assetsPackage appVersion]];
     [remotePackage setDeploymentKey:[assetsPackage deploymentKey]];
@@ -44,8 +44,8 @@ static NSString *const kMSUpdateAppVersion = @"updateAppVersion";
 }
 
 
-+ (MSRemotePackage *)createRemotePackageFromUpdateInfo:(NSString *)deploymentKey
-                                            updateInfo:(MSUpdateResponseUpdateInfo *)updateInfo {
++ (MSRemotePackage *)createRemotePackageFromUpdateInfo:(MSUpdateResponseUpdateInfo *)updateInfo
+                                      andDeploymentKey:(NSString *)deploymentKey {
     MSRemotePackage *remotePackage = [[MSRemotePackage alloc] init];
     [remotePackage setAppVersion:[updateInfo appVersion]];
     [remotePackage setDeploymentKey:deploymentKey];
@@ -60,8 +60,8 @@ static NSString *const kMSUpdateAppVersion = @"updateAppVersion";
     return remotePackage;
 }
 
-+ (MSRemotePackage *)createDefaultRemotePackage:(NSString *)appVersion
-                               updateAppVersion:(BOOL)updateAppVersion {
++ (MSRemotePackage *)createDefaultRemotePackageWithAppVersion:(NSString *)appVersion
+                                             updateAppVersion:(BOOL)updateAppVersion {
     MSRemotePackage *remotePackage = [[MSRemotePackage alloc] init];
     [remotePackage setAppVersion:appVersion];
     [remotePackage setUpdateAppVersion:updateAppVersion];

@@ -127,6 +127,10 @@
 		046F462420DFBEB800813F5A /* MSAssetsUpdateRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 046F462320DFBEB800813F5A /* MSAssetsUpdateRequest.m */; };
 		046F462620DFC85C00813F5A /* MSOperationType.h in Sources */ = {isa = PBXBuildFile; fileRef = 046F462520DFC85C00813F5A /* MSOperationType.h */; };
 		046F462820DFCAC800813F5A /* MSSignatureExceptionType.h in Sources */ = {isa = PBXBuildFile; fileRef = 046F462720DFCAC800813F5A /* MSSignatureExceptionType.h */; };
+		0482864B20E22E40005FEFD8 /* MSAssetsCheckForUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482864A20E22E40005FEFD8 /* MSAssetsCheckForUpdate.m */; };
+		0482864F20E23802005FEFD8 /* MSAssetsAcquisitionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482864E20E23802005FEFD8 /* MSAssetsAcquisitionManager.m */; };
+		0482865220E242F4005FEFD8 /* MSAssetsConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482865120E242F4005FEFD8 /* MSAssetsConfiguration.m */; };
+		0482865520E24968005FEFD8 /* MSAssetsErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482865420E24968005FEFD8 /* MSAssetsErrors.m */; };
 		0485AF6A1EAA79E300C10CAF /* MSAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = E85547C51D2D6253002DF6E2 /* MSAssets.m */; };
 		0485AF741EAA79E300C10CAF /* AppCenter+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = E85547CF1D2D6521002DF6E2 /* AppCenter+Internal.h */; };
 		0485AF781EAA79E300C10CAF /* AppCenterAssets.h in Headers */ = {isa = PBXBuildFile; fileRef = E85547CC1D2D63EF002DF6E2 /* AppCenterAssets.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -297,6 +301,14 @@
 		046F462320DFBEB800813F5A /* MSAssetsUpdateRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsUpdateRequest.m; sourceTree = "<group>"; };
 		046F462520DFC85C00813F5A /* MSOperationType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSOperationType.h; sourceTree = "<group>"; };
 		046F462720DFCAC800813F5A /* MSSignatureExceptionType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSSignatureExceptionType.h; sourceTree = "<group>"; };
+		0482864920E22E23005FEFD8 /* MSAssetsCheckForUpdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MSAssetsCheckForUpdate.h; path = AppCenterAssets/Internals/Sender/MSAssetsCheckForUpdate.h; sourceTree = SOURCE_ROOT; };
+		0482864A20E22E40005FEFD8 /* MSAssetsCheckForUpdate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MSAssetsCheckForUpdate.m; path = AppCenterAssets/Internals/Sender/MSAssetsCheckForUpdate.m; sourceTree = SOURCE_ROOT; };
+		0482864D20E23777005FEFD8 /* MSAssetsAcquisitionManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsAcquisitionManager.h; sourceTree = "<group>"; };
+		0482864E20E23802005FEFD8 /* MSAssetsAcquisitionManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsAcquisitionManager.m; sourceTree = "<group>"; };
+		0482865020E238EC005FEFD8 /* MSAssetsConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsConfiguration.h; sourceTree = "<group>"; };
+		0482865120E242F4005FEFD8 /* MSAssetsConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsConfiguration.m; sourceTree = "<group>"; };
+		0482865320E24952005FEFD8 /* MSAssetsErrors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsErrors.h; sourceTree = "<group>"; };
+		0482865420E24968005FEFD8 /* MSAssetsErrors.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsErrors.m; sourceTree = "<group>"; };
 		0484DD201F39096E0092B777 /* OCHamcrest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCHamcrest.framework; path = ../../Vendor/tvOS/OCHamcrest/OCHamcrest.framework; sourceTree = "<group>"; };
 		0484DD231F39098B0092B777 /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMock.framework; path = ../../tvOS/OCMock/OCMock.framework; sourceTree = "<group>"; };
 		0484DD601F3910FF0092B777 /* Tests tvOS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "Tests tvOS.xcconfig"; path = "../../Config/Tests tvOS.xcconfig"; sourceTree = "<group>"; };
@@ -438,6 +450,25 @@
 			name = macOS;
 			sourceTree = "<group>";
 		};
+		0482864820E22DE5005FEFD8 /* Sender */ = {
+			isa = PBXGroup;
+			children = (
+				0482864920E22E23005FEFD8 /* MSAssetsCheckForUpdate.h */,
+				0482864A20E22E40005FEFD8 /* MSAssetsCheckForUpdate.m */,
+			);
+			name = Sender;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		0482864C20E23760005FEFD8 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				0482864D20E23777005FEFD8 /* MSAssetsAcquisitionManager.h */,
+				0482864E20E23802005FEFD8 /* MSAssetsAcquisitionManager.m */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 		0484DD1E1F3909470092B777 /* tvOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -576,6 +607,8 @@
 				046F461F20DFB87700813F5A /* MSAssetsSyncOptions.m */,
 				046F462120DFBBF700813F5A /* MSAssetsUpdateDialog.m */,
 				046F462320DFBEB800813F5A /* MSAssetsUpdateRequest.m */,
+				0482865020E238EC005FEFD8 /* MSAssetsConfiguration.h */,
+				0482865120E242F4005FEFD8 /* MSAssetsConfiguration.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -674,6 +707,8 @@
 				1182FBF520E0DCD300CC9460 /* AssetsBuilder */,
 				E85547CD1D2D64B0002DF6E2 /* Internals */,
 				E85547D01D2D65AF002DF6E2 /* Support */,
+				0482865320E24952005FEFD8 /* MSAssetsErrors.h */,
+				0482865420E24968005FEFD8 /* MSAssetsErrors.m */,
 			);
 			path = AppCenterAssets;
 			sourceTree = "<group>";
@@ -681,6 +716,8 @@
 		E85547CD1D2D64B0002DF6E2 /* Internals */ = {
 			isa = PBXGroup;
 			children = (
+				0482864C20E23760005FEFD8 /* Manager */,
+				0482864820E22DE5005FEFD8 /* Sender */,
 				E85547CF1D2D6521002DF6E2 /* AppCenter+Internal.h */,
 				CD09077820CDD1880026F862 /* Enum */,
 				CD09078420CDE0140026F862 /* Exceptions */,
@@ -1079,6 +1116,7 @@
 				045C363120E0F52A00521386 /* MSAssetsInstallException.m in Sources */,
 				046F461220DFAE6B00813F5A /* MSUpdateResponseUpdateInfo.m in Sources */,
 				046F461820DFB3C900813F5A /* MSAssetsUpdateResponse.m in Sources */,
+				0482865520E24968005FEFD8 /* MSAssetsErrors.m in Sources */,
 				046F460A20DCFDAB00813F5A /* MSAssetsIllegalArgumentException.m in Sources */,
 				045C364120E0FA4600521386 /* MSAssetsRollbackException.m in Sources */,
 				046F461020DFAAA900813F5A /* MSRemotePackage.m in Sources */,
@@ -1088,6 +1126,7 @@
 				045C362720E0E32B00521386 /* MSAssetsGeneralException.m in Sources */,
 				046F460E20DFA52500813F5A /* MSLocalPackage.m in Sources */,
 				A31B561920DD093700D81CA1 /* MSAssetsDeploymentInstance.m in Sources */,
+				0482864F20E23802005FEFD8 /* MSAssetsAcquisitionManager.m in Sources */,
 				A31B562820DD3FA000D81CA1 /* MSAssetsBuilder.m in Sources */,
 				E85547C61D2D6253002DF6E2 /* MSAssets.m in Sources */,
 				046F462220DFBBF700813F5A /* MSAssetsUpdateDialog.m in Sources */,
@@ -1097,6 +1136,8 @@
 				046F462620DFC85C00813F5A /* MSOperationType.h in Sources */,
 				046F461A20DFB4A000813F5A /* MSReportStatusResult.m in Sources */,
 				045C363B20E0F73500521386 /* MSAssetsPlatformUtilsException.m in Sources */,
+				0482865220E242F4005FEFD8 /* MSAssetsConfiguration.m in Sources */,
+				0482864B20E22E40005FEFD8 /* MSAssetsCheckForUpdate.m in Sources */,
 				045C363920E0F6E400521386 /* MSAssetsNativeApiCallException.m in Sources */,
 				046F461E20DFB6AB00813F5A /* MSDownloadPackageResult.m in Sources */,
 				045C362F20E0F4EC00521386 /* MSAssetsInitializeException.m in Sources */,

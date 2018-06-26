@@ -1,6 +1,9 @@
 #import <Foundation/Foundation.h>
 #import "MSSerializableObject.h"
 
+/**
+ * Update info from the server.
+ */
 @interface MSUpdateResponseUpdateInfo : NSObject <MSSerializableObject>
 
 /**
@@ -15,7 +18,7 @@
 @property(nonatomic, copy) NSString *updateDescription;
 
 /**
- * Whether the package is available (<code>false</code> if it it disabled).
+ * Whether the package is available (`false` if it it disabled).
  */
 @property(nonatomic) BOOL isAvailable;
 
@@ -53,7 +56,7 @@
 @property(nonatomic) BOOL updateAppVersion;
 
 /**
- * Set to <code>true</code> if the update directs to use the binary version of the application.
+ * Set to `true` if the update directs to use the binary version of the application.
  */
 @property(nonatomic) BOOL shouldRunBinaryVersion;
 

@@ -2,6 +2,9 @@
 #import "MSSerializableObject.h"
 #import "MSAssetsUpdateResponseUpdateInfo.h"
 
+/**
+ * A response class containing info about the update.
+ */
 @interface MSAssetsUpdateResponse : NSObject <MSSerializableObject>
 
 /**

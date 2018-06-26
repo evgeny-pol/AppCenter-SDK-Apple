@@ -1,6 +1,10 @@
 #import <Foundation/Foundation.h>
 #import "MSSerializableObject.h"
 
+/**
+ * Basic package class. Contains all the basic information about the update package.
+ * Currently extended by `MSRemotePackage` and `MSLocalPackage`.
+ */
 @interface MSAssetsPackage : NSObject <MSSerializableObject>
 
 /**
@@ -32,7 +36,7 @@
 @property(nonatomic) BOOL isMandatory;
 
 /**
- * The internal label automatically given to the update by the CodePush server.
+ * The internal label automatically given to the update by the `CodePush` server.
  * This value uniquely identifies the update within its deployment.
  */
 @property(nonatomic, copy) NSString *label;

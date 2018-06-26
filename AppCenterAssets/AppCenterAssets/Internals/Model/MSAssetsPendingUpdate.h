@@ -1,6 +1,9 @@
 #import <Foundation/Foundation.h>
 #import "MSSerializableObject.h"
 
+/**
+ * Contains info about pending update.
+ */
 @interface MSAssetsPendingUpdate : NSObject <MSSerializableObject>
 
 /**
