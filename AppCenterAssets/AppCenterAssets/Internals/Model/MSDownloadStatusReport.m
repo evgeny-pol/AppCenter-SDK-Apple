@@ -28,9 +28,9 @@ static NSString *const kMSLabel = @"label";
     return dict;
 }
 
-+ (MSDownloadStatusReport *)createReport:(NSString *)clientUniqueId
-                       withDeploymentKey:(NSString *)deploymentKey
-                                andLabel:(NSString *)label {
++ (nonnull MSDownloadStatusReport *)createReportWithLabel:(nonnull NSString *)label
+                                                 deviceId:(nonnull NSString *)clientUniqueId
+                                         andDeploymentKey:(nonnull NSString *) deploymentKey {
     MSDownloadStatusReport *report = [[MSDownloadStatusReport alloc] init];
     if (clientUniqueId != nil) {
         [report setClientUniqueId:clientUniqueId];

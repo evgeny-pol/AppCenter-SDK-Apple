@@ -4,8 +4,8 @@
 #import "MSAssetsIllegalArgumentException.h"
 
 static NSString *const kMSAppVersion = @"appVersion";
-static NSString *const kMSPreviousDeploymentKey = @"previousKey";
-static NSString *const kMSPreviousLabelOrAppVersion = @"previousLabel";
+static NSString *const kMSPreviousDeploymentKey = @"previousDeploymentKey";
+static NSString *const kMSPreviousLabelOrAppVersion = @"previousLabelOrAppVersion";
 static NSString *const kMSStatus = @"status";
 static NSString *const kMSAssetsPackage = @"package";
 

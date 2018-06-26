@@ -38,7 +38,7 @@ static NSString *const kMSShouldRestart = @"shouldRestart";
     return dict;
 }
 
-- (instancetype)init:(NSString *)deploymentKey {
+- (instancetype)initWithDeploymentKey:(NSString *)deploymentKey{
     if ((self = [self init])) {
         _deploymentKey = deploymentKey;
         _installMode = MSAssetsInstallModeOnNextRestart;

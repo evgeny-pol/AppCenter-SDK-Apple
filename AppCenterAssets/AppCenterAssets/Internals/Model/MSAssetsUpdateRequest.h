@@ -1,7 +1,10 @@
 #import <Foundation/Foundation.h>
 #import "MSSerializableObject.h"
-#import "MSAssetsPackage.h"
+#import "MSLocalPackage.h"
 
+/**
+ * A request class for querying for updates.
+ */
 @interface MSAssetsUpdateRequest : NSObject <MSSerializableObject>
 
 /**
@@ -35,11 +38,14 @@
 @property(nonatomic, copy, null_unspecified) NSString *clientUniqueId;
 
 /**
- * @param assetsPackage  basic package containing the information.
- * @return instance of the {@link AssetsRemotePackage}.
+ * Creates an update request based on the current `MSAssetsPackage`.
+ * @param deploymentKey the deployment key you want to query for an update against.
+ * @param assetsPackage  currently installed package containing the information.
+ * @param clientUniqueId id of the device.
+ * @return instance of the `MSRemotePackage`.
  */
-+ (null_unspecified MSAssetsUpdateRequest *)createUpdateRequest:(nonnull NSString *)deploymentKey
-                                 assetsPackage:(nonnull MSAssetsPackage *)assetsPackage
-                                clientUniqueId:(nonnull NSString *)clientUniqueId;
++ (null_unspecified MSAssetsUpdateRequest *)createUpdateRequestWithDeploymentKey:(nonnull NSString *)deploymentKey
+                                 assetsPackage:(nonnull MSLocalPackage *)assetsPackage
+                                andDeviceId:(nonnull NSString *)clientUniqueId;
 
 @end

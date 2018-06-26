@@ -4,7 +4,7 @@
 static NSString *const kMSIsPending = @"isPending";
 static NSString *const kMSEntryPoint = @"entryPoint";
 static NSString *const kMSIsFirstRun = @"isFirstRun";
-static NSString *const kMSIsDebugOnly = @"isDebugOnly";
+static NSString *const kMSIsDebugOnly = @"_isDebugOnly";
 static NSString *const kMSBinaryModifiedTime = @"binaryModifiedTime";
 
 @implementation MSLocalPackage
@@ -55,12 +55,12 @@ static NSString *const kMSBinaryModifiedTime = @"binaryModifiedTime";
     return dict;
 }
 
-+ (MSLocalPackage *)createLocalPackage:(BOOL)failedInstall
-                            isFirstRun:(BOOL)isFirstRun
-                             isPending:(BOOL)isPending
-                           isDebugOnly:(BOOL)isDebugOnly
-                            entryPoint:(NSString *)entryPoint
-                         assetsPackage:(MSAssetsPackage *)assetsPackage {
++ (MSLocalPackage *)createLocalPackageWithPackage:(MSAssetsPackage *)assetsPackage
+                                    failedInstall:(BOOL)failedInstall
+                                       isFirstRun:(BOOL)isFirstRun
+                                        isPending:(BOOL)isPending
+                                      isDebugOnly:(BOOL)isDebugOnly
+                                       entryPoint:(NSString *)entryPoint {
     MSLocalPackage *localPackage = [[MSLocalPackage alloc] init];
     [localPackage setAppVersion:[assetsPackage appVersion]];
     [localPackage setDeploymentKey:[assetsPackage deploymentKey]];
@@ -76,7 +76,7 @@ static NSString *const kMSBinaryModifiedTime = @"binaryModifiedTime";
     return localPackage;
 }
 
-+ (MSLocalPackage *)createLocalPackage:(NSString *)appVersion {
++ (MSLocalPackage *)createLocalPackageWithAppVersion:(NSString *)appVersion {
     MSLocalPackage *localPackage = [[MSLocalPackage alloc] init];
     [localPackage setAppVersion:appVersion];
     [localPackage setDeploymentKey:@""];

@@ -1,6 +1,9 @@
 #import <Foundation/Foundation.h>
 #import "MSSerializableObject.h"
 
+/**
+ * Represents a report sent after downloading package.
+ */
 @interface MSDownloadStatusReport : NSObject <MSSerializableObject>
 
 /**
@@ -9,12 +12,12 @@
 @property(nonatomic, copy, nonnull) NSString *clientUniqueId;
 
 /**
- * The deployment key to use to query the CodePush server for an update.
+ * The deployment key to use to query the `CodePush` server for an update.
  */
 @property(nonatomic, copy, nonnull) NSString *deploymentKey;
 
 /**
- * The internal label automatically given to the update by the CodePush server.
+ * The internal label automatically given to the update by the `CodePush` server.
  * This value uniquely identifies the update within its deployment.
  */
 @property(nonatomic, copy, nonnull) NSString *label;
@@ -25,10 +28,10 @@
  * @param clientUniqueId id of the device.
  * @param deploymentKey  deployment key to use to query the CodePush server for an update.
  * @param label          internal label automatically given to the update by the CodePush server.
- * @return instance of {@link MSDownloadStatusReport}.
+ * @return instance of `MSDownloadStatusReport`.
  */
-+ (nonnull MSDownloadStatusReport *)createReport:(nonnull NSString *)clientUniqueId
-                       withDeploymentKey:(nonnull NSString *) deploymentKey
-                                andLabel:(nonnull NSString *)label;
++ (nonnull MSDownloadStatusReport *)createReportWithLabel:(nonnull NSString *)label
+                                                 deviceId:(nonnull NSString *)clientUniqueId
+                                        andDeploymentKey:(nonnull NSString *) deploymentKey;
 
 @end

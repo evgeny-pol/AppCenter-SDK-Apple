@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 #import "MSAssetsUpdateResponseUpdateInfo.h"
 
-static NSString *const kMSDownloadUrl = @"downloadUrl";
+static NSString *const kMSDownloadUrl = @"downloadURL";
 static NSString *const kMSDescription = @"description";
 static NSString *const kMSIsAvailable = @"isAvailable";
 static NSString *const kMSisMandatory = @"isMandatory";
@@ -10,6 +10,7 @@ static NSString *const kMSLabel = @"label";
 static NSString *const kMSPackageHash = @"packageHash";
 static NSString *const kMSPackageSize = @"packageSize";
 static NSString *const kMSUpdateAppVersion = @"updateAppVersion";
+static NSString *const kMSShouldRunBinaryVersion = @"shouldRunBinaryVersion";
 
 @implementation MSUpdateResponseUpdateInfo
 
@@ -37,6 +38,9 @@ static NSString *const kMSUpdateAppVersion = @"updateAppVersion";
         }
         if (dictionary[kMSUpdateAppVersion]) {
             self.updateAppVersion = [dictionary[kMSUpdateAppVersion] isEqual:@YES] ? YES : NO;
+        }
+        if (dictionary[kMSShouldRunBinaryVersion]) {
+            self.shouldRunBinaryVersion = [dictionary[kMSShouldRunBinaryVersion] isEqual:@YES] ? YES : NO;
         }
         if (dictionary[kMSLabel]) {
             self.label = dictionary[kMSLabel];
@@ -68,6 +72,7 @@ static NSString *const kMSUpdateAppVersion = @"updateAppVersion";
     }
     dict[kMSIsAvailable] = @(self.isAvailable);
     dict[kMSisMandatory] = @(self.isMandatory);
+    dict[kMSShouldRunBinaryVersion] = @(self.shouldRunBinaryVersion);
     
     if (self.label) {
         dict[kMSLabel] = self.label;
@@ -90,6 +95,7 @@ static NSString *const kMSUpdateAppVersion = @"updateAppVersion";
         _isAvailable = [coder decodeBoolForKey:kMSIsAvailable];
         _isMandatory = [coder decodeBoolForKey:kMSisMandatory];
         _updateAppVersion = [coder decodeBoolForKey:kMSUpdateAppVersion];
+        _shouldRunBinaryVersion = [coder decodeBoolForKey:kMSShouldRunBinaryVersion];
         _packageSize = [coder decodeInt64ForKey:kMSPackageSize];
         _label = [coder decodeObjectForKey:kMSLabel];
         _packageHash = [coder decodeObjectForKey:kMSPackageHash];
@@ -104,6 +110,7 @@ static NSString *const kMSUpdateAppVersion = @"updateAppVersion";
     [coder encodeBool:self.isAvailable forKey:kMSIsAvailable];
     [coder encodeBool:self.isMandatory forKey:kMSisMandatory];
     [coder encodeBool:self.updateAppVersion forKey:kMSUpdateAppVersion];
+    [coder encodeBool:self.shouldRunBinaryVersion forKey:kMSShouldRunBinaryVersion];
     [coder encodeInt64:self.packageSize forKey:kMSPackageSize];
     [coder encodeObject:self.label forKey:kMSLabel];
     [coder encodeObject:self.packageHash forKey:kMSPackageHash];

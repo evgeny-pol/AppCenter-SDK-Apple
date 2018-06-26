@@ -3,6 +3,9 @@
 #import "MSAssetsDeploymentStatus.h"
 #import "MSSerializableObject.h"
 
+/**
+ * Represents a report about the deployment.
+ */
 @interface MSDeploymentStatusReport : NSObject <MSSerializableObject>
 
 /**

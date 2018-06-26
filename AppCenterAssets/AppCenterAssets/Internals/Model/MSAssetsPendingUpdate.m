@@ -2,7 +2,7 @@
 #import "MSAssetsPendingUpdate.h"
 
 static NSString *const kMSIsLoading = @"isLoading";
-static NSString *const kMSHash = @"pendingUpdateHash";
+static NSString *const kMSHash = @"hash";
 
 @implementation MSAssetsPendingUpdate
 
