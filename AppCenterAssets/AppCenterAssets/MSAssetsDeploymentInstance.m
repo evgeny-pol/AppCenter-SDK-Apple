@@ -1,7 +1,14 @@
 #import "MSAssets.h"
 #import "MSAssetsUpdateState.h"
+#import "MSAssetsPackage.h"
 
 @implementation MSAssetsDeploymentInstance
+
++ (NSString *)getApplicationSupportDirectory
+{
+    NSString *applicationSupportDirectory = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    return applicationSupportDirectory;
+}
 
 - (NSDictionary *)checkForUpdate:(NSString *)deploymentKey {
 
@@ -19,11 +26,18 @@
     return @{@"fake": @"fake"};
 }
 
-#pragma mark - Private API methods
-
 + (NSDictionary *)getUpdateMetadataForState:(MSAssetsUpdateState)updateState
                  currentPackageGettingError:(NSError * __autoreleasing *)error
 {
+    NSError *__autoreleasing internalError;
+
+    NSMutableDictionary *package = [[MSAssetsPackage getCurrentPackage:&internalError] mutableCopy];
+    if (internalError){
+        error = &internalError;
+        return nil;
+    }
+
+    if (package) return @{@"fake": @"fake"};
     if (updateState) return @{@"fake": @"fake"};
     if (error) return @{@"fake": @"fake"};
     return @{@"fake": @"fake"};
@@ -40,5 +54,12 @@
     }
     return currentPackage;
 }
+
++ (BOOL)isUsingTestConfiguration
+{
+    return NO;
+}
+
+
 
 @end
