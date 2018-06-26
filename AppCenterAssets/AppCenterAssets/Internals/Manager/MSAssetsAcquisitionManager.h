@@ -10,7 +10,7 @@
  @param remotePackage result of the request.
  @param error error if happened.
  */
-typedef void (^MSCheckForUpdateCompletionHandler)(MSRemotePackage *remotePackage, NSError *error);
+typedef void (^MSCheckForUpdateCompletionHandler)(MSRemotePackage * _Nullable remotePackage, NSError * _Nullable error);
 
 
 /**
@@ -30,8 +30,9 @@ typedef void (^MSCheckForUpdateCompletionHandler)(MSRemotePackage *remotePackage
  @param localPackage instance of MSLocalPackage.
  @param handler callback to pass the results.
 */
-- (void)queryUpdateWithCurrentPackage:(MSAssetsConfiguration *)configuration
-                                      localPackage:(MSLocalPackage *)localPackage
-                    completionHandler:(MSCheckForUpdateCompletionHandler)handler;
+- (void)queryUpdateWithCurrentPackage:(nullable MSAssetsConfiguration *)configuration
+                                      localPackage:(nullable MSLocalPackage *)localPackage
+                    completionHandler:(nullable MSCheckForUpdateCompletionHandler)handler;
 
 @end
+

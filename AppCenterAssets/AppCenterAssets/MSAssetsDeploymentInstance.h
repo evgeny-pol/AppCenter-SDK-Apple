@@ -1,11 +1,11 @@
+#import "MSRemotePackage.h"
+#import "MSAssetsManagers.h"
+
 @interface MSAssetsDeploymentInstance : NSObject
 
-+ (NSString *)getApplicationSupportDirectory;
-- (NSDictionary *)checkForUpdate:(NSString *)deploymentKey;
+- (MSRemotePackage *)checkForUpdate:(NSString *)deploymentKey;
 
-// The below methods are only used during tests.
-+ (BOOL)isUsingTestConfiguration;
-
+@property (nonatomic, copy, readonly) MSAssetsManagers *managers;
 
 @property (nonatomic, copy) NSString *deploymentKey;
 @property (nonatomic, copy) NSString *serverUrl;
