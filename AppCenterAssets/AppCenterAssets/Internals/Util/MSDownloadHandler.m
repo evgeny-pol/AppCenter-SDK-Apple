@@ -30,9 +30,11 @@ doneCallback:(MSDownloadCompletionHandler)completionHandler {
                                              timeoutInterval:60.0];
         NSURLSessionConfiguration* config = [NSURLSessionConfiguration defaultSessionConfiguration];
         NSOperationQueue *queue = [NSOperationQueue new];
-        queue.underlyingQueue = self.operationQueue;
-        NSURLSession *_session = [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:queue];
-        NSURLSessionDataTask* task = [_session dataTaskWithRequest:request];
+        if ([NSOperationQueue instancesRespondToSelector:@selector(setUnderlyingQueue:)]) {
+            queue.underlyingQueue = self.operationQueue;
+        }
+        NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:queue];
+        NSURLSessionDataTask* task = [session dataTaskWithRequest:request];
         [task resume];
     }
 }
