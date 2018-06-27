@@ -56,7 +56,6 @@
                 update.deploymentKey = config.deploymentKey;
             }
         }
-        updatePackage = ;
         //return update;
     }];
 
