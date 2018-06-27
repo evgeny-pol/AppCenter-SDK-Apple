@@ -31,10 +31,10 @@
         queryPackage = [MSLocalPackage new];
     }
 
-    [[[self managers] acquisitionManager] queryUpdateWithCurrentPackage:config localPackage:queryPackage completionHandler:NULL];
+    [[[self managers] acquisitionManager] queryUpdateWithCurrentPackage:config localPackage:queryPackage completionHandler:nil];
 
     NSLog(@"Check for update called");
-    return NULL;
+    return nil;
 }
 
 - (MSLocalPackage *)getUpdateMetadataForState:(MSAssetsUpdateState)updateState
@@ -49,8 +49,8 @@
         return nil;
     }
 
-    if (updateState) return NULL;
-    if (error) return NULL;
+    if (updateState) return nil;
+    if (error) return nil;
     return package;
 
 }
