@@ -1,53 +1,64 @@
 #import "MSAssets.h"
 #import "MSAssetsUpdateState.h"
-#import "MSAssetsPackage.h"
+#import "MSLocalPackage.h"
 
 @implementation MSAssetsDeploymentInstance
 
-+ (NSString *)getApplicationSupportDirectory
-{
-    NSString *applicationSupportDirectory = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    return applicationSupportDirectory;
+- (instancetype)init {
+    if ((self = [super init])) {
+        _managers = [[MSAssetsManagers alloc] init];
+    }
+    return self;
 }
 
-- (NSDictionary *)checkForUpdate:(NSString *)deploymentKey {
+- (MSRemotePackage *)checkForUpdate:(NSString *)deploymentKey {
 
     if (deploymentKey){
         [self setDeploymentKey:deploymentKey];
     }
 
-    NSMutableDictionary *localPackage = [[[MSAssetsDeploymentInstance class] getCurrentPackage] mutableCopy];
+    // TODO: get correct configuration
+    MSAssetsConfiguration *config = [MSAssetsConfiguration new];
 
+    MSLocalPackage *localPackage = [[self getCurrentPackage] mutableCopy];
+
+    MSLocalPackage *queryPackage;
     if (localPackage){
         NSLog(@"Got local package");
+        queryPackage = localPackage;
+    }
+    else{
+        queryPackage = [MSLocalPackage new];
     }
 
+    [[[self managers] acquisitionManager] queryUpdateWithCurrentPackage:config localPackage:queryPackage completionHandler:nil];
+
     NSLog(@"Check for update called");
-    return @{@"fake": @"fake"};
+    return nil;
 }
 
-+ (NSDictionary *)getUpdateMetadataForState:(MSAssetsUpdateState)updateState
+- (MSLocalPackage *)getUpdateMetadataForState:(MSAssetsUpdateState)updateState
                  currentPackageGettingError:(NSError * __autoreleasing *)error
 {
     NSError *__autoreleasing internalError;
 
-    NSMutableDictionary *package = [[MSAssetsPackage getCurrentPackage:&internalError] mutableCopy];
+    MSLocalPackage *package = [[[[self managers] updateManager] getCurrentPackage:&internalError] mutableCopy];
+
     if (internalError){
         error = &internalError;
         return nil;
     }
 
-    if (package) return @{@"fake": @"fake"};
-    if (updateState) return @{@"fake": @"fake"};
-    if (error) return @{@"fake": @"fake"};
-    return @{@"fake": @"fake"};
+    if (updateState) return nil;
+    if (error) return nil;
+    return package;
 
 }
 
-+ (NSDictionary *)getCurrentPackage
+- (MSLocalPackage *)getCurrentPackage
 {
     NSError *error;
-    NSDictionary *currentPackage = [[MSAssetsDeploymentInstance class] getUpdateMetadataForState:MSAssetsUpdateStateLatest currentPackageGettingError:&error];
+    MSLocalPackage *currentPackage = [self getUpdateMetadataForState:MSAssetsUpdateStateLatest currentPackageGettingError:&error];
     if (error){
         NSLog(@"An error occured: %@", [error localizedDescription]);
         return nil;
@@ -55,10 +66,6 @@
     return currentPackage;
 }
 
-+ (BOOL)isUsingTestConfiguration
-{
-    return NO;
-}
 
 
 
