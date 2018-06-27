@@ -8,7 +8,7 @@
 /**
  * The version of the app that was deployed (for a native app upgrade).
  */
-@property(nonatomic, copy, nonnull) NSString *appVersion;
+@property(nonatomic, copy, nullable) NSString *appVersion;
 
 /**
  * iOS client unique id.

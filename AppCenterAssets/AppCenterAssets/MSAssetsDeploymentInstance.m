@@ -18,7 +18,7 @@
     }
 
     // TODO: get correct configuration
-    MSAssetsConfiguration *config = [MSAssetsConfiguration new];
+    MSAssetsConfiguration *config = [self getConfiguration];
 
     MSLocalPackage *localPackage = [[self getCurrentPackage] mutableCopy];
 
@@ -28,13 +28,55 @@
         queryPackage = localPackage;
     }
     else{
-        queryPackage = [MSLocalPackage new];
+        queryPackage = [MSLocalPackage createLocalPackageWithAppVersion:config.appVersion];
     }
 
-    [[[self managers] acquisitionManager] queryUpdateWithCurrentPackage:config localPackage:queryPackage completionHandler:nil];
+    __block MSRemotePackage *updatePackage;
+
+    [[[self managers] acquisitionManager] queryUpdateWithCurrentPackage:config localPackage:queryPackage completionHandler:^( MSRemotePackage *package,  NSError * _Nullable error){
+        if (error) {
+            NSLog(@"#Error: %@", error.localizedDescription);
+        };
+        MSRemotePackage *update = [package mutableCopy];
+
+        if (!update || update.updateAppVersion ||
+            (localPackage && ([update.packageHash isEqualToString:localPackage.packageHash])) ||
+            ((!localPackage || localPackage.isDebugOnly) && [config.packageHash isEqualToString:update.packageHash] )){
+
+            if (update && update.updateAppVersion){
+                NSLog(@"An update is available but it is not targeting the binary version of your app.");
+                //return nil;
+            }
+        } else {
+            // TODO: set correct value with isFailedHash verification
+            update.failedInstall = NO;
+            if (deploymentKey){
+                update.deploymentKey = deploymentKey;
+            } else {
+                update.deploymentKey = config.deploymentKey;
+            }
+        }
+        updatePackage = ;
+        //return update;
+    }];
+
 
     NSLog(@"Check for update called");
-    return nil;
+    return updatePackage;
+}
+
+- (MSAssetsConfiguration *)getConfiguration
+{
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+
+    MSAssetsConfiguration *configuration = [MSAssetsConfiguration new];
+    configuration.appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    configuration.clientUniqueId = @"fake";
+    configuration.deploymentKey = [self deploymentKey];
+    configuration.serverUrl = [self serverUrl];
+    configuration.packageHash = @"fake";
+
+    return configuration;
 }
 
 - (MSLocalPackage *)getUpdateMetadataForState:(MSAssetsUpdateState)updateState
