@@ -11,6 +11,12 @@ NSString *const kMSACErrorDomain = MS_APP_CENTER_BASE_DOMAIN @"ErrorDomain";
 // Error descriptions
 NSString const *kMSACQueryUpdateErrorDesc = @"Error occurred during querying the update.";
 NSString const *kMSACQueryUpdateParseErrorDesc = @"Error occurred during parsing update response.";
+NSString *kMSACDownloadPackageErrorDesc(NSString *downloadUrl) {
+    return [[NSString alloc] initWithFormat: @"Error occurred during package downloading. Download url is %@", downloadUrl];
+};
+NSString *kMSACDownloadPackageStatusCodeErrorDesc(NSString *downloadUrl, long statusCode) {
+    return [[NSString alloc] initWithFormat: @"Error occurred during package downloading. Received %ld response from %@", statusCode, downloadUrl];
+};
 
 
 // Error user info keys

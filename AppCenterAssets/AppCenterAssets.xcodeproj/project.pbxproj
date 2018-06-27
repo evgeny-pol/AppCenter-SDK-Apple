@@ -131,6 +131,8 @@
 		0482864F20E23802005FEFD8 /* MSAssetsAcquisitionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482864E20E23802005FEFD8 /* MSAssetsAcquisitionManager.m */; };
 		0482865220E242F4005FEFD8 /* MSAssetsConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482865120E242F4005FEFD8 /* MSAssetsConfiguration.m */; };
 		0482865520E24968005FEFD8 /* MSAssetsErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482865420E24968005FEFD8 /* MSAssetsErrors.m */; };
+		0482865620E27496005FEFD8 /* MSAssetsDeploymentInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = A31F8C9120E144AD00F58C46 /* MSAssetsDeploymentInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0482865920E27B63005FEFD8 /* MSDownloadHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482865820E27B62005FEFD8 /* MSDownloadHandler.m */; };
 		0485AF6A1EAA79E300C10CAF /* MSAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = E85547C51D2D6253002DF6E2 /* MSAssets.m */; };
 		0485AF741EAA79E300C10CAF /* AppCenter+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = E85547CF1D2D6521002DF6E2 /* AppCenter+Internal.h */; };
 		0485AF781EAA79E300C10CAF /* AppCenterAssets.h in Headers */ = {isa = PBXBuildFile; fileRef = E85547CC1D2D63EF002DF6E2 /* AppCenterAssets.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -309,6 +311,8 @@
 		0482865120E242F4005FEFD8 /* MSAssetsConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsConfiguration.m; sourceTree = "<group>"; };
 		0482865320E24952005FEFD8 /* MSAssetsErrors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsErrors.h; sourceTree = "<group>"; };
 		0482865420E24968005FEFD8 /* MSAssetsErrors.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsErrors.m; sourceTree = "<group>"; };
+		0482865720E27B51005FEFD8 /* MSDownloadHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSDownloadHandler.h; sourceTree = "<group>"; };
+		0482865820E27B62005FEFD8 /* MSDownloadHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSDownloadHandler.m; sourceTree = "<group>"; };
 		0484DD201F39096E0092B777 /* OCHamcrest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCHamcrest.framework; path = ../../Vendor/tvOS/OCHamcrest/OCHamcrest.framework; sourceTree = "<group>"; };
 		0484DD231F39098B0092B777 /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMock.framework; path = ../../tvOS/OCMock/OCMock.framework; sourceTree = "<group>"; };
 		0484DD601F3910FF0092B777 /* Tests tvOS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "Tests tvOS.xcconfig"; path = "../../Config/Tests tvOS.xcconfig"; sourceTree = "<group>"; };
@@ -490,6 +494,8 @@
 			children = (
 				A3898E7A20DB9C8C00E9BF37 /* MSAssetsConstants.h */,
 				A3898E7B20DB9D7800E9BF37 /* MSAssetsConstants.m */,
+				0482865720E27B51005FEFD8 /* MSDownloadHandler.h */,
+				0482865820E27B62005FEFD8 /* MSDownloadHandler.m */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -716,9 +722,9 @@
 		E85547CD1D2D64B0002DF6E2 /* Internals */ = {
 			isa = PBXGroup;
 			children = (
+				E85547CF1D2D6521002DF6E2 /* AppCenter+Internal.h */,
 				0482864C20E23760005FEFD8 /* Manager */,
 				0482864820E22DE5005FEFD8 /* Sender */,
-				E85547CF1D2D6521002DF6E2 /* AppCenter+Internal.h */,
 				CD09077820CDD1880026F862 /* Enum */,
 				CD09078420CDE0140026F862 /* Exceptions */,
 				6E3E2CC21D359D5E00B1EE50 /* Model */,
@@ -786,6 +792,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0482865620E27496005FEFD8 /* MSAssetsDeploymentInstance.h in Headers */,
 				A31B562C20DD422100D81CA1 /* MSAssetsBuilder.h in Headers */,
 				CD09079520CDE16F0026F862 /* MSAssetsInvalidPublicKeyException.h in Headers */,
 				CD09078120CDD4A70026F862 /* MSAssetsUpdateState.h in Headers */,
@@ -1123,6 +1130,7 @@
 				045C362B20E0E59600521386 /* MSAssetsFinalizeException.m in Sources */,
 				A3898E7C20DB9D7800E9BF37 /* MSAssetsConstants.m in Sources */,
 				046F462820DFCAC800813F5A /* MSSignatureExceptionType.h in Sources */,
+				0482865920E27B63005FEFD8 /* MSDownloadHandler.m in Sources */,
 				045C362720E0E32B00521386 /* MSAssetsGeneralException.m in Sources */,
 				046F460E20DFA52500813F5A /* MSLocalPackage.m in Sources */,
 				A31B561920DD093700D81CA1 /* MSAssetsDeploymentInstance.m in Sources */,
@@ -1335,6 +1343,23 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 049BC82A1ECE3B9400FB6719 /* iOS.xcconfig */;
 			buildSettings = {
+				WARNING_CFLAGS = (
+					"-Weverything",
+					"-Wno-deprecated-declarations",
+					"-Wno-direct-ivar-access",
+					"-Wno-objc-missing-property-synthesis",
+					"-Wno-float-equal",
+					"-Wno-pedantic",
+					"-Wno-padded",
+					"-Wno-sign-conversion",
+					"-Wno-c++98-compat",
+					"-Wno-c++98-compat-pedantic",
+					"-Wno-auto-import",
+					"-Wno-assign-enum",
+					"-Wno-exit-time-destructors",
+					"-Wno-global-constructors",
+					"-Wno-cast-align",
+				);
 			};
 			name = Debug;
 		};
@@ -1342,6 +1367,23 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 049BC82A1ECE3B9400FB6719 /* iOS.xcconfig */;
 			buildSettings = {
+				WARNING_CFLAGS = (
+					"-Weverything",
+					"-Wno-deprecated-declarations",
+					"-Wno-direct-ivar-access",
+					"-Wno-objc-missing-property-synthesis",
+					"-Wno-float-equal",
+					"-Wno-pedantic",
+					"-Wno-padded",
+					"-Wno-sign-conversion",
+					"-Wno-c++98-compat",
+					"-Wno-c++98-compat-pedantic",
+					"-Wno-auto-import",
+					"-Wno-assign-enum",
+					"-Wno-exit-time-destructors",
+					"-Wno-global-constructors",
+					"-Wno-cast-align",
+				);
 			};
 			name = Release;
 		};
