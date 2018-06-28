@@ -39,5 +39,11 @@
     NSLog(@"Callback from MSAssets.checkForUpdate");
 }
 
+- (void)didFailToQueryPackage:(NSError *)error
+{
+    NSLog(@"Callback with error from MSAssets.checkForUpdate");
+}
+
+
 
 @end

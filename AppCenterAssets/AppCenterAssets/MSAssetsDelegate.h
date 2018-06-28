@@ -11,5 +11,12 @@
  */
 - (void)packageForUpdate:(MSRemotePackage *)package;
 
+/**
+ * Callback method that will be called by CheckForUpdate in case of error
+ *
+ * @param error The error.
+ */
+- (void)didFailToQueryPackage:(NSError *)error;
+
 @end
 

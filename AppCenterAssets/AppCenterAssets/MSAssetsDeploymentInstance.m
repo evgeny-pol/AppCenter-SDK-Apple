@@ -1,6 +1,7 @@
 #import "MSAssets.h"
 #import "MSAssetsUpdateState.h"
 #import "MSLocalPackage.h"
+#import "MSAssetsErrors.h"
 #import <UIKit/UIKit.h>
 
 @implementation MSAssetsDeploymentInstance
@@ -47,8 +48,14 @@
             if (update && update.updateAppVersion){
                 NSLog(@"An update is available but it is not targeting the binary version of your app.");
 
-                if ([[self delegate] respondsToSelector:@selector(packageForUpdate:)])
-                    [[self delegate] packageForUpdate:nil];
+                if ([[self delegate] respondsToSelector:@selector(didFailToQueryPackage:)])
+                {
+                    NSError *newError = [NSError errorWithDomain:kMSACErrorDomain
+                                                            code:kMSACQueryUpdateParseErrorCode
+                                                        userInfo:nil];
+                    [[self delegate] didFailToQueryPackage:newError];
+                }
+
             }
         } else {
             // TODO: set correct value with isFailedHash verification
