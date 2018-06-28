@@ -1,6 +1,7 @@
 #import "MSAssets.h"
 #import "MSAssetsUpdateState.h"
 #import "MSLocalPackage.h"
+#import <UIKit/UIKit.h>
 
 @implementation MSAssetsDeploymentInstance
 
@@ -72,7 +73,7 @@
 
     MSAssetsConfiguration *configuration = [MSAssetsConfiguration new];
     configuration.appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-    configuration.clientUniqueId = @"fake";
+    configuration.clientUniqueId = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     configuration.deploymentKey = [self deploymentKey];
     configuration.serverUrl = [self serverUrl];
     configuration.packageHash = @"fake";

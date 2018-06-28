@@ -13,7 +13,7 @@
 /**
  * iOS client unique id.
  */
-@property(nonatomic, copy, nonnull) NSString *clientUniqueId;
+@property(nonatomic, copy, nullable) NSString *clientUniqueId;
 
 /**
  * CodePush deployment key.
