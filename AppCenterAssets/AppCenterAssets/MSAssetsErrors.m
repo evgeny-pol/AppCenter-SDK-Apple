@@ -11,6 +11,8 @@ NSString *const kMSACErrorDomain = MS_APP_CENTER_BASE_DOMAIN @"ErrorDomain";
 // Error descriptions
 NSString const *kMSACQueryUpdateErrorDesc = @"Error occurred during querying the update.";
 NSString const *kMSACQueryUpdateParseErrorDesc = @"Error occurred during parsing update response.";
+NSString const *kMSACUpdateAvailableButNotTargetingBinary = @"An update is available but it is not targeting the binary version of your app.";
+
 NSString *kMSACDownloadPackageErrorDesc(NSString *downloadUrl) {
     return [[NSString alloc] initWithFormat: @"Error occurred during package downloading. Download url is %@", downloadUrl];
 };

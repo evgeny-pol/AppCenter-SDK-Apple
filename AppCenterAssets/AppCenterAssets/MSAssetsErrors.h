@@ -14,6 +14,9 @@ NS_ENUM(NSInteger){kMSACQueryUpdateErrorCode = 100, kMSACQueryUpdateParseErrorCo
 // Error descriptions
 extern NSString const *kMSACQueryUpdateErrorDesc;
 extern NSString const *kMSACQueryUpdateParseErrorDesc;
+ 
+extern NSString const *kMSACUpdateAvailableButNotTargetingBinary;
+
 extern NSString *kMSACDownloadPackageErrorDesc(NSString *downloadUrl);
 extern NSString *kMSACDownloadPackageStatusCodeErrorDesc(NSString *downloadUrl, long statusCode);
         

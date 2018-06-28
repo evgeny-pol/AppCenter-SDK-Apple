@@ -336,6 +336,7 @@
 		4B9421F520E28B4400289E0A /* MSAssetsUpdateManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsUpdateManager.h; sourceTree = "<group>"; };
 		4B9421F620E2A69500289E0A /* MSAssetsManagers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsManagers.h; sourceTree = "<group>"; };
 		4B9421F720E2A69500289E0A /* MSAssetsManagers.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsManagers.m; sourceTree = "<group>"; };
+		4BE5528320E4D5EF00620DB1 /* MSAssetsDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsDelegate.h; sourceTree = "<group>"; };
 		6E0684371D35A3B900A8CC6C /* OCHamcrestIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCHamcrestIOS.framework; path = ../../Vendor/iOS/OCHamcrest/OCHamcrestIOS.framework; sourceTree = "<group>"; };
 		A31B561820DD093700D81CA1 /* MSAssetsDeploymentInstance.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsDeploymentInstance.m; sourceTree = "<group>"; };
 		A31B562720DD3FA000D81CA1 /* MSAssetsBuilder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsBuilder.m; sourceTree = "<group>"; };
@@ -722,6 +723,7 @@
 				E85547CC1D2D63EF002DF6E2 /* AppCenterAssets.h */,
 				E85547C31D2D6253002DF6E2 /* MSAssets.h */,
 				E85547C51D2D6253002DF6E2 /* MSAssets.m */,
+				4BE5528320E4D5EF00620DB1 /* MSAssetsDelegate.h */,
 				A31F8C9120E144AD00F58C46 /* MSAssetsDeploymentInstance.h */,
 				A31B561820DD093700D81CA1 /* MSAssetsDeploymentInstance.m */,
 				1182FBF520E0DCD300CC9460 /* AssetsBuilder */,
