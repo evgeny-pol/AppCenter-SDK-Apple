@@ -1,8 +1,8 @@
-#import "MSDownloadHandler.h"
+#import "MSAssetsDownloadHandler.h"
 #import "MSDownloadPackageResult.h"
 #import "MSAssetsErrors.h"
 
-@implementation MSDownloadHandler {
+@implementation MSAssetsDownloadHandler {
     // Header chars used to determine if the file is a zip.
     char _header[4];
 }

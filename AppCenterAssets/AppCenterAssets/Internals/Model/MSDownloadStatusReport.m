@@ -13,6 +13,33 @@ static NSString *const kMSLabel = @"label";
     return self;
 }
 
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
+    if (!dictionary) {
+        return nil;
+    }
+    if ((self = [super init])) {
+        NSString *clientUniqueId = dictionary[kMSClientUniqueId];
+        if (clientUniqueId != nil) {
+            _clientUniqueId = clientUniqueId;
+        } else {
+            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSDownloadStatusReport.class) argument:kMSClientUniqueId];
+        }
+        NSString *deploymentKey = dictionary[kMSDeploymentKey];
+        if (deploymentKey != nil) {
+            _deploymentKey = deploymentKey;
+        } else {
+            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSDownloadStatusReport.class) argument:kMSDeploymentKey];
+        }
+        NSString *label = dictionary[kMSLabel];
+        if (label != nil) {
+            _label = label;
+        } else {
+            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSDownloadStatusReport.class) argument:kMSLabel];
+        }
+    }
+    return self;
+}
+
 - (NSMutableDictionary *)serializeToDictionary {
     NSMutableDictionary *dict = [NSMutableDictionary new];
     
@@ -28,26 +55,28 @@ static NSString *const kMSLabel = @"label";
     return dict;
 }
 
-+ (nonnull MSDownloadStatusReport *)createReportWithLabel:(nonnull NSString *)label
-                                                 deviceId:(nonnull NSString *)clientUniqueId
-                                         andDeploymentKey:(nonnull NSString *) deploymentKey {
-    MSDownloadStatusReport *report = [[MSDownloadStatusReport alloc] init];
-    if (clientUniqueId != nil) {
-        [report setClientUniqueId:clientUniqueId];
-    } else {
-        @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSDownloadStatusReport.class) argument:kMSClientUniqueId];
+- (instancetype)initReportWithLabel:(nonnull NSString *)label
+                           deviceId:(nonnull NSString *)clientUniqueId
+                   andDeploymentKey:(nonnull NSString *) deploymentKey {
+    if ((self = [super init])) {
+        MSDownloadStatusReport *report = [[MSDownloadStatusReport alloc] init];
+        if (clientUniqueId != nil) {
+            [report setClientUniqueId:clientUniqueId];
+        } else {
+            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSDownloadStatusReport.class) argument:kMSClientUniqueId];
+        }
+        if (deploymentKey != nil) {
+            [report setDeploymentKey:deploymentKey];
+        } else {
+            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSDownloadStatusReport.class) argument:kMSDeploymentKey];
+        }
+        if (label != nil) {
+            [report setLabel:label];
+        } else {
+            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSDownloadStatusReport.class) argument:kMSLabel];
+        }
     }
-    if (deploymentKey != nil) {
-        [report setDeploymentKey:deploymentKey];
-    } else {
-        @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSDownloadStatusReport.class) argument:kMSDeploymentKey];
-    }
-    if (label != nil) {
-        [report setLabel:label];
-    } else {
-        @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSDownloadStatusReport.class) argument:kMSLabel];
-    }
-    return report;
+    return self;
 }
 
 #pragma mark - NSCoding

@@ -2,11 +2,12 @@
 #import "MSAssetsPackage.h"
 #import "MSAssetsDeploymentStatus.h"
 #import "MSSerializableObject.h"
+#import "MSDownloadStatusReport.h"
 
 /**
  * Represents a report about the deployment.
  */
-@interface MSDeploymentStatusReport : NSObject <MSSerializableObject>
+@interface MSDeploymentStatusReport : MSDownloadStatusReport
 
 /**
  * The version of the app that was deployed (for a native app upgrade).
@@ -31,7 +32,7 @@
 /**
  * Stores information about installed/failed package.
  */
-@property(nonatomic, null_unspecified) MSAssetsPackage *assetsPackage;
+@property(nonatomic, nullable) MSAssetsPackage *assetsPackage;
 
 - (null_unspecified instancetype)initWithDictionary:(null_unspecified NSDictionary *)dictionary;
 

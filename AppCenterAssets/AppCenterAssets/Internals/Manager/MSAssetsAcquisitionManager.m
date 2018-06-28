@@ -9,44 +9,44 @@
 #import "MSLoggerInternal.h"
 #import "MSAssets.h"
 #import "MSAssetsErrors.h"
+#import "MSAssetsReportSender.h"
+#import "MSLogger.h"
 
-@implementation MSAssetsAcquisitionManager
+@implementation MSAssetsAcquisitionManager {
+    MSAssetsCheckForUpdate *_updateChecker;
+    MSAssetsReportSender *_reportSender;
+}
 
 /**
- The API paths for latest release requests.
+ The API paths for requests.
  */
 static NSString *const kMSUpdateCheckEndpoint = @"%@updateCheck";
+static NSString *const kMSReportDeploymentStatusEndpoint = @"%@reportStatus/deploy";
+static NSString *const kMSReportDownloadStatusEndpoint = @"%@reportStatus/download";
 
-- (void)queryUpdateWithCurrentPackage:(MSAssetsConfiguration *)configuration
-                                      localPackage:(MSLocalPackage *)localPackage
-                    completionHandler:(MSCheckForUpdateCompletionHandler)handler {
-    NSString * baseUrl = [[NSString alloc] initWithFormat:kMSUpdateCheckEndpoint, [configuration serverUrl]];
-    
+- (void)queryUpdateWithCurrentPackage:(MSLocalPackage *)localPackage
+                    withConfiguration:(MSAssetsConfiguration *)configuration
+                    andCompletionHandler:(MSCheckForUpdateCompletionHandler)handler {
+    NSString *serverUrl = [self fixServerUrl:[configuration serverUrl]];
+    NSString *baseUrl = [[NSString alloc] initWithFormat:kMSUpdateCheckEndpoint, serverUrl];
     NSString *deploymentKey = [configuration deploymentKey];
     NSString *clientUniqueId = [configuration clientUniqueId];
     MSAssetsUpdateRequest *updateRequest = [MSAssetsUpdateRequest createUpdateRequestWithDeploymentKey: deploymentKey
                                                                         assetsPackage:localPackage
                                                                        andDeviceId:clientUniqueId];
     NSMutableDictionary *queries = [updateRequest serializeToDictionary];
-    
-    self.updateChecker = [[MSAssetsCheckForUpdate alloc] initWithBaseUrl:baseUrl
+    _updateChecker = [[MSAssetsCheckForUpdate alloc] initWithBaseUrl:baseUrl
                                                             queryStrings:queries];
     __weak typeof(self) weakSelf = self;
-    [self.updateChecker
+    [_updateChecker
      sendAsync:nil
      completionHandler:^(__unused NSString *callId, NSUInteger statusCode, NSData *data, __unused NSError *error) {
          typeof(self) strongSelf = weakSelf;
          if (!strongSelf) {
              return;
          }
-         
-         // Release sender instance.
-         strongSelf.updateChecker = nil;
-         
-         // Error instance for JSON parsing.
+         strongSelf->_updateChecker = nil;
          NSError *jsonError = nil;
-         
-         // Success.
          if (statusCode == MSHTTPCodesNo200OK) {
              MSAssetsUpdateResponse *response = nil;
              if (data) {
@@ -74,16 +74,30 @@ static NSString *const kMSUpdateCheckEndpoint = @"%@updateCheck";
                                                            andDeploymentKey:[configuration deploymentKey]], nil);
              }
              handler(nil, nil);
-         }
-         
-         // Failure.
-         else {
-             handler(nil, [strongSelf getErrorFromData:data]);
+         } else {
+             NSDictionary *userInfo = @{kMSACConnectionHttpCodeErrorKey : [self getErrorFromData:data]};
+             NSError *newError = [NSError errorWithDomain:kMSACErrorDomain
+                                                  code:kMSACQueryUpdateErrorCode
+                                              userInfo:userInfo];
+             handler(nil, newError);
          }
      }];
 }
 
-- (NSError *)getErrorFromData:(NSData *)data {
+- (NSString *)fixServerUrl:(NSString *)serverUrl {
+    if (![serverUrl hasSuffix:@"/"]) {
+        serverUrl = [serverUrl stringByAppendingString:@"/"];
+    }
+    return serverUrl;
+}
+
+/**
+* Gets error description from `NSData`.
+*
+* @param data instance of `NSData` to examine.
+* @return `NSString` with error description.
+*/
+- (NSString *)getErrorFromData:(NSData *)data {
     NSString *jsonString = nil;
     NSError *jsonError = nil;
     id dictionary = nil;
@@ -108,20 +122,69 @@ static NSString *const kMSUpdateCheckEndpoint = @"%@updateCheck";
             }
         }
     }
-    
-    // Check the status code to clean up Distribute data for an unrecoverable error.
-    
     if (!jsonString) {
         jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     }
     
-    NSDictionary *userInfo = @{kMSACConnectionHttpCodeErrorKey : kMSACQueryUpdateErrorDesc};
-    NSError *error = [NSError errorWithDomain:kMSACErrorDomain
-                                         code:kMSACQueryUpdateErrorCode
-                                     userInfo:userInfo];
-    return error;
+    return jsonError == nil ? jsonString : [jsonError localizedDescription];
 }
 
+- (void)reportDownloadStatus:(nullable MSDownloadStatusReport *)report
+           withConfiguration:(nullable MSAssetsConfiguration *)configuration {
+    NSString *serverUrl = [self fixServerUrl:[configuration serverUrl]];
+    NSString *baseUrl = [[NSString alloc] initWithFormat:kMSReportDownloadStatusEndpoint, serverUrl];
+    
+    _reportSender = [[MSAssetsReportSender alloc] initWithBaseUrl:baseUrl reportType: MsAssetsReportTypeDownload];
+    __weak typeof(self) weakSelf = self;
+    [_reportSender
+     sendAsync:report
+     completionHandler:^(__unused NSString *callId, NSUInteger statusCode, NSData *data, __unused NSError *error) {
+         typeof(self) strongSelf = weakSelf;
+         if (!strongSelf) {
+             return;
+         }
+         strongSelf->_reportSender = nil;
+         if (statusCode == MSHTTPCodesNo200OK) {
+             if (data) {
+                 MSLogInfo([MSAssets logTag], @"Report status download: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+             }
+         } else {
+             MSLogError([MSAssets logTag], @"Error reporting download status: %@", [strongSelf getErrorFromData:data]);
+         }
+     }];
+}
 
+- (void)reportDeploymentStatus:(nullable MSDeploymentStatusReport *) report
+             withConfiguration:(nullable MSAssetsConfiguration *) configuration {
+    NSString *serverUrl = [self fixServerUrl:[configuration serverUrl]];
+    NSString *deploymentKey = [configuration deploymentKey];
+    NSString *clientUniqueId = [configuration clientUniqueId];
+    NSString *label = [report assetsPackage] != nil ? [[report assetsPackage] label] : [report label];
+    NSString *appVersion = [report assetsPackage] != nil ? [[report assetsPackage] appVersion] : [configuration appVersion];
+    NSString *baseUrl = [[NSString alloc] initWithFormat:kMSReportDeploymentStatusEndpoint, serverUrl];
+    [report setClientUniqueId: clientUniqueId];
+    [report setDeploymentKey:deploymentKey];
+    [report setAppVersion:appVersion];
+    [report setLabel:label];
+    
+    _reportSender = [[MSAssetsReportSender alloc] initWithBaseUrl:baseUrl reportType: MsAssetsReportTypeDeploy];
+    __weak typeof(self) weakSelf = self;
+    [_reportSender
+     sendAsync:report
+     completionHandler:^(__unused NSString *callId, NSUInteger statusCode, NSData *data, __unused NSError *error) {
+         typeof(self) strongSelf = weakSelf;
+         if (!strongSelf) {
+             return;
+         }
+         strongSelf->_reportSender = nil;
+         if (statusCode == MSHTTPCodesNo200OK) {
+             if (data) {
+                 MSLogInfo([MSAssets logTag], @"Report status deploy: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+             }
+         } else {
+             MSLogError([MSAssets logTag], @"Error reporting deploy status: %@", [strongSelf getErrorFromData:data]);
+         }
+     }];
+}
 
 @end
