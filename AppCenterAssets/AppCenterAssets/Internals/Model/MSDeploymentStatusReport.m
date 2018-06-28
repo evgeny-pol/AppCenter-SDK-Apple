@@ -20,7 +20,7 @@ static NSString *const kMSAssetsPackage = @"package";
     if (!dictionary) {
         return nil;
     }
-    if ((self = [super init])) {
+    if ((self = [super initWithDictionary:dictionary])) {
         NSString *appVersion = dictionary[kMSAppVersion];
         if (appVersion != nil) {
             _appVersion = appVersion;
@@ -51,7 +51,7 @@ static NSString *const kMSAssetsPackage = @"package";
 }
 
 - (NSMutableDictionary *)serializeToDictionary {
-    NSMutableDictionary *dict = [NSMutableDictionary new];
+    NSMutableDictionary *dict = [super serializeToDictionary];
     
     if (self.appVersion) {
         dict[kMSAppVersion] = self.appVersion;
@@ -72,7 +72,7 @@ static NSString *const kMSAssetsPackage = @"package";
 #pragma mark - NSCoding
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
-    self = [super init];
+    self = [super initWithCoder:coder];
     if (self) {
         NSString *appVersion = [coder decodeObjectForKey:kMSAppVersion];
         if (appVersion != nil) {
@@ -94,6 +94,7 @@ static NSString *const kMSAssetsPackage = @"package";
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
+    [super encodeWithCoder:coder];
     [coder encodeObject:self.appVersion forKey:kMSAppVersion];
     [coder encodeObject:self.previousDeploymentKey forKey:kMSPreviousDeploymentKey];
     [coder encodeObject:self.previousLabelOrAppVersion forKey:kMSPreviousLabelOrAppVersion];

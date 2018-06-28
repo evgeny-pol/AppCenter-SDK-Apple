@@ -9,6 +9,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface MSAssets : MSServiceAbstract
 
++ (NSString *)logTag;
+
 + (MSAssetsDeploymentInstance *)makeDeploymentInstanceWithBuilder:(void (^)(MSAssetsBuilder *))builder;
 
 @end

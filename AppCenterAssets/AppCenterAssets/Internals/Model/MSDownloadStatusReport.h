@@ -22,6 +22,8 @@
  */
 @property(nonatomic, copy, nonnull) NSString *label;
 
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
+
 /**
  * Creates a report using the provided information.
  *
@@ -30,7 +32,7 @@
  * @param label          internal label automatically given to the update by the CodePush server.
  * @return instance of `MSDownloadStatusReport`.
  */
-+ (nonnull MSDownloadStatusReport *)createReportWithLabel:(nonnull NSString *)label
+- (instancetype)initReportWithLabel:(nonnull NSString *)label
                                                  deviceId:(nonnull NSString *)clientUniqueId
                                         andDeploymentKey:(nonnull NSString *) deploymentKey;
 

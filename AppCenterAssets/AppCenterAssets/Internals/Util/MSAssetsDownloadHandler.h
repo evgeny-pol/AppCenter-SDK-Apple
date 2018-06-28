@@ -18,7 +18,7 @@ typedef void (^MSDownloadCompletionHandler)(MSDownloadPackageResult *downloadRes
  */
 typedef void (^MSDownloadProgressHandler)(long long received, long long total);
 
-@interface MSDownloadHandler : NSObject <NSURLSessionDataDelegate>
+@interface MSAssetsDownloadHandler : NSObject <NSURLSessionDataDelegate>
 
 @property (strong) NSOutputStream *outputFileStream;
 @property (copy) NSString *downloadFilePath;
