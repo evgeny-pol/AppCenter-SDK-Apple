@@ -463,8 +463,7 @@
 				0482864920E22E23005FEFD8 /* MSAssetsCheckForUpdate.h */,
 				0482864A20E22E40005FEFD8 /* MSAssetsCheckForUpdate.m */,
 			);
-			name = Sender;
-			path = "New Group";
+			path = Sender;
 			sourceTree = "<group>";
 		};
 		0482864C20E23760005FEFD8 /* Manager */ = {
