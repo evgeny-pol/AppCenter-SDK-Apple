@@ -1,3 +1,5 @@
+#import <Foundation/Foundation.h>
+
 #import "MSRemotePackage.h"
 #import "MSAssetsManagers.h"
 
