@@ -16,7 +16,7 @@
  *
  * @param error The error.
  */
-- (void)didFailToQueryPackage:(NSError *)error;
+- (void)didFailToQueryRemotePackageOnCheckForUpdate:(NSError *)error;
 
 @end
 

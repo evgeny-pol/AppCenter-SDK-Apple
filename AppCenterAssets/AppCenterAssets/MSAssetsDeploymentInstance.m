@@ -48,12 +48,12 @@
             if (update && update.updateAppVersion){
                 NSLog(@"An update is available but it is not targeting the binary version of your app.");
 
-                if ([[self delegate] respondsToSelector:@selector(didFailToQueryPackage:)])
+                if ([[self delegate] respondsToSelector:@selector(didFailToQueryRemotePackageOnCheckForUpdate:)])
                 {
                     NSError *newError = [NSError errorWithDomain:kMSACErrorDomain
                                                             code:kMSACQueryUpdateParseErrorCode
                                                         userInfo:nil];
-                    [[self delegate] didFailToQueryPackage:newError];
+                    [[self delegate] didFailToQueryRemotePackageOnCheckForUpdate:newError];
                 }
 
             }

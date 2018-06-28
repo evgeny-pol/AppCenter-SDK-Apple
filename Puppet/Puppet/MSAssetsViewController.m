@@ -39,7 +39,7 @@
     NSLog(@"Callback from MSAssets.checkForUpdate");
 }
 
-- (void)didFailToQueryPackage:(NSError *)error
+- (void)didFailToQueryRemotePackageOnCheckForUpdate:(NSError *)error
 {
     NSLog(@"Callback with error from MSAssets.checkForUpdate");
 }
