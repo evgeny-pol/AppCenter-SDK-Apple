@@ -9,7 +9,7 @@
  *
  * @param package The instance of MSRemotePackage.
  */
-- (void)packageForUpdate:(MSRemotePackage *)package;
+- (void)didReceiveRemotePackageOnUpdateCheck:(MSRemotePackage *)package;
 
 /**
  * Callback method that will be called by CheckForUpdate in case of error

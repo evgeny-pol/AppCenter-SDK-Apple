@@ -34,7 +34,7 @@
     [_assetsDeployment checkForUpdate:@"123"];
 }
 
-- (void)packageForUpdate:(MSRemotePackage *)package
+- (void)didReceiveRemotePackageOnUpdateCheck:(MSRemotePackage *)package
 {
     NSLog(@"Callback from MSAssets.checkForUpdate");
 }

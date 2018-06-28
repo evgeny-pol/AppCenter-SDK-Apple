@@ -66,8 +66,8 @@
                 update.deploymentKey = config.deploymentKey;
             }
         }
-        if ([[self delegate] respondsToSelector:@selector(packageForUpdate:)])
-            [[self delegate] packageForUpdate:update];
+        if ([[self delegate] respondsToSelector:@selector(didReceiveRemotePackageOnUpdateCheck:)])
+            [[self delegate] didReceiveRemotePackageOnUpdateCheck:update];
     }];
 
 
