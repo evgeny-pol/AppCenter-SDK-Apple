@@ -27,6 +27,8 @@ static dispatch_once_t onceToken;
   return self;
 }
 
+#pragma mark - Public methods
+
 + (MSAssetsDeploymentInstance *)makeDeploymentInstanceWithBuilder:(void (^)(MSAssetsBuilder *))updateBlock {
     MSAssetsBuilder *builder = [MSAssetsBuilder new];
     updateBlock(builder);

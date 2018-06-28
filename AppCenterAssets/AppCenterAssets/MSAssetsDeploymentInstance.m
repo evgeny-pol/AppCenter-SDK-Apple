@@ -4,6 +4,8 @@
 
 @implementation MSAssetsDeploymentInstance
 
+@synthesize delegate = _delegate;
+
 - (instancetype)init {
     if ((self = [super init])) {
         _managers = [[MSAssetsManagers alloc] init];
@@ -11,7 +13,7 @@
     return self;
 }
 
-- (MSRemotePackage *)checkForUpdate:(NSString *)deploymentKey {
+- (void)checkForUpdate:(NSString *)deploymentKey {
 
     if (deploymentKey){
         [self setDeploymentKey:deploymentKey];
@@ -31,8 +33,6 @@
         queryPackage = [MSLocalPackage createLocalPackageWithAppVersion:config.appVersion];
     }
 
-    __block MSRemotePackage *updatePackage;
-
     [[[self managers] acquisitionManager] queryUpdateWithCurrentPackage:config localPackage:queryPackage completionHandler:^( MSRemotePackage *package,  NSError * _Nullable error){
         if (error) {
             NSLog(@"#Error: %@", error.localizedDescription);
@@ -45,7 +45,9 @@
 
             if (update && update.updateAppVersion){
                 NSLog(@"An update is available but it is not targeting the binary version of your app.");
-                //return nil;
+
+                if ([[self delegate] respondsToSelector:@selector(packageForUpdate:)])
+                    [[self delegate] packageForUpdate:nil];
             }
         } else {
             // TODO: set correct value with isFailedHash verification
@@ -56,12 +58,12 @@
                 update.deploymentKey = config.deploymentKey;
             }
         }
-        //return update;
+        if ([[self delegate] respondsToSelector:@selector(packageForUpdate:)])
+            [[self delegate] packageForUpdate:update];
     }];
 
 
     NSLog(@"Check for update called");
-    return updatePackage;
 }
 
 - (MSAssetsConfiguration *)getConfiguration

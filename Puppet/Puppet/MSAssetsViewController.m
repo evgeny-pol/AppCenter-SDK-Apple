@@ -21,6 +21,8 @@
     _assetsDeployment = [MSAssets makeDeploymentInstanceWithBuilder:^(MSAssetsBuilder *builder) {
         [builder setDeploymentKey:@"123"];
     }];
+
+    [_assetsDeployment setDelegate:self];
 }
 
 - (IBAction)enabledSwitchUpdated:(UISwitch *)sender {
@@ -30,6 +32,11 @@
 
 - (IBAction)checkForUpdate {
     [_assetsDeployment checkForUpdate:@"123"];
+}
+
+- (void)packageForUpdate:(MSRemotePackage *)package
+{
+    NSLog(@"Callback from MSAssets.checkForUpdate");
 }
 
 
