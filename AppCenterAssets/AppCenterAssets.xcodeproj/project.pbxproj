@@ -471,8 +471,7 @@
 				0482865B20E4CBAA005FEFD8 /* MSAssetsReportSender.h */,
 				0482865C20E4CBBA005FEFD8 /* MSAssetsReportSender.m */,
 			);
-			name = Sender;
-			path = "New Group";
+			path = Sender;
 			sourceTree = "<group>";
 		};
 		0482864C20E23760005FEFD8 /* Manager */ = {
