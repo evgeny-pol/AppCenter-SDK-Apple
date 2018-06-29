@@ -65,5 +65,9 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
+	<key>MSAssetsDeploymentKey</key>
+	<string>3bO97mXYvm6Cc8Gn4OVEbbo9Q9TMSyClbx4fQ</string>
+	<key>MSAssetsServerUrl</key>
+	<string>https://codepush.azurewebsites.net/</string>
 </dict>
 </plist>

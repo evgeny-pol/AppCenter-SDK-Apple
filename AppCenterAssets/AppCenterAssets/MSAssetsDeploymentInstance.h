@@ -5,7 +5,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MSAssetsDeploymentInstance : NSObject
 
-- (void)checkForUpdate:(nonnull NSString *)deploymentKey;
+- (void)checkForUpdate:(nullable NSString *)deploymentKey;
 
 @property (nonatomic) id<MSAssetsDelegate> delegate;
 

@@ -19,7 +19,13 @@
     self.enabled.on = [MSAssets isEnabled];
     
     _assetsDeployment = [MSAssets makeDeploymentInstanceWithBuilder:^(MSAssetsBuilder *builder) {
-        [builder setDeploymentKey:@"123"];
+
+        NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+        NSString *deploymentKey = [infoDictionary objectForKey:@"MSAssetsDeploymentKey"];
+        [builder setDeploymentKey:deploymentKey];
+        NSString *serverUrl = [infoDictionary objectForKey:@"MSAssetsServerUrl"];
+        [builder setServerUrl:serverUrl];
+
     }];
 
     [_assetsDeployment setDelegate:self];
@@ -31,17 +37,20 @@
 }
 
 - (IBAction)checkForUpdate {
-    [_assetsDeployment checkForUpdate:@"123"];
+    [_assetsDeployment checkForUpdate:nil];
 }
 
 - (void)didReceiveRemotePackageOnUpdateCheck:(MSRemotePackage *)package
 {
     NSLog(@"Callback from MSAssets.checkForUpdate");
+    if (!package)
+        NSLog(@"No update available");
 }
 
 - (void)didFailToQueryRemotePackageOnCheckForUpdate:(NSError *)error
 {
     NSLog(@"Callback with error from MSAssets.checkForUpdate");
+    NSLog(error.description);
 }
 
 

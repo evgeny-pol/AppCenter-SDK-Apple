@@ -47,7 +47,7 @@ static UIViewController *crashResultViewController = nil;
   [MSAppCenter setLogLevel:MSLogLevelVerbose];
 
   // Start Mobile Center SDK.
-  [MSAppCenter start:@"7dfb022a-17b5-4d4a-9c75-12bc3ef5e6b7"
+    [MSAppCenter start:@"a318a035-cab5-4732-b4a5-adca93a5a75e"
            withServices:@[ [MSAnalytics class], [MSCrashes class], [MSDistribute class], [MSPush class], [MSAssets class] ]];
 
   [self crashes];

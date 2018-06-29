@@ -23,6 +23,8 @@
 
     // TODO: get correct configuration
     MSAssetsConfiguration *config = [self getConfiguration];
+    if (deploymentKey)
+        config.deploymentKey = deploymentKey;
 
     MSLocalPackage *localPackage = [[self getCurrentPackage] mutableCopy];
 
@@ -35,11 +37,20 @@
         queryPackage = [MSLocalPackage createLocalPackageWithAppVersion:config.appVersion];
     }
 
-
     [[[self managers] acquisitionManager] queryUpdateWithCurrentPackage:queryPackage withConfiguration:config andCompletionHandler:^( MSRemotePackage *package,  NSError * _Nullable error){
         if (error) {
-            NSLog(@"#Error: %@", error.localizedDescription);
+            if ([[self delegate] respondsToSelector:@selector(didFailToQueryRemotePackageOnCheckForUpdate:)])
+                [[self delegate] didFailToQueryRemotePackageOnCheckForUpdate:error];
+            return;
         };
+        
+        if (!package)
+        {
+            if ([[self delegate] respondsToSelector:@selector(didReceiveRemotePackageOnUpdateCheck:)])
+                [[self delegate] didReceiveRemotePackageOnUpdateCheck:nil];
+            return;
+        }
+
         MSRemotePackage *update = [package mutableCopy];
 
         if (!update || update.updateAppVersion ||
@@ -84,7 +95,8 @@
     configuration.clientUniqueId = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     configuration.deploymentKey = [self deploymentKey];
     configuration.serverUrl = [self serverUrl];
-    configuration.packageHash = @"fake";
+    NSError *error;
+    configuration.packageHash = [[[self managers] updateManager] getCurrentPackageHash:&error];
 
     return configuration;
 }
