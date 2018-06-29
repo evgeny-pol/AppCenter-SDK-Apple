@@ -81,6 +81,7 @@
 /* Begin PBXBuildFile section */
 		0420A6871ECA7A4B00915619 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0420A6861ECA7A4B00915619 /* OCMock.framework */; };
 		0420A6931ECA7B1100915619 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0420A6921ECA7B1100915619 /* OCMock.framework */; };
+		0431060920E6475300F42296 /* MSAssetsRestartManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0431060820E6475300F42296 /* MSAssetsRestartManager.m */; };
 		043121511EE0C20A007054C5 /* MSAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = E85547C51D2D6253002DF6E2 /* MSAssets.m */; };
 		0431215B1EE0C20A007054C5 /* AppCenter+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = E85547CF1D2D6521002DF6E2 /* AppCenter+Internal.h */; };
 		0431215F1EE0C20A007054C5 /* AppCenterAssets.h in Headers */ = {isa = PBXBuildFile; fileRef = E85547CC1D2D63EF002DF6E2 /* AppCenterAssets.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -132,7 +133,6 @@
 		0482865520E24968005FEFD8 /* MSAssetsErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482865420E24968005FEFD8 /* MSAssetsErrors.m */; };
 		0482865620E27496005FEFD8 /* MSAssetsDeploymentInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = A31F8C9120E144AD00F58C46 /* MSAssetsDeploymentInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0482865920E27B63005FEFD8 /* MSAssetsDownloadHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482865820E27B62005FEFD8 /* MSAssetsDownloadHandler.m */; };
-		0482865D20E4CBBA005FEFD8 /* MSAssetsReportSender.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482865C20E4CBBA005FEFD8 /* MSAssetsReportSender.m */; };
 		0482866520E50425005FEFD8 /* MSAssetsSettingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482866420E50425005FEFD8 /* MSAssetsSettingManager.m */; };
 		0485AF6A1EAA79E300C10CAF /* MSAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = E85547C51D2D6253002DF6E2 /* MSAssets.m */; };
 		0485AF741EAA79E300C10CAF /* AppCenter+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = E85547CF1D2D6521002DF6E2 /* AppCenter+Internal.h */; };
@@ -266,6 +266,8 @@
 		041CFF8B1ECCFF6700B4654B /* Tests iOS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "Tests iOS.xcconfig"; path = "../../Config/Tests iOS.xcconfig"; sourceTree = "<group>"; };
 		0420A6861ECA7A4B00915619 /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMock.framework; path = ../../macOS/OCMock/OCMock.framework; sourceTree = "<group>"; };
 		0420A6921ECA7B1100915619 /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMock.framework; path = ../../iOS/OCMock/OCMock.framework; sourceTree = "<group>"; };
+		0431060720E6474300F42296 /* MSAssetsRestartManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsRestartManager.h; sourceTree = "<group>"; };
+		0431060820E6475300F42296 /* MSAssetsRestartManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsRestartManager.m; sourceTree = "<group>"; };
 		0431216C1EE0C20A007054C5 /* libAppCenterAssets.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAppCenterAssets.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		043121721EE0C248007054C5 /* tvOS.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = tvOS.modulemap; sourceTree = "<group>"; };
 		043121731EE0C248007054C5 /* tvOS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = tvOS.xcconfig; sourceTree = "<group>"; };
@@ -318,10 +320,6 @@
 		0482865420E24968005FEFD8 /* MSAssetsErrors.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsErrors.m; sourceTree = "<group>"; };
 		0482865720E27B51005FEFD8 /* MSAssetsDownloadHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsDownloadHandler.h; sourceTree = "<group>"; };
 		0482865820E27B62005FEFD8 /* MSAssetsDownloadHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsDownloadHandler.m; sourceTree = "<group>"; };
-		0482865B20E4CBAA005FEFD8 /* MSAssetsReportSender.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsReportSender.h; sourceTree = SOURCE_ROOT; };
-		0482865C20E4CBBA005FEFD8 /* MSAssetsReportSender.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsReportSender.m; sourceTree = SOURCE_ROOT; };
-		0482865F20E4D557005FEFD8 /* MSAssetsManagers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MSAssetsManagers.h; path = AppCenterAssets/Internals/Manager/MSAssetsManagers.h; sourceTree = "<group>"; };
-		0482866020E4D5A5005FEFD8 /* MSAssetsManagers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MSAssetsManagers.h; path = AppCenterAssets/Internals/Manager/MSAssetsManagers.h; sourceTree = "<group>"; };
 		0482866320E503EF005FEFD8 /* MSAssetsSettingManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsSettingManager.h; sourceTree = "<group>"; };
 		0482866420E50425005FEFD8 /* MSAssetsSettingManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsSettingManager.m; sourceTree = "<group>"; };
 		0484DD201F39096E0092B777 /* OCHamcrest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCHamcrest.framework; path = ../../Vendor/tvOS/OCHamcrest/OCHamcrest.framework; sourceTree = "<group>"; };
@@ -491,6 +489,8 @@
 				4B9421F320E28B2500289E0A /* MSAssetsUpdateManager.m */,
 				0482866320E503EF005FEFD8 /* MSAssetsSettingManager.h */,
 				0482866420E50425005FEFD8 /* MSAssetsSettingManager.m */,
+				0431060720E6474300F42296 /* MSAssetsRestartManager.h */,
+				0431060820E6475300F42296 /* MSAssetsRestartManager.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1171,6 +1171,7 @@
 				046F462620DFC85C00813F5A /* MSOperationType.h in Sources */,
 				045C363B20E0F73500521386 /* MSAssetsPlatformUtilsException.m in Sources */,
 				0482865220E242F4005FEFD8 /* MSAssetsConfiguration.m in Sources */,
+				0431060920E6475300F42296 /* MSAssetsRestartManager.m in Sources */,
 				0482864B20E22E40005FEFD8 /* MSAssetsCheckForUpdate.m in Sources */,
 				045C363920E0F6E400521386 /* MSAssetsNativeApiCallException.m in Sources */,
 				046F461E20DFB6AB00813F5A /* MSDownloadPackageResult.m in Sources */,
@@ -1180,7 +1181,6 @@
 				045C362920E0E39A00521386 /* MSDownloadPackageException.m in Sources */,
 				045C363D20E0F76B00521386 /* MSAssetsQueryUpdateException.m in Sources */,
 				0482866520E50425005FEFD8 /* MSAssetsSettingManager.m in Sources */,
-				4B9421F920E2A69500289E0A /* MSAssetsManagers.m in Sources */,
 				045C363F20E0F8ED00521386 /* MSAssetsReportStatusException.m in Sources */,
 				045C363520E0F66400521386 /* MSAssetsMalformedDataException.m in Sources */,
 				046F461420DFB1A300813F5A /* MSDownloadStatusReport.m in Sources */,
