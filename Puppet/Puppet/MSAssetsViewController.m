@@ -8,6 +8,7 @@
 @interface MSAssetsViewController ()
 
 @property (weak, nonatomic) IBOutlet UISwitch *enabled;
+@property (weak, nonatomic) IBOutlet UILabel *result;
 @property (nonatomic) MSAssetsDeploymentInstance *assetsDeployment;
 
 @end
@@ -44,15 +45,22 @@
 {
     NSLog(@"Callback from MSAssets.checkForUpdate");
     if (!package)
+    {
         NSLog(@"No update available");
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[self result] setText:@"No update available"];
+        });
+    }
 }
 
 - (void)didFailToQueryRemotePackageOnCheckForUpdate:(NSError *)error
 {
     NSLog(@"Callback with error from MSAssets.checkForUpdate");
-    NSLog(error.description);
-}
 
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[self result] setText:error.description];
+    });
+}
 
 
 @end
