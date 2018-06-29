@@ -17,7 +17,7 @@
                           headers:@{kMSHeaderContentTypeKey : kMSContentType}
                      queryStrings:nil
                      reachability:[MS_Reachability reachabilityForInternetConnection]
-                   retryIntervals:@[]];
+                   retryIntervals:@[ @(10), @(5 * 60), @(20 * 60)]];
     _reportType = reportType;
     return self;
 }
