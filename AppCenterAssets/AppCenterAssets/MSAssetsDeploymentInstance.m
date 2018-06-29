@@ -35,7 +35,8 @@
         queryPackage = [MSLocalPackage createLocalPackageWithAppVersion:config.appVersion];
     }
 
-    [[[self managers] acquisitionManager] queryUpdateWithCurrentPackage:config localPackage:queryPackage completionHandler:^( MSRemotePackage *package,  NSError * _Nullable error){
+
+    [[[self managers] acquisitionManager] queryUpdateWithCurrentPackage:queryPackage withConfiguration:config andCompletionHandler:^( MSRemotePackage *package,  NSError * _Nullable error){
         if (error) {
             NSLog(@"#Error: %@", error.localizedDescription);
         };
