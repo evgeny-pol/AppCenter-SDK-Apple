@@ -21,6 +21,8 @@
     _assetsDeployment = [MSAssets makeDeploymentInstanceWithBuilder:^(MSAssetsBuilder *builder) {
         [builder setDeploymentKey:@"123"];
     }];
+
+    [_assetsDeployment setDelegate:self];
 }
 
 - (IBAction)enabledSwitchUpdated:(UISwitch *)sender {
@@ -31,6 +33,17 @@
 - (IBAction)checkForUpdate {
     [_assetsDeployment checkForUpdate:@"123"];
 }
+
+- (void)didReceiveRemotePackageOnUpdateCheck:(MSRemotePackage *)package
+{
+    NSLog(@"Callback from MSAssets.checkForUpdate");
+}
+
+- (void)didFailToQueryRemotePackageOnCheckForUpdate:(NSError *)error
+{
+    NSLog(@"Callback with error from MSAssets.checkForUpdate");
+}
+
 
 
 @end

@@ -1,16 +1,21 @@
-#import <Foundation/Foundation.h>
-
-#import "MSRemotePackage.h"
 #import "MSAssetsManagers.h"
+#import "MSAssetsDelegate.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface MSAssetsDeploymentInstance : NSObject
 
-- (MSRemotePackage *)checkForUpdate:(NSString *)deploymentKey;
+- (void)checkForUpdate:(nonnull NSString *)deploymentKey;
 
-@property (nonatomic, copy, readonly) MSAssetsManagers *managers;
+@property (nonatomic) id<MSAssetsDelegate> delegate;
 
-@property (nonatomic, copy) NSString *deploymentKey;
-@property (nonatomic, copy) NSString *serverUrl;
-@property (nonatomic, copy) NSString *updateSubFolder;
+
+@property (nonatomic, copy, readonly, nullable) MSAssetsManagers *managers;
+
+@property (nonatomic, copy, nonnull) NSString *deploymentKey;
+@property (nonatomic, copy, nonnull) NSString *serverUrl;
+@property (nonatomic, copy, nullable) NSString *updateSubFolder;
 
 @end
+
+NS_ASSUME_NONNULL_END
