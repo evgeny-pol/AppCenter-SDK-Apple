@@ -38,6 +38,8 @@
 }
 
 - (IBAction)checkForUpdate {
+
+    self.result.text = @"Wait please";
     [_assetsDeployment checkForUpdate:nil];
 }
 
@@ -47,8 +49,8 @@
     if (!package)
     {
         NSLog(@"No update available");
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[self result] setText:@"No update available"];
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            self.result.text = @"No update available";
         });
     }
 }
@@ -57,8 +59,8 @@
 {
     NSLog(@"Callback with error from MSAssets.checkForUpdate");
 
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [[self result] setText:error.description];
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        self.result.text = error.description;
     });
 }
 
