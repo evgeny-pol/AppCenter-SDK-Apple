@@ -47,9 +47,8 @@ static UIViewController *crashResultViewController = nil;
   [MSAppCenter setLogLevel:MSLogLevelVerbose];
 
   // Start Mobile Center SDK.
-    [MSAppCenter start:@"9e42391c-1584-424b-8d42-ccc8360213d9"
+  [MSAppCenter start:@"7dfb022a-17b5-4d4a-9c75-12bc3ef5e6b7"
            withServices:@[ [MSAnalytics class], [MSCrashes class], [MSDistribute class], [MSPush class], [MSAssets class] ]];
-
   [self crashes];
 
   // Print the install Id.
