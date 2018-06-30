@@ -39,8 +39,11 @@
 
 - (IBAction)checkForUpdate {
 
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString *deploymentKey = [infoDictionary objectForKey:@"MSAssetsDeploymentKey"];
+    [_assetsDeployment checkForUpdate:deploymentKey];
+
     self.result.text = @"Request sent";
-    [_assetsDeployment checkForUpdate:nil];
 }
 
 - (void)didReceiveRemotePackageOnUpdateCheck:(MSRemotePackage *)package
