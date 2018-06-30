@@ -37,21 +37,19 @@
         queryPackage = [MSLocalPackage createLocalPackageWithAppVersion:config.appVersion];
     }
 
-    [[[self managers] acquisitionManager] queryUpdateWithCurrentPackage:queryPackage withConfiguration:config andCompletionHandler:^( MSRemotePackage *package,  NSError * _Nullable error){
+    [[[self managers] acquisitionManager] queryUpdateWithCurrentPackage:queryPackage withConfiguration:config andCompletionHandler:^( MSRemotePackage *update,  NSError * _Nullable error){
         if (error) {
             if ([[self delegate] respondsToSelector:@selector(didFailToQueryRemotePackageOnCheckForUpdate:)])
                 [[self delegate] didFailToQueryRemotePackageOnCheckForUpdate:error];
             return;
         };
         
-        if (!package)
+        if (!update)
         {
             if ([[self delegate] respondsToSelector:@selector(didReceiveRemotePackageOnUpdateCheck:)])
                 [[self delegate] didReceiveRemotePackageOnUpdateCheck:nil];
             return;
         }
-
-        MSRemotePackage *update = [package mutableCopy];
 
         if (!update || update.updateAppVersion ||
             (localPackage && ([update.packageHash isEqualToString:localPackage.packageHash])) ||
