@@ -92,6 +92,26 @@ static NSString *const UnzippedFolderName = @"unzipped";
     return [[self getMSAssetsPath] stringByAppendingPathComponent:packageHash];
 }
 
+- (MSLocalPackage *)getPreviousPackage:(NSError * __autoreleasing *)error
+{
+    NSString *packageHash = [self getPreviousPackageHash:error];
+    if (!packageHash) {
+        return nil;
+    }
+
+    return [self getPackage:packageHash error:error];
+}
+
+- (NSString *)getPreviousPackageHash:(NSError * __autoreleasing *)error
+{
+    MSAssetsPackageInfo *info = [self getCurrentPackageInfo:error];
+    if (!info) {
+        return nil;
+    }
+
+    return info.previousPackage;
+}
+
 - (NSString *)getStatusFilePath
 {
     return [[self getMSAssetsPath] stringByAppendingPathComponent:StatusFile];

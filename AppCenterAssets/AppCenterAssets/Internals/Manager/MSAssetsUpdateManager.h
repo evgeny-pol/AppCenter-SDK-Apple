@@ -6,13 +6,9 @@
 @interface MSAssetsUpdateManager : NSObject
 
 
-/**
- * Gets current package json object.
- *
- * @return current package json object.
- */
-- (MSLocalPackage *)getCurrentPackage:(NSError **)error;
 
+- (MSLocalPackage *)getCurrentPackage:(NSError **)error;
+- (MSLocalPackage *)getPreviousPackage:(NSError **)error;
 - (NSString *)getCurrentPackageHash:(NSError **)error;
 - (MSLocalPackage *)getPackage:(NSString *)packageHash
                           error:(NSError **)error;
