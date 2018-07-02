@@ -1,5 +1,6 @@
 #import "MSAssetsUpdateManager.h"
 #import "MSAssetsAcquisitionManager.h"
+#import "MSAssetsSettingManager.h"
 
 @interface MSAssetsManagers : NSObject
 

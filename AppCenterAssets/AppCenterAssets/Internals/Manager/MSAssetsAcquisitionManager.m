@@ -59,19 +59,23 @@ static NSString *const kMSReportDownloadStatusEndpoint = @"%@reportStatus/downlo
                                                                    error:&jsonError];
                  if (jsonError) {
                      handler(nil, [MSAssetsErrorUtils getUpdateParseError]);
+                     return;
                  }
                  response = [[MSAssetsUpdateResponse alloc] initWithDictionary:dictionary];
              }
              if (response) {
                  MSUpdateResponseUpdateInfo *updateInfo = [response updateInfo];
                  if ([updateInfo updateAppVersion]) {
-                 handler([MSRemotePackage createDefaultRemotePackageWithAppVersion:[updateInfo appVersion]
+                     handler([MSRemotePackage createDefaultRemotePackageWithAppVersion:[updateInfo appVersion]
                                                                   updateAppVersion:[updateInfo updateAppVersion]], nil);
+                     return;
                  } else if (![updateInfo isAvailable]) {
                      handler(nil, nil);
+                     return;
                  }
                  handler([MSRemotePackage createRemotePackageFromUpdateInfo:updateInfo
                                                            andDeploymentKey:[configuration deploymentKey]], nil);
+                 return;
              }
              handler(nil, nil);
          } else {
