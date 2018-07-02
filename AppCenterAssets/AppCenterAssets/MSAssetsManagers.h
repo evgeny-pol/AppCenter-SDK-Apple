@@ -8,6 +8,4 @@
 
 @property (nonatomic, copy, readonly) MSAssetsAcquisitionManager *acquisitionManager;
 
-//@property (nonatomic, copy, readonly) MSAssetsSettingManager *settingManager;
-
 @end

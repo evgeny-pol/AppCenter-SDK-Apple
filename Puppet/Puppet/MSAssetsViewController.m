@@ -20,13 +20,8 @@
     self.enabled.on = [MSAssets isEnabled];
     
     _assetsDeployment = [MSAssets makeDeploymentInstanceWithBuilder:^(MSAssetsBuilder *builder) {
-
-        NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-        NSString *deploymentKey = [infoDictionary objectForKey:@"MSAssetsDeploymentKey"];
-        [builder setDeploymentKey:deploymentKey];
-        NSString *serverUrl = [infoDictionary objectForKey:@"MSAssetsServerUrl"];
-        [builder setServerUrl:serverUrl];
-
+        [builder setDeploymentKey:@"EAk0sEsG9uZii-_T4TCJYS1go6JfByhZUk-bX"];
+        [builder setServerUrl:@"https://codepush.azurewebsites.net/"];
     }];
 
     [_assetsDeployment setDelegate:self];

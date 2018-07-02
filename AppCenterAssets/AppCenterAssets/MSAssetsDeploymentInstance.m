@@ -106,7 +106,6 @@ static BOOL isRunningBinaryVersion = NO;
     NSError *__autoreleasing internalError;
 
     MSLocalPackage *package = [[[[self managers] updateManager] getCurrentPackage:&internalError] mutableCopy];
-
     if (internalError){
         error = &internalError;
         return nil;
@@ -130,7 +129,13 @@ static BOOL isRunningBinaryVersion = NO;
     } else if (updateState == MSAssetsUpdateStateRunning && currentUpdateIsPending) {
         // The caller wants the running update, but the current
         // one is pending, so we need to grab the previous.
-        return [[[self managers] updateManager] getPreviousPackage:error];
+        package = [[[self managers] updateManager] getPreviousPackage:&internalError];
+        if (internalError){
+            error = &internalError;
+            return nil;
+        }
+        else
+            return package;
     } else {
         // The current package satisfies the request:
         // 1) Caller wanted a pending, and there is a pending update
