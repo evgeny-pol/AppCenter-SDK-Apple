@@ -8,6 +8,7 @@
 @interface MSAssetsViewController ()
 
 @property (weak, nonatomic) IBOutlet UISwitch *enabled;
+@property (weak, nonatomic) IBOutlet UILabel *result;
 @property (nonatomic) MSAssetsDeploymentInstance *assetsDeployment;
 
 @end
@@ -19,7 +20,8 @@
     self.enabled.on = [MSAssets isEnabled];
     
     _assetsDeployment = [MSAssets makeDeploymentInstanceWithBuilder:^(MSAssetsBuilder *builder) {
-        [builder setDeploymentKey:@"123"];
+        [builder setDeploymentKey:@"EAk0sEsG9uZii-_T4TCJYS1go6JfByhZUk-bX"];
+        [builder setServerUrl:@"https://codepush.azurewebsites.net/"];
     }];
 
     [_assetsDeployment setDelegate:self];
@@ -31,19 +33,41 @@
 }
 
 - (IBAction)checkForUpdate {
-    [_assetsDeployment checkForUpdate:@"123"];
+
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString *deploymentKey = [infoDictionary objectForKey:@"MSAssetsDeploymentKey"];
+    [_assetsDeployment checkForUpdate:deploymentKey];
+
+    self.result.text = @"Request sent";
 }
 
 - (void)didReceiveRemotePackageOnUpdateCheck:(MSRemotePackage *)package
 {
     NSLog(@"Callback from MSAssets.checkForUpdate");
+    if (!package)
+    {
+        NSLog(@"No update available");
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.result.text = @"No update available";
+        });
+    }
+    else
+    {
+        NSLog(@"Update available");
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.result.text = @"Update is available";
+        });
+    }
 }
 
 - (void)didFailToQueryRemotePackageOnCheckForUpdate:(NSError *)error
 {
     NSLog(@"Callback with error from MSAssets.checkForUpdate");
-}
 
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.result.text = error.description;
+    });
+}
 
 
 @end

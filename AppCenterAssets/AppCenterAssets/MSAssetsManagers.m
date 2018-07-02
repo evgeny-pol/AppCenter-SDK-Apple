@@ -2,6 +2,9 @@
 
 @implementation MSAssetsManagers
 
+@synthesize updateManager = _updateManager;
+@synthesize acquisitionManager = _acquisitionManager;
+
 - (instancetype)init {
     if ((self = [super init])) {
         _updateManager = [[MSAssetsUpdateManager alloc] init];
@@ -9,6 +12,5 @@
     }
     return self;
 }
-
 
 @end

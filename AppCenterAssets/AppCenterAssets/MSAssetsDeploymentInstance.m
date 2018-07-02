@@ -8,6 +8,10 @@
 
 @synthesize delegate = _delegate;
 
+static BOOL isRunningBinaryVersion = NO;
+//static BOOL needToReportRollback = NO;
+//static BOOL testConfigurationFlag = NO;
+
 - (instancetype)init {
     if ((self = [super init])) {
         _managers = [[MSAssetsManagers alloc] init];
@@ -21,8 +25,9 @@
         [self setDeploymentKey:deploymentKey];
     }
 
-    // TODO: get correct configuration
     MSAssetsConfiguration *config = [self getConfiguration];
+    if (deploymentKey)
+        config.deploymentKey = deploymentKey;
 
     MSLocalPackage *localPackage = [[self getCurrentPackage] mutableCopy];
 
@@ -35,12 +40,19 @@
         queryPackage = [MSLocalPackage createLocalPackageWithAppVersion:config.appVersion];
     }
 
-
-    [[[self managers] acquisitionManager] queryUpdateWithCurrentPackage:queryPackage withConfiguration:config andCompletionHandler:^( MSRemotePackage *package,  NSError * _Nullable error){
+    [[[self managers] acquisitionManager] queryUpdateWithCurrentPackage:queryPackage withConfiguration:config andCompletionHandler:^( MSRemotePackage *update,  NSError * _Nullable error){
         if (error) {
-            NSLog(@"#Error: %@", error.localizedDescription);
+            if ([[self delegate] respondsToSelector:@selector(didFailToQueryRemotePackageOnCheckForUpdate:)])
+                [[self delegate] didFailToQueryRemotePackageOnCheckForUpdate:error];
+            return;
         };
-        MSRemotePackage *update = [package mutableCopy];
+        
+        if (!update)
+        {
+            if ([[self delegate] respondsToSelector:@selector(didReceiveRemotePackageOnUpdateCheck:)])
+                [[self delegate] didReceiveRemotePackageOnUpdateCheck:nil];
+            return;
+        }
 
         if (!update || update.updateAppVersion ||
             (localPackage && ([update.packageHash isEqualToString:localPackage.packageHash])) ||
@@ -59,8 +71,7 @@
 
             }
         } else {
-            // TODO: set correct value with isFailedHash verification
-            update.failedInstall = NO;
+            update.failedInstall = [MSAssetsSettingManager existsFailedUpdate:update.packageHash];
             if (deploymentKey){
                 update.deploymentKey = deploymentKey;
             } else {
@@ -70,7 +81,6 @@
         if ([[self delegate] respondsToSelector:@selector(didReceiveRemotePackageOnUpdateCheck:)])
             [[self delegate] didReceiveRemotePackageOnUpdateCheck:update];
     }];
-
 
     NSLog(@"Check for update called");
 }
@@ -84,7 +94,8 @@
     configuration.clientUniqueId = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     configuration.deploymentKey = [self deploymentKey];
     configuration.serverUrl = [self serverUrl];
-    configuration.packageHash = @"fake";
+    NSError *error;
+    configuration.packageHash = [[[self managers] updateManager] getCurrentPackageHash:&error];
 
     return configuration;
 }
@@ -95,15 +106,51 @@
     NSError *__autoreleasing internalError;
 
     MSLocalPackage *package = [[[[self managers] updateManager] getCurrentPackage:&internalError] mutableCopy];
-
     if (internalError){
         error = &internalError;
         return nil;
     }
 
-    if (updateState) return nil;
-    if (error) return nil;
-    return package;
+    if (package == nil){
+        // The app hasn't downloaded any CodePush updates yet,
+        // so we simply return nil regardless if the user
+        // wanted to retrieve the pending or running update.
+        return nil;
+    }
+
+    // We have a CodePush update, so let's see if it's currently in a pending state.
+
+    BOOL currentUpdateIsPending = [MSAssetsSettingManager isPendingUpdate:package.packageHash];
+
+    if (updateState == MSAssetsUpdateStatePending && !currentUpdateIsPending) {
+        // The caller wanted a pending update
+        // but there isn't currently one.
+        return nil;
+    } else if (updateState == MSAssetsUpdateStateRunning && currentUpdateIsPending) {
+        // The caller wants the running update, but the current
+        // one is pending, so we need to grab the previous.
+        package = [[[self managers] updateManager] getPreviousPackage:&internalError];
+        if (internalError){
+            error = &internalError;
+            return nil;
+        }
+        else
+            return package;
+    } else {
+        // The current package satisfies the request:
+        // 1) Caller wanted a pending, and there is a pending update
+        // 2) Caller wanted the running update, and there isn't a pending
+        // 3) Caller wants the latest update, regardless if it's pending or not
+        if (isRunningBinaryVersion) {
+            // This only matters in Debug builds. Since we do not clear "outdated" updates,
+            // we need to indicate to the JS side that somehow we have a current update on
+            // disk that is not actually running.
+            package.isDebugOnly = true;
+        }
+        // Enable differentiating pending vs. non-pending updates
+        package.isPending = currentUpdateIsPending;
+        return package;
+    }
 
 }
 
