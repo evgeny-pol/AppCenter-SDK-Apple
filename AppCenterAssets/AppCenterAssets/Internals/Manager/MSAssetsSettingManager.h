@@ -1,6 +1,7 @@
 #import <Foundation/Foundation.h>
 #import "MSAssetsPackage.h"
 #import "MSAssetsPendingUpdate.h"
+#import "MSAssetsStatusReportIdentifier.h"
 
 /**
  * Manager responsible for storing configuration information on device.
@@ -62,5 +63,19 @@
  * @param pendingUpdate instance of the `MSAssetsPendingUpdate`.
  */
 + (void)savePendingUpdate:(MSAssetsPendingUpdate *_Nonnull) pendingUpdate;
+
+/**
+ * Saves identifier of already sent status report.
+ *
+ * @param identifier identifier of already sent status report.
+ */
++ (void)saveIdentifierOfReportedStatus:(MSAssetsStatusReportIdentifier *)identifier;
+
+/**
+ * Gets previously saved status report identifier.
+ *
+ * @return previously saved status report identifier.
+ */
++ (MSAssetsStatusReportIdentifier *)getPreviousStatusReportIdentifier;
 
 @end

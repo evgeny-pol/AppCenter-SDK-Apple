@@ -9,6 +9,7 @@
  */
 static NSString *const kMSFailedUpdates = @"MSAssetsFailedUpdates";
 static NSString *const kMSPendingUpdate = @"MSAssetsPendingUpdate";
+static NSString *const kMSReportIdentifier = @"MSAssetsReportIdentifier";
 
 @implementation MSAssetsSettingManager
 
@@ -65,5 +66,17 @@ static NSString *const kMSPendingUpdate = @"MSAssetsPendingUpdate";
 
 + (void)savePendingUpdate:(MSAssetsPendingUpdate *_Nonnull)pendingUpdate {
     [MS_USER_DEFAULTS setObject:[NSKeyedArchiver archivedDataWithRootObject:pendingUpdate] forKey:kMSPendingUpdate];
+}
+
++ (void)saveIdentifierOfReportedStatus:(MSAssetsStatusReportIdentifier *)identifier {
+    [MS_USER_DEFAULTS setObject:[identifier toString] forKey:kMSReportIdentifier];
+}
+
++ (MSAssetsStatusReportIdentifier *)getPreviousStatusReportIdentifier {
+    NSString *identifier = [MS_USER_DEFAULTS objectForKey:kMSReportIdentifier];
+    if (identifier != nil) {
+        return [MSAssetsStatusReportIdentifier reportIdentifierFromString:identifier];
+    }
+    return nil;
 }
 @end

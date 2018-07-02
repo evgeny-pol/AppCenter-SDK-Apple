@@ -82,6 +82,7 @@
 		0420A6871ECA7A4B00915619 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0420A6861ECA7A4B00915619 /* OCMock.framework */; };
 		0420A6931ECA7B1100915619 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0420A6921ECA7B1100915619 /* OCMock.framework */; };
 		0431060920E6475300F42296 /* MSAssetsRestartManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0431060820E6475300F42296 /* MSAssetsRestartManager.m */; };
+		0431060C20E664FE00F42296 /* MSAssetsTelemetryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0431060B20E664FE00F42296 /* MSAssetsTelemetryManager.m */; };
 		043121511EE0C20A007054C5 /* MSAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = E85547C51D2D6253002DF6E2 /* MSAssets.m */; };
 		0431215B1EE0C20A007054C5 /* AppCenter+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = E85547CF1D2D6521002DF6E2 /* AppCenter+Internal.h */; };
 		0431215F1EE0C20A007054C5 /* AppCenterAssets.h in Headers */ = {isa = PBXBuildFile; fileRef = E85547CC1D2D63EF002DF6E2 /* AppCenterAssets.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -268,6 +269,8 @@
 		0420A6921ECA7B1100915619 /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMock.framework; path = ../../iOS/OCMock/OCMock.framework; sourceTree = "<group>"; };
 		0431060720E6474300F42296 /* MSAssetsRestartManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsRestartManager.h; sourceTree = "<group>"; };
 		0431060820E6475300F42296 /* MSAssetsRestartManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsRestartManager.m; sourceTree = "<group>"; };
+		0431060A20E664F000F42296 /* MSAssetsTelemetryManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsTelemetryManager.h; sourceTree = "<group>"; };
+		0431060B20E664FE00F42296 /* MSAssetsTelemetryManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsTelemetryManager.m; sourceTree = "<group>"; };
 		0431216C1EE0C20A007054C5 /* libAppCenterAssets.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAppCenterAssets.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		043121721EE0C248007054C5 /* tvOS.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = tvOS.modulemap; sourceTree = "<group>"; };
 		043121731EE0C248007054C5 /* tvOS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = tvOS.xcconfig; sourceTree = "<group>"; };
@@ -491,6 +494,8 @@
 				0482866420E50425005FEFD8 /* MSAssetsSettingManager.m */,
 				0431060720E6474300F42296 /* MSAssetsRestartManager.h */,
 				0431060820E6475300F42296 /* MSAssetsRestartManager.m */,
+				0431060A20E664F000F42296 /* MSAssetsTelemetryManager.h */,
+				0431060B20E664FE00F42296 /* MSAssetsTelemetryManager.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1157,6 +1162,7 @@
 				A3898E7C20DB9D7800E9BF37 /* MSAssetsConstants.m in Sources */,
 				046F462820DFCAC800813F5A /* MSSignatureExceptionType.h in Sources */,
 				0482865920E27B63005FEFD8 /* MSAssetsDownloadHandler.m in Sources */,
+				0431060C20E664FE00F42296 /* MSAssetsTelemetryManager.m in Sources */,
 				045C362720E0E32B00521386 /* MSAssetsGeneralException.m in Sources */,
 				046F460E20DFA52500813F5A /* MSLocalPackage.m in Sources */,
 				A31B561920DD093700D81CA1 /* MSAssetsDeploymentInstance.m in Sources */,
