@@ -78,4 +78,9 @@
  */
 + (MSAssetsStatusReportIdentifier *)getPreviousStatusReportIdentifier;
 
++ (void)saveBinaryHash:(NSMutableDictionary *)binaryHash;
+
++ (NSMutableDictionary *)getBinaryHash;
++ (void)removeBinaryHash;
+
 @end
