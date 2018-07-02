@@ -49,12 +49,19 @@
 + (NSError *)getUpdateParseError {
     NSDictionary *userInfo = @{kMSACConnectionParseErrorKey : kMSACQueryUpdateParseErrorDesc};
     return [NSError errorWithDomain:kMSACErrorDomain
-                                            code:kMSACQueryUpdateParseErrorCode
+                                            code:kMSACQueryUpdateErrorCode
                                         userInfo:userInfo];
 }
 
-+(NSError *)getUpdateError:(NSString *)errorString {
++ (NSError *)getUpdateError:(NSString *)errorString {
     NSDictionary *userInfo = @{kMSACConnectionHttpCodeErrorKey : errorString};
+    return [NSError errorWithDomain:kMSACErrorDomain
+                                            code:kMSACQueryUpdateErrorCode
+                                        userInfo:userInfo];
+}
+
++ (NSError *)getUpdateNotTargetingBinaryError {
+    NSDictionary *userInfo = @{kMSACUpdateErrorKey : kMSACUpdateAvailableButNotTargetingBinary};
     return [NSError errorWithDomain:kMSACErrorDomain
                                             code:kMSACQueryUpdateErrorCode
                                         userInfo:userInfo];

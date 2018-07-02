@@ -11,7 +11,6 @@ extern NSString *const kMSACErrorDomain;
 // Error codes
 NS_ENUM(NSInteger){
     kMSACQueryUpdateErrorCode = 100,
-    kMSACQueryUpdateParseErrorCode = 101,
     kMSACDownloadPackageErrorCode = 102,
     kMSACSignatureVerificationErrorCode = 103,
     kMSACFileErrorCode = 104
@@ -33,6 +32,7 @@ extern NSString *kMSACNoDirFileErrorDesc(NSString *filePath);
 // Error user info keys
 extern NSString const *kMSACConnectionHttpCodeErrorKey;
 extern NSString const *kMSACConnectionParseErrorKey;
+extern NSString const *kMSACUpdateErrorKey;
 extern NSString const *kMSACSignatureVerificationErrorKey;
 extern NSString const *kMSACFileErrorKey;
 NS_ASSUME_NONNULL_END

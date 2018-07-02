@@ -10,4 +10,5 @@
 + (NSError *)getNoContentHashError;
 + (NSError *)getUpdateParseError;
 + (NSError *)getUpdateError:(NSString *)errorString;
++ (NSError *)getUpdateNotTargetingBinaryError;
 @end

@@ -32,6 +32,7 @@ NSString *kMSACNoDirFileErrorDesc(NSString *filePath) {
 
 // Error user info keys
 NSString const *kMSACConnectionHttpCodeErrorKey = MS_APP_CENTER_BASE_DOMAIN "HttpCodeKey";
+NSString const *kMSACUpdateErrorKey = MS_APP_CENTER_BASE_DOMAIN "UpdateKey";
 NSString const *kMSACConnectionParseErrorKey = MS_APP_CENTER_BASE_DOMAIN "ParseKey";
 NSString const *kMSACSignatureVerificationErrorKey = MS_APP_CENTER_BASE_DOMAIN "SignatureKey";
 NSString const *kMSACFileErrorKey = MS_APP_CENTER_BASE_DOMAIN "FileKey";
