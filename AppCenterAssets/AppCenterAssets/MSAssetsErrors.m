@@ -24,7 +24,10 @@ NSString *kMSACSignatureVerificationNoSignatureErrorDesc(NSString *signatureFile
     return [[NSString alloc] initWithFormat: @"Cannot find signature at %@", signatureFilePath];
 };
 NSString *kMSACDeleteFileErrorDesc(NSString *filePath) {
-    return [[NSString alloc] initWithFormat: @"unable to delete file at %@", filePath];
+    return [[NSString alloc] initWithFormat: @"Unable to delete file at %@", filePath];
+};
+NSString *kMSACNoDirFileErrorDesc(NSString *filePath) {
+    return [[NSString alloc] initWithFormat: @"Pathname %@ does not denote a directory", filePath];
 };
 
 // Error user info keys

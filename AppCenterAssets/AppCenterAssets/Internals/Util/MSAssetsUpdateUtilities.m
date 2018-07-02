@@ -4,21 +4,25 @@
 #import "MSUtility+StringFormatting.h"
 #import "MSLogger.h"
 #import "MSAssets.h"
-#import "MSAssetsErrors.h"
+#import "MSAssetsErrorUtils.h"
 #import "MSAssetsSettingManager.h"
 #include <CommonCrypto/CommonDigest.h>
 #import "JWT.h"
 
 static NSString *const ManifestFolderPrefix = @"Assets";
+static NSString *const BundleJWTFile = @".codepushrelease";
+
 @implementation MSAssetsUpdateUtilities
 
-- (void)addContentsOfFolderToManifest:(NSMutableArray<NSString *> *)manifest
+- (BOOL)addContentsOfFolderToManifest:(NSMutableArray<NSString *> *)manifest
                           folderPath:(NSString *)folderPath
-                          pathPrefix:(NSString *)pathPrefix {
+                          pathPrefix:(NSString *)pathPrefix
+                                error:(NSError *  __autoreleasing *)error {
     NSArray<NSURL *> *contents = [MSUtility contentsOfDirectory:folderPath propertiesForKeys:nil];
     
     if (contents == nil) {
-        return;
+        *error = [MSAssetsErrorUtils getNoDirError:folderPath];
+        return NO;
     }
     for (NSURL *content in contents) {
         NSString *fileName = [[content absoluteString] lastPathComponent];
@@ -28,12 +32,18 @@ static NSString *const ManifestFolderPrefix = @"Assets";
             continue;
         }
         if ([content hasDirectoryPath]) {
-            [self addContentsOfFolderToManifest:manifest folderPath: fullFilePath pathPrefix: relativePath];
+            BOOL result = [self addContentsOfFolderToManifest:manifest folderPath: fullFilePath pathPrefix: relativePath error: error];
+            if (!result) {
+                return NO;
+            }
         } else {
             NSData *fileData = [MSUtility loadDataForPathComponent: [content absoluteString]];
-            [manifest addObject: [[relativePath stringByAppendingString:@":"] stringByAppendingString:[self computeHashFor: fileData]]];
+            if (fileData != nil) {
+                [manifest addObject: [[relativePath stringByAppendingString:@":"] stringByAppendingString:[self computeHashFor: fileData]]];
+            }
         }
     }
+    return YES;
 }
 
 - (BOOL)isHashIgnoredFor:(NSString *)relativeFilePath {
@@ -63,9 +73,15 @@ static NSString *const ManifestFolderPrefix = @"Assets";
                     error:(NSError *  __autoreleasing *)error {
     MSLogInfo([MSAssets logTag], @"Verifying hash for folder path: %@", folderPath);
     NSMutableArray<NSString *> *updateContentsManifest = [NSMutableArray<NSString* > array];
-    [self addContentsOfFolderToManifest:updateContentsManifest folderPath:folderPath pathPrefix:@""];
-    
+    BOOL result = [self addContentsOfFolderToManifest:updateContentsManifest folderPath:folderPath pathPrefix:@"" error: error];
+    if (!result) {
+        return NO;
+    }
     NSString *updateContentsManifestHash = [self computeFinalHashFromManifest:updateContentsManifest error:error];
+    if (!updateContentsManifestHash) {
+        return NO;
+    }
+    
     MSLogInfo([MSAssets logTag], @"Expected hash: %@, actual hash: %@", expectedHash, updateContentsManifestHash);
     return [expectedHash isEqualToString:updateContentsManifestHash];
 }
@@ -94,7 +110,7 @@ static NSString *const ManifestFolderPrefix = @"Assets";
                               newPackagePath:(NSString *)newPackagePath
                                        error:(NSError * __autoreleasing *)error {
     //[MSAssetsFieUtils copyEntriesInFolder:currentPackageFolderPath dest:newPackagePath];
-    NSData *data = [NSData dataWithContentsOfFile:diffManifestPath];
+    NSData *data = [MSUtility loadDataForPathComponent:diffManifestPath];
     if (data != nil) {
         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData: data options:0 error:nil];
         NSArray<NSString *> *deletedFiles = [dictionary objectForKey:@"deletedFiles"];
@@ -102,11 +118,7 @@ static NSString *const ManifestFolderPrefix = @"Assets";
             NSString *fileToDelete = [newPackagePath stringByAppendingPathComponent:deletedFile];
             if ([MSUtility fileExistsForPathComponent:fileToDelete]) {
                 if (![MSUtility deleteItemForPathComponent:fileToDelete]) {
-                    NSDictionary *userInfo = @{kMSACFileErrorKey : kMSACDeleteFileErrorDesc(fileToDelete)};
-                    NSError *newError = [NSError errorWithDomain:kMSACErrorDomain
-                                                        code:kMSACFileErrorCode
-                                                    userInfo:userInfo];
-                    *error = newError;
+                    *error = [MSAssetsErrorUtils getFileDeleteError:fileToDelete];
                 }
             }
         }
@@ -136,8 +148,12 @@ static NSString *const ManifestFolderPrefix = @"Assets";
     // If the app is using assets, then add
     // them to the generated content manifest.
     if ([MSUtility fileExistsForPathComponent:assetsPath]) {
-        [self addContentsOfFolderToManifest:manifest folderPath: assetsPath
-                                               pathPrefix:[NSString stringWithFormat:@"%@/%@", ManifestFolderPrefix, @"assets"]];
+        BOOL result = [self addContentsOfFolderToManifest:manifest folderPath: assetsPath
+                                 pathPrefix:[NSString stringWithFormat:@"%@/%@", ManifestFolderPrefix, @"assets"]
+                                      error: error];
+        if (!result) {
+            return nil;
+        }
     }
     
     [self addFileToManifest:binaryBundleUrl manifest:manifest];
@@ -214,7 +230,7 @@ static NSString *const ManifestFolderPrefix = @"Assets";
     if (signatureVerificationError) {
        MSLogError([MSAssets logTag], @"The update could not be verified because no signature was found. %@", signatureVerificationError);
         *error = signatureVerificationError;
-        return false;
+        return NO;
     }
     
     NSError *payloadDecodingError;
@@ -222,18 +238,14 @@ static NSString *const ManifestFolderPrefix = @"Assets";
     if(payloadDecodingError){
         MSLogError([MSAssets logTag], @"The update could not be verified because it was not signed by a trusted party. %@", payloadDecodingError);
         *error = payloadDecodingError;
-        return false;
+        return NO;
     }
     
     MSLogInfo([MSAssets logTag], @"JWT signature verification succeeded, payload content:  %@", envelopedPayload);
     
     if(![envelopedPayload objectForKey:@"contentHash"]){
-        NSDictionary *userInfo = @{kMSACSignatureVerificationErrorKey : kMSACSignatureVerificationNoContentHashErrorDesc};
-        NSError *newError = [NSError errorWithDomain:kMSACErrorDomain
-                                                code:kMSACSignatureVerificationErrorCode
-                                            userInfo:userInfo];
-        *error = newError;
-        return false;
+        *error = [MSAssetsErrorUtils getNoContentHashError];
+        return NO;
     }
     
     NSString *contentHash = envelopedPayload[@"contentHash"];
@@ -268,7 +280,7 @@ static NSString *const ManifestFolderPrefix = @"Assets";
 }
 
 - (NSString *)getSignatureFilePath:(NSString *)updateFolderPath {
-    NSString *jwtPath = [NSString stringWithFormat:@"%@/%@/%@", updateFolderPath, ManifestFolderPrefix, /*BundleJWTFile*/ @""];
+    NSString *jwtPath = [NSString stringWithFormat:@"%@/%@/%@", updateFolderPath, ManifestFolderPrefix, BundleJWTFile];
     if ([MSUtility fileExistsForPathComponent:jwtPath]) {
         return jwtPath;
     } else {
@@ -291,11 +303,7 @@ static NSString *const ManifestFolderPrefix = @"Assets";
     if ([MSUtility fileExistsForPathComponent:signatureFilePath]) {
         return [NSString stringWithContentsOfFile:signatureFilePath encoding:NSUTF8StringEncoding error:error];
     } else {
-        NSDictionary *userInfo = @{kMSACSignatureVerificationErrorKey : kMSACSignatureVerificationNoSignatureErrorDesc(signatureFilePath)};
-        NSError *newError = [NSError errorWithDomain:kMSACErrorDomain
-                                                code:kMSACSignatureVerificationErrorCode
-                                            userInfo:userInfo];
-        *error = newError;
+        *error = [MSAssetsErrorUtils getNoSignatureError:signatureFilePath];
         return nil;
     }
 }

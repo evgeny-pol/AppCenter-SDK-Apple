@@ -28,6 +28,7 @@ extern NSString *kMSACDownloadPackageErrorDesc(NSString *downloadUrl);
 extern NSString *kMSACDownloadPackageStatusCodeErrorDesc(NSString *downloadUrl, long statusCode);
 extern NSString *kMSACSignatureVerificationNoSignatureErrorDesc(NSString *signatureFilePath);
 extern NSString *kMSACDeleteFileErrorDesc(NSString *filePath);
+extern NSString *kMSACNoDirFileErrorDesc(NSString *filePath);
         
 // Error user info keys
 extern NSString const *kMSACConnectionHttpCodeErrorKey;
