@@ -34,7 +34,7 @@
  * @param failedPackage instance of `MSAssetsPackage` with package information.
  * @return new rollback report.
  */
-- (MSDeploymentStatusReport *)buildRoolbackReportWithFailedPackage:(MSAssetsPackage * _Nonnull)failedPackage;
+- (MSDeploymentStatusReport *)buildRollbackReportWithFailedPackage:(MSAssetsPackage * _Nonnull)failedPackage;
 
 
 @end
