@@ -5,10 +5,13 @@
 #import "MSAssetsErrorUtils.h"
 #import "MSLogger.h"
 #import <UIKit/UIKit.h>
+#import "MSAssetsSettingManager.h"
 
 @implementation MSAssetsDeploymentInstance
 
 @synthesize delegate = _delegate;
+@synthesize updateManager = _updateManager;
+@synthesize acquisitionManager = _acquisitionManager;
 
 static BOOL isRunningBinaryVersion = NO;
 //static BOOL needToReportRollback = NO;
@@ -16,7 +19,10 @@ static BOOL isRunningBinaryVersion = NO;
 
 - (instancetype)init {
     if ((self = [super init])) {
-        _managers = [[MSAssetsManagers alloc] init];
+        _updateManager = [[MSAssetsUpdateManager alloc] init];
+        _acquisitionManager = [[MSAssetsAcquisitionManager alloc] init];
+        _settingManager = [[MSAssetsSettingManager alloc] init];
+        _telemetryManager = [[MSAssetsTelemetryManager alloc] init];
     }
     return self;
 }
@@ -42,7 +48,7 @@ static BOOL isRunningBinaryVersion = NO;
         queryPackage = [MSLocalPackage createLocalPackageWithAppVersion:config.appVersion];
     }
 
-    [[[self managers] acquisitionManager] queryUpdateWithCurrentPackage:queryPackage withConfiguration:config andCompletionHandler:^( MSRemotePackage *update,  NSError * _Nullable error){
+    [[self acquisitionManager] queryUpdateWithCurrentPackage:queryPackage withConfiguration:config andCompletionHandler:^( MSRemotePackage *update,  NSError * _Nullable error){
         if (error) {
             if ([[self delegate] respondsToSelector:@selector(didFailToQueryRemotePackageOnCheckForUpdate:)])
                 [[self delegate] didFailToQueryRemotePackageOnCheckForUpdate:error];
@@ -69,7 +75,7 @@ static BOOL isRunningBinaryVersion = NO;
 
             }
         } else {
-            update.failedInstall = [MSAssetsSettingManager existsFailedUpdate:update.packageHash];
+            update.failedInstall = [[self settingManager] existsFailedUpdate:update.packageHash];
             if (deploymentKey){
                 update.deploymentKey = deploymentKey;
             } else {
@@ -93,7 +99,7 @@ static BOOL isRunningBinaryVersion = NO;
     configuration.deploymentKey = [self deploymentKey];
     configuration.serverUrl = [self serverUrl];
     NSError *error;
-    configuration.packageHash = [[[self managers] updateManager] getCurrentPackageHash:&error];
+    configuration.packageHash = [[self updateManager] getCurrentPackageHash:&error];
 
     return configuration;
 }
@@ -103,7 +109,7 @@ static BOOL isRunningBinaryVersion = NO;
 {
     NSError *__autoreleasing internalError;
 
-    MSLocalPackage *package = [[[[self managers] updateManager] getCurrentPackage:&internalError] mutableCopy];
+    MSLocalPackage *package = [[[self updateManager] getCurrentPackage:&internalError] mutableCopy];
     if (internalError){
         error = &internalError;
         return nil;
@@ -118,7 +124,7 @@ static BOOL isRunningBinaryVersion = NO;
 
     // We have a CodePush update, so let's see if it's currently in a pending state.
 
-    BOOL currentUpdateIsPending = [MSAssetsSettingManager isPendingUpdate:package.packageHash];
+    BOOL currentUpdateIsPending = [[self settingManager] isPendingUpdate:package.packageHash];
 
     if (updateState == MSAssetsUpdateStatePending && !currentUpdateIsPending) {
         // The caller wanted a pending update
@@ -127,7 +133,7 @@ static BOOL isRunningBinaryVersion = NO;
     } else if (updateState == MSAssetsUpdateStateRunning && currentUpdateIsPending) {
         // The caller wants the running update, but the current
         // one is pending, so we need to grab the previous.
-        package = [[[self managers] updateManager] getPreviousPackage:&internalError];
+        package = [[self updateManager] getPreviousPackage:&internalError];
         if (internalError){
             error = &internalError;
             return nil;

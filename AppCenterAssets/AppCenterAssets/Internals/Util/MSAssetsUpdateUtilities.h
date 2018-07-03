@@ -1,4 +1,5 @@
 #import <Foundation/Foundation.h>
+#import "MSAssetsDeploymentInstance.h"
 
 extern NSString *const ManifestFolderPrefix;
 
@@ -6,6 +7,8 @@ extern NSString *const ManifestFolderPrefix;
  * Utils class for Assets updates.
  */
 @interface MSAssetsUpdateUtilities : NSObject
+
+- (id)initWithSettingManager: (MSAssetsSettingManager*)settingManager;
 
 /**
  * Method recursively walks through the directory, computes hash for each file within it and adds

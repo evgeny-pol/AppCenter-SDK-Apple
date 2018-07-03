@@ -2,12 +2,29 @@
 #import "MSLocalPackage.h"
 #import "MSAssetsPackage.h"
 #import "MSDeploymentStatusReport.h"
-#import "MSAssetsSettingManager.h"
+#import "MSAssetsStatusReportIdentifier.h"
+
+@interface MSAssetsTelemetryManager ()
+
+// Private Access
+@property MSAssetsSettingManager *settingManager;
+
+@end
+
 
 @implementation MSAssetsTelemetryManager
 
-+ (MSDeploymentStatusReport *)buildBinaryUpdateReportWithAppVersion:(NSString * _Nonnull)appVersion {
-    MSAssetsStatusReportIdentifier *previousStatusReportIdentifier = [MSAssetsSettingManager getPreviousStatusReportIdentifier];
+- (id)initWithSettingManager: (MSAssetsSettingManager
+                               *)settingManager {
+    self = [super init];
+    if (self) {
+        self.settingManager = settingManager;
+    }
+    return self;
+}
+
+- (MSDeploymentStatusReport *)buildBinaryUpdateReportWithAppVersion:(NSString * _Nonnull)appVersion {
+    MSAssetsStatusReportIdentifier *previousStatusReportIdentifier = [[self settingManager] getPreviousStatusReportIdentifier];
     MSDeploymentStatusReport *report = nil;
     if (previousStatusReportIdentifier == nil) {
         
@@ -39,9 +56,9 @@
     return report;
 }
 
-+ (MSDeploymentStatusReport *)buildUpdateReportWithPackage:(MSAssetsPackage * _Nonnull)currentPackage {
-    MSAssetsStatusReportIdentifier *currentPackageIdentifier = [MSAssetsTelemetryManager buildPackageStatusReportIdentifier:currentPackage];
-    MSAssetsStatusReportIdentifier *previousStatusReportIdentifier = [MSAssetsSettingManager getPreviousStatusReportIdentifier];
+- (MSDeploymentStatusReport *)buildUpdateReportWithPackage:(MSAssetsPackage * _Nonnull)currentPackage {
+    MSAssetsStatusReportIdentifier *currentPackageIdentifier = [self  buildPackageStatusReportIdentifier:currentPackage];
+    MSAssetsStatusReportIdentifier *previousStatusReportIdentifier = [[self settingManager] getPreviousStatusReportIdentifier];
     MSDeploymentStatusReport *report = nil;
     if (currentPackageIdentifier != nil) {
         if (previousStatusReportIdentifier == nil) {
@@ -74,7 +91,7 @@
     return report;
 }
 
-+ (MSAssetsStatusReportIdentifier *)buildPackageStatusReportIdentifier:(MSAssetsPackage *)updatePackage {
+- (MSAssetsStatusReportIdentifier *)buildPackageStatusReportIdentifier:(MSAssetsPackage *)updatePackage {
     
     /* Because deploymentKeys can be dynamically switched, we use a
      combination of the deploymentKey and label as the packageIdentifier. */
@@ -87,7 +104,7 @@
     }
 }
 
-+ (MSDeploymentStatusReport *)buildRoolbackReportWithFailedPackage:(MSAssetsPackage * _Nonnull)failedPackage {
+- (MSDeploymentStatusReport *)buildRoolbackReportWithFailedPackage:(MSAssetsPackage * _Nonnull)failedPackage {
     MSDeploymentStatusReport *report = [MSDeploymentStatusReport new];
     [report setAssetsPackage:failedPackage];
     [report setStatus:MSAssetsDeploymentStatusFailed];
