@@ -1,6 +1,6 @@
 #import "MSAssetsDownloadHandler.h"
 #import "MSDownloadPackageResult.h"
-#import "MSAssetsErrors.h"
+#import "MSAssetsErrorUtils.h"
 
 @implementation MSAssetsDownloadHandler {
     // Header chars used to determine if the file is a zip.
@@ -50,10 +50,7 @@ didReceiveResponse:(NSURLResponse *)response
         if (statusCode >= 400) {
             [self.outputFileStream close];
             [dataTask cancel];
-            NSDictionary *userInfo = @{kMSACConnectionHttpCodeErrorKey : kMSACDownloadPackageStatusCodeErrorDesc(self.downloadUrl, (long)statusCode)};
-            NSError *newError = [NSError errorWithDomain:kMSACErrorDomain
-                                                    code:kMSACDownloadPackageErrorCode
-                                                userInfo:userInfo];
+            NSError *newError = [MSAssetsErrorUtils getDownloadPackageError:self.downloadUrl statusCode: statusCode];
             if (self.completionHandler != nil) {
                 self.completionHandler(nil, newError);
             }
@@ -121,10 +118,7 @@ didCompleteWithError:(NSError *)error {
         }
     } else {
         if (self.receivedContentLength < 1) {
-            NSDictionary *userInfo = @{kMSACConnectionHttpCodeErrorKey : kMSACDownloadPackageErrorDesc(self.downloadUrl)};
-            NSError *newError = [NSError errorWithDomain:kMSACErrorDomain
-                                                    code:kMSACDownloadPackageErrorCode
-                                                userInfo:userInfo];
+            NSError *newError = [MSAssetsErrorUtils getDownloadPackageError:self.downloadUrl];
             if (self.completionHandler != nil) {
                 self.completionHandler(nil, newError);
             }

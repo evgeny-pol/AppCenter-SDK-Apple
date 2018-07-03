@@ -10,6 +10,7 @@
 static NSString *const kMSFailedUpdates = @"MSAssetsFailedUpdates";
 static NSString *const kMSPendingUpdate = @"MSAssetsPendingUpdate";
 static NSString *const kMSReportIdentifier = @"MSAssetsReportIdentifier";
+static NSString *const kMSBinaryHash = @"MSAssetsBinaryHash";
 
 @implementation MSAssetsSettingManager
 
@@ -78,5 +79,26 @@ static NSString *const kMSReportIdentifier = @"MSAssetsReportIdentifier";
         return [MSAssetsStatusReportIdentifier reportIdentifierFromString:identifier];
     }
     return nil;
+}
+
++ (void)saveBinaryHash:(NSMutableDictionary *)binaryHash {
+    [MS_USER_DEFAULTS setObject:[NSKeyedArchiver archivedDataWithRootObject:binaryHash]
+                         forKey:kMSBinaryHash];
+}
+
++ (NSMutableDictionary *)getBinaryHash {
+    NSMutableDictionary *binaryHashes;
+    NSData *data = [MS_USER_DEFAULTS objectForKey:kMSBinaryHash];
+    if (data != nil) {
+        binaryHashes = (NSMutableDictionary *)[[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
+    }
+    if (!binaryHashes) {
+        binaryHashes = [NSMutableDictionary new];
+    }
+    return binaryHashes;
+}
+
++ (void)removeBinaryHash {
+    [MS_USER_DEFAULTS removeObjectForKey:kMSBinaryHash];
 }
 @end
