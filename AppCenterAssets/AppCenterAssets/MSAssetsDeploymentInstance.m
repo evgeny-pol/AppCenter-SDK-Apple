@@ -2,13 +2,10 @@
 #import "MSAssetsUpdateState.h"
 #import "MSLocalPackage.h"
 #import "MSAssetsErrors.h"
-<<<<<<< HEAD
-#import "MSAssetsSettingManager.h"
-=======
 #import "MSAssetsErrorUtils.h"
 #import "MSLogger.h"
->>>>>>> bd062553322f7f402f0775f420eb34d96caa11ce
 #import <UIKit/UIKit.h>
+#import "MSAssetsSettingManager.h"
 
 @implementation MSAssetsDeploymentInstance
 
@@ -24,6 +21,8 @@ static BOOL isRunningBinaryVersion = NO;
     if ((self = [super init])) {
         _updateManager = [[MSAssetsUpdateManager alloc] init];
         _acquisitionManager = [[MSAssetsAcquisitionManager alloc] init];
+        _settingManager = [[MSAssetsSettingManager alloc] init];
+        _telemetryManager = [[MSAssetsTelemetryManager alloc] init];
     }
     return self;
 }
@@ -76,7 +75,7 @@ static BOOL isRunningBinaryVersion = NO;
 
             }
         } else {
-            update.failedInstall = [MSAssetsSettingManager existsFailedUpdate:update.packageHash];
+            update.failedInstall = [[self settingManager] existsFailedUpdate:update.packageHash];
             if (deploymentKey){
                 update.deploymentKey = deploymentKey;
             } else {
@@ -125,7 +124,7 @@ static BOOL isRunningBinaryVersion = NO;
 
     // We have a CodePush update, so let's see if it's currently in a pending state.
 
-    BOOL currentUpdateIsPending = [MSAssetsSettingManager isPendingUpdate:package.packageHash];
+    BOOL currentUpdateIsPending = [[self settingManager] isPendingUpdate:package.packageHash];
 
     if (updateState == MSAssetsUpdateStatePending && !currentUpdateIsPending) {
         // The caller wanted a pending update

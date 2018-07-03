@@ -14,14 +14,14 @@
  *
  * @return an array of failed updates.
  */
-+ (NSMutableArray<MSAssetsPackage *> *)getFailedUpdates;
+- (NSMutableArray<MSAssetsPackage *> *)getFailedUpdates;
 
 /**
  * Gets object with pending update info.
  *
  * @return object representing `MSAssetsPendingUpdate` with pending update info.
  */
-+ (MSAssetsPendingUpdate *)getPendingUpdate;
+- (MSAssetsPendingUpdate *)getPendingUpdate;
 
 /**
  * Checks whether an update with the following hash has failed.
@@ -29,7 +29,7 @@
  * @param packageHash hash to check.
  * @return `true` if there is a failed update with provided hash, `false` otherwise.
  */
-+ (BOOL)existsFailedUpdate:(NSString *_Nonnull )packageHash;
+- (BOOL)existsFailedUpdate:(NSString *_Nonnull )packageHash;
 
 /**
  * Checks whether there is a pending update with the provided hash.
@@ -38,49 +38,49 @@
  * @param packageHash expected package hash of the pending update.
  * @return `true` if there is a pending update with the provided hash.
  */
-+ (BOOL)isPendingUpdate:(NSString *_Nonnull)packageHash;
+- (BOOL)isPendingUpdate:(NSString *_Nonnull)packageHash;
 
 /**
  * Removes information about failed updates.
  */
-+ (void)removeFailedUpdates;
+- (void)removeFailedUpdates;
 
 /**
  * Removes information about the pending update.
  */
-+ (void)removePendingUpdate;
+- (void)removePendingUpdate;
 
 /**
  * Adds another failed update info to the list of failed updates.
  *
  * @param failedPackage instance of failed `MSAssetsPackage`.
  */
-+ (void)saveFailedUpdate:(MSAssetsPackage *_Nonnull) failedPackage;
+- (void)saveFailedUpdate:(MSAssetsPackage *_Nonnull) failedPackage;
 
 /**
  * Saves information about the pending update.
  *
  * @param pendingUpdate instance of the `MSAssetsPendingUpdate`.
  */
-+ (void)savePendingUpdate:(MSAssetsPendingUpdate *_Nonnull) pendingUpdate;
+- (void)savePendingUpdate:(MSAssetsPendingUpdate *_Nonnull) pendingUpdate;
 
 /**
  * Saves identifier of already sent status report.
  *
  * @param identifier identifier of already sent status report.
  */
-+ (void)saveIdentifierOfReportedStatus:(MSAssetsStatusReportIdentifier *)identifier;
+- (void)saveIdentifierOfReportedStatus:(MSAssetsStatusReportIdentifier *)identifier;
 
 /**
  * Gets previously saved status report identifier.
  *
  * @return previously saved status report identifier.
  */
-+ (MSAssetsStatusReportIdentifier *)getPreviousStatusReportIdentifier;
+- (MSAssetsStatusReportIdentifier *)getPreviousStatusReportIdentifier;
 
-+ (void)saveBinaryHash:(NSMutableDictionary *)binaryHash;
+- (void)saveBinaryHash:(NSMutableDictionary *)binaryHash;
 
-+ (NSMutableDictionary *)getBinaryHash;
-+ (void)removeBinaryHash;
+- (NSMutableDictionary *)getBinaryHash;
+- (void)removeBinaryHash;
 
 @end

@@ -1,6 +1,8 @@
 #import "MSAssetsDelegate.h"
 #import "MSAssetsUpdateManager.h"
 #import "MSAssetsAcquisitionManager.h"
+#import "MSAssetsSettingManager.h"
+#import "MSAssetsTelemetryManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,9 +16,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) id<MSAssetsDelegate> delegate;
 
+@property (nonatomic, copy, readonly) MSAssetsTelemetryManager *telemetryManager;
+
 @property (nonatomic, copy, readonly) MSAssetsUpdateManager *updateManager;
 
 @property (nonatomic, copy, readonly) MSAssetsAcquisitionManager *acquisitionManager;
+
+@property (nonatomic, copy, readonly) MSAssetsSettingManager *settingManager;
+
+
 
 @end
 
