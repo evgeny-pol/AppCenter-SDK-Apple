@@ -132,6 +132,7 @@
 		0431073E20EA48D700F42296 /* JWTCoding+ResultTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 0431070E20EA48D600F42296 /* JWTCoding+ResultTypes.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		0431073F20EA48D700F42296 /* JWTCoding+VersionOne.h in Headers */ = {isa = PBXBuildFile; fileRef = 0431070F20EA48D600F42296 /* JWTCoding+VersionOne.h */; };
 		0431074220EA727B00F42296 /* MSAssetsErrorUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0431074120EA727B00F42296 /* MSAssetsErrorUtils.m */; };
+		0431074520EB490B00F42296 /* MSAssetsUpdateUtilities+JWT.m in Sources */ = {isa = PBXBuildFile; fileRef = 0431074420EB490B00F42296 /* MSAssetsUpdateUtilities+JWT.m */; };
 		043121511EE0C20A007054C5 /* MSAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = E85547C51D2D6253002DF6E2 /* MSAssets.m */; };
 		0431215B1EE0C20A007054C5 /* AppCenter+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = E85547CF1D2D6521002DF6E2 /* AppCenter+Internal.h */; };
 		0431215F1EE0C20A007054C5 /* AppCenterAssets.h in Headers */ = {isa = PBXBuildFile; fileRef = E85547CC1D2D63EF002DF6E2 /* AppCenterAssets.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -375,6 +376,8 @@
 		0431071120EA48D600F42296 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		0431074020EA726600F42296 /* MSAssetsErrorUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsErrorUtils.h; sourceTree = "<group>"; };
 		0431074120EA727B00F42296 /* MSAssetsErrorUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsErrorUtils.m; sourceTree = "<group>"; };
+		0431074320EB48F900F42296 /* MSAssetsUpdateUtilities+JWT.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MSAssetsUpdateUtilities+JWT.h"; sourceTree = "<group>"; };
+		0431074420EB490B00F42296 /* MSAssetsUpdateUtilities+JWT.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MSAssetsUpdateUtilities+JWT.m"; sourceTree = "<group>"; };
 		0431216C1EE0C20A007054C5 /* libAppCenterAssets.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAppCenterAssets.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		043121721EE0C248007054C5 /* tvOS.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = tvOS.modulemap; sourceTree = "<group>"; };
 		043121731EE0C248007054C5 /* tvOS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = tvOS.xcconfig; sourceTree = "<group>"; };
@@ -792,6 +795,8 @@
 				0431061120E9312600F42296 /* MSAssetsUpdateUtilities.m */,
 				0431074020EA726600F42296 /* MSAssetsErrorUtils.h */,
 				0431074120EA727B00F42296 /* MSAssetsErrorUtils.m */,
+				0431074320EB48F900F42296 /* MSAssetsUpdateUtilities+JWT.h */,
+				0431074420EB490B00F42296 /* MSAssetsUpdateUtilities+JWT.m */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1476,6 +1481,7 @@
 				A31B561920DD093700D81CA1 /* MSAssetsDeploymentInstance.m in Sources */,
 				0482864F20E23802005FEFD8 /* MSAssetsAcquisitionManager.m in Sources */,
 				A31B562820DD3FA000D81CA1 /* MSAssetsBuilder.m in Sources */,
+				0431074520EB490B00F42296 /* MSAssetsUpdateUtilities+JWT.m in Sources */,
 				4B9421F420E28B2500289E0A /* MSAssetsUpdateManager.m in Sources */,
 				E85547C61D2D6253002DF6E2 /* MSAssets.m in Sources */,
 				0431061220E9312600F42296 /* MSAssetsUpdateUtilities.m in Sources */,

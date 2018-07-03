@@ -14,7 +14,7 @@ NS_ENUM(NSInteger){
     kMSACDownloadPackageErrorCode = 102,
     kMSACSignatureVerificationErrorCode = 103,
     kMSACFileErrorCode = 104
-    };
+};
         
 // Error descriptions
 extern NSString const *kMSACQueryUpdateErrorDesc;
