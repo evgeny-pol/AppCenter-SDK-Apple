@@ -2,7 +2,6 @@
 #import "MSLocalPackage.h"
 #import "MSAssetsPackage.h"
 #import "MSDeploymentStatusReport.h"
-//#import "MSAssetsDeploymentInstance.h"
 
 @class MSAssetsDeploymentInstance;
 
