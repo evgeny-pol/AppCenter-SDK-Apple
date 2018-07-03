@@ -4,21 +4,35 @@
 #import "MSAssetsErrors.h"
 #import "MSAssetsErrorUtils.h"
 #import "MSLogger.h"
+#import "MSUtility+File.h"
+#import "MSAssetsDownloadHandler.h"
 #import <UIKit/UIKit.h>
 #import "MSAssetsSettingManager.h"
+#import "MSAssetsFileUtils.h"
 
-@implementation MSAssetsDeploymentInstance
+@implementation MSAssetsDeploymentInstance {
+    BOOL _didUpdateProgress;
+    NSString *_entryPoint;
+    NSString *_publicKey;
+}
 
 @synthesize delegate = _delegate;
-@synthesize updateManager = _updateManager;
-@synthesize acquisitionManager = _acquisitionManager;
+static NSString *const DownloadFileName = @"download.zip";
+static NSString *const UpdateMetadataFileName = @"app.json";
+
 
 static BOOL isRunningBinaryVersion = NO;
 //static BOOL needToReportRollback = NO;
 //static BOOL testConfigurationFlag = NO;
 
-- (instancetype)init {
+- (instancetype)initWithEntryPoint:(NSString *)entryPoint
+                         publicKey:(NSString *)publicKey{
     if ((self = [super init])) {
+        _entryPoint = entryPoint;
+        _publicKey = publicKey;
+        _downloadHandler = [[MSAssetsDownloadHandler alloc] initWithOperationQueue: dispatch_get_main_queue()];
+        _updateUtilities = [[MSAssetsUpdateUtilities alloc] init];
+        _fileUtils = [[MSAssetsFileUtils alloc] init];
         _updateManager = [[MSAssetsUpdateManager alloc] init];
         _acquisitionManager = [[MSAssetsAcquisitionManager alloc] init];
         _settingManager = [[MSAssetsSettingManager alloc] init];
@@ -89,8 +103,7 @@ static BOOL isRunningBinaryVersion = NO;
     MSLogInfo([MSAssets logTag], @"Check for update called");
 }
 
-- (MSAssetsConfiguration *)getConfiguration
-{
+- (MSAssetsConfiguration *)getConfiguration {
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
 
     MSAssetsConfiguration *configuration = [MSAssetsConfiguration new];
@@ -105,8 +118,7 @@ static BOOL isRunningBinaryVersion = NO;
 }
 
 - (MSLocalPackage *)getUpdateMetadataForState:(MSAssetsUpdateState)updateState
-                 currentPackageGettingError:(NSError * __autoreleasing *)error
-{
+                 currentPackageGettingError:(NSError * __autoreleasing *)error {
     NSError *__autoreleasing internalError;
 
     MSLocalPackage *package = [[[self updateManager] getCurrentPackage:&internalError] mutableCopy];
@@ -127,10 +139,12 @@ static BOOL isRunningBinaryVersion = NO;
     BOOL currentUpdateIsPending = [[self settingManager] isPendingUpdate:package.packageHash];
 
     if (updateState == MSAssetsUpdateStatePending && !currentUpdateIsPending) {
+        
         // The caller wanted a pending update
         // but there isn't currently one.
         return nil;
     } else if (updateState == MSAssetsUpdateStateRunning && currentUpdateIsPending) {
+        
         // The caller wants the running update, but the current
         // one is pending, so we need to grab the previous.
         package = [[self updateManager] getPreviousPackage:&internalError];
@@ -141,16 +155,19 @@ static BOOL isRunningBinaryVersion = NO;
         else
             return package;
     } else {
+        
         // The current package satisfies the request:
         // 1) Caller wanted a pending, and there is a pending update
         // 2) Caller wanted the running update, and there isn't a pending
         // 3) Caller wants the latest update, regardless if it's pending or not
         if (isRunningBinaryVersion) {
+            
             // This only matters in Debug builds. Since we do not clear "outdated" updates,
             // we need to indicate to the JS side that somehow we have a current update on
             // disk that is not actually running.
             package.isDebugOnly = true;
         }
+        
         // Enable differentiating pending vs. non-pending updates
         package.isPending = currentUpdateIsPending;
         return package;
@@ -158,8 +175,7 @@ static BOOL isRunningBinaryVersion = NO;
 
 }
 
-- (MSLocalPackage *)getCurrentPackage
-{
+- (MSLocalPackage *)getCurrentPackage {
     NSError *error;
     MSLocalPackage *currentPackage = [self getUpdateMetadataForState:MSAssetsUpdateStateLatest currentPackageGettingError:&error];
     if (error){
@@ -169,7 +185,94 @@ static BOOL isRunningBinaryVersion = NO;
     return currentPackage;
 }
 
-
+//TODO: saveFailedUpdate on err!
+/**
+ * Downloads update.
+ *
+ * @param updatePackage update to download.
+ * @param completeHandler completion handler to deliver results/errors to.
+ */
+- (void)downloadUpdate:(MSRemotePackage *)updatePackage
+       completeHandler:(MSDownloadHandler)completeHandler {
+    NSString *newUpdateFolderPath = [[self updateManager] getPackageFolderPath:[updatePackage packageHash]];
+    NSString *newUpdateMetadataPath = [newUpdateFolderPath stringByAppendingPathComponent:UpdateMetadataFileName];
+    if ([MSUtility fileExistsForPathComponent:newUpdateFolderPath]) {
+        
+        /* This removes any stale data in `newPackageFolderPath` that could have been left
+         * uncleared due to a crash or error during the download or install process. */
+        [MSUtility deleteItemForPathComponent:newUpdateFolderPath];
+    }
+    NSString *downloadFile = [[self updateManager] getDownloadFilePath];
+    __weak typeof(self) weakSelf = self;
+    [[self downloadHandler] downloadWithUrl:[updatePackage downloadUrl]
+                                     toPath:downloadFile
+                       withProgressCallback:^(long long expectedContentLength, long long receivedContentLength) {
+                           typeof(self) strongSelf = weakSelf;
+                           if (!strongSelf) {
+                               return;
+                           }
+                           if ([[strongSelf delegate] respondsToSelector:@selector(packageDownloadProgress:totalBytes:)]) {
+                               [[strongSelf delegate] packageDownloadProgress:receivedContentLength totalBytes:expectedContentLength];
+                           }
+                       } andCompletionHandler:^(MSDownloadPackageResult *downloadResult, NSError *err) {
+                           typeof(self) strongSelf = weakSelf;
+                           if (!strongSelf) {
+                               return;
+                           }
+                           if (err && completeHandler != nil) {
+                               completeHandler(nil, err);
+                               return;
+                           }
+                           NSError *error = nil;
+                           NSString *entryPoint = nil;
+                           BOOL isZip = [downloadResult isZip];
+                           if (isZip) {
+                               [[strongSelf updateManager] unzipPackage:downloadFile
+                                                                  error:&error];
+                               if (error) {
+                                   completeHandler(nil, error);
+                                   return;
+                               }
+                               entryPoint = [[strongSelf updateManager] mergeDiffWithNewUpdateFolder:newUpdateFolderPath
+                                                                         newUpdateMetadataPath:newUpdateMetadataPath
+                                                                                 newUpdateHash:[updatePackage packageHash]
+                                                                               publicKeyString: strongSelf->_publicKey
+                                                                    expectedEntryPointFileName:strongSelf->_entryPoint
+                                                                                               error:&error];
+                               if (error) {
+                                   completeHandler(nil, error);
+                                   return;                                   
+                               }
+                           } else {
+                               [[strongSelf fileUtils] moveFile:downloadFile newUpdateFolderPath:newUpdateFolderPath entryPoint:strongSelf->_entryPoint error:&error];
+                               if (error) {
+                                   completeHandler(nil, error);
+                                   return;
+                               }
+                           }
+                           MSLocalPackage *localPackage = [MSLocalPackage createLocalPackageWithPackage:updatePackage
+                                                                                          failedInstall:NO
+                                                                                             isFirstRun: NO
+                                                                                              isPending:YES
+                                                                                            isDebugOnly:NO
+                                                                                             entryPoint: entryPoint];
+                           NSURL *binaryBundleURL = [[NSBundle mainBundle] bundleURL];
+                           if (binaryBundleURL != nil) {
+                               [localPackage setBinaryModifiedTime:[[strongSelf updateUtilities] modifiedDateStringOfFileAtURL:binaryBundleURL]];
+                           }
+                           NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[localPackage serializeToDictionary] options:NSJSONWritingPrettyPrinted error:&error];
+                           if (error) {
+                               completeHandler(nil, error);
+                               return;
+                           }
+                           NSURL *createdFile = [MSUtility createFileAtPathComponent:newUpdateMetadataPath withData:jsonData atomically:YES forceOverwrite:NO];
+                           if (createdFile == nil) {
+                               completeHandler(nil, [MSAssetsErrorUtils getUpdateMetadataFailToCreateError]);
+                               return;
+                           }
+                           completeHandler(localPackage, nil);
+                       }];
+}
 
 
 @end

@@ -19,6 +19,7 @@ NS_ENUM(NSInteger){
 // Error descriptions
 extern NSString const *kMSACQueryUpdateErrorDesc;
 extern NSString const *kMSACQueryUpdateParseErrorDesc;
+extern NSString const *kMSACUpdateFailedToCreateUpdateMetadataFileErrorDesc;
 extern NSString const *kMSACSignatureVerificationNoContentHashErrorDesc;
  
 extern NSString const *kMSACUpdateAvailableButNotTargetingBinary;

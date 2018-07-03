@@ -66,4 +66,11 @@
                                             code:kMSACQueryUpdateErrorCode
                                         userInfo:userInfo];
 }
+
++ (NSError *)getUpdateMetadataFailToCreateError {
+    NSDictionary *userInfo = @{kMSACUpdateErrorKey : kMSACUpdateFailedToCreateUpdateMetadataFileErrorDesc};
+    return [NSError errorWithDomain:kMSACErrorDomain
+                               code:kMSACQueryUpdateErrorCode
+                           userInfo:userInfo];
+}
 @end

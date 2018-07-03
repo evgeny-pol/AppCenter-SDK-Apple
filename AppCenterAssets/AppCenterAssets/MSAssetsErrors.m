@@ -12,6 +12,7 @@ NSString *const kMSACErrorDomain = MS_APP_CENTER_BASE_DOMAIN @"ErrorDomain";
 NSString const *kMSACQueryUpdateErrorDesc = @"Error occurred during querying the update.";
 NSString const *kMSACQueryUpdateParseErrorDesc = @"Error occurred during parsing update response.";
 NSString const *kMSACUpdateAvailableButNotTargetingBinary = @"An update is available but it is not targeting the binary version of your app.";
+NSString const *kMSACUpdateFailedToCreateUpdateMetadataFileErrorDesc = @"Failed to create update metadata file.";
 NSString const *kMSACSignatureVerificationNoContentHashErrorDesc = @"The update could not be verified because the signature did not specify a content hash.";
 
 NSString *kMSACDownloadPackageErrorDesc(NSString *downloadUrl) {

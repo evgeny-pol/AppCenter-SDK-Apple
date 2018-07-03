@@ -32,22 +32,22 @@ typedef void (^MSDownloadProgressHandler)(long long received, long long total);
 /**
 * Initializes the download handler and saves all the necessary data for the work.
 *
-* @param downloadFilePath path for the file to be saved to.
 * @param operationQueue queue to be executed on.
-* @param progressCallback callback for download progress.
-* @param completionHandler callback to be invoked when execution finished (successfully or not).
 * @return instance of `MSDownloadHandler`.
 */
-- (id)init:(NSString *)downloadFilePath
-operationQueue:(dispatch_queue_t)operationQueue
-progressCallback:(MSDownloadProgressHandler)progressCallback
-doneCallback:(MSDownloadCompletionHandler)completionHandler;
+- (id)initWithOperationQueue:(dispatch_queue_t)operationQueue;
 
 /**
 * Downloads the file.
 *
 * @param url url to download from.
+* @param downloadFilePath path for the file to be saved to.
+* @param progressCallback callback for download progress.
+* @param completionHandler callback to be invoked when execution finished (successfully or not).
 */
-- (void)download:(NSString*)url;
+- (void)downloadWithUrl:(NSString *)url
+                 toPath:(NSString *)downloadFilePath
+   withProgressCallback:(MSDownloadProgressHandler)progressCallback
+   andCompletionHandler:(MSDownloadCompletionHandler)completionHandler;
 
 @end

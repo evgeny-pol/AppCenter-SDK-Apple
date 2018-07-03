@@ -98,4 +98,5 @@ extern NSString *const ManifestFolderPrefix;
                     expectedFileName:(NSString *)expectedFileName
                                error:(NSError **)error;
 
+- (NSString *)modifiedDateStringOfFileAtURL:(NSURL *)fileURL;
 @end

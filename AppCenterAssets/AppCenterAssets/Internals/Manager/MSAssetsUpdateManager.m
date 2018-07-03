@@ -1,8 +1,10 @@
 #import "MSAssetsUpdateManager.h"
 #import "MSAssetsPackageInfo.h"
+#import "MSUtility+File.h"
+#import "MSAssetsErrorUtils.h"
+#import "MSAssetsFileUtils.h"
 
-
-@implementation MSAssetsUpdateManager
+@implementation MSAssetsUpdateManager 
 
 static NSString *const DiffManifestFileName = @"hotcodepush.json";
 static NSString *const DownloadFileName = @"download.zip";
@@ -12,8 +14,19 @@ static NSString *const UpdateBundleFileName = @"app.jsbundle";
 static NSString *const UpdateMetadataFileName = @"app.json";
 static NSString *const UnzippedFolderName = @"unzipped";
 
-- (MSLocalPackage *)getCurrentPackage:(NSError * __autoreleasing *)error
-{
+@synthesize updateUtilities = _updateUtilities;
+@synthesize fileUtils = _fileUtils;
+
+- (instancetype)initWithUpdateUtils:(MSAssetsUpdateUtilities *)updateUtilities
+                       andFileUtils:(MSAssetsFileUtils *)fileUtils {
+    if ((self = [super init])) {
+        _updateUtilities = updateUtilities;
+        _fileUtils = fileUtils;
+    }
+    return self;
+}
+
+- (MSLocalPackage *)getCurrentPackage:(NSError * __autoreleasing *)error {
     NSString *packageHash = [self getCurrentPackageHash:error];
     if (!packageHash) {
         return nil;
@@ -22,8 +35,7 @@ static NSString *const UnzippedFolderName = @"unzipped";
     return [self getPackage:packageHash error:error];
 }
 
-- (NSString *)getCurrentPackageHash:(NSError * __autoreleasing *)error
-{
+- (NSString *)getCurrentPackageHash:(NSError * __autoreleasing *)error {
     MSAssetsPackageInfo *info = [self getCurrentPackageInfo:error];
     if (!info) {
         return nil;
@@ -32,8 +44,7 @@ static NSString *const UnzippedFolderName = @"unzipped";
     return info.currentPackage;
 }
 
-- (MSAssetsPackageInfo *)getCurrentPackageInfo:(NSError * __autoreleasing *)error
-{
+- (MSAssetsPackageInfo *)getCurrentPackageInfo:(NSError * __autoreleasing *)error {
     NSString *statusFilePath = [self getStatusFilePath];
     if (![[NSFileManager defaultManager] fileExistsAtPath:statusFilePath]) {
         return [[MSAssetsPackageInfo alloc] init];
@@ -58,8 +69,7 @@ static NSString *const UnzippedFolderName = @"unzipped";
 }
 
 - (MSLocalPackage *)getPackage:(NSString *)packageHash
-                          error:(NSError * __autoreleasing *)error
-{
+                          error:(NSError * __autoreleasing *)error {
     NSString *updateDirectoryPath = [self getPackageFolderPath:packageHash];
     NSString *updateMetadataFilePath = [updateDirectoryPath stringByAppendingPathComponent:UpdateMetadataFileName];
 
@@ -87,13 +97,11 @@ static NSString *const UnzippedFolderName = @"unzipped";
     return [[MSLocalPackage alloc] initWithDictionary:json];
 }
 
-- (NSString *)getPackageFolderPath:(NSString *)packageHash
-{
+- (NSString *)getPackageFolderPath:(NSString *)packageHash {
     return [[self getMSAssetsPath] stringByAppendingPathComponent:packageHash];
 }
 
-- (MSLocalPackage *)getPreviousPackage:(NSError * __autoreleasing *)error
-{
+- (MSLocalPackage *)getPreviousPackage:(NSError * __autoreleasing *)error {
     NSString *packageHash = [self getPreviousPackageHash:error];
     if (!packageHash) {
         return nil;
@@ -102,8 +110,7 @@ static NSString *const UnzippedFolderName = @"unzipped";
     return [self getPackage:packageHash error:error];
 }
 
-- (NSString *)getPreviousPackageHash:(NSError * __autoreleasing *)error
-{
+- (NSString *)getPreviousPackageHash:(NSError * __autoreleasing *)error {
     MSAssetsPackageInfo *info = [self getCurrentPackageInfo:error];
     if (!info) {
         return nil;
@@ -112,13 +119,11 @@ static NSString *const UnzippedFolderName = @"unzipped";
     return info.previousPackage;
 }
 
-- (NSString *)getStatusFilePath
-{
+- (NSString *)getStatusFilePath {
     return [[self getMSAssetsPath] stringByAppendingPathComponent:StatusFile];
 }
 
-- (NSString *)getMSAssetsPath
-{
+- (NSString *)getMSAssetsPath {
     NSString* assetsPath = [[self  getApplicationSupportDirectory] stringByAppendingPathComponent:@"Assets"];
     /*if ([MSAssetsDeploymentInstance isUsingTestConfiguration]) {
         assetsPath = [assetsPath stringByAppendingPathComponent:@"TestPackages"];
@@ -127,10 +132,46 @@ static NSString *const UnzippedFolderName = @"unzipped";
     return assetsPath;
 }
 
-- (NSString *)getApplicationSupportDirectory
-{
+- (NSString *)getApplicationSupportDirectory {
     NSString *applicationSupportDirectory = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     return applicationSupportDirectory;
+}
+
+- (NSString *)getDownloadFilePath {
+    return [[self getMSAssetsPath] stringByAppendingPathComponent:DownloadFileName];
+}
+
+- (NSString *)getUnzippedFolderPath {
+    return [[self getMSAssetsPath] stringByAppendingPathComponent:UnzippedFolderName];
+}
+
+- (void)unzipPackage:(NSString *)filePath
+               error:(NSError * __autoreleasing *)error {
+    NSString *unzippedFolderPath = [self getUnzippedFolderPath];
+    [[self fileUtils] unzipFile:filePath unzippedFolderPath:unzippedFolderPath error:error];
+    if (!*error) {
+        BOOL result = [MSUtility deleteItemForPathComponent:filePath];
+        if (!result) {
+            *error = [MSAssetsErrorUtils getFileDeleteError:filePath];
+        }
+    }
+}
+
+- (NSString *)mergeDiffWithNewUpdateFolder:(NSString *)newUpdateFolderPath
+                     newUpdateMetadataPath:(NSString *)newUpdateMetadataPath
+                             newUpdateHash:(NSString *)newUpdateHash
+                           publicKeyString:(NSString *)publicKeyString
+                expectedEntryPointFileName:(NSString *)expectedEntryPointFileName
+                                     error:(NSError * __autoreleasing *)error {
+    
+}
+
+- (void)verifySignatureForPath:(NSString *)newUpdateFolderPath
+                 withPublicKey:(NSString *)publicKey
+                 newUpdateHash:(NSString *)newUpdateHash
+                    diffUpdate:(BOOL)isDiffUpdate
+                         error:(NSError * __autoreleasing *)error {
+    
 }
 
 @end

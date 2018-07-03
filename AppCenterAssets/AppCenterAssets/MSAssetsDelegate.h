@@ -18,5 +18,8 @@
  */
 - (void)didFailToQueryRemotePackageOnCheckForUpdate:(NSError *)error;
 
+
+- (void)packageDownloadProgress:(long long)receivedBytes totalBytes:(long long)totalBytes;
+
 @end
 

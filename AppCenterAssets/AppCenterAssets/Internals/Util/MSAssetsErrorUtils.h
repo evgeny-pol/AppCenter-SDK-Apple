@@ -11,4 +11,5 @@
 + (NSError *)getUpdateParseError;
 + (NSError *)getUpdateError:(NSString *)errorString;
 + (NSError *)getUpdateNotTargetingBinaryError;
++ (NSError *)getUpdateMetadataFailToCreateError;
 @end
