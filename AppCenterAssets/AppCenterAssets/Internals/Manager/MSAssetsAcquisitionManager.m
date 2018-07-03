@@ -8,7 +8,7 @@
 #import "MSHttpSenderPrivate.h"
 #import "MSLoggerInternal.h"
 #import "MSAssets.h"
-#import "MSAssetsErrors.h"
+#import "MSAssetsErrorUtils.h"
 #import "MSAssetsReportSender.h"
 #import "MSLogger.h"
 
@@ -40,9 +40,13 @@ static NSString *const kMSReportDownloadStatusEndpoint = @"%@reportStatus/downlo
     __weak typeof(self) weakSelf = self;
     [_updateChecker
      sendAsync:nil
-     completionHandler:^(__unused NSString *callId, NSUInteger statusCode, NSData *data, __unused NSError *error) {
+     completionHandler:^(__unused NSString *callId, NSUInteger statusCode, NSData *data, NSError *error) {
          typeof(self) strongSelf = weakSelf;
          if (!strongSelf) {
+             return;
+         }
+         if (error) {
+             handler(nil, error);
              return;
          }
          strongSelf->_updateChecker = nil;
@@ -54,13 +58,8 @@ static NSString *const kMSReportDownloadStatusEndpoint = @"%@reportStatus/downlo
                                                                  options:NSJSONReadingMutableContainers
                                                                    error:&jsonError];
                  if (jsonError) {
-                     NSDictionary *userInfo = @{kMSACConnectionParseErrorKey : kMSACQueryUpdateParseErrorDesc};
-                     NSError *newError = [NSError errorWithDomain:kMSACErrorDomain
-                                                             code:kMSACQueryUpdateParseErrorCode
-                                                         userInfo:userInfo];
-                     handler(nil, newError);
+                     handler(nil, [MSAssetsErrorUtils getUpdateParseError]);
                      return;
-
                  }
                  response = [[MSAssetsUpdateResponse alloc] initWithDictionary:dictionary];
              }
@@ -80,11 +79,7 @@ static NSString *const kMSReportDownloadStatusEndpoint = @"%@reportStatus/downlo
              }
              handler(nil, nil);
          } else {
-             NSDictionary *userInfo = @{kMSACConnectionHttpCodeErrorKey : [self getErrorFromData:data]};
-             NSError *newError = [NSError errorWithDomain:kMSACErrorDomain
-                                                  code:kMSACQueryUpdateErrorCode
-                                              userInfo:userInfo];
-             handler(nil, newError);
+             handler(nil, [MSAssetsErrorUtils getUpdateError:[self getErrorFromData:data]]);
          }
      }];
 }
@@ -143,9 +138,13 @@ static NSString *const kMSReportDownloadStatusEndpoint = @"%@reportStatus/downlo
     __weak typeof(self) weakSelf = self;
     [_reportSender
      sendAsync:report
-     completionHandler:^(__unused NSString *callId, NSUInteger statusCode, NSData *data, __unused NSError *error) {
+     completionHandler:^(__unused NSString *callId, NSUInteger statusCode, NSData *data, NSError *error) {
          typeof(self) strongSelf = weakSelf;
          if (!strongSelf) {
+             return;
+         }
+         if (error) {
+             MSLogError([MSAssets logTag], @"Error reporting download status: %@", [error localizedDescription]);
              return;
          }
          strongSelf->_reportSender = nil;
@@ -176,9 +175,13 @@ static NSString *const kMSReportDownloadStatusEndpoint = @"%@reportStatus/downlo
     __weak typeof(self) weakSelf = self;
     [_reportSender
      sendAsync:report
-     completionHandler:^(__unused NSString *callId, NSUInteger statusCode, NSData *data, __unused NSError *error) {
+     completionHandler:^(__unused NSString *callId, NSUInteger statusCode, NSData *data, NSError *error) {
          typeof(self) strongSelf = weakSelf;
          if (!strongSelf) {
+             return;
+         }
+         if (error) {
+             MSLogError([MSAssets logTag], @"Error reporting deploy status: %@", [error localizedDescription]);
              return;
          }
          strongSelf->_reportSender = nil;

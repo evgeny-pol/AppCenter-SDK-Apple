@@ -2,7 +2,12 @@
 #import "MSAssetsUpdateState.h"
 #import "MSLocalPackage.h"
 #import "MSAssetsErrors.h"
+<<<<<<< HEAD
 #import "MSAssetsSettingManager.h"
+=======
+#import "MSAssetsErrorUtils.h"
+#import "MSLogger.h"
+>>>>>>> bd062553322f7f402f0775f420eb34d96caa11ce
 #import <UIKit/UIKit.h>
 
 @implementation MSAssetsDeploymentInstance
@@ -37,7 +42,7 @@ static BOOL isRunningBinaryVersion = NO;
 
     MSLocalPackage *queryPackage;
     if (localPackage){
-        NSLog(@"Got local package");
+        MSLogInfo([MSAssets logTag], @"Got local package");
         queryPackage = localPackage;
     }
     else{
@@ -49,7 +54,7 @@ static BOOL isRunningBinaryVersion = NO;
             if ([[self delegate] respondsToSelector:@selector(didFailToQueryRemotePackageOnCheckForUpdate:)])
                 [[self delegate] didFailToQueryRemotePackageOnCheckForUpdate:error];
             return;
-        };
+        }
         
         if (!update)
         {
@@ -63,13 +68,9 @@ static BOOL isRunningBinaryVersion = NO;
             ((!localPackage || localPackage.isDebugOnly) && [config.packageHash isEqualToString:update.packageHash] )){
 
             if (update && update.updateAppVersion){
-                NSLog(@"An update is available but it is not targeting the binary version of your app.");
-
                 if ([[self delegate] respondsToSelector:@selector(didFailToQueryRemotePackageOnCheckForUpdate:)])
                 {
-                    NSError *newError = [NSError errorWithDomain:kMSACErrorDomain
-                                                            code:kMSACQueryUpdateParseErrorCode
-                                                        userInfo:nil];
+                    NSError *newError = [MSAssetsErrorUtils getUpdateNotTargetingBinaryError];
                     [[self delegate] didFailToQueryRemotePackageOnCheckForUpdate:newError];
                 }
 
@@ -86,7 +87,7 @@ static BOOL isRunningBinaryVersion = NO;
             [[self delegate] didReceiveRemotePackageOnUpdateCheck:update];
     }];
 
-    NSLog(@"Check for update called");
+    MSLogInfo([MSAssets logTag], @"Check for update called");
 }
 
 - (MSAssetsConfiguration *)getConfiguration
@@ -163,7 +164,7 @@ static BOOL isRunningBinaryVersion = NO;
     NSError *error;
     MSLocalPackage *currentPackage = [self getUpdateMetadataForState:MSAssetsUpdateStateLatest currentPackageGettingError:&error];
     if (error){
-        NSLog(@"An error occured: %@", [error localizedDescription]);
+        MSLogInfo([MSAssets logTag], @"An error occured: %@", [error localizedDescription]);
         return nil;
     }
     return currentPackage;
