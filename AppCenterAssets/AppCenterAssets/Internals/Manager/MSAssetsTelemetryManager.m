@@ -3,27 +3,28 @@
 #import "MSAssetsPackage.h"
 #import "MSDeploymentStatusReport.h"
 #import "MSAssetsStatusReportIdentifier.h"
-#import "MSAssetsDeploymentInstance.h"
 
 @interface MSAssetsTelemetryManager ()
 
 // Private Access
-@property MSAssetsDeploymentInstance *assetsDeploymentInstance;
+@property MSAssetsSettingManager *settingManager;
 
 @end
 
+
 @implementation MSAssetsTelemetryManager
 
-- (id)initWithDeploymentInstance: (MSAssetsDeploymentInstance*)deploymentInstance {
+- (id)initWithSettingManager: (MSAssetsSettingManager
+                               *)settingManager {
     self = [super init];
     if (self) {
-        self.assetsDeploymentInstance = deploymentInstance;
+        self.settingManager = settingManager;
     }
     return self;
 }
 
 - (MSDeploymentStatusReport *)buildBinaryUpdateReportWithAppVersion:(NSString * _Nonnull)appVersion {
-    MSAssetsStatusReportIdentifier *previousStatusReportIdentifier = [[[self assetsDeploymentInstance] settingManager] getPreviousStatusReportIdentifier];
+    MSAssetsStatusReportIdentifier *previousStatusReportIdentifier = [[self settingManager] getPreviousStatusReportIdentifier];
     MSDeploymentStatusReport *report = nil;
     if (previousStatusReportIdentifier == nil) {
         
@@ -57,7 +58,7 @@
 
 - (MSDeploymentStatusReport *)buildUpdateReportWithPackage:(MSAssetsPackage * _Nonnull)currentPackage {
     MSAssetsStatusReportIdentifier *currentPackageIdentifier = [self  buildPackageStatusReportIdentifier:currentPackage];
-    MSAssetsStatusReportIdentifier *previousStatusReportIdentifier = [[[self assetsDeploymentInstance] settingManager] getPreviousStatusReportIdentifier];
+    MSAssetsStatusReportIdentifier *previousStatusReportIdentifier = [[self settingManager] getPreviousStatusReportIdentifier];
     MSDeploymentStatusReport *report = nil;
     if (currentPackageIdentifier != nil) {
         if (previousStatusReportIdentifier == nil) {

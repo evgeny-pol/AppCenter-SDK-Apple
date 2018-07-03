@@ -2,15 +2,15 @@
 #import "MSLocalPackage.h"
 #import "MSAssetsPackage.h"
 #import "MSDeploymentStatusReport.h"
-
-@class MSAssetsDeploymentInstance;
+#import "MSAssetsSettingManager.h"
 
 /**
  * Manager responsible for restarting the application.
  */
 @interface MSAssetsTelemetryManager : NSObject
 
-- (id)initWithDeploymentInstance: (MSAssetsDeploymentInstance*)deploymentInstance;
+- (id)initWithSettingManager: (MSAssetsSettingManager
+                               *)settingManager;
 
 /**
  * Builds binary update report using current app version.

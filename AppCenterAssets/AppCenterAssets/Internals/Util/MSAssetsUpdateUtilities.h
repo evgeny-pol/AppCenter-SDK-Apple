@@ -8,7 +8,7 @@ extern NSString *const ManifestFolderPrefix;
  */
 @interface MSAssetsUpdateUtilities : NSObject
 
-- (id)initWithDeploymentInstance: (MSAssetsDeploymentInstance*)deploymentInstance;
+- (id)initWithSettingManager: (MSAssetsSettingManager*)settingManager;
 
 /**
  * Method recursively walks through the directory, computes hash for each file within it and adds
