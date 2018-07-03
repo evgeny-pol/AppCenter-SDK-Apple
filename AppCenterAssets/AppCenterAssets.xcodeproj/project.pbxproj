@@ -150,8 +150,8 @@
 		387C77051D6CC39400D68CC1 /* MSServiceAbstract.h in Headers */ = {isa = PBXBuildFile; fileRef = 387C77041D6CC39400D68CC1 /* MSServiceAbstract.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B6A9EAC20E618760044589C /* MSAssetsReportSender.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B6A9EAA20E618750044589C /* MSAssetsReportSender.h */; };
 		4B6A9EAD20E618760044589C /* MSAssetsReportSender.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6A9EAB20E618760044589C /* MSAssetsReportSender.m */; };
-		4B6A9EB020E618F60044589C /* MSAssetsManagers.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B6A9EAE20E618F60044589C /* MSAssetsManagers.h */; };
-		4B6A9EB120E618F60044589C /* MSAssetsManagers.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6A9EAF20E618F60044589C /* MSAssetsManagers.m */; };
+		4B721CF120EA7FFC0040A566 /* MSAssetsStatusReportIdentifier.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B721CEF20EA7FFB0040A566 /* MSAssetsStatusReportIdentifier.h */; };
+		4B721CF220EA7FFC0040A566 /* MSAssetsStatusReportIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B721CF020EA7FFB0040A566 /* MSAssetsStatusReportIdentifier.m */; };
 		4B9421F420E28B2500289E0A /* MSAssetsUpdateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9421F320E28B2500289E0A /* MSAssetsUpdateManager.m */; };
 		6E0684381D35A3B900A8CC6C /* OCHamcrestIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E0684371D35A3B900A8CC6C /* OCHamcrestIOS.framework */; };
 		A31B561920DD093700D81CA1 /* MSAssetsDeploymentInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B561820DD093700D81CA1 /* MSAssetsDeploymentInstance.m */; };
@@ -340,8 +340,8 @@
 		387C77041D6CC39400D68CC1 /* MSServiceAbstract.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSServiceAbstract.h; path = ../AppCenter/AppCenter/MSServiceAbstract.h; sourceTree = "<group>"; };
 		4B6A9EAA20E618750044589C /* MSAssetsReportSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsReportSender.h; sourceTree = "<group>"; };
 		4B6A9EAB20E618760044589C /* MSAssetsReportSender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSAssetsReportSender.m; sourceTree = "<group>"; };
-		4B6A9EAE20E618F60044589C /* MSAssetsManagers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsManagers.h; sourceTree = "<group>"; };
-		4B6A9EAF20E618F60044589C /* MSAssetsManagers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSAssetsManagers.m; sourceTree = "<group>"; };
+		4B721CEF20EA7FFB0040A566 /* MSAssetsStatusReportIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsStatusReportIdentifier.h; sourceTree = "<group>"; };
+		4B721CF020EA7FFB0040A566 /* MSAssetsStatusReportIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSAssetsStatusReportIdentifier.m; sourceTree = "<group>"; };
 		4B9421F320E28B2500289E0A /* MSAssetsUpdateManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsUpdateManager.m; sourceTree = "<group>"; };
 		4B9421F520E28B4400289E0A /* MSAssetsUpdateManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsUpdateManager.h; sourceTree = "<group>"; };
 		4BE5528320E4D5EF00620DB1 /* MSAssetsDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsDelegate.h; sourceTree = "<group>"; };
@@ -612,6 +612,8 @@
 		6E3E2CC21D359D5E00B1EE50 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4B721CEF20EA7FFB0040A566 /* MSAssetsStatusReportIdentifier.h */,
+				4B721CF020EA7FFB0040A566 /* MSAssetsStatusReportIdentifier.m */,
 				CD09076920CCBB0C0026F862 /* MSAssetsPackage.h */,
 				CD09076F20CCC5B50026F862 /* MSAssetsPackageInfo.h */,
 				CD09077020CCC62A0026F862 /* MSAssetsPendingUpdate.h */,
@@ -730,8 +732,6 @@
 		E85547C21D2D6253002DF6E2 /* AppCenterAssets */ = {
 			isa = PBXGroup;
 			children = (
-				4B6A9EAE20E618F60044589C /* MSAssetsManagers.h */,
-				4B6A9EAF20E618F60044589C /* MSAssetsManagers.m */,
 				E85547CC1D2D63EF002DF6E2 /* AppCenterAssets.h */,
 				E85547C31D2D6253002DF6E2 /* MSAssets.h */,
 				E85547C51D2D6253002DF6E2 /* MSAssets.m */,
@@ -820,6 +820,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B721CF120EA7FFC0040A566 /* MSAssetsStatusReportIdentifier.h in Headers */,
 				0482865620E27496005FEFD8 /* MSAssetsDeploymentInstance.h in Headers */,
 				A31B562C20DD422100D81CA1 /* MSAssetsBuilder.h in Headers */,
 				CD09079520CDE16F0026F862 /* MSAssetsInvalidPublicKeyException.h in Headers */,
@@ -845,7 +846,6 @@
 				CD09078320CDD4E30026F862 /* MSAssetsReportType.h in Headers */,
 				358F9BC62019590200B9E22C /* MSLogWithProperties.h in Headers */,
 				CD09078720CDE0E40026F862 /* MSDownloadPackageException.h in Headers */,
-				4B6A9EB020E618F60044589C /* MSAssetsManagers.h in Headers */,
 				CD09078920CDE10E0026F862 /* MSAssetsFinalizeException.h in Headers */,
 				CD09077F20CDD2F10026F862 /* MSAssetsSyncStatus.h in Headers */,
 				E85547F71D2D6A7D002DF6E2 /* AppCenterAssets.h in Headers */,
@@ -1170,6 +1170,7 @@
 				A31B562820DD3FA000D81CA1 /* MSAssetsBuilder.m in Sources */,
 				4B9421F420E28B2500289E0A /* MSAssetsUpdateManager.m in Sources */,
 				E85547C61D2D6253002DF6E2 /* MSAssets.m in Sources */,
+				4B721CF220EA7FFC0040A566 /* MSAssetsStatusReportIdentifier.m in Sources */,
 				046F462220DFBBF700813F5A /* MSAssetsUpdateDialog.m in Sources */,
 				045C363320E0F60B00521386 /* MSAssetsInvalidPublicKeyException.m in Sources */,
 				045C364520E0FADF00521386 /* MSAssetsSignatureVerificationException.m in Sources */,
@@ -1182,7 +1183,6 @@
 				045C363920E0F6E400521386 /* MSAssetsNativeApiCallException.m in Sources */,
 				046F461E20DFB6AB00813F5A /* MSDownloadPackageResult.m in Sources */,
 				045C362F20E0F4EC00521386 /* MSAssetsInitializeException.m in Sources */,
-				4B6A9EB120E618F60044589C /* MSAssetsManagers.m in Sources */,
 				046F461620DFB2FA00813F5A /* MSAssetsPackageInfo.m in Sources */,
 				045C362920E0E39A00521386 /* MSDownloadPackageException.m in Sources */,
 				045C363D20E0F76B00521386 /* MSAssetsQueryUpdateException.m in Sources */,
