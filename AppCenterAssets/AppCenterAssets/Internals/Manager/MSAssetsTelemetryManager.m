@@ -14,8 +14,7 @@
 
 @implementation MSAssetsTelemetryManager
 
-- (id)initWithSettingManager: (MSAssetsSettingManager
-                               *)settingManager {
+- (id)initWithSettingManager: (MSAssetsSettingManager *)settingManager {
     self = [super init];
     if (self) {
         self.settingManager = settingManager;
@@ -104,7 +103,7 @@
     }
 }
 
-- (MSDeploymentStatusReport *)buildRoolbackReportWithFailedPackage:(MSAssetsPackage * _Nonnull)failedPackage {
+- (MSDeploymentStatusReport *)buildRollbackReportWithFailedPackage:(MSAssetsPackage * _Nonnull)failedPackage {
     MSDeploymentStatusReport *report = [MSDeploymentStatusReport new];
     [report setAssetsPackage:failedPackage];
     [report setStatus:MSAssetsDeploymentStatusFailed];
