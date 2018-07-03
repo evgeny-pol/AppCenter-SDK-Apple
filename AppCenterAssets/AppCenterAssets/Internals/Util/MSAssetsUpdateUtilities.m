@@ -9,7 +9,6 @@
 #include <CommonCrypto/CommonDigest.h>
 
 NSString *const ManifestFolderPrefix = @"Assets";
-NSString *const BundleJWTFile = @".codepushrelease";
 
 @implementation MSAssetsUpdateUtilities
 

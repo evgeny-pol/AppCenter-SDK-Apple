@@ -6,6 +6,8 @@
 #import "MSAssets.h"
 #import "MSAssetsUpdateUtilities+JWT.h"
 
+NSString *const BundleJWTFile = @".codepushrelease";
+
 @implementation MSAssetsUpdateUtilities (JWT)
 
 - (NSDictionary *) verifyAndDecodeJWT:(NSString *)jwt

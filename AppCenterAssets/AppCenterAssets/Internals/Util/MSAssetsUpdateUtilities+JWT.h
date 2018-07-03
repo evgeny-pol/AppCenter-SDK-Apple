@@ -3,6 +3,8 @@
 
 @interface MSAssetsUpdateUtilities (JWT)
 
+extern NSString *const BundleJWTFile;
+
 /**
  * Verifies and decodes JWT.
  *

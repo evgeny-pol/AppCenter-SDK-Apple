@@ -1,7 +1,6 @@
 #import <Foundation/Foundation.h>
 
 extern NSString *const ManifestFolderPrefix;
-extern NSString *const BundleJWTFile;
 
 /**
  * Utils class for Assets updates.
