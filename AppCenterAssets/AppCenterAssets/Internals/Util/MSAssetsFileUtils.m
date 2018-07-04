@@ -6,15 +6,6 @@
 @implementation MSAssetsFileUtils
 
 
-+ (NSString *)appendComponent:(NSString *)component toPath:(NSString *)path
-{
-    NSString *result = [path copy];
-    if (![result hasSuffix:@"/"])
-        result = [result stringByAppendingString:@"/"];
-    result = [result stringByAppendingString:component];
-    return result;
-}
-
 
 + (BOOL)unzipFileAtPath:(NSString *)path toDestination:(NSString *)destination {
     return [SSZipArchive unzipFileAtPath:path
@@ -60,13 +51,38 @@
             return NO;
         }
     }
-    NSString *newFilePath = [self appendComponent:newFolder toPath:newFileName];
+
+    NSString *newFilePath = [newFolder stringByAppendingPathComponent:newFileName];
     if (![fileManager moveItemAtPath:fileToMove toPath:newFilePath error:&error]) {
         MSLogInfo([MSAssets logTag], @"Can't move file from %@ to %@", fileToMove, newFilePath);
         return NO;
     }
     return YES;
 }
+
++ (NSString *)readFileToString:(NSString *)filePath {
+    BOOL isDir;
+    NSError *error = nil;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if ([fileManager fileExistsAtPath:filePath isDirectory:&isDir] && !isDir) {
+        return [NSString stringWithContentsOfFile:filePath encoding:NSUnicodeStringEncoding error:&error];
+    } else {
+        MSLogInfo([MSAssets logTag], @"Can't read to string file %@", filePath);
+        return nil;
+    }
+}
+
++ (BOOL)writeString:(NSString *)content ToFile:(NSString *)filePath
+{
+    NSError *error = nil;
+    BOOL succeed = [content writeToFile:filePath
+                              atomically:YES encoding:NSUnicodeStringEncoding error:&error];
+    if (!succeed) {
+        MSLogInfo([MSAssets logTag], @"Can't write string to file %@", filePath);
+    }
+    return succeed;
+}
+
 
 
 @end

@@ -2,14 +2,6 @@
 
 @interface MSAssetsFileUtils : NSObject
 
-/**
- * Appends file path with one more component.
- *
- * @param path      base path.
- * @param component path component to be appended to the base path.
- * @return new path.
- */
-+ (NSString *)appendComponent:(NSString *)component toPath:(NSString *)path;
 
 /**
  * Gets files from archive.
@@ -37,8 +29,25 @@
  * @param fileToMove  path to the file to be moved.
  * @param newFolder   path to be moved to.
  * @param newFileName new name for the file to be moved.
- * @return YES if success, NO if failed.
+ * @return A flag indicating success or fail.
  */
 + (BOOL)moveFile:(NSString *)fileToMove toFolder:(NSString *)newFolder withNewName:(NSString*)newFileName;
+
+/**
+ * Reads the contents of file to a string.
+ *
+ * @param filePath path to file to be read.
+ * @return string with contents of the file.
+ */
++ (NSString *)readFileToString:(NSString *)filePath;
+
+/**
+ * Writes some content to a file, existing file will be overwritten.
+ *
+ * @param content  content to be written to a file.
+ * @param filePath path to a file.
+ * @return A flag indicating success or fail.
+ */
++ (BOOL)writeString:(NSString *)content ToFile:(NSString *)filePath;
 
 @end
