@@ -201,31 +201,7 @@ static NSString *const UnzippedFolderName = @"unzipped";
                 return nil;
             }
         } else {
-            NSString *newUpdateAssetsPath = [newUpdateFolderPath stringByAppendingPathComponent:ManifestFolderPrefix];
-            NSURL *url = [MSUtility createDirectoryForPathComponent:newUpdateAssetsPath];
-            if (url == nil) {
-                *error = [MSAssetsErrorUtils getFileCreateError:newUpdateAssetsPath];
-                return nil;                
-            } else {
-                [[NSFileManager defaultManager] copyItemAtPath:[bundleAssetsPath]
-                                                        toPath:[newUpdateAssetsPath stringByAppendingPathComponent:AssetsFolderName]
-                                                         error:error];
-                if (error) {
-                    return nil;
-                }
-                NSURL *bundleUrl = [[NSBundle mainBundle] bundleURL];
-                if (bundleUrl != nil) {
-                    NSString *bundleName = [bundleUrl lastPathComponent];
-                    if (bundleName != nil) {
-                        [[NSFileManager defaultManager] copyItemAtPath:[[NSBundle mainBundle] bundlePath]
-                                                                toPath:[newUpdateAssetsPath stringByAppendingPathComponent:bundleName]
-                                                                 error:error];
-                        if (error) {
-                            return nil;
-                        }
-                    }
-                 }
-            }
+            //TODO: Check this scenario with old rn cp plugin.
         }
         BOOL deleted = [MSUtility deleteItemForPathComponent:diffManifestPath];
         if (!deleted) {
