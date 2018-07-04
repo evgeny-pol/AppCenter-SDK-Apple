@@ -36,7 +36,6 @@ typedef void (^MSDownloadHandler)(MSLocalPackage * _Nullable downloadedPackage, 
 
 @property (nonatomic, readonly, nullable) MSAssetsDownloadHandler *downloadHandler;
 @property (nonatomic, readonly, nullable) MSAssetsUpdateUtilities *updateUtilities;
-@property (nonatomic, readonly, nullable) MSAssetsFileUtils *fileUtils;
 @property (nonatomic, copy, readonly) MSAssetsUpdateManager *updateManager;
 
 @property (nonatomic, copy, readonly) MSAssetsAcquisitionManager *acquisitionManager;

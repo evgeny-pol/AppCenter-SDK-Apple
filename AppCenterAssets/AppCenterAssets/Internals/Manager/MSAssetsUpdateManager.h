@@ -12,7 +12,6 @@
  * Initializes the manager with the necessary set of utils.
  *
  * @param updateUtilities instance of `MSAssetsUpdateUtilities`.
- * @param fileUtils instance of `MSAssetsFileUtils`.
  * @return manager instance.
  */
 - (instancetype)initWithUpdateUtils:(MSAssetsUpdateUtilities *)updateUtilities;

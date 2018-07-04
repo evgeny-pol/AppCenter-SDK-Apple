@@ -32,7 +32,6 @@ static BOOL isRunningBinaryVersion = NO;
         _publicKey = publicKey;
         _downloadHandler = [[MSAssetsDownloadHandler alloc] initWithOperationQueue: dispatch_get_main_queue()];
         _updateUtilities = [[MSAssetsUpdateUtilities alloc] init];
-        _fileUtils = [[MSAssetsFileUtils alloc] init];
         _updateManager = [[MSAssetsUpdateManager alloc] init];
         _acquisitionManager = [[MSAssetsAcquisitionManager alloc] init];
         _settingManager = [[MSAssetsSettingManager alloc] init];
@@ -253,7 +252,7 @@ static BOOL isRunningBinaryVersion = NO;
                                    return;                                   
                                }
                            } else {
-                               BOOL result = [MSAssetsFileUtils moveFile:downloadFile newUpdateFolderPath:newUpdateFolderPath entryPoint:strongSelf->_entryPoint];
+                               BOOL result = [MSAssetsFileUtils moveFile:downloadFile toFolder:newUpdateFolderPath withNewName:strongSelf->_entryPoint];
                                if (!result) {
                                    error = [MSAssetsErrorUtils getFileMoveError:downloadFile destination:newUpdateFolderPath];
                                    completeHandler(nil, error);
