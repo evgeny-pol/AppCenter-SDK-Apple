@@ -14,7 +14,7 @@
 - (id)initWithBaseUrl:(NSString *)baseUrl reportType:(MsAssetsReportType)reportType{
     self = [super initWithBaseUrl:baseUrl
                           apiPath:@""
-                          headers:@{kMSHeaderContentTypeKey : kMSAppCenterContentType}
+                          headers:@{kMSHeaderContentTypeKey : kMSContentType}
                      queryStrings:nil
                      reachability:[MS_Reachability reachabilityForInternetConnection]
                    retryIntervals:@[ @(10), @(5 * 60), @(20 * 60)]];

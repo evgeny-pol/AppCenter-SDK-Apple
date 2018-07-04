@@ -11,6 +11,7 @@ NSString const *kMSACQueryUpdateErrorDesc = @"Error occurred during querying the
 NSString const *kMSACQueryUpdateParseErrorDesc = @"Error occurred during parsing update response.";
 NSString const *kMSACUpdateAvailableButNotTargetingBinary = @"An update is available but it is not targeting the binary version of your app.";
 NSString const *kMSACUpdateFailedToCreateUpdateMetadataFileErrorDesc = @"Failed to create update metadata file.";
+NSString const *kMSACUpdateFailedToUpdatePackageInfoErrorDesc = @"Error updating current package info.";
 
 #pragma mark - Signature verification error descriptions
 NSString const *kMSACSignatureVerificationNoContentHashErrorDesc = @"The update could not be verified because the signature did not specify a content hash.";
@@ -52,9 +53,13 @@ NSString *kMSACNoDirFileErrorDesc(NSString *filePath) {
     return [[NSString alloc] initWithFormat: @"Pathname %@ does not denote a directory", filePath];
 };
 
+#pragma mark - Install error descriptions
+NSString const *kMSACInstallNoPackageHashErrorDesc = @"Update package to be installed has no hash.";
+
 #pragma mark - Error keys
 NSString const *kMSACDownloadCodeErrorKey = MS_APP_CENTER_BASE_DOMAIN "DownloadKey";
 NSString const *kMSACUpdateErrorKey = MS_APP_CENTER_BASE_DOMAIN "UpdateKey";
 NSString const *kMSACParseErrorKey = MS_APP_CENTER_BASE_DOMAIN "ParseKey";
 NSString const *kMSACSignatureVerificationErrorKey = MS_APP_CENTER_BASE_DOMAIN "SignatureKey";
+NSString const *kMSACInstallErrorKey = MS_APP_CENTER_BASE_DOMAIN "InstallKey";
 NSString const *kMSACFileErrorKey = MS_APP_CENTER_BASE_DOMAIN "FileKey";

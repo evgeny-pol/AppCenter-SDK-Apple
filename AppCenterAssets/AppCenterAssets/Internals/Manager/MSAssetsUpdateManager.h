@@ -30,6 +30,12 @@
 */
 - (MSLocalPackage *)getPreviousPackage:(NSError **)error;
 
+/**
+ * Gets the identifier of the current package (hash).
+ * @param error read/write error occurred while accessing the file system.
+ *
+ * @return the identifier of the current package.
+ */
 - (NSString *)getCurrentPackageHash:(NSError **)error;
 
 /**
@@ -100,5 +106,15 @@
                  withPublicKey:(NSString *)publicKey
                  newUpdateHash:(NSString *)newUpdateHash
                     diffUpdate:(BOOL)isDiffUpdate;
+
+/**
+ * Installs the new package.
+ *
+ * @param packageHash         package hash to install.
+ * @param removePendingUpdate whether to remove pending updates data.
+ * @return error, if occurred, or `nil`.
+ */
+- (NSError *)installPackage:(NSString *)packageHash
+   removePendingUpdate:(BOOL)removePendingUpdate;
 
 @end

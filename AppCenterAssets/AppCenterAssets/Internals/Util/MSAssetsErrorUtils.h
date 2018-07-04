@@ -19,4 +19,6 @@
 + (NSError *)getUpdateMetadataFailToCreateError;
 + (NSError *)getIntegrityCheckError;
 + (NSError *)getCodeSigningCheckError;
++ (NSError *)getNoPackageHashToInstallError;
++ (NSError *)getUpdatePackageInfoError;
 @end
