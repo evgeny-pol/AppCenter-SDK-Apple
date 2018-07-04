@@ -1,5 +1,6 @@
 #import "MSAssets.h"
-#import "MSAssetsUpdateState.h"
+#import "MSAssetsInstanceState.h"
+#import "MSAssetsUpdateUtilities.h"
 #import "MSLocalPackage.h"
 #import "MSAssetsErrors.h"
 #import "MSAssetsErrorUtils.h"
@@ -9,6 +10,8 @@
 #import <UIKit/UIKit.h>
 #import "MSAssetsSettingManager.h"
 #import "MSAssetsFileUtils.h"
+#import "MSAssetsInstallMode.h"
+#import "MSAssetsUpdateState.h"
 
 @implementation MSAssetsDeploymentInstance {
     BOOL _didUpdateProgress;
@@ -26,7 +29,8 @@ static BOOL isRunningBinaryVersion = NO;
 //static BOOL testConfigurationFlag = NO;
 
 - (instancetype)initWithEntryPoint:(NSString *)entryPoint
-                         publicKey:(NSString *)publicKey{
+                         publicKey:(NSString *)publicKey
+                  platformInstance:(id<MSAssetsPlatformSpecificImplementation>)platformInstance{
     if ((self = [super init])) {
         _entryPoint = entryPoint;
         _publicKey = publicKey;
@@ -36,6 +40,8 @@ static BOOL isRunningBinaryVersion = NO;
         _acquisitionManager = [[MSAssetsAcquisitionManager alloc] init];
         _settingManager = [[MSAssetsSettingManager alloc] init];
         _telemetryManager = [[MSAssetsTelemetryManager alloc] init];
+        _instanceState = [[MSAssetsInstanceState alloc] init];
+        _platformInstance = platformInstance;
     }
     return self;
 }
@@ -184,7 +190,7 @@ static BOOL isRunningBinaryVersion = NO;
     return currentPackage;
 }
 
-//TODO: saveFailedUpdate on err!
+// !!!: saveFailedUpdate on err
 /**
  * Downloads update.
  *
@@ -197,7 +203,6 @@ static BOOL isRunningBinaryVersion = NO;
     NSString *newUpdateFolderPath = [[self updateManager] getPackageFolderPath:packageHash];
     NSString *newUpdateMetadataPath = [newUpdateFolderPath stringByAppendingPathComponent:UpdateMetadataFileName];
     if ([MSUtility fileExistsForPathComponent:newUpdateFolderPath]) {
-        
         /* This removes any stale data in `newPackageFolderPath` that could have been left
          * uncleared due to a crash or error during the download or install process. */
         [MSUtility deleteItemForPathComponent:newUpdateFolderPath];
@@ -283,5 +288,46 @@ static BOOL isRunningBinaryVersion = NO;
                        }];
 }
 
+/**
+ * Installs update.
+ *
+ * @param updatePackage             update to install.
+ * @param installMode               installation mode.
+ * @param minimumBackgroundDuration minimum background duration value
+ * @see `MSAssetsSyncOptions->minimumBackgroundDuration`.
+ * @return error installation error.
+ */
+- (NSError *)installUpdate:(MSLocalPackage*)updatePackage
+          installMode:(MSAssetsInstallMode)installMode
+minimumBackgroundDuration:(int)minimumBackgroundDuration {
+    NSString *packageHash = [updatePackage packageHash];
+    if (packageHash == nil) {
+        return [MSAssetsErrorUtils getNoPackageHashToInstallError];
+    }
+    NSError *installError = [[self updateManager] installPackage:[updatePackage packageHash]
+                                   removePendingUpdate:[[self settingManager] isPendingUpdate:[updatePackage packageHash]]];
+    if (installError) {
+        return installError;
+    }
+    MSAssetsPendingUpdate *pendingUpdate = [MSAssetsPendingUpdate new];
+    [pendingUpdate setPendingUpdateHash:packageHash];
+    [pendingUpdate setIsLoading:NO];
+    [[self settingManager] savePendingUpdate:pendingUpdate];
+    if (installMode == MSAssetsInstallModeOnNextResume ||
+        
+        /* We also add the resume listener if the installMode is IMMEDIATE, because
+         * if the current activity is backgrounded, we want to reload the bundle when
+         * it comes back into the foreground. */
+        installMode == MSAssetsInstallModeImmediate ||
+        installMode == MSAssetsInstallModeOnNextSuspend) {
+        
+        /* Store the minimum duration on the native module as an instance
+         * variable instead of relying on a closure below, so that any
+         * subsequent resume-based installs could override it. */
+        [[self instanceState] setMinimumBackgroundDuration:minimumBackgroundDuration];
+        [[self platformInstance] handleInstallModesForUpdateInstall:installMode];
+    }
+    return nil;
+}
 
 @end

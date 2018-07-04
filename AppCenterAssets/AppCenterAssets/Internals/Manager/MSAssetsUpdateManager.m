@@ -178,6 +178,11 @@ static NSString *const UnzippedFolderName = @"unzipped";
     }
 }
 
+- (NSError *)installPackage:(NSString *)packageHash
+   removePendingUpdate:(BOOL)removePendingUpdate {
+    
+}
+
 - (NSString *)mergeDiffWithNewUpdateFolder:(NSString *)newUpdateFolderPath
                      newUpdateMetadataPath:(NSString *)newUpdateMetadataPath
                              newUpdateHash:(NSString *)newUpdateHash

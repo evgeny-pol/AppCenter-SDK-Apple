@@ -10,7 +10,8 @@ NS_ENUM(NSInteger){
     kMSACQueryUpdateErrorCode = 100,
     kMSACDownloadPackageErrorCode = 102,
     kMSACSignatureVerificationErrorCode = 103,
-    kMSACFileErrorCode = 104
+    kMSACFileErrorCode = 104,
+    kMSACInstallErrorCode = 105
 };
         
 #pragma mark - Error descriptions
@@ -31,11 +32,13 @@ extern NSString *kMSACMoveFileErrorDesc(NSString *src, NSString *dest);
 extern NSString *kMSACCopyFileErrorDesc(NSString *src, NSString *dest);
 extern NSString *kMSACUnzipFileErrorDesc(NSString *filePath, NSString *dest);
 extern NSString *kMSACNoDirFileErrorDesc(NSString *filePath);
+extern NSString const *kMSACInstallNoPackageHashErrorDesc;
         
 #pragma mark - Error keys
 extern NSString const *kMSACDownloadCodeErrorKey;
 extern NSString const *kMSACParseErrorKey;
 extern NSString const *kMSACUpdateErrorKey;
+extern NSString const *kMSACInstallErrorKey;
 extern NSString const *kMSACSignatureVerificationErrorKey;
 extern NSString const *kMSACFileErrorKey;
 NS_ASSUME_NONNULL_END

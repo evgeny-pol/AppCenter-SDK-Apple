@@ -52,9 +52,13 @@ NSString *kMSACNoDirFileErrorDesc(NSString *filePath) {
     return [[NSString alloc] initWithFormat: @"Pathname %@ does not denote a directory", filePath];
 };
 
+#pragma mark - Install error descriptions
+NSString const *kMSACInstallNoPackageHashErrorDesc = @"Update package to be installed has no hash.";
+
 #pragma mark - Error keys
 NSString const *kMSACDownloadCodeErrorKey = MS_APP_CENTER_BASE_DOMAIN "DownloadKey";
 NSString const *kMSACUpdateErrorKey = MS_APP_CENTER_BASE_DOMAIN "UpdateKey";
 NSString const *kMSACParseErrorKey = MS_APP_CENTER_BASE_DOMAIN "ParseKey";
 NSString const *kMSACSignatureVerificationErrorKey = MS_APP_CENTER_BASE_DOMAIN "SignatureKey";
+NSString const *kMSACInstallErrorKey = MS_APP_CENTER_BASE_DOMAIN "InstallKey";
 NSString const *kMSACFileErrorKey = MS_APP_CENTER_BASE_DOMAIN "FileKey";

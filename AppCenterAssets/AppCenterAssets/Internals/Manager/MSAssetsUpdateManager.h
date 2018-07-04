@@ -101,4 +101,14 @@
                  newUpdateHash:(NSString *)newUpdateHash
                     diffUpdate:(BOOL)isDiffUpdate;
 
+/**
+ * Installs the new package.
+ *
+ * @param packageHash         package hash to install.
+ * @param removePendingUpdate whether to remove pending updates data.
+ * @return error, if occurred, or `nil`.
+ */
+- (NSError *)installPackage:(NSString *)packageHash
+   removePendingUpdate:(BOOL)removePendingUpdate;
+
 @end

@@ -88,4 +88,9 @@
     NSDictionary *userInfo = @{kMSACSignatureVerificationErrorKey : kMSACSignatureVerificationCodeSigningCheckErrorDesc};
     return [NSError errorWithDomain:kMSACErrorDomain code:kMSACSignatureVerificationErrorCode userInfo:userInfo];
 }
+
++ (NSError *)getNoPackageHashToInstallError {
+    NSDictionary *userInfo = @{kMSACInstallErrorKey : kMSACInstallNoPackageHashErrorDesc};
+    return [NSError errorWithDomain:kMSACErrorDomain code:kMSACInstallErrorCode userInfo:userInfo];    
+}
 @end

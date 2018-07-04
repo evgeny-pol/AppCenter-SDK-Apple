@@ -1,20 +1,24 @@
-#import "MSAssetsDelegate.h"
-#import "MSLocalPackage.h"
-#import "MSAssetsDownloadHandler.h"
 #import "MSAssetsUpdateUtilities.h"
 #import "MSAssetsUpdateManager.h"
+#import "MSAssetsDelegate.h"
+#import "MSLocalPackage.h"
+#import "MSAssetsInstanceState.h"
+#import "MSAssetsDownloadHandler.h"
 #import "MSAssetsAcquisitionManager.h"
 #import "MSAssetsSettingManager.h"
 #import "MSAssetsTelemetryManager.h"
-#import "MSAssetsFileUtils.h"
+#import "MSAssetsInstallMode.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol MSAssetsPlatformSpecificImplementation
+@protocol MSAssetsPlatformSpecificImplementation <NSObject>
+
+- (void) handleInstallModesForUpdateInstall:(MSAssetsInstallMode)installMode;
+
 @end
 
 /**
- * A handler for delivering the downlod results.
+ * A handler for delivering the download results.
  *
  * @param downloadedPackage an instance of downloaded `MSLocalPackage`.
  * Can be `nil` in case of download error.
@@ -22,27 +26,24 @@ NS_ASSUME_NONNULL_BEGIN
  */
 typedef void (^MSDownloadHandler)(MSLocalPackage * _Nullable downloadedPackage, NSError * _Nullable error);
 
-@interface MSAssetsDeploymentInstance : NSObject
+@interface MSAssetsDeploymentInstance: NSObject
 
 - (void)checkForUpdate:(nullable NSString *)deploymentKey;
 
 @property (nonatomic, copy, nonnull) NSString *deploymentKey;
 @property (nonatomic, copy, nonnull) NSString *serverUrl;
 @property (nonatomic, copy, nullable) NSString *updateSubFolder;
+@property (nonatomic, nullable) MSAssetsInstanceState *instanceState;
 
 @property (nonatomic) id<MSAssetsDelegate> delegate;
 
+@property (nonatomic, nonnull) id<MSAssetsPlatformSpecificImplementation> platformInstance;
 @property (nonatomic, copy, readonly) MSAssetsTelemetryManager *telemetryManager;
-
 @property (nonatomic, readonly, nullable) MSAssetsDownloadHandler *downloadHandler;
 @property (nonatomic, readonly, nullable) MSAssetsUpdateUtilities *updateUtilities;
-@property (nonatomic, copy, readonly) MSAssetsUpdateManager *updateManager;
-
-@property (nonatomic, copy, readonly) MSAssetsAcquisitionManager *acquisitionManager;
-
-@property (nonatomic, copy, readonly) MSAssetsSettingManager *settingManager;
-
-
+@property (nonatomic, readonly) MSAssetsUpdateManager *updateManager;
+@property (nonatomic, readonly) MSAssetsAcquisitionManager *acquisitionManager;
+@property (nonatomic, readonly) MSAssetsSettingManager *settingManager;
 
 @end
 
