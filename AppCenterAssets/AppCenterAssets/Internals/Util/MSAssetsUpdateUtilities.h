@@ -1,7 +1,9 @@
 #import <Foundation/Foundation.h>
 #import "MSAssetsDeploymentInstance.h"
+#import "MSAssetsSettingManager.h"
 
 extern NSString *const ManifestFolderPrefix;
+extern NSString *const AssetsFolderName;
 
 /**
  * Utils class for Assets updates.

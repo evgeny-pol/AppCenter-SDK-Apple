@@ -96,7 +96,7 @@
     if (!error && statusCode != MSHTTPCodesNo200OK) {
       NSDictionary *userInfo = @{
         NSLocalizedDescriptionKey : kMSACConnectionHttpErrorDesc,
-        kMSACConnectionHttpCodeErrorKey : @(statusCode)
+        kMSACDownloadCodeErrorKey : @(statusCode)
       };
       error = [NSError errorWithDomain:kMSACErrorDomain code:kMSACConnectionHttpErrorCode userInfo:userInfo];
     }

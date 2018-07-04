@@ -20,7 +20,7 @@
  * @param destDir   path to the directory to copy files to.
  * @return A flag indicating success or fail.
  */
-+ (BOOL)copyDirectoryContents:(NSString *)sourceDir toDestination:(NSString *)destDir;
++ (BOOL)copyDirectoryContentsFrom:(NSString *)sourceDir to:(NSString *)destDir;
 
 
 /**

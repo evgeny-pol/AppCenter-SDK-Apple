@@ -194,7 +194,8 @@ static BOOL isRunningBinaryVersion = NO;
  */
 - (void)downloadUpdate:(MSRemotePackage *)updatePackage
        completeHandler:(MSDownloadHandler)completeHandler {
-    NSString *newUpdateFolderPath = [[self updateManager] getPackageFolderPath:[updatePackage packageHash]];
+    NSString *packageHash = [updatePackage packageHash];
+    NSString *newUpdateFolderPath = [[self updateManager] getPackageFolderPath:packageHash];
     NSString *newUpdateMetadataPath = [newUpdateFolderPath stringByAppendingPathComponent:UpdateMetadataFileName];
     if ([MSUtility fileExistsForPathComponent:newUpdateFolderPath]) {
         
@@ -203,6 +204,12 @@ static BOOL isRunningBinaryVersion = NO;
         [MSUtility deleteItemForPathComponent:newUpdateFolderPath];
     }
     NSString *downloadFile = [[self updateManager] getDownloadFilePath];
+    if (!downloadFile) {
+        
+        // Can not get or create a folder. The error will appear in the logs.
+        completeHandler(nil, nil);
+        return;
+    }
     __weak typeof(self) weakSelf = self;
     [[self downloadHandler] downloadWithUrl:[updatePackage downloadUrl]
                                      toPath:downloadFile
@@ -219,8 +226,10 @@ static BOOL isRunningBinaryVersion = NO;
                            if (!strongSelf) {
                                return;
                            }
-                           if (err && completeHandler != nil) {
-                               completeHandler(nil, err);
+                           if (err) {
+                               if (completeHandler != nil) {
+                                   completeHandler(nil, err);
+                               }
                                return;
                            }
                            NSError *error = nil;
@@ -244,8 +253,9 @@ static BOOL isRunningBinaryVersion = NO;
                                    return;                                   
                                }
                            } else {
-                               [[strongSelf fileUtils] moveFile:downloadFile newUpdateFolderPath:newUpdateFolderPath entryPoint:strongSelf->_entryPoint error:&error];
-                               if (error) {
+                               BOOL result = [MSAssetsFileUtils moveFile:downloadFile newUpdateFolderPath:newUpdateFolderPath entryPoint:strongSelf->_entryPoint];
+                               if (!result) {
+                                   error = [MSAssetsErrorUtils getFileMoveError:downloadFile destination:newUpdateFolderPath];
                                    completeHandler(nil, error);
                                    return;
                                }

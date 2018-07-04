@@ -3,6 +3,10 @@
 #import "MSUtility+File.h"
 #import "MSAssetsErrorUtils.h"
 #import "MSAssetsFileUtils.h"
+#import "MSAssetsConstants.h"
+#import "MSLogger.h"
+#import "MSAssets.h"
+#import "MSAssetsUpdateUtilities+JWT.h"
 
 @implementation MSAssetsUpdateManager 
 
@@ -14,14 +18,9 @@ static NSString *const UpdateBundleFileName = @"app.jsbundle";
 static NSString *const UpdateMetadataFileName = @"app.json";
 static NSString *const UnzippedFolderName = @"unzipped";
 
-@synthesize updateUtilities = _updateUtilities;
-@synthesize fileUtils = _fileUtils;
-
-- (instancetype)initWithUpdateUtils:(MSAssetsUpdateUtilities *)updateUtilities
-                       andFileUtils:(MSAssetsFileUtils *)fileUtils {
+- (instancetype)initWithUpdateUtils:(MSAssetsUpdateUtilities *)updateUtilities {
     if ((self = [super init])) {
         _updateUtilities = updateUtilities;
-        _fileUtils = fileUtils;
     }
     return self;
 }
@@ -125,6 +124,14 @@ static NSString *const UnzippedFolderName = @"unzipped";
 
 - (NSString *)getMSAssetsPath {
     NSString* assetsPath = [[self  getApplicationSupportDirectory] stringByAppendingPathComponent:@"Assets"];
+    if (![MSUtility fileExistsForPathComponent:assetsPath]) {
+        NSURL *result = [MSUtility createDirectoryForPathComponent:assetsPath];
+        if (!result) {
+            MSLogError([MSAssets logTag], @"Can't create directory %@ for downloading file", assetsPath);
+            return nil;
+        }
+        [result setResourceValue:@YES forKey:NSURLIsExcludedFromBackupKey error:nil];
+    }
     /*if ([MSAssetsDeploymentInstance isUsingTestConfiguration]) {
         assetsPath = [assetsPath stringByAppendingPathComponent:@"TestPackages"];
     }*/
@@ -138,22 +145,36 @@ static NSString *const UnzippedFolderName = @"unzipped";
 }
 
 - (NSString *)getDownloadFilePath {
-    return [[self getMSAssetsPath] stringByAppendingPathComponent:DownloadFileName];
+    NSString *assetsPath = [self getMSAssetsPath];
+    if (assetsPath) {
+        return [[self getMSAssetsPath] stringByAppendingPathComponent:DownloadFileName];
+    }
+    return nil;
 }
 
 - (NSString *)getUnzippedFolderPath {
     return [[self getMSAssetsPath] stringByAppendingPathComponent:UnzippedFolderName];
 }
 
+- (NSString *)currentPackageFolderPathWithError:(NSError * __autoreleasing *)error {
+    NSString *packageHash = [self getCurrentPackageHash:error];
+    if (packageHash == nil) {
+        return nil;
+    }
+    return [self getPackageFolderPath:packageHash];
+}
+
 - (void)unzipPackage:(NSString *)filePath
                error:(NSError * __autoreleasing *)error {
     NSString *unzippedFolderPath = [self getUnzippedFolderPath];
-    [[self fileUtils] unzipFile:filePath unzippedFolderPath:unzippedFolderPath error:error];
-    if (!*error) {
-        BOOL result = [MSUtility deleteItemForPathComponent:filePath];
+    BOOL result = [MSAssetsFileUtils unzipFileAtPath:filePath toDestination:unzippedFolderPath];
+    if (result) {
+        result = [MSUtility deleteItemForPathComponent:filePath];
         if (!result) {
             *error = [MSAssetsErrorUtils getFileDeleteError:filePath];
         }
+    } else {
+        *error = [MSAssetsErrorUtils getFileUnzipError:filePath destination:unzippedFolderPath];
     }
 }
 
@@ -163,15 +184,134 @@ static NSString *const UnzippedFolderName = @"unzipped";
                            publicKeyString:(NSString *)publicKeyString
                 expectedEntryPointFileName:(NSString *)expectedEntryPointFileName
                                      error:(NSError * __autoreleasing *)error {
-    
+    NSString *unzippedFolderPath = [self getUnzippedFolderPath];
+    NSString *diffManifestPath = [unzippedFolderPath stringByAppendingPathComponent: DiffManifestFileName];
+    BOOL isDiffUpdate = [MSUtility fileExistsForPathComponent:diffManifestPath];
+    if (isDiffUpdate) {
+        NSString *currentPackageFolderPath = [self currentPackageFolderPathWithError:error];
+        if (error) {
+            return nil;
+        }
+        if (currentPackageFolderPath != nil) {
+            [[self updateUtilities] copyNecessaryFilesFromCurrentPackage:currentPackageFolderPath
+                                                        diffManifestPath:diffManifestPath
+                                                          newPackagePath:newUpdateFolderPath
+                                                                   error:error];
+            if (error) {
+                return nil;
+            }
+        } else {
+            NSString *newUpdateAssetsPath = [newUpdateFolderPath stringByAppendingPathComponent:ManifestFolderPrefix];
+            NSURL *url = [MSUtility createDirectoryForPathComponent:newUpdateAssetsPath];
+            if (url == nil) {
+                *error = [MSAssetsErrorUtils getFileCreateError:newUpdateAssetsPath];
+                return nil;                
+            } else {
+                [[NSFileManager defaultManager] copyItemAtPath:[bundleAssetsPath]
+                                                        toPath:[newUpdateAssetsPath stringByAppendingPathComponent:AssetsFolderName]
+                                                         error:error];
+                if (error) {
+                    return nil;
+                }
+                NSURL *bundleUrl = [[NSBundle mainBundle] bundleURL];
+                if (bundleUrl != nil) {
+                    NSString *bundleName = [bundleUrl lastPathComponent];
+                    if (bundleName != nil) {
+                        [[NSFileManager defaultManager] copyItemAtPath:[[NSBundle mainBundle] bundlePath]
+                                                                toPath:[newUpdateAssetsPath stringByAppendingPathComponent:bundleName]
+                                                                 error:error];
+                        if (error) {
+                            return nil;
+                        }
+                    }
+                 }
+            }
+        }
+        BOOL deleted = [MSUtility deleteItemForPathComponent:diffManifestPath];
+        if (!deleted) {
+            *error = [MSAssetsErrorUtils getFileDeleteError:diffManifestPath];
+            return nil;
+        }
+    }
+    BOOL result = [MSAssetsFileUtils copyDirectoryContentsFrom:unzippedFolderPath to:newUpdateFolderPath];
+    if (!result) {
+        *error = [MSAssetsErrorUtils getFileCopyError:unzippedFolderPath destination:newUpdateFolderPath];
+        return nil;
+    }
+    BOOL deleted = [MSUtility deleteItemForPathComponent:unzippedFolderPath];
+    if (!deleted) {
+        
+        //Not a breaking error.
+        MSLogInfo([MSAssets logTag], @"Error deleting downloaded file: %@", unzippedFolderPath);
+    }
+    NSString *entryPoint = [[self updateUtilities] findEntryPointInFolder:newUpdateFolderPath
+                                                         expectedFileName:expectedEntryPointFileName
+                                                                    error:error];
+    if (error) {
+        return nil;
+    }
+    if ([MSUtility fileExistsForPathComponent:newUpdateMetadataPath]) {
+        deleted = [MSUtility deleteItemForPathComponent:newUpdateMetadataPath];
+        if (!deleted) {
+            *error = [MSAssetsErrorUtils getFileDeleteError:newUpdateMetadataPath];
+            return nil;
+        }
+    }
+    MSLogInfo([MSAssets logTag], isDiffUpdate ? @"Applying diff update" : @"Applying full update");
+    NSError *signatureError = [self verifySignatureForPath:newUpdateFolderPath
+                   withPublicKey:publicKeyString
+                   newUpdateHash:newUpdateHash
+                      diffUpdate:isDiffUpdate];
+    if (signatureError) {
+        *error = signatureError;
+        return nil;
+    }
+    return entryPoint;
 }
 
-- (void)verifySignatureForPath:(NSString *)newUpdateFolderPath
+- (NSError *)verifySignatureForPath:(NSString *)newUpdateFolderPath
                  withPublicKey:(NSString *)publicKey
                  newUpdateHash:(NSString *)newUpdateHash
-                    diffUpdate:(BOOL)isDiffUpdate
-                         error:(NSError * __autoreleasing *)error {
-    
+                    diffUpdate:(BOOL)isDiffUpdate {
+    NSError *error = nil;
+    BOOL isSignatureVerificationEnabled = (publicKey != nil);
+    NSString *signaturePath = [[self updateUtilities] getSignatureFilePath:newUpdateFolderPath];
+    BOOL isSignatureAppearedInApp = [MSUtility fileExistsForPathComponent:signaturePath];
+    if (isSignatureVerificationEnabled) {
+        if (isSignatureAppearedInApp) {
+            BOOL verified = [[self updateUtilities] verifyFolderHash:newUpdateHash folderPath:newUpdateFolderPath error:&error];
+            if (!error) {
+                if (!verified) {
+                    error = [MSAssetsErrorUtils getIntegrityCheckError];
+                } else {
+                    BOOL isSignatureValid = [[self updateUtilities] verifyUpdateSignatureFor:newUpdateFolderPath expectedHash:newUpdateHash withPublicKey:publicKey error:&error];
+                    if (!error) {
+                        if (!isSignatureValid) {
+                            error = [MSAssetsErrorUtils getCodeSigningCheckError];
+                        }
+                    }
+                }
+            }
+        } else {
+            error = [MSAssetsErrorUtils getNoSignatureError];
+        }
+    } else {
+        if (isSignatureAppearedInApp) {
+            MSLogInfo([MSAssets logTag], @"Warning! JWT signature exists in codepush update but code integrity check couldn't be performed because there is no public key configured. \
+                      Please ensure that public key is properly configured within your application.");
+            [[self updateUtilities] verifyFolderHash:newUpdateHash folderPath:newUpdateFolderPath error:&error];
+        } else {
+            if (isDiffUpdate) {
+                BOOL verified = [[self updateUtilities] verifyFolderHash:newUpdateHash folderPath:newUpdateFolderPath error:&error];
+                if (!error) {
+                    if (!verified) {
+                        error = [MSAssetsErrorUtils getIntegrityCheckError];
+                    }
+                }
+            }
+        }
+    }
+    return error;
 }
 
 @end

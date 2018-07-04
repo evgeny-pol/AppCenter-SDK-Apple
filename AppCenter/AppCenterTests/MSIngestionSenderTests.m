@@ -111,7 +111,7 @@ static NSString *const kMSBaseUrl = @"https://test.com";
         XCTAssertEqual(error.domain, kMSACErrorDomain);
         XCTAssertEqual(error.code, kMSACConnectionHttpErrorCode);
         XCTAssertEqual(error.localizedDescription, kMSACConnectionHttpErrorDesc);
-        XCTAssertTrue([error.userInfo[kMSACConnectionHttpCodeErrorKey] isEqual:@(MSHTTPCodesNo404NotFound)]);
+        XCTAssertTrue([error.userInfo[kMSACDownloadCodeErrorKey] isEqual:@(MSHTTPCodesNo404NotFound)]);
 
         /*
          * FIXME: This unit test failes intermittently because of timing issue. Wait a little bit of time

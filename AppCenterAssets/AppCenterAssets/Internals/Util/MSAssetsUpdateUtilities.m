@@ -9,6 +9,7 @@
 #include <CommonCrypto/CommonDigest.h>
 
 NSString *const ManifestFolderPrefix = @"Assets";
+NSString *const AssetsFolderName = @"assets";
 
 @interface MSAssetsUpdateUtilities ()
 
@@ -163,7 +164,7 @@ NSString *const ManifestFolderPrefix = @"Assets";
     // them to the generated content manifest.
     if ([MSUtility fileExistsForPathComponent:assetsPath]) {
         BOOL result = [self addContentsOfFolderToManifest:manifest folderPath: assetsPath
-                                 pathPrefix:[NSString stringWithFormat:@"%@/%@", ManifestFolderPrefix, @"assets"]
+                                 pathPrefix:[NSString stringWithFormat:@"%@/%@", ManifestFolderPrefix, AssetsFolderName]
                                       error: error];
         if (!result) {
             return nil;

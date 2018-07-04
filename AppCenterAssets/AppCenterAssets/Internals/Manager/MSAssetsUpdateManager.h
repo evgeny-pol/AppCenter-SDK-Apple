@@ -1,6 +1,5 @@
 #import "MSLocalPackage.h"
 #import "MSAssetsUpdateUtilities.h"
-#import "MSAssetsFileUtils.h"
 
 /**
  * Manager responsible for update read/write actions.
@@ -8,8 +7,6 @@
 @interface MSAssetsUpdateManager : NSObject
 
 @property (nonatomic, readonly, nullable) MSAssetsUpdateUtilities *updateUtilities;
-@property (nonatomic, readonly, nullable) MSAssetsFileUtils *fileUtils;
-
 
 /**
  * Initializes the manager with the necessary set of utils.
@@ -18,8 +15,7 @@
  * @param fileUtils instance of `MSAssetsFileUtils`.
  * @return manager instance.
  */
-- (instancetype)initWithUpdateUtils:(MSAssetsUpdateUtilities *)updateUtilities
-                       andFileUtils:(MSAssetsFileUtils *)fileUtils;
+- (instancetype)initWithUpdateUtils:(MSAssetsUpdateUtilities *)updateUtilities;
 
 /**
  * Gets current package json object.
@@ -99,12 +95,11 @@
  *                        Can be `null` if code signing is not enabled.
  * @param newUpdateHash   hash of the update package.
  * @param isDiffUpdate    `true` if this is a diff update, `false` if this is a full update.
- * @param error signature verification error (in case signature is invalid or the update didn't pass the verification in any other way).
+ * @return signature verification error (in case signature is invalid or the update didn't pass the verification in any other way).
  */
-- (void)verifySignatureForPath:(NSString *)newUpdateFolderPath
+- (NSError *)verifySignatureForPath:(NSString *)newUpdateFolderPath
                  withPublicKey:(NSString *)publicKey
                  newUpdateHash:(NSString *)newUpdateHash
-                    diffUpdate:(BOOL)isDiffUpdate
-                         error:(NSError * __autoreleasing *)error;
+                    diffUpdate:(BOOL)isDiffUpdate;
 
 @end

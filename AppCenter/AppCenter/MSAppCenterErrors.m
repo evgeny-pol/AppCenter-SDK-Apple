@@ -18,4 +18,4 @@ NSString const *kMSACConnectionHttpErrorDesc = @"An HTTP error occured.";
 NSString const *kMSACConnectionSuspendedErrorDesc = @"Cancelled, connection suspended with log deletion.";
 
 // Error user info keys
-NSString const *kMSACConnectionHttpCodeErrorKey = MS_APP_CENTER_BASE_DOMAIN "HttpCodeKey";
+NSString const *kMSACDownloadCodeErrorKey = MS_APP_CENTER_BASE_DOMAIN "HttpCodeKey";
