@@ -18,5 +18,14 @@
  */
 - (void)didFailToQueryRemotePackageOnCheckForUpdate:(NSError *)error;
 
+
+/**
+ * Callback method for receiving package download progress.
+ *
+ * @param receivedBytes amount of bytes received.
+ * @param totalBytes amount of bytes total.
+ */
+- (void)packageDownloadProgress:(long long)receivedBytes totalBytes:(long long)totalBytes;
+
 @end
 

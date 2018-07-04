@@ -7,22 +7,22 @@
     char _header[4];
 }
 
-- (id)init:(NSString *)downloadFilePath
-operationQueue:(dispatch_queue_t)operationQueue
-progressCallback:(MSDownloadProgressHandler)progressCallback
-doneCallback:(MSDownloadCompletionHandler)completionHandler {
-    self.outputFileStream = [NSOutputStream outputStreamToFileAtPath:downloadFilePath
-                                                              append:NO];
+- (id)initWithOperationQueue:(dispatch_queue_t)operationQueue {
     self.receivedContentLength = 0;
     self.operationQueue = operationQueue;
-    self.progressCallback = progressCallback;
-    self.completionHandler = completionHandler;
-    self.downloadFilePath = downloadFilePath;
     return self;
 }
 
-- (void)download:(NSString *)url {
+- (void)downloadWithUrl:(NSString *)url
+                  toPath:(NSString *)downloadFilePath
+   withProgressCallback:(MSDownloadProgressHandler)progressCallback
+   andCompletionHandler:(MSDownloadCompletionHandler)completionHandler {
+    self.outputFileStream = [NSOutputStream outputStreamToFileAtPath:downloadFilePath
+                                                              append:NO];
     self.downloadUrl = url;
+    self.progressCallback = progressCallback;
+    self.completionHandler = completionHandler;
+    self.downloadFilePath = downloadFilePath;
     NSURL *requestUrl = [NSURL URLWithString:url];
     if (requestUrl != nil) {
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:requestUrl

@@ -12,8 +12,14 @@
                            toDestination:destination];
 }
 
-
-+ (BOOL)copyDirectoryContents:(NSString *)sourceDir toDestination:(NSString *)destDir {
+/**
+ * Copies the contents of one directory to another. Copies all the contents recursively.
+ *
+ * @param sourceDir path to the directory to copy files from.
+ * @param destDir   path to the directory to copy files to.
+ * @return YES if success, NO otherwise.
+ */
++ (BOOL)copyDirectoryContentsFrom:(NSString *)sourceDir to:(NSString *)destDir {
     BOOL isDir;
     NSError *error = nil;
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -33,7 +39,8 @@
                     return NO;
                 }
             } else {
-                return [self copyDirectoryContents:[sourceDir stringByAppendingPathComponent:currentFile] toDestination:[destDir stringByAppendingPathComponent:currentFile]];
+                return [self copyDirectoryContentsFrom:[sourceDir stringByAppendingPathComponent:currentFile]
+                                                    to:[destDir stringByAppendingPathComponent:currentFile]];
             }
         }
     }
