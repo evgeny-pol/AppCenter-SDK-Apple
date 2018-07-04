@@ -50,4 +50,13 @@
  */
 + (BOOL)writeString:(NSString *)content ToFile:(NSString *)filePath;
 
+/**
+ * Checks whether a file by the following path exists.
+ *
+ * @param filePath path to be checked.
+ * @return <code>YES</code> if exists, <code>NO</code> otherwise.
+ */
++ (BOOL)fileAtPathExists:(NSString *)filePath;
+
+
 @end

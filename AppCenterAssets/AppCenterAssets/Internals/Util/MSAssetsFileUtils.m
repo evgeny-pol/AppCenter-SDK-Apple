@@ -83,6 +83,13 @@
     return succeed;
 }
 
++ (BOOL)fileAtPathExists:(NSString *)filePath
+{
+    BOOL isDir;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    return ([fileManager fileExistsAtPath:filePath isDirectory:&isDir] && !isDir);
+}
+
 
 
 @end
