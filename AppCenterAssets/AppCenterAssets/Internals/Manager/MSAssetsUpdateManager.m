@@ -180,7 +180,70 @@ static NSString *const UnzippedFolderName = @"unzipped";
 
 - (NSError *)installPackage:(NSString *)packageHash
    removePendingUpdate:(BOOL)removePendingUpdate {
-    
+    NSError *error = nil;
+    MSAssetsPackageInfo *packageInfo = [self getCurrentPackageInfo:&error];
+    if (error) {
+        return error;
+    }
+    if (packageInfo == nil) {
+        return [MSAssetsErrorUtils getUpdatePackageInfoError];
+    }
+    NSString *currentPackageHash = [self getCurrentPackageHash:&error];
+    if (error) {
+        return error;
+    }
+    if (packageHash && [packageHash isEqualToString:currentPackageHash]) {
+        
+        /* The current package is already the one being installed, so we should no-op. */
+        return nil;
+    }
+    if (removePendingUpdate) {
+        NSString *currentPackageFolderPath = [self currentPackageFolderPathWithError:&error];
+        if (error) {
+            return error;
+        }
+        if (currentPackageFolderPath != nil) {
+            BOOL deleted = [MSUtility deleteItemForPathComponent:currentPackageFolderPath];
+            if (!deleted) {
+                MSLogInfo([MSAssets logTag], @"Error deleting pending package at %@", currentPackageFolderPath);
+            }
+        }
+    } else {
+        NSString *previousPackageHash = [self getPreviousPackageHash:&error];
+        if (error) {
+            return error;
+        }
+        if (previousPackageHash && ![previousPackageHash isEqualToString:packageHash]) {
+            NSString *previousPackageFolderPath = [self getPackageFolderPath:previousPackageHash];
+            BOOL deleted = [MSUtility deleteItemForPathComponent:previousPackageFolderPath];
+            if (!deleted) {
+                MSLogInfo([MSAssets logTag], @"Error deleting old package at %@", previousPackageFolderPath);
+            }
+        }
+        [packageInfo setPreviousPackage:[packageInfo currentPackage]];
+    }
+    [packageInfo setCurrentPackage:packageHash];
+    error = [self updateCurrentPackageInfo:packageInfo];
+    return error;
+}
+
+/**
+ * Updates file containing information about the available packages.
+ *
+ * @param info new information.
+ * @return read/write error occurred while accessing the file system.
+ */
+- (NSError *)updateCurrentPackageInfo:(MSAssetsPackageInfo *)info {
+    NSError *error = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[info serializeToDictionary] options:NSJSONWritingPrettyPrinted error:&error];
+    if (error) {
+        return error;
+    }
+    NSURL *createdFile = [MSUtility createFileAtPathComponent:[self getStatusFilePath] withData:jsonData atomically:YES forceOverwrite:NO];
+    if (createdFile == nil) {
+        return [MSAssetsErrorUtils getUpdatePackageInfoError];
+    }
+    return nil;
 }
 
 - (NSString *)mergeDiffWithNewUpdateFolder:(NSString *)newUpdateFolderPath

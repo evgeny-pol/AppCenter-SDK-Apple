@@ -30,6 +30,12 @@
 */
 - (MSLocalPackage *)getPreviousPackage:(NSError **)error;
 
+/**
+ * Gets the identifier of the current package (hash).
+ * @param error read/write error occurred while accessing the file system.
+ *
+ * @return the identifier of the current package.
+ */
 - (NSString *)getCurrentPackageHash:(NSError **)error;
 
 /**

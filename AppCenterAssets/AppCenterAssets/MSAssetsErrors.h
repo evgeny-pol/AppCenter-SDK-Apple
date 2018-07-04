@@ -19,6 +19,7 @@ extern NSString const *kMSACQueryUpdateErrorDesc;
 extern NSString const *kMSACQueryUpdateParseErrorDesc;
 extern NSString const *kMSACUpdateAvailableButNotTargetingBinary;
 extern NSString const *kMSACUpdateFailedToCreateUpdateMetadataFileErrorDesc;
+extern NSString const *kMSACUpdateFailedToUpdatePackageInfoErrorDesc;
 extern NSString const *kMSACSignatureVerificationNoContentHashErrorDesc;
 extern NSString const *kMSACSignatureVerificationNoSignatureDefErrorDesc;
 extern NSString const *kMSACSignatureVerificationIntegrityCheckErrorDesc;

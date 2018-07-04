@@ -93,4 +93,9 @@
     NSDictionary *userInfo = @{kMSACInstallErrorKey : kMSACInstallNoPackageHashErrorDesc};
     return [NSError errorWithDomain:kMSACErrorDomain code:kMSACInstallErrorCode userInfo:userInfo];    
 }
+
++ (NSError *)getUpdatePackageInfoError {
+    NSDictionary *userInfo = @{kMSACUpdateErrorKey : kMSACUpdateFailedToUpdatePackageInfoErrorDesc};
+    return [NSError errorWithDomain:kMSACErrorDomain code:kMSACQueryUpdateErrorCode userInfo:userInfo];
+}
 @end
