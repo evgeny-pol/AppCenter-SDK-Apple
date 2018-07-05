@@ -66,10 +66,11 @@ static BOOL isRunningBinaryVersion = NO;
     }
     NSError *configError = nil;
     MSAssetsConfiguration *config = [self getConfigurationWithError:&configError];
-    if ([[self delegate] respondsToSelector:@selector(didFailToQueryRemotePackageOnCheckForUpdate:)]) {
-        [[self delegate] didFailToQueryRemotePackageOnCheckForUpdate:configError];
-        return;
-    }
+    if (configError)
+        if ([[self delegate] respondsToSelector:@selector(didFailToQueryRemotePackageOnCheckForUpdate:)]) {
+            [[self delegate] didFailToQueryRemotePackageOnCheckForUpdate:configError];
+            return;
+        }
     if (deploymentKey)
         config.deploymentKey = deploymentKey;
 
@@ -92,16 +93,17 @@ static BOOL isRunningBinaryVersion = NO;
         if (!update) {
             if ([[self delegate] respondsToSelector:@selector(didReceiveRemotePackageOnUpdateCheck:)]) {
                 [[self delegate] didReceiveRemotePackageOnUpdateCheck:nil];
+                return;
             }
         }
         if (!update || update.updateAppVersion ||
             (localPackage && ([update.packageHash isEqualToString:localPackage.packageHash])) ||
             ((!localPackage || localPackage.isDebugOnly) && [config.packageHash isEqualToString:update.packageHash] )){
             if (update && update.updateAppVersion){
-                if ([[self delegate] respondsToSelector:@selector(didReceiveRemotePackageOnUpdateCheck:)]) {
-                    MSLogInfo([MSAssets logTag], @"An update is available but it is not targeting the binary version of your app.");
+                MSLogInfo([MSAssets logTag], @"An update is available but it is not targeting the binary version of your app.");
+                if ([[self delegate] respondsToSelector:@selector(didReceiveRemotePackageOnUpdateCheck:)])
                     [[self delegate] didReceiveRemotePackageOnUpdateCheck:nil];
-                }
+                return;
             }
         } else {
             update.failedInstall = [[self settingManager] existsFailedUpdate:update.packageHash];
@@ -116,6 +118,14 @@ static BOOL isRunningBinaryVersion = NO;
         }
     }];
     MSLogInfo([MSAssets logTag], @"Check for update called");
+}
+
+- (void)sync:(NSDictionary *)syncOptions withCallback:(MSAssetsSyncBlock)callback notifyClientAboutSyncStatus:(BOOL)notifySyncStatus notifyProgress:(BOOL)notifyProgress {
+
+    if (syncOptions) {};
+    if (callback) {};
+    if (notifySyncStatus) {};
+    if (notifyProgress) {};
 }
 
 - (MSAssetsConfiguration *)getConfigurationWithError:(NSError * __autoreleasing*)error {
