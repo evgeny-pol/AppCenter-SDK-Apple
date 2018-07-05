@@ -10,6 +10,11 @@
 #import "MSAssetsInstallMode.h"
 #import "MSAssetsRestartManager.h"
 
+typedef void(^MSAssetsSyncBlock)();
+typedef void(^MSAssetsInstallCompleteBlock)();
+typedef void(^MSAssetsDownloadSuccessBlock)(NSError*, NSDictionary*);
+typedef void(^MSAssetsDownloadFailBlock)(NSError*);
+
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol MSAssetsPlatformSpecificImplementation <NSObject>
@@ -30,11 +35,13 @@ typedef void (^MSDownloadHandler)(MSLocalPackage * _Nullable downloadedPackage, 
 
 @interface MSAssetsDeploymentInstance: NSObject
 
-- (void)checkForUpdate:(nullable NSString *)deploymentKey;
-
 - (instancetype)initWithEntryPoint:(NSString *)entryPoint
                          publicKey:(NSString *)publicKey
                   platformInstance:(id<MSAssetsPlatformSpecificImplementation>)platformInstance;
+
+- (void)checkForUpdate:(nullable NSString *)deploymentKey;
+
+- (void)sync:(NSDictionary *)syncOptions withCallback:(MSAssetsSyncBlock)callback notifyClientAboutSyncStatus:(BOOL)notifySyncStatus notifyProgress:(BOOL)notifyProgress;
 
 @property (nonatomic, copy, nonnull) NSString *deploymentKey;
 @property (nonatomic, copy, nonnull) NSString *serverUrl;
