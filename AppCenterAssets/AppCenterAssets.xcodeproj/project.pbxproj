@@ -193,6 +193,7 @@
 		04A082061F74BB8600DC776D /* MSService.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A082051F74BB8600DC776D /* MSService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04A082071F74BB8C00DC776D /* MSService.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A082051F74BB8600DC776D /* MSService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04BED7181ECB64FB00E20975 /* OCHamcrest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04BED7161ECB64CE00E20975 /* OCHamcrest.framework */; };
+		04D914D820EDF6070042B9C2 /* MSAssetsiOSPlatformSpecificImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D914D720EDF6070042B9C2 /* MSAssetsiOSPlatformSpecificImplementation.m */; };
 		3568A7E1201A71D000F3B860 /* MSLogWithProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 358F9BC52019590100B9E22C /* MSLogWithProperties.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3568A7EE201A9BBB00F3B860 /* MSLogWithProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 358F9BC52019590100B9E22C /* MSLogWithProperties.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3568A7EF201A9BBB00F3B860 /* MSService.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A082051F74BB8600DC776D /* MSService.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -478,6 +479,8 @@
 		049BC82C1ECE3CF000FB6719 /* Tests macOS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "Tests macOS.xcconfig"; path = "../../Config/Tests macOS.xcconfig"; sourceTree = "<group>"; };
 		04A082051F74BB8600DC776D /* MSService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSService.h; path = ../AppCenter/AppCenter/MSService.h; sourceTree = "<group>"; };
 		04BED7161ECB64CE00E20975 /* OCHamcrest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCHamcrest.framework; path = ../../Vendor/macOS/OCHamcrest/OCHamcrest.framework; sourceTree = "<group>"; };
+		04D914D620EDF5D20042B9C2 /* MSAssetsiOSPlatformSpecificImplementation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsiOSPlatformSpecificImplementation.h; sourceTree = "<group>"; };
+		04D914D720EDF6070042B9C2 /* MSAssetsiOSPlatformSpecificImplementation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsiOSPlatformSpecificImplementation.m; sourceTree = "<group>"; };
 		04ED31E91EAAD32B0033BAAE /* macOS.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = macOS.modulemap; sourceTree = "<group>"; };
 		04ED31EB1EAAD3390033BAAE /* iOS.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = iOS.modulemap; sourceTree = "<group>"; };
 		358F9BC52019590100B9E22C /* MSLogWithProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSLogWithProperties.h; path = ../AppCenter/AppCenter/Model/MSLogWithProperties.h; sourceTree = "<group>"; };
@@ -1157,6 +1160,8 @@
 				0482865420E24968005FEFD8 /* MSAssetsErrors.m */,
 				0495A7C020ECE15E0088336F /* MSAssetsInstanceState.h */,
 				0495A7C120ECE1970088336F /* MSAssetsInstanceState.m */,
+				04D914D620EDF5D20042B9C2 /* MSAssetsiOSPlatformSpecificImplementation.h */,
+				04D914D720EDF6070042B9C2 /* MSAssetsiOSPlatformSpecificImplementation.m */,
 			);
 			path = AppCenterAssets;
 			sourceTree = "<group>";
@@ -1635,6 +1640,7 @@
 				045C362720E0E32B00521386 /* MSAssetsGeneralException.m in Sources */,
 				0431073B20EA48D700F42296 /* JWTCoding+VersionTwo.m in Sources */,
 				4B721D8520EBC6030040A566 /* sha1.c in Sources */,
+				04D914D820EDF6070042B9C2 /* MSAssetsiOSPlatformSpecificImplementation.m in Sources */,
 				0431073420EA48D700F42296 /* JWTErrorDescription.m in Sources */,
 				0431073E20EA48D700F42296 /* JWTCoding+ResultTypes.m in Sources */,
 				046F460E20DFA52500813F5A /* MSLocalPackage.m in Sources */,

@@ -30,6 +30,10 @@ typedef void (^MSDownloadHandler)(MSLocalPackage * _Nullable downloadedPackage, 
 
 - (void)checkForUpdate:(nullable NSString *)deploymentKey;
 
+- (instancetype)initWithEntryPoint:(NSString *)entryPoint
+                         publicKey:(NSString *)publicKey
+                  platformInstance:(id<MSAssetsPlatformSpecificImplementation>)platformInstance;
+
 @property (nonatomic, copy, nonnull) NSString *deploymentKey;
 @property (nonatomic, copy, nonnull) NSString *serverUrl;
 @property (nonatomic, copy, nullable) NSString *updateSubFolder;
