@@ -374,11 +374,8 @@ static BOOL isRunningBinaryVersion = NO;
                                                                                              isFirstRun: NO
                                                                                               isPending:YES
                                                                                             isDebugOnly:NO
-                                                                                             entryPoint: entryPoint];
-                           NSURL *binaryBundleURL = [[NSBundle mainBundle] bundleURL];
-                           if (binaryBundleURL != nil) {
-                               [localPackage setBinaryModifiedTime: [NSString stringWithFormat:@"%f", [[strongSelf platformInstance] getBinaryResourcesModifiedTime]]];
-                           }
+                                                                                             entryPoint: entryPoint];                           
+                           [localPackage setBinaryModifiedTime: [NSString stringWithFormat:@"%f", [[strongSelf platformInstance] getBinaryResourcesModifiedTime]]];
                            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[localPackage serializeToDictionary] options:NSJSONWritingPrettyPrinted error:&error];
                            if (error) {
                                completeHandler(nil, error);
