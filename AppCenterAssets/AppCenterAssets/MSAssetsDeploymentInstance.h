@@ -8,6 +8,7 @@
 #import "MSAssetsSettingManager.h"
 #import "MSAssetsTelemetryManager.h"
 #import "MSAssetsInstallMode.h"
+#import "MSAssetsRestartManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -48,6 +49,7 @@ typedef void (^MSDownloadHandler)(MSLocalPackage * _Nullable downloadedPackage, 
 @property (nonatomic, readonly) MSAssetsUpdateManager *updateManager;
 @property (nonatomic, readonly) MSAssetsAcquisitionManager *acquisitionManager;
 @property (nonatomic, readonly) MSAssetsSettingManager *settingManager;
+@property (nonatomic, readonly) MSAssetsRestartManager *restartManager;
 
 @end
 
