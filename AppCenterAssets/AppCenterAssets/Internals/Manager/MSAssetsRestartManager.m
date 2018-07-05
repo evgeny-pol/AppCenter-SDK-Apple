@@ -25,8 +25,11 @@
     MSAssetsRestartHandler _restartHandler;
 }
 
-- (void)initWithRestartHandler:(MSAssetsRestartHandler)restartHandler {
-    _restartHandler = restartHandler;
+- (instancetype)initWithRestartHandler:(MSAssetsRestartHandler)restartHandler {
+    if ((self = [super init])) {
+        _restartHandler = restartHandler;
+    }
+    return self;
 }
 
 - (void)allowRestarts {

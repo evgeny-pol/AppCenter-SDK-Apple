@@ -8,12 +8,12 @@
 /**
  * The version of the app that was deployed (for a native app upgrade).
  */
-@property(nonatomic, copy, nullable) NSString *appVersion;
+@property(nonatomic, copy, nonnull) NSString *appVersion;
 
 /**
  * iOS client unique id.
  */
-@property(nonatomic, copy, nullable) NSString *clientUniqueId;
+@property(nonatomic, copy, nonnull) NSString *clientUniqueId;
 
 /**
  * CodePush deployment key.

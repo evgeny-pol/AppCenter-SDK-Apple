@@ -44,10 +44,10 @@ static NSString *const kMSBinaryHash = @"MSAssetsBinaryHash";
     return NO;
 }
 
-- (BOOL)isPendingUpdate:(NSString *_Nonnull)packageHash {
+- (BOOL)isPendingUpdate:(NSString *)packageHash {
     MSAssetsPendingUpdate *pendingUpdate = [self getPendingUpdate];
     return pendingUpdate != nil && ![pendingUpdate isLoading] &&
-    [[pendingUpdate pendingUpdateHash] isEqualToString:packageHash];
+    (packageHash == nil || [[pendingUpdate pendingUpdateHash] isEqualToString:packageHash]);
 }
 
 - (void)removeFailedUpdates {

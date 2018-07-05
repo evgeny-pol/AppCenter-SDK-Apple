@@ -23,7 +23,7 @@ typedef void (^MSAssetsRestartHandler)(BOOL onlyIfUpdateIsPending, MSAssetsResta
  *
  * @param restartHandler handler of restarts.
  */
-- (void)initWithRestartHandler:(MSAssetsRestartHandler)restartHandler;
+- (instancetype)initWithRestartHandler:(MSAssetsRestartHandler)restartHandler;
 
 /**
  * Allows the manager to perform restarts and performs them if there are pending.

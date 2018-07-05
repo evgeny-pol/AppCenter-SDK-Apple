@@ -38,7 +38,7 @@
  * @param packageHash expected package hash of the pending update.
  * @return `true` if there is a pending update with the provided hash.
  */
-- (BOOL)isPendingUpdate:(NSString *_Nonnull)packageHash;
+- (BOOL)isPendingUpdate:(NSString *)packageHash;
 
 /**
  * Removes information about failed updates.
