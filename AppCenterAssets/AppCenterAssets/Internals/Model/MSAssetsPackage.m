@@ -1,6 +1,5 @@
 #import <Foundation/Foundation.h>
 #import "MSAssetsPackage.h"
-#import "MSAssetsIllegalArgumentException.h"
 #import "MSAssetsPackageInfo.h"
 #import "MSAssets.h"
 

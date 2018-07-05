@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
-#import "MSAssetsiOSPlatformSpecificImplementation.h"
+#import "MSAssetsiOSSpecificImplementation.h"
 
-@implementation MSAssetsiOSPlatformSpecificImplementation
+@implementation MSAssetsiOSSpecificImplementation
 
 - (void) handleInstallModesForUpdateInstall:(MSAssetsInstallMode __unused)installMode {
     

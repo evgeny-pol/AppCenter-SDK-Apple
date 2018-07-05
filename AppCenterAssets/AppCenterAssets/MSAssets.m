@@ -6,7 +6,7 @@
 #import "MSServiceAbstractProtected.h"
 #import "AppCenter+Internal.h"
 #import "MSAssetsDeploymentInstance.h"
-#import "MSAssetsiOSPlatformSpecificImplementation.h"
+#import "MSAssetsiOSSpecificImplementation.h"
 
 // Service name for initialization.
 static NSString *const kMSServiceName = @"Assets";
@@ -37,7 +37,7 @@ static dispatch_once_t onceToken;
     
     MSAssetsDeploymentInstance *assetsDeploymentInstance = [[MSAssetsDeploymentInstance alloc] initWithEntryPoint:builder.updateSubFolder
                                                                                                         publicKey:@""
-                                                                                                 platformInstance: [MSAssetsiOSPlatformSpecificImplementation new]];
+                                                                                                 platformInstance: [MSAssetsiOSSpecificImplementation new]];
     [assetsDeploymentInstance setServerUrl:builder.serverUrl];
     [assetsDeploymentInstance setDeploymentKey:builder.deploymentKey];
     [assetsDeploymentInstance setUpdateSubFolder:builder.updateSubFolder];

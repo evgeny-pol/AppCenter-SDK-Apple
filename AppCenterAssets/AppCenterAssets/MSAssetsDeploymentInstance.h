@@ -2,7 +2,7 @@
 #import "MSAssetsUpdateManager.h"
 #import "MSAssetsDelegate.h"
 #import "MSLocalPackage.h"
-#import "MSAssetsInstanceState.h"
+#import "MSAssetsDeploymentInstanceState.h"
 #import "MSAssetsDownloadHandler.h"
 #import "MSAssetsAcquisitionManager.h"
 #import "MSAssetsSettingManager.h"
@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol MSAssetsPlatformSpecificImplementation <NSObject>
 
 - (void) handleInstallModesForUpdateInstall:(MSAssetsInstallMode)installMode;
+- (void) loadApp:(MSAssetsRestartListener)assetsRestartListener;
 
 @end
 
@@ -38,7 +39,7 @@ typedef void (^MSDownloadHandler)(MSLocalPackage * _Nullable downloadedPackage, 
 @property (nonatomic, copy, nonnull) NSString *deploymentKey;
 @property (nonatomic, copy, nonnull) NSString *serverUrl;
 @property (nonatomic, copy, nullable) NSString *updateSubFolder;
-@property (nonatomic, nullable) MSAssetsInstanceState *instanceState;
+@property (nonatomic, nullable) MSAssetsDeploymentInstanceState *instanceState;
 
 @property (nonatomic) id<MSAssetsDelegate> delegate;
 
