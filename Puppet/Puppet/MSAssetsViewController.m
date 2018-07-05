@@ -34,11 +34,16 @@
 
 - (IBAction)checkForUpdate {
 
+    self.result.text = @"Request sent";
+    /*dispatch_async(dispatch_get_main_queue(), ^{
+        self.result.text = @"No update available";
+    });*/
+
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     NSString *deploymentKey = [infoDictionary objectForKey:@"MSAssetsDeploymentKey"];
     [_assetsDeployment checkForUpdate:deploymentKey];
 
-    self.result.text = @"Request sent";
+
 }
 
 - (void)didReceiveRemotePackageOnUpdateCheck:(MSRemotePackage *)package
@@ -52,14 +57,14 @@
     }
     else
     {
-        NSString *info = @"Update info: ";
+        NSString *info = @"";
         NSMutableDictionary *dict = package.serializeToDictionary;
         for(NSString *key in dict)
         {
             info = [info stringByAppendingString:key];
             info = [info stringByAppendingString:@":"];
             if ([dict objectForKey:key])
-                info = [info stringByAppendingString:[dict objectForKey:key]];
+                info = [info stringByAppendingString:[[dict objectForKey:key] description]];
             else
                     info = [info stringByAppendingString:@"[no value]"];
             info = [info stringByAppendingString:@"\n"];
