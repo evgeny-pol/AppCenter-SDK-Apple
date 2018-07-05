@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 #import "MSAssetsInstallMode.h"
 
-@interface MSAssetsInstanceState : NSObject
+@interface MSAssetsDeploymentInstanceState : NSObject
 
 /**
  * Indicates whether a new update running for the first time.

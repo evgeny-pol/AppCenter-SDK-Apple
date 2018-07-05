@@ -123,7 +123,7 @@ static NSString *const UnzippedFolderName = @"unzipped";
 }
 
 - (NSString *)getMSAssetsPath {
-    NSString* assetsPath = [[self  getApplicationSupportDirectory] stringByAppendingPathComponent:@"Assets"];
+    NSString* assetsPath = [[MSUtility fullURLForPathComponent:@"Assets"] path];
     if (![MSUtility fileExistsForPathComponent:assetsPath]) {
         NSURL *result = [MSUtility createDirectoryForPathComponent:assetsPath];
         if (!result) {
@@ -137,11 +137,6 @@ static NSString *const UnzippedFolderName = @"unzipped";
     }*/
 
     return assetsPath;
-}
-
-- (NSString *)getApplicationSupportDirectory {
-    NSString *applicationSupportDirectory = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    return applicationSupportDirectory;
 }
 
 - (NSString *)getDownloadFilePath {

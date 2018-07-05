@@ -144,26 +144,8 @@
 		0446DF5F1F3B8FBA00C8E338 /* libAppCenter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0446DF5E1F3B8FBA00C8E338 /* libAppCenter.a */; };
 		0446DF621F3B95EB00C8E338 /* libAppCenter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0446DF611F3B95EB00C8E338 /* libAppCenter.a */; };
 		0446DF641F3B95F200C8E338 /* libAppCenter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0446DF631F3B95F200C8E338 /* libAppCenter.a */; };
-		045C362520E0DFFB00521386 /* MSApiHttpRequestException.m in Sources */ = {isa = PBXBuildFile; fileRef = 045C362420E0DFFB00521386 /* MSApiHttpRequestException.m */; };
-		045C362720E0E32B00521386 /* MSAssetsGeneralException.m in Sources */ = {isa = PBXBuildFile; fileRef = 045C362620E0E32B00521386 /* MSAssetsGeneralException.m */; };
-		045C362920E0E39A00521386 /* MSDownloadPackageException.m in Sources */ = {isa = PBXBuildFile; fileRef = 045C362820E0E39A00521386 /* MSDownloadPackageException.m */; };
-		045C362B20E0E59600521386 /* MSAssetsFinalizeException.m in Sources */ = {isa = PBXBuildFile; fileRef = 045C362A20E0E59600521386 /* MSAssetsFinalizeException.m */; };
-		045C362D20E0F41B00521386 /* MSAssetsGetPackageException.m in Sources */ = {isa = PBXBuildFile; fileRef = 045C362C20E0F41B00521386 /* MSAssetsGetPackageException.m */; };
-		045C362F20E0F4EC00521386 /* MSAssetsInitializeException.m in Sources */ = {isa = PBXBuildFile; fileRef = 045C362E20E0F4EC00521386 /* MSAssetsInitializeException.m */; };
-		045C363120E0F52A00521386 /* MSAssetsInstallException.m in Sources */ = {isa = PBXBuildFile; fileRef = 045C363020E0F52A00521386 /* MSAssetsInstallException.m */; };
-		045C363320E0F60B00521386 /* MSAssetsInvalidPublicKeyException.m in Sources */ = {isa = PBXBuildFile; fileRef = 045C363220E0F60B00521386 /* MSAssetsInvalidPublicKeyException.m */; };
-		045C363520E0F66400521386 /* MSAssetsMalformedDataException.m in Sources */ = {isa = PBXBuildFile; fileRef = 045C363420E0F66400521386 /* MSAssetsMalformedDataException.m */; };
-		045C363720E0F69700521386 /* MSAssetsMergeException.m in Sources */ = {isa = PBXBuildFile; fileRef = 045C363620E0F69700521386 /* MSAssetsMergeException.m */; };
-		045C363920E0F6E400521386 /* MSAssetsNativeApiCallException.m in Sources */ = {isa = PBXBuildFile; fileRef = 045C363820E0F6E400521386 /* MSAssetsNativeApiCallException.m */; };
-		045C363B20E0F73500521386 /* MSAssetsPlatformUtilsException.m in Sources */ = {isa = PBXBuildFile; fileRef = 045C363A20E0F73500521386 /* MSAssetsPlatformUtilsException.m */; };
-		045C363D20E0F76B00521386 /* MSAssetsQueryUpdateException.m in Sources */ = {isa = PBXBuildFile; fileRef = 045C363C20E0F76B00521386 /* MSAssetsQueryUpdateException.m */; };
-		045C363F20E0F8ED00521386 /* MSAssetsReportStatusException.m in Sources */ = {isa = PBXBuildFile; fileRef = 045C363E20E0F8ED00521386 /* MSAssetsReportStatusException.m */; };
-		045C364120E0FA4600521386 /* MSAssetsRollbackException.m in Sources */ = {isa = PBXBuildFile; fileRef = 045C364020E0FA4600521386 /* MSAssetsRollbackException.m */; };
-		045C364320E0FAA100521386 /* MSAssetsUnzipException.m in Sources */ = {isa = PBXBuildFile; fileRef = 045C364220E0FAA100521386 /* MSAssetsUnzipException.m */; };
-		045C364520E0FADF00521386 /* MSAssetsSignatureVerificationException.m in Sources */ = {isa = PBXBuildFile; fileRef = 045C364420E0FADF00521386 /* MSAssetsSignatureVerificationException.m */; };
 		046AEACB1ECA554600CBE511 /* libAppCenterAssets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0485AF851EAA79E300C10CAF /* libAppCenterAssets.a */; };
 		046F460820DCE19D00813F5A /* MSDeploymentStatusReport.m in Sources */ = {isa = PBXBuildFile; fileRef = 046F460720DCE19D00813F5A /* MSDeploymentStatusReport.m */; };
-		046F460A20DCFDAB00813F5A /* MSAssetsIllegalArgumentException.m in Sources */ = {isa = PBXBuildFile; fileRef = 046F460920DCFDAB00813F5A /* MSAssetsIllegalArgumentException.m */; };
 		046F460C20DD175E00813F5A /* MSAssetsPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 046F460B20DD175E00813F5A /* MSAssetsPackage.m */; };
 		046F460E20DFA52500813F5A /* MSLocalPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 046F460D20DFA52500813F5A /* MSLocalPackage.m */; };
 		046F461020DFAAA900813F5A /* MSRemotePackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 046F460F20DFAAA900813F5A /* MSRemotePackage.m */; };
@@ -189,11 +171,12 @@
 		0485AF741EAA79E300C10CAF /* AppCenter+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = E85547CF1D2D6521002DF6E2 /* AppCenter+Internal.h */; };
 		0485AF781EAA79E300C10CAF /* AppCenterAssets.h in Headers */ = {isa = PBXBuildFile; fileRef = E85547CC1D2D63EF002DF6E2 /* AppCenterAssets.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0485AF7E1EAA79E300C10CAF /* MSAssets.h in Headers */ = {isa = PBXBuildFile; fileRef = E85547C31D2D6253002DF6E2 /* MSAssets.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0495A7C220ECE1970088336F /* MSAssetsInstanceState.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495A7C120ECE1970088336F /* MSAssetsInstanceState.m */; };
+		0495A7C220ECE1970088336F /* MSAssetsDeploymentInstanceState.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495A7C120ECE1970088336F /* MSAssetsDeploymentInstanceState.m */; };
 		04A082061F74BB8600DC776D /* MSService.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A082051F74BB8600DC776D /* MSService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04A082071F74BB8C00DC776D /* MSService.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A082051F74BB8600DC776D /* MSService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04BED7181ECB64FB00E20975 /* OCHamcrest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04BED7161ECB64CE00E20975 /* OCHamcrest.framework */; };
-		04D914D820EDF6070042B9C2 /* MSAssetsiOSPlatformSpecificImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D914D720EDF6070042B9C2 /* MSAssetsiOSPlatformSpecificImplementation.m */; };
+		04D914D820EDF6070042B9C2 /* MSAssetsiOSSpecificImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D914D720EDF6070042B9C2 /* MSAssetsiOSSpecificImplementation.m */; };
+		04D914DB20EE364D0042B9C2 /* MSAssetsIllegalArgumentException.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D914DA20EE364D0042B9C2 /* MSAssetsIllegalArgumentException.m */; };
 		3568A7E1201A71D000F3B860 /* MSLogWithProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 358F9BC52019590100B9E22C /* MSLogWithProperties.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3568A7EE201A9BBB00F3B860 /* MSLogWithProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 358F9BC52019590100B9E22C /* MSLogWithProperties.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3568A7EF201A9BBB00F3B860 /* MSService.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A082051F74BB8600DC776D /* MSService.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -250,23 +233,6 @@
 		CD09077F20CDD2F10026F862 /* MSAssetsSyncStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09077E20CDD2F10026F862 /* MSAssetsSyncStatus.h */; };
 		CD09078120CDD4A70026F862 /* MSAssetsUpdateState.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09078020CDD4A70026F862 /* MSAssetsUpdateState.h */; };
 		CD09078320CDD4E30026F862 /* MSAssetsReportType.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09078220CDD4E30026F862 /* MSAssetsReportType.h */; };
-		CD09078720CDE0E40026F862 /* MSDownloadPackageException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09078620CDE0E40026F862 /* MSDownloadPackageException.h */; };
-		CD09078920CDE10E0026F862 /* MSAssetsFinalizeException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09078820CDE10E0026F862 /* MSAssetsFinalizeException.h */; };
-		CD09078B20CDE1210026F862 /* MSAssetsGeneralException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09078A20CDE1210026F862 /* MSAssetsGeneralException.h */; };
-		CD09078D20CDE1310026F862 /* MSAssetsGetPackageException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09078C20CDE1310026F862 /* MSAssetsGetPackageException.h */; };
-		CD09078F20CDE1420026F862 /* MSAssetsIllegalArgumentException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09078E20CDE1420026F862 /* MSAssetsIllegalArgumentException.h */; };
-		CD09079120CDE1510026F862 /* MSAssetsInitializeException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09079020CDE1510026F862 /* MSAssetsInitializeException.h */; };
-		CD09079320CDE1610026F862 /* MSAssetsInstallException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09079220CDE1610026F862 /* MSAssetsInstallException.h */; };
-		CD09079520CDE16F0026F862 /* MSAssetsInvalidPublicKeyException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09079420CDE16F0026F862 /* MSAssetsInvalidPublicKeyException.h */; };
-		CD09079720CDE1BE0026F862 /* MSAssetsMalformedDataException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09079620CDE1BE0026F862 /* MSAssetsMalformedDataException.h */; };
-		CD09079920CDE1CC0026F862 /* MSAssetsMergeException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09079820CDE1CC0026F862 /* MSAssetsMergeException.h */; };
-		CD09079B20CDE1D90026F862 /* MSAssetsNativeApiCallException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09079A20CDE1D90026F862 /* MSAssetsNativeApiCallException.h */; };
-		CD09079D20CDE1ED0026F862 /* MSAssetsPlatformUtilsException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09079C20CDE1ED0026F862 /* MSAssetsPlatformUtilsException.h */; };
-		CD09079F20CDE21D0026F862 /* MSAssetsQueryUpdateException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD09079E20CDE21D0026F862 /* MSAssetsQueryUpdateException.h */; };
-		CD0907A120CDE22A0026F862 /* MSAssetsReportStatusException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD0907A020CDE22A0026F862 /* MSAssetsReportStatusException.h */; };
-		CD0907A320CDE2370026F862 /* MSAssetsRollbackException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD0907A220CDE2370026F862 /* MSAssetsRollbackException.h */; };
-		CD0907A520CDE2440026F862 /* MSAssetsSignatureVerificationException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD0907A420CDE2440026F862 /* MSAssetsSignatureVerificationException.h */; };
-		CD0907A720CDE2540026F862 /* MSAssetsUnzipException.h in Headers */ = {isa = PBXBuildFile; fileRef = CD0907A620CDE2540026F862 /* MSAssetsUnzipException.h */; };
 		E85547C61D2D6253002DF6E2 /* MSAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = E85547C51D2D6253002DF6E2 /* MSAssets.m */; };
 		E85547DA1D2D6723002DF6E2 /* libAppCenterAssets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E85547C01D2D6253002DF6E2 /* libAppCenterAssets.a */; };
 		E85547F71D2D6A7D002DF6E2 /* AppCenterAssets.h in Headers */ = {isa = PBXBuildFile; fileRef = E85547CC1D2D63EF002DF6E2 /* AppCenterAssets.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -421,27 +387,9 @@
 		0446DF5E1F3B8FBA00C8E338 /* libAppCenter.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAppCenter.a; path = "../../../../../Library/Developer/Xcode/DerivedData/MobileCenter-atgozldoovnqvrcmynluxwlivwkq/Build/Products/Debug-appletvsimulator/libAppCenter.a"; sourceTree = "<group>"; };
 		0446DF611F3B95EB00C8E338 /* libAppCenter.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAppCenter.a; path = "../../../../../Library/Developer/Xcode/DerivedData/MobileCenter-atgozldoovnqvrcmynluxwlivwkq/Build/Products/Debug/libAppCenter.a"; sourceTree = "<group>"; };
 		0446DF631F3B95F200C8E338 /* libAppCenter.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAppCenter.a; path = "../../../../../Library/Developer/Xcode/DerivedData/MobileCenter-atgozldoovnqvrcmynluxwlivwkq/Build/Products/Debug-iphonesimulator/libAppCenter.a"; sourceTree = "<group>"; };
-		045C362420E0DFFB00521386 /* MSApiHttpRequestException.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSApiHttpRequestException.m; sourceTree = "<group>"; };
-		045C362620E0E32B00521386 /* MSAssetsGeneralException.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsGeneralException.m; sourceTree = "<group>"; };
-		045C362820E0E39A00521386 /* MSDownloadPackageException.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSDownloadPackageException.m; sourceTree = "<group>"; };
-		045C362A20E0E59600521386 /* MSAssetsFinalizeException.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsFinalizeException.m; sourceTree = "<group>"; };
-		045C362C20E0F41B00521386 /* MSAssetsGetPackageException.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsGetPackageException.m; sourceTree = "<group>"; };
-		045C362E20E0F4EC00521386 /* MSAssetsInitializeException.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsInitializeException.m; sourceTree = "<group>"; };
-		045C363020E0F52A00521386 /* MSAssetsInstallException.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsInstallException.m; sourceTree = "<group>"; };
-		045C363220E0F60B00521386 /* MSAssetsInvalidPublicKeyException.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsInvalidPublicKeyException.m; sourceTree = "<group>"; };
-		045C363420E0F66400521386 /* MSAssetsMalformedDataException.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsMalformedDataException.m; sourceTree = "<group>"; };
-		045C363620E0F69700521386 /* MSAssetsMergeException.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsMergeException.m; sourceTree = "<group>"; };
-		045C363820E0F6E400521386 /* MSAssetsNativeApiCallException.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsNativeApiCallException.m; sourceTree = "<group>"; };
-		045C363A20E0F73500521386 /* MSAssetsPlatformUtilsException.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsPlatformUtilsException.m; sourceTree = "<group>"; };
-		045C363C20E0F76B00521386 /* MSAssetsQueryUpdateException.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsQueryUpdateException.m; sourceTree = "<group>"; };
-		045C363E20E0F8ED00521386 /* MSAssetsReportStatusException.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsReportStatusException.m; sourceTree = "<group>"; };
-		045C364020E0FA4600521386 /* MSAssetsRollbackException.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsRollbackException.m; sourceTree = "<group>"; };
-		045C364220E0FAA100521386 /* MSAssetsUnzipException.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsUnzipException.m; sourceTree = "<group>"; };
-		045C364420E0FADF00521386 /* MSAssetsSignatureVerificationException.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsSignatureVerificationException.m; sourceTree = "<group>"; };
 		0469D1B21F4DFE4C00A43A8E /* AppCenterAssets Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "AppCenterAssets Release.xcconfig"; sourceTree = "<group>"; };
 		046AEAC61ECA51AF00CBE511 /* AppCenterAssets.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppCenterAssets.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		046F460720DCE19D00813F5A /* MSDeploymentStatusReport.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSDeploymentStatusReport.m; sourceTree = "<group>"; };
-		046F460920DCFDAB00813F5A /* MSAssetsIllegalArgumentException.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsIllegalArgumentException.m; sourceTree = "<group>"; };
 		046F460B20DD175E00813F5A /* MSAssetsPackage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsPackage.m; sourceTree = "<group>"; };
 		046F460D20DFA52500813F5A /* MSLocalPackage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSLocalPackage.m; sourceTree = "<group>"; };
 		046F460F20DFAAA900813F5A /* MSRemotePackage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSRemotePackage.m; sourceTree = "<group>"; };
@@ -472,15 +420,17 @@
 		0484DD231F39098B0092B777 /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMock.framework; path = ../../tvOS/OCMock/OCMock.framework; sourceTree = "<group>"; };
 		0484DD601F3910FF0092B777 /* Tests tvOS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "Tests tvOS.xcconfig"; path = "../../Config/Tests tvOS.xcconfig"; sourceTree = "<group>"; };
 		0485AF851EAA79E300C10CAF /* libAppCenterAssets.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAppCenterAssets.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		0495A7C020ECE15E0088336F /* MSAssetsInstanceState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsInstanceState.h; sourceTree = "<group>"; };
-		0495A7C120ECE1970088336F /* MSAssetsInstanceState.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsInstanceState.m; sourceTree = "<group>"; };
+		0495A7C020ECE15E0088336F /* MSAssetsDeploymentInstanceState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsDeploymentInstanceState.h; sourceTree = "<group>"; };
+		0495A7C120ECE1970088336F /* MSAssetsDeploymentInstanceState.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsDeploymentInstanceState.m; sourceTree = "<group>"; };
 		049BC82A1ECE3B9400FB6719 /* iOS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = iOS.xcconfig; sourceTree = "<group>"; };
 		049BC82B1ECE3B9A00FB6719 /* macOS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = macOS.xcconfig; sourceTree = "<group>"; };
 		049BC82C1ECE3CF000FB6719 /* Tests macOS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "Tests macOS.xcconfig"; path = "../../Config/Tests macOS.xcconfig"; sourceTree = "<group>"; };
 		04A082051F74BB8600DC776D /* MSService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSService.h; path = ../AppCenter/AppCenter/MSService.h; sourceTree = "<group>"; };
 		04BED7161ECB64CE00E20975 /* OCHamcrest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCHamcrest.framework; path = ../../Vendor/macOS/OCHamcrest/OCHamcrest.framework; sourceTree = "<group>"; };
-		04D914D620EDF5D20042B9C2 /* MSAssetsiOSPlatformSpecificImplementation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsiOSPlatformSpecificImplementation.h; sourceTree = "<group>"; };
-		04D914D720EDF6070042B9C2 /* MSAssetsiOSPlatformSpecificImplementation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsiOSPlatformSpecificImplementation.m; sourceTree = "<group>"; };
+		04D914D620EDF5D20042B9C2 /* MSAssetsiOSSpecificImplementation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsiOSSpecificImplementation.h; sourceTree = "<group>"; };
+		04D914D720EDF6070042B9C2 /* MSAssetsiOSSpecificImplementation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsiOSSpecificImplementation.m; sourceTree = "<group>"; };
+		04D914DA20EE364D0042B9C2 /* MSAssetsIllegalArgumentException.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsIllegalArgumentException.m; sourceTree = "<group>"; };
+		04D914DC20EE36600042B9C2 /* MSAssetsIllegalArgumentException.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsIllegalArgumentException.h; sourceTree = "<group>"; };
 		04ED31E91EAAD32B0033BAAE /* macOS.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = macOS.modulemap; sourceTree = "<group>"; };
 		04ED31EB1EAAD3390033BAAE /* iOS.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = iOS.modulemap; sourceTree = "<group>"; };
 		358F9BC52019590100B9E22C /* MSLogWithProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSLogWithProperties.h; path = ../AppCenter/AppCenter/Model/MSLogWithProperties.h; sourceTree = "<group>"; };
@@ -555,24 +505,6 @@
 		CD09077E20CDD2F10026F862 /* MSAssetsSyncStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsSyncStatus.h; sourceTree = "<group>"; };
 		CD09078020CDD4A70026F862 /* MSAssetsUpdateState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsUpdateState.h; sourceTree = "<group>"; };
 		CD09078220CDD4E30026F862 /* MSAssetsReportType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsReportType.h; sourceTree = "<group>"; };
-		CD09078520CDE0940026F862 /* MSApiHttpRequestException.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSApiHttpRequestException.h; sourceTree = "<group>"; };
-		CD09078620CDE0E40026F862 /* MSDownloadPackageException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSDownloadPackageException.h; sourceTree = "<group>"; };
-		CD09078820CDE10E0026F862 /* MSAssetsFinalizeException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsFinalizeException.h; sourceTree = "<group>"; };
-		CD09078A20CDE1210026F862 /* MSAssetsGeneralException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsGeneralException.h; sourceTree = "<group>"; };
-		CD09078C20CDE1310026F862 /* MSAssetsGetPackageException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsGetPackageException.h; sourceTree = "<group>"; };
-		CD09078E20CDE1420026F862 /* MSAssetsIllegalArgumentException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsIllegalArgumentException.h; sourceTree = "<group>"; };
-		CD09079020CDE1510026F862 /* MSAssetsInitializeException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsInitializeException.h; sourceTree = "<group>"; };
-		CD09079220CDE1610026F862 /* MSAssetsInstallException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsInstallException.h; sourceTree = "<group>"; };
-		CD09079420CDE16F0026F862 /* MSAssetsInvalidPublicKeyException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsInvalidPublicKeyException.h; sourceTree = "<group>"; };
-		CD09079620CDE1BE0026F862 /* MSAssetsMalformedDataException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsMalformedDataException.h; sourceTree = "<group>"; };
-		CD09079820CDE1CC0026F862 /* MSAssetsMergeException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsMergeException.h; sourceTree = "<group>"; };
-		CD09079A20CDE1D90026F862 /* MSAssetsNativeApiCallException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsNativeApiCallException.h; sourceTree = "<group>"; };
-		CD09079C20CDE1ED0026F862 /* MSAssetsPlatformUtilsException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsPlatformUtilsException.h; sourceTree = "<group>"; };
-		CD09079E20CDE21D0026F862 /* MSAssetsQueryUpdateException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsQueryUpdateException.h; sourceTree = "<group>"; };
-		CD0907A020CDE22A0026F862 /* MSAssetsReportStatusException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsReportStatusException.h; sourceTree = "<group>"; };
-		CD0907A220CDE2370026F862 /* MSAssetsRollbackException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsRollbackException.h; sourceTree = "<group>"; };
-		CD0907A420CDE2440026F862 /* MSAssetsSignatureVerificationException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsSignatureVerificationException.h; sourceTree = "<group>"; };
-		CD0907A620CDE2540026F862 /* MSAssetsUnzipException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsUnzipException.h; sourceTree = "<group>"; };
 		E85547C01D2D6253002DF6E2 /* libAppCenterAssets.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAppCenterAssets.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E85547C31D2D6253002DF6E2 /* MSAssets.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssets.h; sourceTree = "<group>"; };
 		E85547C51D2D6253002DF6E2 /* MSAssets.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MSAssets.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -1024,6 +956,8 @@
 		6E3E2CC21D359D5E00B1EE50 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0495A7C020ECE15E0088336F /* MSAssetsDeploymentInstanceState.h */,
+				0495A7C120ECE1970088336F /* MSAssetsDeploymentInstanceState.m */,
 				4B721CEF20EA7FFB0040A566 /* MSAssetsStatusReportIdentifier.h */,
 				4B721CF020EA7FFB0040A566 /* MSAssetsStatusReportIdentifier.m */,
 				CD09076920CCBB0C0026F862 /* MSAssetsPackage.h */,
@@ -1056,6 +990,8 @@
 				0482865120E242F4005FEFD8 /* MSAssetsConfiguration.m */,
 				0431060D20E66D9F00F42296 /* MSAssetsStatusReportIdentifier.h */,
 				0431060E20E66DAF00F42296 /* MSAssetsStatusReportIdentifier.m */,
+				04D914DA20EE364D0042B9C2 /* MSAssetsIllegalArgumentException.m */,
+				04D914DC20EE36600042B9C2 /* MSAssetsIllegalArgumentException.h */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1073,49 +1009,6 @@
 				046F462720DFCAC800813F5A /* MSSignatureExceptionType.h */,
 			);
 			path = Enum;
-			sourceTree = "<group>";
-		};
-		CD09078420CDE0140026F862 /* Exceptions */ = {
-			isa = PBXGroup;
-			children = (
-				CD09078520CDE0940026F862 /* MSApiHttpRequestException.h */,
-				CD09078620CDE0E40026F862 /* MSDownloadPackageException.h */,
-				CD09078820CDE10E0026F862 /* MSAssetsFinalizeException.h */,
-				CD09078A20CDE1210026F862 /* MSAssetsGeneralException.h */,
-				CD09078C20CDE1310026F862 /* MSAssetsGetPackageException.h */,
-				CD09078E20CDE1420026F862 /* MSAssetsIllegalArgumentException.h */,
-				CD09079020CDE1510026F862 /* MSAssetsInitializeException.h */,
-				CD09079220CDE1610026F862 /* MSAssetsInstallException.h */,
-				CD09079420CDE16F0026F862 /* MSAssetsInvalidPublicKeyException.h */,
-				CD09079620CDE1BE0026F862 /* MSAssetsMalformedDataException.h */,
-				CD09079820CDE1CC0026F862 /* MSAssetsMergeException.h */,
-				CD09079A20CDE1D90026F862 /* MSAssetsNativeApiCallException.h */,
-				CD09079C20CDE1ED0026F862 /* MSAssetsPlatformUtilsException.h */,
-				CD09079E20CDE21D0026F862 /* MSAssetsQueryUpdateException.h */,
-				CD0907A020CDE22A0026F862 /* MSAssetsReportStatusException.h */,
-				CD0907A220CDE2370026F862 /* MSAssetsRollbackException.h */,
-				CD0907A420CDE2440026F862 /* MSAssetsSignatureVerificationException.h */,
-				CD0907A620CDE2540026F862 /* MSAssetsUnzipException.h */,
-				046F460920DCFDAB00813F5A /* MSAssetsIllegalArgumentException.m */,
-				045C362420E0DFFB00521386 /* MSApiHttpRequestException.m */,
-				045C362620E0E32B00521386 /* MSAssetsGeneralException.m */,
-				045C362820E0E39A00521386 /* MSDownloadPackageException.m */,
-				045C362A20E0E59600521386 /* MSAssetsFinalizeException.m */,
-				045C362C20E0F41B00521386 /* MSAssetsGetPackageException.m */,
-				045C362E20E0F4EC00521386 /* MSAssetsInitializeException.m */,
-				045C363020E0F52A00521386 /* MSAssetsInstallException.m */,
-				045C363220E0F60B00521386 /* MSAssetsInvalidPublicKeyException.m */,
-				045C363420E0F66400521386 /* MSAssetsMalformedDataException.m */,
-				045C363620E0F69700521386 /* MSAssetsMergeException.m */,
-				045C363820E0F6E400521386 /* MSAssetsNativeApiCallException.m */,
-				045C363A20E0F73500521386 /* MSAssetsPlatformUtilsException.m */,
-				045C363C20E0F76B00521386 /* MSAssetsQueryUpdateException.m */,
-				045C363E20E0F8ED00521386 /* MSAssetsReportStatusException.m */,
-				045C364020E0FA4600521386 /* MSAssetsRollbackException.m */,
-				045C364220E0FAA100521386 /* MSAssetsUnzipException.m */,
-				045C364420E0FADF00521386 /* MSAssetsSignatureVerificationException.m */,
-			);
-			path = Exceptions;
 			sourceTree = "<group>";
 		};
 		E85547B71D2D6253002DF6E2 = {
@@ -1151,17 +1044,15 @@
 				E85547C31D2D6253002DF6E2 /* MSAssets.h */,
 				E85547C51D2D6253002DF6E2 /* MSAssets.m */,
 				4BE5528320E4D5EF00620DB1 /* MSAssetsDelegate.h */,
+				0482865320E24952005FEFD8 /* MSAssetsErrors.h */,
+				0482865420E24968005FEFD8 /* MSAssetsErrors.m */,
 				A31F8C9120E144AD00F58C46 /* MSAssetsDeploymentInstance.h */,
 				A31B561820DD093700D81CA1 /* MSAssetsDeploymentInstance.m */,
+				04D914D620EDF5D20042B9C2 /* MSAssetsiOSSpecificImplementation.h */,
+				04D914D720EDF6070042B9C2 /* MSAssetsiOSSpecificImplementation.m */,
 				1182FBF520E0DCD300CC9460 /* AssetsBuilder */,
 				E85547CD1D2D64B0002DF6E2 /* Internals */,
 				E85547D01D2D65AF002DF6E2 /* Support */,
-				0482865320E24952005FEFD8 /* MSAssetsErrors.h */,
-				0482865420E24968005FEFD8 /* MSAssetsErrors.m */,
-				0495A7C020ECE15E0088336F /* MSAssetsInstanceState.h */,
-				0495A7C120ECE1970088336F /* MSAssetsInstanceState.m */,
-				04D914D620EDF5D20042B9C2 /* MSAssetsiOSPlatformSpecificImplementation.h */,
-				04D914D720EDF6070042B9C2 /* MSAssetsiOSPlatformSpecificImplementation.m */,
 			);
 			path = AppCenterAssets;
 			sourceTree = "<group>";
@@ -1173,7 +1064,6 @@
 				0482864C20E23760005FEFD8 /* Manager */,
 				0482864820E22DE5005FEFD8 /* Sender */,
 				CD09077820CDD1880026F862 /* Enum */,
-				CD09078420CDE0140026F862 /* Exceptions */,
 				6E3E2CC21D359D5E00B1EE50 /* Model */,
 				04A1409C1ECE7245001CEE94 /* Util */,
 			);
@@ -1243,7 +1133,6 @@
 				0431072E20EA48D700F42296 /* JWTAlgorithm.h in Headers */,
 				0482865620E27496005FEFD8 /* MSAssetsDeploymentInstance.h in Headers */,
 				A31B562C20DD422100D81CA1 /* MSAssetsBuilder.h in Headers */,
-				CD09079520CDE16F0026F862 /* MSAssetsInvalidPublicKeyException.h in Headers */,
 				CD09078120CDD4A70026F862 /* MSAssetsUpdateState.h in Headers */,
 				4B721D7520EBC6030040A566 /* zip.h in Headers */,
 				CD09076A20CCBB0C0026F862 /* MSAssetsPackage.h in Headers */,
@@ -1251,31 +1140,19 @@
 				0431071F20EA48D700F42296 /* JWTAlgorithmHSBase.h in Headers */,
 				4B721D7C20EBC6030040A566 /* prng.h in Headers */,
 				0431073020EA48D700F42296 /* JWTAlgorithmFactory.h in Headers */,
-				CD09078D20CDE1310026F862 /* MSAssetsGetPackageException.h in Headers */,
-				CD09078F20CDE1420026F862 /* MSAssetsIllegalArgumentException.h in Headers */,
-				CD09079920CDE1CC0026F862 /* MSAssetsMergeException.h in Headers */,
-				CD09079F20CDE21D0026F862 /* MSAssetsQueryUpdateException.h in Headers */,
 				0431072820EA48D700F42296 /* JWTCryptoKey.h in Headers */,
-				CD09079320CDE1610026F862 /* MSAssetsInstallException.h in Headers */,
 				4B721D7920EBC6030040A566 /* SSZipArchive.h in Headers */,
 				4B721D7F20EBC6030040A566 /* aestab.h in Headers */,
 				04A082061F74BB8600DC776D /* MSService.h in Headers */,
 				0431073120EA48D700F42296 /* JWTDeprecations.h in Headers */,
-				CD09079D20CDE1ED0026F862 /* MSAssetsPlatformUtilsException.h in Headers */,
-				CD0907A120CDE22A0026F862 /* MSAssetsReportStatusException.h in Headers */,
-				CD09079B20CDE1D90026F862 /* MSAssetsNativeApiCallException.h in Headers */,
 				4B721D8420EBC6030040A566 /* aes_via_ace.h in Headers */,
-				CD09079120CDE1510026F862 /* MSAssetsInitializeException.h in Headers */,
 				CD09077D20CDD2950026F862 /* MSAssetsInstallMode.h in Headers */,
-				CD0907A520CDE2440026F862 /* MSAssetsSignatureVerificationException.h in Headers */,
 				0431072120EA48D700F42296 /* JWTAlgorithmRSBase.h in Headers */,
 				0431072920EA48D700F42296 /* JWTCryptoKeyExtractor.h in Headers */,
 				387C77051D6CC39400D68CC1 /* MSServiceAbstract.h in Headers */,
 				E85547F91D2D6A9B002DF6E2 /* AppCenter+Internal.h in Headers */,
 				0431073220EA48D700F42296 /* JWTErrorDescription.h in Headers */,
 				0431073A20EA48D700F42296 /* JWTCoding.h in Headers */,
-				CD09078B20CDE1210026F862 /* MSAssetsGeneralException.h in Headers */,
-				CD09079720CDE1BE0026F862 /* MSAssetsMalformedDataException.h in Headers */,
 				4B721D8720EBC6030040A566 /* entropy.h in Headers */,
 				CD09077B20CDD24E0026F862 /* MSAssetsDeploymentStatus.h in Headers */,
 				CD09078320CDD4E30026F862 /* MSAssetsReportType.h in Headers */,
@@ -1285,14 +1162,12 @@
 				4B721D8320EBC6030040A566 /* aesopt.h in Headers */,
 				358F9BC62019590200B9E22C /* MSLogWithProperties.h in Headers */,
 				0431073620EA48D700F42296 /* JWTCoding+VersionTwo.h in Headers */,
-				CD09078720CDE0E40026F862 /* MSDownloadPackageException.h in Headers */,
 				4B721D8820EBC6030040A566 /* hmac.h in Headers */,
 				0431071720EA48D700F42296 /* JWTClaim.h in Headers */,
 				4B721D7420EBC6030040A566 /* crypt.h in Headers */,
 				0431071A20EA48D700F42296 /* JWT.h in Headers */,
 				0431073F20EA48D700F42296 /* JWTCoding+VersionOne.h in Headers */,
 				0431071820EA48D700F42296 /* JWTClaimsSet.h in Headers */,
-				CD09078920CDE10E0026F862 /* MSAssetsFinalizeException.h in Headers */,
 				0431073720EA48D700F42296 /* JWTCoding+VersionThree.h in Headers */,
 				CD09077F20CDD2F10026F862 /* MSAssetsSyncStatus.h in Headers */,
 				4B721D8E20EBC6030040A566 /* sha1.h in Headers */,
@@ -1310,13 +1185,11 @@
 				0431072F20EA48D700F42296 /* JWTAlgorithmNone.h in Headers */,
 				4B721D8020EBC6030040A566 /* pwd2key.h in Headers */,
 				4B721D7720EBC6030040A566 /* mztools.h in Headers */,
-				CD0907A720CDE2540026F862 /* MSAssetsUnzipException.h in Headers */,
 				4B721D7620EBC6030040A566 /* unzip.h in Headers */,
 				0431071220EA48D600F42296 /* JWTClaimsSetVerifier.h in Headers */,
 				0431071B20EA48D700F42296 /* JWTAlgorithmDataHolderChain.h in Headers */,
 				4B721D8F20EBC6030040A566 /* fileenc.h in Headers */,
 				0431072B20EA48D700F42296 /* JWTAlgorithmESBase.h in Headers */,
-				CD0907A320CDE2370026F862 /* MSAssetsRollbackException.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1613,23 +1486,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B721D7E20EBC6030040A566 /* hmac.c in Sources */,
-				045C362D20E0F41B00521386 /* MSAssetsGetPackageException.m in Sources */,
 				0431072620EA48D700F42296 /* JWTCryptoKeyExtractor.m in Sources */,
 				4B721D7B20EBC6030040A566 /* SSZipArchive.m in Sources */,
-				045C362520E0DFFB00521386 /* MSApiHttpRequestException.m in Sources */,
-				045C363120E0F52A00521386 /* MSAssetsInstallException.m in Sources */,
 				046F461220DFAE6B00813F5A /* MSUpdateResponseUpdateInfo.m in Sources */,
 				0431074220EA727B00F42296 /* MSAssetsErrorUtils.m in Sources */,
 				0431071420EA48D600F42296 /* JWTClaimsSet.m in Sources */,
 				046F461820DFB3C900813F5A /* MSAssetsUpdateResponse.m in Sources */,
 				0482865520E24968005FEFD8 /* MSAssetsErrors.m in Sources */,
-				046F460A20DCFDAB00813F5A /* MSAssetsIllegalArgumentException.m in Sources */,
 				0431071520EA48D600F42296 /* JWTClaim.m in Sources */,
-				045C364120E0FA4600521386 /* MSAssetsRollbackException.m in Sources */,
 				046F461020DFAAA900813F5A /* MSRemotePackage.m in Sources */,
 				4B6A9EAD20E618760044589C /* MSAssetsReportSender.m in Sources */,
-				045C362B20E0E59600521386 /* MSAssetsFinalizeException.m in Sources */,
 				A3898E7C20DB9D7800E9BF37 /* MSAssetsConstants.m in Sources */,
+				04D914DB20EE364D0042B9C2 /* MSAssetsIllegalArgumentException.m in Sources */,
 				0431072720EA48D700F42296 /* JWTCryptoSecurity.m in Sources */,
 				046F462820DFCAC800813F5A /* MSSignatureExceptionType.h in Sources */,
 				4B721D7120EBC6030040A566 /* zip.c in Sources */,
@@ -1637,10 +1505,9 @@
 				4B721D8220EBC6030040A566 /* fileenc.c in Sources */,
 				0431072020EA48D700F42296 /* JWTAlgorithmHSBase.m in Sources */,
 				0431060C20E664FE00F42296 /* MSAssetsTelemetryManager.m in Sources */,
-				045C362720E0E32B00521386 /* MSAssetsGeneralException.m in Sources */,
 				0431073B20EA48D700F42296 /* JWTCoding+VersionTwo.m in Sources */,
 				4B721D8520EBC6030040A566 /* sha1.c in Sources */,
-				04D914D820EDF6070042B9C2 /* MSAssetsiOSPlatformSpecificImplementation.m in Sources */,
+				04D914D820EDF6070042B9C2 /* MSAssetsiOSSpecificImplementation.m in Sources */,
 				0431073420EA48D700F42296 /* JWTErrorDescription.m in Sources */,
 				0431073E20EA48D700F42296 /* JWTCoding+ResultTypes.m in Sources */,
 				046F460E20DFA52500813F5A /* MSLocalPackage.m in Sources */,
@@ -1658,14 +1525,11 @@
 				0431060F20E66DAF00F42296 /* MSAssetsStatusReportIdentifier.m in Sources */,
 				046F462220DFBBF700813F5A /* MSAssetsUpdateDialog.m in Sources */,
 				0431073320EA48D700F42296 /* JWTBase64Coder.m in Sources */,
-				045C363320E0F60B00521386 /* MSAssetsInvalidPublicKeyException.m in Sources */,
-				045C364520E0FADF00521386 /* MSAssetsSignatureVerificationException.m in Sources */,
 				0431071D20EA48D700F42296 /* JWTAlgorithmDataHolderChain.m in Sources */,
 				046F460C20DD175E00813F5A /* MSAssetsPackage.m in Sources */,
 				0431072D20EA48D700F42296 /* JWTAlgorithmFactory.m in Sources */,
 				046F462620DFC85C00813F5A /* MSOperationType.h in Sources */,
 				0431073820EA48D700F42296 /* JWTCoding+VersionOne.m in Sources */,
-				045C363B20E0F73500521386 /* MSAssetsPlatformUtilsException.m in Sources */,
 				0431072A20EA48D700F42296 /* JWTAlgorithmESBase.m in Sources */,
 				0431072C20EA48D700F42296 /* JWTAlgorithmNone.m in Sources */,
 				4B721D8A20EBC6030040A566 /* prng.c in Sources */,
@@ -1675,31 +1539,23 @@
 				0482864B20E22E40005FEFD8 /* MSAssetsCheckForUpdate.m in Sources */,
 				0431073D20EA48D700F42296 /* JWTCoding.m in Sources */,
 				0431072320EA48D700F42296 /* JWTAlgorithmRSBase.m in Sources */,
-				045C363920E0F6E400521386 /* MSAssetsNativeApiCallException.m in Sources */,
 				0431071E20EA48D700F42296 /* JWTAlgorithmDataHolder.m in Sources */,
 				4B721D7020EBC6030040A566 /* unzip.c in Sources */,
 				4B721D7220EBC6030040A566 /* ioapi.c in Sources */,
 				046F461E20DFB6AB00813F5A /* MSDownloadPackageResult.m in Sources */,
 				4B721D7320EBC6030040A566 /* mztools.c in Sources */,
 				4B721D0420EBB5500040A566 /* MSAssetsFileUtils.m in Sources */,
-				045C362F20E0F4EC00521386 /* MSAssetsInitializeException.m in Sources */,
 				046F461620DFB2FA00813F5A /* MSAssetsPackageInfo.m in Sources */,
 				0431072420EA48D700F42296 /* JWTCryptoKey.m in Sources */,
 				4B721D8C20EBC6030040A566 /* pwd2key.c in Sources */,
-				045C362920E0E39A00521386 /* MSDownloadPackageException.m in Sources */,
 				4B721D9020EBC6030040A566 /* entropy.c in Sources */,
-				0495A7C220ECE1970088336F /* MSAssetsInstanceState.m in Sources */,
+				0495A7C220ECE1970088336F /* MSAssetsDeploymentInstanceState.m in Sources */,
 				4B721D7D20EBC6030040A566 /* aeskey.c in Sources */,
-				045C363D20E0F76B00521386 /* MSAssetsQueryUpdateException.m in Sources */,
 				0482866520E50425005FEFD8 /* MSAssetsSettingManager.m in Sources */,
-				045C363F20E0F8ED00521386 /* MSAssetsReportStatusException.m in Sources */,
-				045C363520E0F66400521386 /* MSAssetsMalformedDataException.m in Sources */,
 				046F461420DFB1A300813F5A /* MSDownloadStatusReport.m in Sources */,
 				046F460820DCE19D00813F5A /* MSDeploymentStatusReport.m in Sources */,
 				046F462420DFBEB800813F5A /* MSAssetsUpdateRequest.m in Sources */,
 				046F461C20DFB58000813F5A /* MSAssetsPendingUpdate.m in Sources */,
-				045C363720E0F69700521386 /* MSAssetsMergeException.m in Sources */,
-				045C364320E0FAA100521386 /* MSAssetsUnzipException.m in Sources */,
 				046F462020DFB87700813F5A /* MSAssetsSyncOptions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

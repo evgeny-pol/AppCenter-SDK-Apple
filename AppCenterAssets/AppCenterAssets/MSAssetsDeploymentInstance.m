@@ -1,5 +1,5 @@
 #import "MSAssets.h"
-#import "MSAssetsInstanceState.h"
+#import "MSAssetsDeploymentInstanceState.h"
 #import "MSAssetsUpdateUtilities.h"
 #import "MSLocalPackage.h"
 #import "MSAssetsErrors.h"
@@ -43,7 +43,7 @@ static BOOL isRunningBinaryVersion = NO;
         _restartManager = [[MSAssetsRestartManager alloc] initWithRestartHandler:^(BOOL onlyIfUpdateIsPending, MSAssetsRestartListener restartListener) {
             [self restartInternal:restartListener onlyIfUpdateIsPending:onlyIfUpdateIsPending];
         }];
-        _instanceState = [[MSAssetsInstanceState alloc] init];
+        _instanceState = [[MSAssetsDeploymentInstanceState alloc] init];
         _platformInstance = platformInstance;
     }
     return self;
