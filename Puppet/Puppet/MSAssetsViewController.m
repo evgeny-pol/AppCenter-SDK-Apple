@@ -46,16 +46,27 @@
     NSLog(@"Callback from MSAssets.checkForUpdate");
     if (!package)
     {
-        NSLog(@"No update available");
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_sync(dispatch_get_main_queue(), ^{
             self.result.text = @"No update available";
         });
     }
     else
     {
-        NSLog(@"Update available");
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.result.text = @"Update is available";
+        NSString *info = @"Update info: ";
+        NSMutableDictionary *dict = package.serializeToDictionary;
+        for(NSString *key in dict)
+        {
+            info = [info stringByAppendingString:key];
+            info = [info stringByAppendingString:@":"];
+            if ([dict objectForKey:key])
+                info = [info stringByAppendingString:[dict objectForKey:key]];
+            else
+                    info = [info stringByAppendingString:@"[no value]"];
+            info = [info stringByAppendingString:@"\n"];
+        }
+
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            self.result.text = info;
         });
     }
 }

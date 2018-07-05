@@ -86,10 +86,10 @@ static BOOL isRunningBinaryVersion = NO;
             ((!localPackage || localPackage.isDebugOnly) && [config.packageHash isEqualToString:update.packageHash] )){
 
             if (update && update.updateAppVersion){
-                if ([[self delegate] respondsToSelector:@selector(didFailToQueryRemotePackageOnCheckForUpdate:)])
+                if ([[self delegate] respondsToSelector:@selector(didReceiveRemotePackageOnUpdateCheck:)])
                 {
-                    NSError *newError = [MSAssetsErrorUtils getUpdateNotTargetingBinaryError];
-                    [[self delegate] didFailToQueryRemotePackageOnCheckForUpdate:newError];
+                    MSLogInfo([MSAssets logTag], @"An update is available but it is not targeting the binary version of your app.");
+                    [[self delegate] didReceiveRemotePackageOnUpdateCheck:nil];
                 }
 
             }
