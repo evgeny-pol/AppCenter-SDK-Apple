@@ -21,7 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) handleInstallModesForUpdateInstall:(MSAssetsInstallMode)installMode;
 - (void) loadApp:(MSAssetsRestartListener)assetsRestartListener;
-
+- (void) clearDebugCacheWithError:(NSError *__autoreleasing *)error;
+- (BOOL) isPackageLatest:(MSLocalPackage *)packageMetadata appVersion:(NSString *)appVersion;
+- (NSTimeInterval) getBinaryResourcesModifiedTime;
 @end
 
 /**
@@ -35,9 +37,26 @@ typedef void (^MSDownloadHandler)(MSLocalPackage * _Nullable downloadedPackage, 
 
 @interface MSAssetsDeploymentInstance: NSObject
 
+/**
+ * Creates instance of `MSAssetsDeploymentInstance`. Default constructor.
+ *
+ * @param deploymentKey      deployment key.
+ * @param isDebugMode        indicates whether application is running in debug mode.
+ * @param serverUrl          CodePush server url.
+ * @param publicKey  public key string.
+ * @param entryPoint path to update contents/bundles.
+ * @param platformInstance  instance of a class conforming to `MSAssetsPlatformSpecificImplementation`
+ * and containing platform-specific methods.
+ * @see `MSAssetsiOSSpecificImplementation`.
+ * @param error initialization error.
+ */
 - (instancetype)initWithEntryPoint:(NSString *)entryPoint
                          publicKey:(NSString *)publicKey
-                  platformInstance:(id<MSAssetsPlatformSpecificImplementation>)platformInstance;
+                     deploymentKey:(NSString *)deploymentKey
+                       inDebugMode:(BOOL)isDebugMode
+                         serverUrl:(NSString *)serverUrl
+                  platformInstance:(id<MSAssetsPlatformSpecificImplementation>)platformInstance
+                         withError:(NSError *__autoreleasing *)error;
 
 - (void)checkForUpdate:(nullable NSString *)deploymentKey;
 

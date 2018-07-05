@@ -12,11 +12,17 @@
 #import "MSAssetsFileUtils.h"
 #import "MSAssetsInstallMode.h"
 #import "MSAssetsUpdateState.h"
+#import "MSAssetsSyncOptions.h"
+#import "MSAssetsSyncStatus.h"
 
 @implementation MSAssetsDeploymentInstance {
     BOOL _didUpdateProgress;
     NSString *_entryPoint;
     NSString *_publicKey;
+    NSString *_deploymentKey;
+    BOOL _isDebugMode;
+    NSString *_serverUrl;
+    NSString *_appVersion;
 }
 
 @synthesize delegate = _delegate;
@@ -30,10 +36,29 @@ static BOOL isRunningBinaryVersion = NO;
 
 - (instancetype)initWithEntryPoint:(NSString *)entryPoint
                          publicKey:(NSString *)publicKey
-                  platformInstance:(id<MSAssetsPlatformSpecificImplementation>)platformInstance{
+                     deploymentKey:(NSString *)deploymentKey
+                       inDebugMode:(BOOL)isDebugMode
+                         serverUrl:(NSString *)serverUrl
+                  platformInstance:(id<MSAssetsPlatformSpecificImplementation>)platformInstance
+                         withError:(NSError *__autoreleasing *)error {
     if ((self = [super init])) {
         _entryPoint = entryPoint;
         _publicKey = publicKey;
+        _deploymentKey = deploymentKey;
+        _isDebugMode = isDebugMode;
+        if (serverUrl) {
+            _serverUrl = serverUrl;
+        } else {
+            _serverUrl = @"https://codepush.azurewebsites.net/";
+        }
+        NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+        NSString *appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+        if (appVersion) {
+            _appVersion = appVersion;
+        } else {
+            *error = [MSAssetsErrorUtils getNoAppVersionError];
+            return nil;
+        }
         _downloadHandler = [[MSAssetsDownloadHandler alloc] initWithOperationQueue: dispatch_get_main_queue()];
         _updateUtilities = [[MSAssetsUpdateUtilities alloc] init];
         _updateManager = [[MSAssetsUpdateManager alloc] init];
@@ -45,8 +70,64 @@ static BOOL isRunningBinaryVersion = NO;
         }];
         _instanceState = [[MSAssetsDeploymentInstanceState alloc] init];
         _platformInstance = platformInstance;
+        if (_isDebugMode && [_settingManager isPendingUpdate:nil]) {
+            [_platformInstance clearDebugCacheWithError:error];
+            if (error) {
+                return nil;
+            }
+        }
+        [self initializeUpdateAfterRestartWithError:error];
+        if (error) {
+            return nil;
+        }
     }
     return self;
+}
+
+/**
+ * Initializes update after app restart.
+ *
+ * @param error initialization error.
+ */
+- (void)initializeUpdateAfterRestartWithError:(NSError * __autoreleasing *)error {
+    
+    /* Reset the state which indicates that the app was just freshly updated. */
+    [[self instanceState] setDidUpdate:NO];
+    MSAssetsPendingUpdate *pendingUpdate = [[self settingManager] getPendingUpdate];
+    if (pendingUpdate == nil) {
+        return;
+    }
+    MSLocalPackage *packageMetadata = [[self updateManager] getCurrentPackage:error];
+    if (error) {
+        return;
+    }
+    if (packageMetadata == nil || ([[self platformInstance] isPackageLatest:packageMetadata appVersion:_appVersion]
+                                   && ! [_appVersion isEqualToString:[packageMetadata appVersion]])) {
+        MSLogInfo([MSAssets logTag], @"Skipping initializeUpdateAfterRestart(), binary version is newer.");
+        return;
+    }
+    BOOL updateIsLoading = [pendingUpdate isLoading];
+    if (updateIsLoading) {
+        
+        /* Pending update was initialized, but notifyApplicationReady was not called.
+         * Therefore, deduce that it is a broken update and rollback. */
+        MSLogInfo([MSAssets logTag], @"Update did not finish loading the last time, rolling back to a previous version.");
+        [[self instanceState] setNeedToReportRollback:YES];
+        [self rollbackPackage];
+    } else {
+        
+        /* There is in fact a new update running for the first
+         * time, so update the local state to ensure the client knows. */
+        [[self instanceState] setDidUpdate:YES];
+        
+        /* Mark that we tried to initialize the new update, so that if it crashes,
+         * we will know that we need to rollback when the app next starts. */
+        [[self settingManager] savePendingUpdate:pendingUpdate];
+    }
+}
+
+- (void) rollbackPackage {
+    //TODO: Sync up with Patrick on rollbacks.
 }
 
 - (BOOL)restartInternal:(MSAssetsRestartListener)assetsRestartListener onlyIfUpdateIsPending:(BOOL)onlyIfUpdateIsPending {
@@ -133,7 +214,8 @@ static BOOL isRunningBinaryVersion = NO;
     MSAssetsConfiguration *configuration = [MSAssetsConfiguration new];
     NSString *appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
     if (appVersion == nil) {
-        appVersion = @"";
+        *error = [MSAssetsErrorUtils getNoAppVersionError];
+        return nil;
     }
     NSString *clientId = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     if (clientId == nil) {
@@ -295,7 +377,7 @@ static BOOL isRunningBinaryVersion = NO;
                                                                                              entryPoint: entryPoint];
                            NSURL *binaryBundleURL = [[NSBundle mainBundle] bundleURL];
                            if (binaryBundleURL != nil) {
-                               [localPackage setBinaryModifiedTime:[[strongSelf updateUtilities] modifiedDateStringOfFileAtURL:binaryBundleURL]];
+                               [localPackage setBinaryModifiedTime: [NSString stringWithFormat:@"%f", [[strongSelf platformInstance] getBinaryResourcesModifiedTime]]];
                            }
                            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[localPackage serializeToDictionary] options:NSJSONWritingPrettyPrinted error:&error];
                            if (error) {

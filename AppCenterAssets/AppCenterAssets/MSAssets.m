@@ -31,17 +31,19 @@ static dispatch_once_t onceToken;
 
 #pragma mark - Public methods
 
-+ (MSAssetsDeploymentInstance *)makeDeploymentInstanceWithBuilder:(void (^)(MSAssetsBuilder *))updateBlock {
++ (MSAssetsDeploymentInstance *)makeDeploymentInstanceWithBuilder:(void (^)(MSAssetsBuilder *))updateBlock error:(NSError * __autoreleasing*)error {
     MSAssetsBuilder *builder = [MSAssetsBuilder new];
     updateBlock(builder);
-    
     MSAssetsDeploymentInstance *assetsDeploymentInstance = [[MSAssetsDeploymentInstance alloc] initWithEntryPoint:builder.updateSubFolder
-                                                                                                        publicKey:@""
-                                                                                                 platformInstance: [MSAssetsiOSSpecificImplementation new]];
-    [assetsDeploymentInstance setServerUrl:builder.serverUrl];
-    [assetsDeploymentInstance setDeploymentKey:builder.deploymentKey];
-    [assetsDeploymentInstance setUpdateSubFolder:builder.updateSubFolder];
-    
+                                                                                                        publicKey:builder.publicKey
+                                                                                                    deploymentKey:builder.deploymentKey
+                                                                                                      inDebugMode:NO
+                                                                                                        serverUrl:builder.serverUrl
+                                                                                                 platformInstance:[[MSAssetsiOSSpecificImplementation alloc] init]
+                                                                                                        withError:error];
+    if (error) {
+        return nil;
+    }
     return assetsDeploymentInstance;
 }
 

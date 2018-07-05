@@ -56,6 +56,8 @@ NSString *kMSACNoDirFileErrorDesc(NSString *filePath) {
 #pragma mark - Install error descriptions
 NSString const *kMSACInstallNoPackageHashErrorDesc = @"Update package to be installed has no hash.";
 
+NSString const *kMSACNoAppVersionErrorDesc = @"Unable to get package info for app.";
+
 #pragma mark - Error keys
 NSString const *kMSACDownloadCodeErrorKey = MS_APP_CENTER_BASE_DOMAIN "DownloadKey";
 NSString const *kMSACUpdateErrorKey = MS_APP_CENTER_BASE_DOMAIN "UpdateKey";
