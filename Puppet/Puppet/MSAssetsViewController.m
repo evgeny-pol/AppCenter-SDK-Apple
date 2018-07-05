@@ -26,9 +26,7 @@
     
     if (error) {
         NSLog(@"%@", [error localizedDescription]);
-    } else {
-        [_assetsDeployment setDelegate:self];
-    }
+    } 
 }
 
 - (IBAction)enabledSwitchUpdated:(UISwitch *)sender {
@@ -37,38 +35,39 @@
 }
 
 - (IBAction)checkForUpdate {
-    [_assetsDeployment checkForUpdate:@"EAk0sEsG9uZii-_T4TCJYS1go6JfByhZUk-bX"];
-}
+    [_assetsDeployment checkForUpdate:@"EAk0sEsG9uZii-_T4TCJYS1go6JfByhZUk-bX" withCompletionHandler:^( MSRemotePackage *package,  NSError * _Nullable error){
+        if (error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.result.text = error.description;
+            });
+            return;
+        }
+        if (!package) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.result.text = @"No update available";
+            });
+        } else {
+            NSMutableString *info = @"";
+            NSMutableDictionary *dict = package.serializeToDictionary;
+            for(NSString *key in dict) {
+                info = [info stringByAppendingString:key];
+                info = [info stringByAppendingString:@":"];
+                if ([dict objectForKey:key])
+                    info = [info stringByAppendingString:[[dict objectForKey:key] description]];
+                else
+                    info = [info stringByAppendingString:@"[no value]"];
+                info = [info stringByAppendingString:@"\n"];
+            }
 
-- (void)didReceiveRemotePackageOnUpdateCheck:(MSRemotePackage *)package {
-    if (!package) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.result.text = @"No update available";
-        });
-    } else {
-        NSMutableString *info = @"";
-        NSMutableDictionary *dict = package.serializeToDictionary;
-        for(NSString *key in dict) {
-            info = [info stringByAppendingString:key];
-            info = [info stringByAppendingString:@":"];
-            if ([dict objectForKey:key])
-                info = [info stringByAppendingString:[[dict objectForKey:key] description]];
-            else
-                info = [info stringByAppendingString:@"[no value]"];
-            info = [info stringByAppendingString:@"\n"];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.result.text = info;
+            });
         }
 
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.result.text = info;
-        });
-    }
+    }];
 }
 
-- (void)didFailToQueryRemotePackageOnCheckForUpdate:(NSError *)error {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.result.text = error.description;
-    });
-}
+
 
 
 @end

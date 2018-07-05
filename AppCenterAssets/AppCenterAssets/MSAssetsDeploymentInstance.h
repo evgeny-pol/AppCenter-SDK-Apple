@@ -9,6 +9,7 @@
 #import "MSAssetsTelemetryManager.h"
 #import "MSAssetsInstallMode.h"
 #import "MSAssetsRestartManager.h"
+#import "MSAssetsSyncOptions.h"
 
 typedef void(^MSAssetsSyncBlock)();
 typedef void(^MSAssetsInstallCompleteBlock)();
@@ -58,9 +59,9 @@ typedef void (^MSDownloadHandler)(MSLocalPackage * _Nullable downloadedPackage, 
                   platformInstance:(id<MSAssetsPlatformSpecificImplementation>)platformInstance
                          withError:(NSError *__autoreleasing *)error;
 
-- (void)checkForUpdate:(nullable NSString *)deploymentKey;
+- (void)checkForUpdate:(nullable NSString *)deploymentKey withCompletionHandler:(MSCheckForUpdateCompletionHandler)handler;
 
-- (void)sync:(NSDictionary *)syncOptions withCallback:(MSAssetsSyncBlock)callback notifyClientAboutSyncStatus:(BOOL)notifySyncStatus notifyProgress:(BOOL)notifyProgress;
+- (void)sync:(MSAssetsSyncOptions *)syncOptions withCallback:(MSAssetsSyncBlock)callback notifyClientAboutSyncStatus:(BOOL)notifySyncStatus notifyProgress:(BOOL)notifyProgress;
 
 @property (nonatomic, copy, nonnull) NSString *deploymentKey;
 @property (nonatomic, copy, nonnull) NSString *serverUrl;

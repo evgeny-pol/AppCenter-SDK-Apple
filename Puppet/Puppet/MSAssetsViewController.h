@@ -3,9 +3,7 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "MSAssetsDelegate.h"
 
-@interface MSAssetsViewController : UITableViewController <MSAssetsDelegate>
-
+@interface MSAssetsViewController : UITableViewController 
 
 @end
