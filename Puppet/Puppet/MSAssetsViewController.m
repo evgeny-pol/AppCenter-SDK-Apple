@@ -16,11 +16,10 @@
 @implementation MSAssetsViewController
 
 - (void)viewDidLoad {
-  [super viewDidLoad];
+    [super viewDidLoad];
     self.enabled.on = [MSAssets isEnabled];
-    
+
     _assetsDeployment = [MSAssets makeDeploymentInstanceWithBuilder:^(MSAssetsBuilder *builder) {
-        [builder setDeploymentKey:@"EAk0sEsG9uZii-_T4TCJYS1go6JfByhZUk-bX"];
         [builder setServerUrl:@"https://codepush.azurewebsites.net/"];
     }];
 
@@ -28,42 +27,39 @@
 }
 
 - (IBAction)enabledSwitchUpdated:(UISwitch *)sender {
-  [MSAssets setEnabled:sender.on];
-  sender.on = [MSAssets isEnabled];
+    [MSAssets setEnabled:sender.on];
+    sender.on = [MSAssets isEnabled];
 }
 
 - (IBAction)checkForUpdate {
-
-    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-    NSString *deploymentKey = [infoDictionary objectForKey:@"MSAssetsDeploymentKey"];
-    [_assetsDeployment checkForUpdate:deploymentKey];
-
-    self.result.text = @"Request sent";
+    [_assetsDeployment checkForUpdate:@"EAk0sEsG9uZii-_T4TCJYS1go6JfByhZUk-bX"];
 }
 
-- (void)didReceiveRemotePackageOnUpdateCheck:(MSRemotePackage *)package
-{
-    NSLog(@"Callback from MSAssets.checkForUpdate");
-    if (!package)
-    {
-        NSLog(@"No update available");
+- (void)didReceiveRemotePackageOnUpdateCheck:(MSRemotePackage *)package {
+    if (!package) {
         dispatch_async(dispatch_get_main_queue(), ^{
             self.result.text = @"No update available";
         });
-    }
-    else
-    {
-        NSLog(@"Update available");
+    } else {
+        NSMutableString *info = @"";
+        NSMutableDictionary *dict = package.serializeToDictionary;
+        for(NSString *key in dict) {
+            info = [info stringByAppendingString:key];
+            info = [info stringByAppendingString:@":"];
+            if ([dict objectForKey:key])
+                info = [info stringByAppendingString:[[dict objectForKey:key] description]];
+            else
+                info = [info stringByAppendingString:@"[no value]"];
+            info = [info stringByAppendingString:@"\n"];
+        }
+
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.result.text = @"Update is available";
+            self.result.text = info;
         });
     }
 }
 
-- (void)didFailToQueryRemotePackageOnCheckForUpdate:(NSError *)error
-{
-    NSLog(@"Callback with error from MSAssets.checkForUpdate");
-
+- (void)didFailToQueryRemotePackageOnCheckForUpdate:(NSError *)error {
     dispatch_async(dispatch_get_main_queue(), ^{
         self.result.text = error.description;
     });
