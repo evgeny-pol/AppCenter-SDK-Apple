@@ -1,7 +1,7 @@
-#import "MSAssetsInstanceState.h"
+#import "MSAssetsDeploymentInstanceState.h"
 #import <Foundation/Foundation.h>
 
-@implementation MSAssetsInstanceState
+@implementation MSAssetsDeploymentInstanceState
 
 - (instancetype)init {
     self = [super init];

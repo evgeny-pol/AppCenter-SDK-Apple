@@ -1,5 +1,5 @@
 #import "MSAssets.h"
-#import "MSAssetsInstanceState.h"
+#import "MSAssetsDeploymentInstanceState.h"
 #import "MSAssetsUpdateUtilities.h"
 #import "MSLocalPackage.h"
 #import "MSAssetsErrors.h"
@@ -40,19 +40,36 @@ static BOOL isRunningBinaryVersion = NO;
         _acquisitionManager = [[MSAssetsAcquisitionManager alloc] init];
         _settingManager = [[MSAssetsSettingManager alloc] init];
         _telemetryManager = [[MSAssetsTelemetryManager alloc] init];
-        _instanceState = [[MSAssetsInstanceState alloc] init];
+        _restartManager = [[MSAssetsRestartManager alloc] initWithRestartHandler:^(BOOL onlyIfUpdateIsPending, MSAssetsRestartListener restartListener) {
+            [self restartInternal:restartListener onlyIfUpdateIsPending:onlyIfUpdateIsPending];
+        }];
+        _instanceState = [[MSAssetsDeploymentInstanceState alloc] init];
         _platformInstance = platformInstance;
     }
     return self;
 }
 
-- (void)checkForUpdate:(NSString *)deploymentKey {
+- (BOOL)restartInternal:(MSAssetsRestartListener)assetsRestartListener onlyIfUpdateIsPending:(BOOL)onlyIfUpdateIsPending {
+    
+    /* If this is an unconditional restart request, or there
+     * is current pending update, then reload the app. */
+    if (!onlyIfUpdateIsPending || [[self settingManager] isPendingUpdate:nil]) {
+        [[self platformInstance] loadApp:assetsRestartListener];
+        return YES;
+    }
+    return NO;
+}
 
+- (void)checkForUpdate:(NSString *)deploymentKey {
     if (deploymentKey){
         [self setDeploymentKey:deploymentKey];
     }
-
-    MSAssetsConfiguration *config = [self getConfiguration];
+    NSError *configError = nil;
+    MSAssetsConfiguration *config = [self getConfigurationWithError:&configError];
+    if ([[self delegate] respondsToSelector:@selector(didFailToQueryRemotePackageOnCheckForUpdate:)]) {
+        [[self delegate] didFailToQueryRemotePackageOnCheckForUpdate:configError];
+        return;
+    }
     if (deploymentKey)
         config.deploymentKey = deploymentKey;
 
@@ -66,32 +83,26 @@ static BOOL isRunningBinaryVersion = NO;
     else{
         queryPackage = [MSLocalPackage createLocalPackageWithAppVersion:config.appVersion];
     }
-
     [[self acquisitionManager] queryUpdateWithCurrentPackage:queryPackage withConfiguration:config andCompletionHandler:^( MSRemotePackage *update,  NSError * _Nullable error){
         if (error) {
             if ([[self delegate] respondsToSelector:@selector(didFailToQueryRemotePackageOnCheckForUpdate:)])
                 [[self delegate] didFailToQueryRemotePackageOnCheckForUpdate:error];
             return;
         }
-        
-        if (!update)
-        {
-            if ([[self delegate] respondsToSelector:@selector(didReceiveRemotePackageOnUpdateCheck:)])
+        if (!update) {
+            if ([[self delegate] respondsToSelector:@selector(didReceiveRemotePackageOnUpdateCheck:)]) {
                 [[self delegate] didReceiveRemotePackageOnUpdateCheck:nil];
-            return;
+            }
         }
-
         if (!update || update.updateAppVersion ||
             (localPackage && ([update.packageHash isEqualToString:localPackage.packageHash])) ||
             ((!localPackage || localPackage.isDebugOnly) && [config.packageHash isEqualToString:update.packageHash] )){
-
             if (update && update.updateAppVersion){
                 if ([[self delegate] respondsToSelector:@selector(didReceiveRemotePackageOnUpdateCheck:)])
                 {
                     MSLogInfo([MSAssets logTag], @"An update is available but it is not targeting the binary version of your app.");
                     [[self delegate] didReceiveRemotePackageOnUpdateCheck:nil];
                 }
-
             }
         } else {
             update.failedInstall = [[self settingManager] existsFailedUpdate:update.packageHash];
@@ -101,38 +112,42 @@ static BOOL isRunningBinaryVersion = NO;
                 update.deploymentKey = config.deploymentKey;
             }
         }
-        if ([[self delegate] respondsToSelector:@selector(didReceiveRemotePackageOnUpdateCheck:)])
+        if ([[self delegate] respondsToSelector:@selector(didReceiveRemotePackageOnUpdateCheck:)]) {
             [[self delegate] didReceiveRemotePackageOnUpdateCheck:update];
+        }
     }];
-
     MSLogInfo([MSAssets logTag], @"Check for update called");
 }
 
-- (MSAssetsConfiguration *)getConfiguration {
+- (MSAssetsConfiguration *)getConfigurationWithError:(NSError * __autoreleasing*)error {
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-
     MSAssetsConfiguration *configuration = [MSAssetsConfiguration new];
-    configuration.appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-    configuration.clientUniqueId = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    NSString *appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    if (appVersion == nil) {
+        appVersion = @"";
+    }
+    NSString *clientId = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    if (clientId == nil) {
+        clientId = @"";
+    }
+    configuration.appVersion = appVersion;
+    configuration.clientUniqueId = clientId;
     configuration.deploymentKey = [self deploymentKey];
     configuration.serverUrl = [self serverUrl];
-    NSError *error;
-    configuration.packageHash = [[self updateManager] getCurrentPackageHash:&error];
-
+    configuration.packageHash = [[self updateManager] getCurrentPackageHash:error];
     return configuration;
 }
 
 - (MSLocalPackage *)getUpdateMetadataForState:(MSAssetsUpdateState)updateState
                  currentPackageGettingError:(NSError * __autoreleasing *)error {
     NSError *__autoreleasing internalError;
-
     MSLocalPackage *package = [[[self updateManager] getCurrentPackage:&internalError] mutableCopy];
     if (internalError){
         error = &internalError;
         return nil;
     }
-
     if (package == nil){
+        
         // The app hasn't downloaded any CodePush updates yet,
         // so we simply return nil regardless if the user
         // wanted to retrieve the pending or running update.
@@ -140,7 +155,6 @@ static BOOL isRunningBinaryVersion = NO;
     }
 
     // We have a CodePush update, so let's see if it's currently in a pending state.
-
     BOOL currentUpdateIsPending = [[self settingManager] isPendingUpdate:package.packageHash];
 
     if (updateState == MSAssetsUpdateStatePending && !currentUpdateIsPending) {
@@ -190,7 +204,6 @@ static BOOL isRunningBinaryVersion = NO;
     return currentPackage;
 }
 
-// !!!: saveFailedUpdate on err
 /**
  * Downloads update.
  *
@@ -203,6 +216,7 @@ static BOOL isRunningBinaryVersion = NO;
     NSString *newUpdateFolderPath = [[self updateManager] getPackageFolderPath:packageHash];
     NSString *newUpdateMetadataPath = [newUpdateFolderPath stringByAppendingPathComponent:UpdateMetadataFileName];
     if ([MSUtility fileExistsForPathComponent:newUpdateFolderPath]) {
+        
         /* This removes any stale data in `newPackageFolderPath` that could have been left
          * uncleared due to a crash or error during the download or install process. */
         [MSUtility deleteItemForPathComponent:newUpdateFolderPath];

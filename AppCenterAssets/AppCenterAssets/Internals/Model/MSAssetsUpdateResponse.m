@@ -1,7 +1,6 @@
 #import <Foundation/Foundation.h>
 #import "MSAssetsUpdateResponse.h"
 #import "MSAssetsUpdateResponseUpdateInfo.h"
-#import "MSAssetsIllegalArgumentException.h"
 
 static NSString *const kMSUpdateInfo = @"updateInfo";
 
