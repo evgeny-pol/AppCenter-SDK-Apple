@@ -29,7 +29,7 @@
 @property(nonatomic) BOOL isDebugOnly;
 
 /**
- * The time when binary of the update was modified (built).
+ * The time when binary of the update was modified (built): `NSTimeInterval` converted to `NSString`.
  */
 @property(nonatomic, copy) NSString *binaryModifiedTime;
 

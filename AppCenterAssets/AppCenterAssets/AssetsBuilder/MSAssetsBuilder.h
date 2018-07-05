@@ -5,5 +5,6 @@
 @property (nonatomic, copy) NSString *deploymentKey;
 @property (nonatomic, copy) NSString *serverUrl;
 @property (nonatomic, copy) NSString *updateSubFolder;
+@property (nonatomic, copy) NSString *publicKey;
 
 @end

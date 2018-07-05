@@ -11,7 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *)logTag;
 
-+ (MSAssetsDeploymentInstance *)makeDeploymentInstanceWithBuilder:(void (^)(MSAssetsBuilder *))builder;
++ (MSAssetsDeploymentInstance *)makeDeploymentInstanceWithBuilder:(void (^)(MSAssetsBuilder *))builder
+                                                            error:(NSError *__autoreleasing *)error;
 
 @end
 

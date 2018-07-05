@@ -7,6 +7,7 @@
         _deploymentKey = nil;
         _serverUrl = nil;
         _updateSubFolder = nil;
+        _publicKey = nil;
     }
     return self;
 }

@@ -18,12 +18,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.enabled.on = [MSAssets isEnabled];
-
+    
+    NSError *error = nil;
     _assetsDeployment = [MSAssets makeDeploymentInstanceWithBuilder:^(MSAssetsBuilder *builder) {
         [builder setServerUrl:@"https://codepush.azurewebsites.net/"];
-    }];
-
-    [_assetsDeployment setDelegate:self];
+    } error:&error];
+    
+    if (error) {
+        NSLog(@"%@", [error localizedDescription]);
+    } else {
+        [_assetsDeployment setDelegate:self];
+    }
 }
 
 - (IBAction)enabledSwitchUpdated:(UISwitch *)sender {

@@ -21,4 +21,5 @@
 + (NSError *)getCodeSigningCheckError;
 + (NSError *)getNoPackageHashToInstallError;
 + (NSError *)getUpdatePackageInfoError;
++ (NSError *)getNoAppVersionError;
 @end

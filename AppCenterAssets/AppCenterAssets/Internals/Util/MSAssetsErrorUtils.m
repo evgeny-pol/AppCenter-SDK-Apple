@@ -98,4 +98,9 @@
     NSDictionary *userInfo = @{kMSACUpdateErrorKey : kMSACUpdateFailedToUpdatePackageInfoErrorDesc};
     return [NSError errorWithDomain:kMSACErrorDomain code:kMSACQueryUpdateErrorCode userInfo:userInfo];
 }
+
++ (NSError *)getNoAppVersionError {
+    NSDictionary *userInfo = @{kMSACParseErrorKey : kMSACNoAppVersionErrorDesc};
+    return [NSError errorWithDomain:kMSACErrorDomain code:kMSACParseErrorCode userInfo:userInfo];
+}
 @end
