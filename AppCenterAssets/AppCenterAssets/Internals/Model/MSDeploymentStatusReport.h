@@ -1,30 +1,39 @@
 #import <Foundation/Foundation.h>
+#import "MSAssetsPackage.h"
+#import "MSAssetsDeploymentStatus.h"
+#import "MSSerializableObject.h"
+#import "MSDownloadStatusReport.h"
 
-@interface MSDeploymentStatusReports
+/**
+ * Represents a report about the deployment.
+ */
+@interface MSDeploymentStatusReport : MSDownloadStatusReport
 
 /**
  * The version of the app that was deployed (for a native app upgrade).
  */
-@property(nonatomic, copy) NSString *appVersion;
+@property(nonatomic, copy, nonnull) NSString *appVersion;
 
 /**
  * Deployment key used when deploying the previous package.
  */
-@property(nonatomic, copy) NSString *previousDeploymentKey;
+@property(nonatomic, copy, nonnull) NSString *previousDeploymentKey;
 
 /**
  * The label (v#) of the package that was upgraded from.
  */
-@property(nonatomic, copy) NSString *previousLabelOrAppVersion;
+@property(nonatomic, copy, null_unspecified) NSString *previousLabelOrAppVersion;
 
 /**
  * Whether the deployment succeeded or failed.
  */
-@property(nonatomic, copy) MSDeploymentStatus *status;
+@property(nonatomic) MSAssetsDeploymentStatus status;
 
 /**
  * Stores information about installed/failed package.
  */
-@property(nonatomic, copy) MSAssetsPackage *assetsPackage;
+@property(nonatomic, nullable) MSAssetsPackage *assetsPackage;
+
+- (null_unspecified instancetype)initWithDictionary:(null_unspecified NSDictionary *)dictionary;
 
 @end

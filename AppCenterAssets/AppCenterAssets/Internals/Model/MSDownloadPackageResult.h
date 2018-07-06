@@ -1,15 +1,19 @@
 #import <Foundation/Foundation.h>
-
-@interface MSDownloadPackageResult
+#import "MSSerializableObject.h"
 
 /**
- * Whether the file is zipped.Whether the file is zipped.
+ * Class representing the downloaded update package.
  */
-@property(nonatomic, copy) NSFileHandle *downloadFile;
+@interface MSDownloadPackageResult : NSObject <MSSerializableObject>
+
+/**
+ * Path to the file containing the update.
+ */
+@property(nonatomic, copy) NSString *downloadFile;
 
 /**
  * Whether the file is zipped.
  */
-@property(nonatomic, copy) BOOL isZip;
+@property(nonatomic) BOOL isZip;
 
 @end

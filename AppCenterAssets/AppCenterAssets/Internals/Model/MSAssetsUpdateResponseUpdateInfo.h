@@ -1,6 +1,10 @@
 #import <Foundation/Foundation.h>
+#import "MSSerializableObject.h"
 
-@interface MSRemotePackage
+/**
+ * Update info from the server.
+ */
+@interface MSUpdateResponseUpdateInfo : NSObject <MSSerializableObject>
 
 /**
  * Url to access package on server.
@@ -11,18 +15,18 @@
  * The description of the update.
  * This is the same value that you specified in the CLI when you released the update.
  */
-@property(nonatomic, copy) NSString *description;
+@property(nonatomic, copy) NSString *updateDescription;
 
 /**
- * Whether the package is available (<code>false</code> if it it disabled).
+ * Whether the package is available (`false` if it it disabled).
  */
-@property(nonatomic, copy) BOOL isAvailable;
+@property(nonatomic) BOOL isAvailable;
 
 /**
  * Indicates whether the update is considered mandatory.
  * This is the value that was specified in the CLI when the update was released.
  */
-@property(nonatomic, copy) BOOL isMandatory;
+@property(nonatomic) BOOL isMandatory;
 
 /**
  * The app binary version that this update is dependent on. This is the value that was
@@ -44,16 +48,18 @@
 /**
  * Size of the package.
  */
-@property(nonatomic, copy) long packageSize;
+@property(nonatomic) long long packageSize;
 
 /**
  * Whether the client should trigger a store update.
  */
-@property(nonatomic, copy) BOOL updateAppVersion;
+@property(nonatomic) BOOL updateAppVersion;
 
 /**
- * Set to <code>true</code> if the update directs to use the binary version of the application.
+ * Set to `true` if the update directs to use the binary version of the application.
  */
-@property(nonatomic, copy) BOOL shouldRunBinaryVersion;
+@property(nonatomic) BOOL shouldRunBinaryVersion;
+
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
 @end

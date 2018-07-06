@@ -24,6 +24,6 @@ extern NSString const *kMSACConnectionHttpErrorDesc;
 extern NSString const *kMSACConnectionSuspendedErrorDesc;
 
 // Error user info keys
-extern NSString const *kMSACConnectionHttpCodeErrorKey;
+extern NSString const *kMSACDownloadCodeErrorKey;
 
 NS_ASSUME_NONNULL_END
