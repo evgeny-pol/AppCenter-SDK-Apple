@@ -141,6 +141,21 @@ static BOOL isRunningBinaryVersion = NO;
     return NO;
 }
 
+- (void)checkForUpdate:(nullable NSString *)deploymentKey
+{
+    [self checkForUpdate:deploymentKey withCompletionHandler:^( MSRemotePackage *update,  NSError * _Nullable error){
+        if (error) {
+            if ([self.delegate respondsToSelector:@selector(didFailToQueryRemotePackageOnCheckForUpdate:)])
+                [self.delegate didFailToQueryRemotePackageOnCheckForUpdate:error];
+            return;
+        } else {
+            if ([self.delegate respondsToSelector:@selector(didReceiveRemotePackageOnUpdateCheck:)])
+                [self.delegate didReceiveRemotePackageOnUpdateCheck:update];
+        }
+
+    }];
+}
+
 - (void)checkForUpdate:(NSString *)deploymentKey withCompletionHandler:(MSCheckForUpdateCompletionHandler)handler {
     if (deploymentKey){
         [self setDeploymentKey:deploymentKey];

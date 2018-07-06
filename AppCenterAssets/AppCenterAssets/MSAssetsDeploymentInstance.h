@@ -59,7 +59,7 @@ typedef void (^MSDownloadHandler)(MSLocalPackage * _Nullable downloadedPackage, 
                   platformInstance:(id<MSAssetsPlatformSpecificImplementation>)platformInstance
                          withError:(NSError *__autoreleasing *)error;
 
-- (void)checkForUpdate:(nullable NSString *)deploymentKey withCompletionHandler:(MSCheckForUpdateCompletionHandler)handler;
+- (void)checkForUpdate:(nullable NSString *)deploymentKey;
 
 - (void)sync:(MSAssetsSyncOptions *)syncOptions withCallback:(MSAssetsSyncBlock)callback notifyClientAboutSyncStatus:(BOOL)notifySyncStatus notifyProgress:(BOOL)notifyProgress;
 
