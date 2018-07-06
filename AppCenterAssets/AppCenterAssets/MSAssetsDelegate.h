@@ -1,3 +1,5 @@
+#import "MSAssetsSyncStatus.h"
+
 @class MSRemotePackage;
 
 @protocol MSAssetsDelegate <NSObject>
@@ -18,6 +20,12 @@
  */
 - (void)didFailToQueryRemotePackageOnCheckForUpdate:(NSError *)error;
 
+/**
+ * Callback method for receiving sync status changes.
+ *
+ * @param syncStatus new sync status.
+ */
+- (void)syncStatusChanged:(MSAssetsSyncStatus)syncStatus;
 
 /**
  * Callback method for receiving package download progress.

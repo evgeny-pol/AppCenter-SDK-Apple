@@ -65,7 +65,33 @@ NS_ASSUME_NONNULL_BEGIN
  */
 typedef void (^MSDownloadHandler)(MSLocalPackage * _Nullable downloadedPackage, NSError * _Nullable error);
 
+
+/**
+ * A handler to deliver error that occured during downloading+installing a package.
+ *
+ * @param error error or `nil`.
+ */
+typedef void (^MSDownloadInstallHandler)(NSError * _Nullable error);
+
 @interface MSAssetsDeploymentInstance: NSObject
+
+/**
+ * Asks the Assets service whether the configured app deployment has an update available
+ * using specified deployment key.
+ *
+ * @param deploymentKey deployment key to use.
+ * @see `MSAssetsDelegate->didReceiveRemotePackageOnUpdateCheck`.
+ */
+- (void)checkForUpdate:(nullable NSString *)deploymentKey;
+
+/**
+ * Performs just the restart itself.
+ *
+ * @param onlyIfUpdateIsPending restart only if update is pending or unconditionally.
+ * @param assetsRestartListener listener to notify that the application has restarted.
+ * @return `true` if restarted successfully.
+ */
+- (BOOL)restartInternal:(MSAssetsRestartListener)assetsRestartListener onlyIfUpdateIsPending:(BOOL)onlyIfUpdateIsPending;
 
 /**
  * Creates instance of `MSAssetsDeploymentInstance`. Default constructor.
@@ -88,13 +114,11 @@ typedef void (^MSDownloadHandler)(MSLocalPackage * _Nullable downloadedPackage, 
                   platformInstance:(id<MSAssetsPlatformSpecificImplementation>)platformInstance
                          withError:(NSError *__autoreleasing *)error;
 
-- (void)checkForUpdate:(nullable NSString *)deploymentKey;
-
 - (void)sync:(MSAssetsSyncOptions *)syncOptions withCallback:(MSAssetsSyncBlock)callback notifyClientAboutSyncStatus:(BOOL)notifySyncStatus notifyProgress:(BOOL)notifyProgress;
 
 @property (nonatomic, copy, nonnull) NSString *deploymentKey;
 @property (nonatomic, copy, nonnull) NSString *serverUrl;
-@property (nonatomic, copy, nullable) NSString *updateSubFolder;
+//@property (nonatomic, copy, nullable) NSString *updateSubFolder;
 @property (nonatomic, nullable) MSAssetsDeploymentInstanceState *instanceState;
 
 @property (nonatomic) id<MSAssetsDelegate> delegate;

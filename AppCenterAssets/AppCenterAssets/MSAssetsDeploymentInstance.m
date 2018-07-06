@@ -217,7 +217,7 @@ static BOOL isRunningBinaryVersion = NO;
 
     if (self.instanceState.syncInProgress){
         MSLogInfo([MSAssets logTag], @"Sync already in progress.");
-        [self syncStatusChanged:MSAssetsSyncStatusSyncInProgress];
+        [self notifyAboutSyncStatusChange: MSAssetsSyncStatusSyncInProgress instanceState:[self instanceState]];
         return;
     }
 
@@ -239,9 +239,8 @@ static BOOL isRunningBinaryVersion = NO;
         config.deploymentKey = syncOptions.deploymentKey;
 
     self.instanceState.syncInProgress = YES;
-
-    [self syncStatusChanged:MSAssetsSyncStatusCheckingForUpdate];
-
+    
+    [self notifyAboutSyncStatusChange: MSAssetsSyncStatusCheckingForUpdate instanceState:[self instanceState]];
 }
 
 - (MSAssetsConfiguration *)getConfigurationWithError:(NSError * __autoreleasing*)error {
@@ -262,10 +261,6 @@ static BOOL isRunningBinaryVersion = NO;
     configuration.serverUrl = [self serverUrl];
     configuration.packageHash = [[self updateManager] getCurrentPackageHash:error];
     return configuration;
-}
-
-- (void)syncStatusChanged:(MSAssetsSyncStatus)status {
-    if (status) {};
 }
 
 - (MSLocalPackage *)getUpdateMetadataForState:(MSAssetsUpdateState)updateState
@@ -427,6 +422,110 @@ static BOOL isRunningBinaryVersion = NO;
                            }
                            completeHandler(localPackage, nil);
                        }];
+}
+
+/**
+ * Downloads and installs update.
+ *
+ * @param remotePackage update to use.
+ * @param syncOptions   sync options.
+ * @param configuration configuration to use.
+ * @param handler handler to deliver errors to.
+ */
+- (void) doDownloadAndInstall:(MSRemotePackage *)remotePackage
+                  syncOptions:(MSAssetsSyncOptions *)syncOptions
+                configuration:(MSAssetsConfiguration *)configuration
+                      handler:(MSDownloadInstallHandler)handler {
+    [self notifyAboutSyncStatusChange:MSAssetsSyncStatusDownloadingPackage instanceState:[self instanceState]];
+    __weak typeof(self) weakSelf = self;
+    [self downloadUpdate:remotePackage completeHandler:^(MSLocalPackage * _Nullable downloadedPackage, NSError * _Nullable error) {
+        typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) {
+            return;
+        }
+        if (error) {
+            [[strongSelf settingManager] saveFailedUpdate:remotePackage];
+            handler(error);
+            return;
+        }
+        NSString *label = [downloadedPackage label];
+        if (!label) {
+            label = @"";
+        }
+        MSDownloadStatusReport *report = [[MSDownloadStatusReport alloc] initReportWithLabel:label
+                                                                                    deviceId:[configuration clientUniqueId]
+                                                                            andDeploymentKey:[configuration deploymentKey]];
+        [[strongSelf acquisitionManager] reportDownloadStatus:report withConfiguration:configuration];
+        MSAssetsInstallMode resolvedInstallMode = [downloadedPackage isMandatory] ? [syncOptions mandatoryInstallMode] : [syncOptions installMode];
+        [[strongSelf instanceState] setCurrentInstallMode:resolvedInstallMode];
+        [strongSelf notifyAboutSyncStatusChange:MSAssetsSyncStatusInstallingUpdate instanceState:[strongSelf instanceState]];
+        NSError *installError = [strongSelf installUpdate:downloadedPackage installMode:resolvedInstallMode minimumBackgroundDuration:[syncOptions minimumBackgroundDuration]];
+        if (installError) {
+            handler(installError);
+            return;
+        }
+        [strongSelf notifyAboutSyncStatusChange:MSAssetsSyncStatusUpdateInstalled instanceState:[strongSelf instanceState]];
+        [[strongSelf instanceState] setSyncInProgress:NO];
+        if (resolvedInstallMode == MSAssetsInstallModeImmediate && [syncOptions shouldRestart]) {
+            [[strongSelf restartManager] restartAppOnlyIfUpdateIsPending:NO];
+        } else {
+            [[strongSelf restartManager] clearPendingRestarts];
+        }
+        handler(nil);
+    }];
+}
+
+/**
+ * Notifies listeners about changed sync status and log it.
+ *
+ * @param syncStatus sync status.
+ */
+- (void) notifyAboutSyncStatusChange:(MSAssetsSyncStatus)syncStatus instanceState:(MSAssetsDeploymentInstanceState *)instanceState{
+    if ([[self delegate] respondsToSelector:@selector(syncStatusChanged:)]) {
+        [[self delegate] syncStatusChanged:syncStatus];
+    }
+    switch (syncStatus) {
+        case MSAssetsSyncStatusCheckingForUpdate:
+            MSLogInfo([MSAssets logTag], @"Checking for update.");
+            break;
+        case MSAssetsSyncStatusAwaitingUserAction:
+            MSLogInfo([MSAssets logTag], @"Awaiting user action.");
+            break;
+        case MSAssetsSyncStatusDownloadingPackage:
+            MSLogInfo([MSAssets logTag], @"Downloading package.");
+            break;
+        case MSAssetsSyncStatusInstallingUpdate:
+            MSLogInfo([MSAssets logTag], @"Installing update.");
+            break;
+        case MSAssetsSyncStatusUpToDate:
+            MSLogInfo([MSAssets logTag], @"App is up to date.");
+            break;
+        case MSAssetsSyncStatusSyncInProgress:
+            MSLogInfo([MSAssets logTag], @"Sync is in progress.");
+            break;
+        case MSAssetsSyncStatusUpdateIgnored:
+            MSLogInfo([MSAssets logTag], @"User cancelled the update.");
+            break;
+        case MSAssetsSyncStatusUnknownError:
+            MSLogInfo([MSAssets logTag], @"An unknown error occurred.");
+            break;
+        case MSAssetsSyncStatusUpdateInstalled:
+            switch (instanceState.currentInstallMode) {
+                case MSAssetsInstallModeImmediate:
+                    MSLogInfo([MSAssets logTag], @"Update is installed and will be run right now.");
+                    break;
+                case MSAssetsInstallModeOnNextRestart:
+                    MSLogInfo([MSAssets logTag], @"Update is installed and will be run on the next app restart.");
+                    break;
+                case MSAssetsInstallModeOnNextResume:
+                    MSLogInfo([MSAssets logTag], @"Update is installed and will be run when the app next resumes.");
+                    break;
+                case MSAssetsInstallModeOnNextSuspend:
+                    MSLogInfo([MSAssets logTag], @"Update is installed and will be run after the app has been in the background for at least %d seconds.", instanceState.minimumBackgroundDuration);
+                    break;
+            }
+            break;
+    }
 }
 
 /**
