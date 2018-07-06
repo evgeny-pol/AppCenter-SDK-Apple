@@ -141,8 +141,7 @@ static BOOL isRunningBinaryVersion = NO;
     return NO;
 }
 
-- (void)checkForUpdate:(nullable NSString *)deploymentKey
-{
+- (void)checkForUpdate:(nullable NSString *)deploymentKey {
     [self checkForUpdate:deploymentKey withCompletionHandler:^( MSRemotePackage *update,  NSError * _Nullable error){
         if (error) {
             if ([self.delegate respondsToSelector:@selector(didFailToQueryRemotePackageOnCheckForUpdate:)])
@@ -265,8 +264,7 @@ static BOOL isRunningBinaryVersion = NO;
     return configuration;
 }
 
-- (void)syncStatusChanged:(MSAssetsSyncStatus)status
-{
+- (void)syncStatusChanged:(MSAssetsSyncStatus)status {
     if (status) {};
 }
 
