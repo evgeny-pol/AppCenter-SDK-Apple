@@ -298,7 +298,7 @@ static BOOL isRunningBinaryVersion = NO;
                 [alert addAction:cancelAction];
             }
 
-            UIViewController *presentingController = [UIApplication sharedApplication].keyWindow.rootViewController;
+            UIViewController *presentingController = nil;//[UIApplication sharedApplication].keyWindow.rootViewController;
 
             if (presentingController == nil) {
                 MSLogInfo([MSAssets logTag], @"Tried to display alert view but there is no application window");
