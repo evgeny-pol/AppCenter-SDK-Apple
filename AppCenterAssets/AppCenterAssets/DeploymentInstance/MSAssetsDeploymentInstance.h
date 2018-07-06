@@ -80,7 +80,7 @@ typedef void (^MSDownloadInstallHandler)(NSError * _Nullable error);
  * using specified deployment key.
  *
  * @param deploymentKey deployment key to use.
- * @see `MSAssetsDelegate->didReceiveRemotePackageOnUpdateCheck`.
+ * @see `MSAssetsDelegate->didReceiveRemotePackageOnCheckForUpdate`.
  */
 - (void)checkForUpdate:(nullable NSString *)deploymentKey;
 

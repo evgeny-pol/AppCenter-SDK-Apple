@@ -12,7 +12,7 @@ static NSString *const kMSPackageSize = @"packageSize";
 static NSString *const kMSUpdateAppVersion = @"updateAppVersion";
 static NSString *const kMSShouldRunBinaryVersion = @"shouldRunBinaryVersion";
 
-@implementation MSUpdateResponseUpdateInfo
+@implementation MSAssetsUpdateResponseUpdateInfo
 
 - (instancetype)init {
     self = [super init];

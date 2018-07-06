@@ -64,7 +64,7 @@ static NSString *const kMSReportDownloadStatusEndpoint = @"%@reportStatus/downlo
                  response = [[MSAssetsUpdateResponse alloc] initWithDictionary:dictionary];
              }
              if (response) {
-                 MSUpdateResponseUpdateInfo *updateInfo = [response updateInfo];
+                 MSAssetsUpdateResponseUpdateInfo *updateInfo = [response updateInfo];
                  if ([updateInfo updateAppVersion]) {
                      handler([MSRemotePackage createDefaultRemotePackageWithAppVersion:[updateInfo appVersion]
                                                                   updateAppVersion:[updateInfo updateAppVersion]], nil);

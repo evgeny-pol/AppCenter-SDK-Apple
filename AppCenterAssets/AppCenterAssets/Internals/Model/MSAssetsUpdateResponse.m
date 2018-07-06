@@ -20,7 +20,7 @@ static NSString *const kMSUpdateInfo = @"updateInfo";
             if ([dictionary[kMSUpdateInfo] isKindOfClass:[NSNull class]]) {
                 self.updateInfo = nil;
             } else {
-                self.updateInfo = [[MSUpdateResponseUpdateInfo alloc] initWithDictionary: dictionary[kMSUpdateInfo]];
+                self.updateInfo = [[MSAssetsUpdateResponseUpdateInfo alloc] initWithDictionary: dictionary[kMSUpdateInfo]];
             }
         }
     }
