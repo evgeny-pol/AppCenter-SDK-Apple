@@ -14,6 +14,7 @@
 #import "MSAssetsUpdateState.h"
 #import "MSAssetsSyncOptions.h"
 #import "MSAssetsSyncStatus.h"
+#import "MSAssetsRemotePackage.h"
 
 @implementation MSAssetsDeploymentInstance {
     BOOL _didUpdateProgress;
@@ -241,7 +242,7 @@ static BOOL isRunningBinaryVersion = NO;
     
     [self notifyAboutSyncStatusChange: MSAssetsSyncStatusCheckingForUpdate instanceState:[self instanceState]];
 
-    [self checkForUpdate:syncOptions.deploymentKey withCompletionHandler:^( MSRemotePackage *remotePackage,  NSError * _Nullable error) {
+    [self checkForUpdate:syncOptions.deploymentKey withCompletionHandler:^( MSAssetsRemotePackage *remotePackage,  NSError * _Nullable error) {
         if (error) {
             // ???
         }
@@ -251,7 +252,7 @@ static BOOL isRunningBinaryVersion = NO;
             if (updateShouldBeIgnored){
                 MSLogInfo([MSAssets logTag], @"An update is available, but it is being ignored due to having been previously rolled back.");
             }
-            MSLocalPackage *currentPackage = [self getCurrentPackage];
+            MSAssetsLocalPackage *currentPackage = [self getCurrentPackage];
             if (currentPackage && currentPackage.isPending) {
                 [self notifyAboutSyncStatusChange:MSAssetsSyncStatusUpdateInstalled instanceState:[self instanceState]];
             } else {
@@ -271,7 +272,29 @@ static BOOL isRunningBinaryVersion = NO;
                 message = updateDialogOptions.optionalUpdateMessage;
                 acceptButtonText = updateDialogOptions.optionalInstallButtonLabel;
             }
-            if (updateDialogOptions.appendReleaseDescription && remotePackage.description)
+            if (updateDialogOptions.appendReleaseDescription && (remotePackage.description.length == 0)) {
+                message = [updateDialogOptions.descriptionPrefix stringByAppendingFormat:@" %@", remotePackage.description];
+            }
+            [self notifyAboutSyncStatusChange:MSAssetsSyncStatusAwaitingUserAction instanceState:[self instanceState]];
+
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:updateDialogOptions.title
+
+                                                            message:message
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+
+            [alert.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:acceptButtonText
+                                                                    style:UIAlertActionStyleDefault
+                                                                  handler:^(UIAlertAction * action) {
+                                                                      if (action) {};
+                                                                      [self doDownloadAndInstall:remotePackage syncOptions:syncOptions configuration:config
+                                                                                         handler:^(NSError * _Nullable merror) {
+                                                                                             if (merror) {};
+
+                                                                                         }];
+                                                                  }];
+            [alert addAction:defaultAction];
         }
     }];
 }
