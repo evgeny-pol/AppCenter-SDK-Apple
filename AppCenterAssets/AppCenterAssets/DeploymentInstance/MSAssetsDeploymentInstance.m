@@ -336,7 +336,7 @@ static BOOL isRunningBinaryVersion = NO;
  * @param completeHandler completion handler to deliver results/errors to.
  */
 - (void)downloadUpdate:(MSAssetsRemotePackage *)updatePackage
-       completeHandler:(MSDownloadHandler)completeHandler {
+       completeHandler:(MSAssetsDownloadHandler)completeHandler {
     NSString *packageHash = [updatePackage packageHash];
     NSString *newUpdateFolderPath = [[self updateManager] getPackageFolderPath:packageHash];
     NSString *newUpdateMetadataPath = [newUpdateFolderPath stringByAppendingPathComponent:UpdateMetadataFileName];
@@ -435,7 +435,7 @@ static BOOL isRunningBinaryVersion = NO;
 - (void) doDownloadAndInstall:(MSAssetsRemotePackage *)remotePackage
                   syncOptions:(MSAssetsSyncOptions *)syncOptions
                 configuration:(MSAssetsConfiguration *)configuration
-                      handler:(MSDownloadInstallHandler)handler {
+                      handler:(MSAssetsDownloadInstallHandler)handler {
     [self notifyAboutSyncStatusChange:MSAssetsSyncStatusDownloadingPackage instanceState:[self instanceState]];
     __weak typeof(self) weakSelf = self;
     [self downloadUpdate:remotePackage completeHandler:^(MSAssetsLocalPackage * _Nullable downloadedPackage, NSError * _Nullable error) {
