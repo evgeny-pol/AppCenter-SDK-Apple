@@ -241,6 +241,29 @@ static BOOL isRunningBinaryVersion = NO;
     self.instanceState.syncInProgress = YES;
     
     [self notifyAboutSyncStatusChange: MSAssetsSyncStatusCheckingForUpdate instanceState:[self instanceState]];
+
+    [self checkForUpdate:syncOptions.deploymentKey withCompletionHandler:^( MSRemotePackage *remotePackage,  NSError * _Nullable error) {
+        if (error) {
+            // ???
+        }
+        BOOL updateShouldBeIgnored = remotePackage && remotePackage.failedInstall && syncOptions.ignoreFailedUpdates;
+
+        if (!remotePackage || updateShouldBeIgnored){
+            if (updateShouldBeIgnored){
+                MSLogInfo([MSAssets logTag], @"An update is available, but it is being ignored due to having been previously rolled back.");
+            }
+            MSLocalPackage *currentPackage = [self getCurrentPackage];
+            if (currentPackage && currentPackage.isPending) {
+                [self notifyAboutSyncStatusChange:MSAssetsSyncStatusUpdateInstalled instanceState:[self instanceState]];
+            } else {
+                [self notifyAboutSyncStatusChange:MSAssetsSyncStatusUpToDate instanceState:[self instanceState]];
+            }
+            self.instanceState.syncInProgress = NO;
+        } else if (syncOptions.updateDialog)
+        {
+            MSAssetsUpdateDialog *updateDialogOptions = syncOptions.updateDialog;
+        }
+    }];
 }
 
 - (MSAssetsConfiguration *)getConfigurationWithError:(NSError * __autoreleasing*)error {
