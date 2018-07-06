@@ -4,7 +4,7 @@
 /**
  * Update info from the server.
  */
-@interface MSUpdateResponseUpdateInfo : NSObject <MSSerializableObject>
+@interface MSAssetsUpdateResponseUpdateInfo : NSObject <MSSerializableObject>
 
 /**
  * Url to access package on server.

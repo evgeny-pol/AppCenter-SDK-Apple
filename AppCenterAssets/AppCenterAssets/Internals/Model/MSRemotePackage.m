@@ -44,7 +44,7 @@ static NSString *const kMSUpdateAppVersion = @"updateAppVersion";
 }
 
 
-+ (MSRemotePackage *)createRemotePackageFromUpdateInfo:(MSUpdateResponseUpdateInfo *)updateInfo
++ (MSRemotePackage *)createRemotePackageFromUpdateInfo:(MSAssetsUpdateResponseUpdateInfo *)updateInfo
                                       andDeploymentKey:(NSString *)deploymentKey {
     MSRemotePackage *remotePackage = [[MSRemotePackage alloc] init];
     [remotePackage setAppVersion:[updateInfo appVersion]];

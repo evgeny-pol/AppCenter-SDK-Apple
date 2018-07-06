@@ -7,6 +7,7 @@
 NSString *const kMSACErrorDomain = MS_APP_CENTER_BASE_DOMAIN @"ErrorDomain";
 
 #pragma mark - Update error descriptions
+
 NSString const *kMSACQueryUpdateErrorDesc = @"Error occurred during querying the update.";
 NSString const *kMSACQueryUpdateParseErrorDesc = @"Error occurred during parsing update response.";
 NSString const *kMSACUpdateAvailableButNotTargetingBinary = @"An update is available but it is not targeting the binary version of your app.";
@@ -14,6 +15,7 @@ NSString const *kMSACUpdateFailedToCreateUpdateMetadataFileErrorDesc = @"Failed 
 NSString const *kMSACUpdateFailedToUpdatePackageInfoErrorDesc = @"Error updating current package info.";
 
 #pragma mark - Signature verification error descriptions
+
 NSString const *kMSACSignatureVerificationNoContentHashErrorDesc = @"The update could not be verified because the signature did not specify a content hash.";
 NSString const *kMSACSignatureVerificationNoSignatureDefErrorDesc = @"Error! Public key was provided but there is no JWT signature within app to verify. \
 Possible reasons, why that might happen: \
@@ -26,6 +28,7 @@ NSString *kMSACSignatureVerificationNoSignatureErrorDesc(NSString *signatureFile
 };
 
 #pragma mark - Download error descriptions
+
 NSString *kMSACDownloadPackageErrorDesc(NSString *downloadUrl) {
     return [[NSString alloc] initWithFormat: @"Error occurred during package downloading. Download url is %@", downloadUrl];
 };
@@ -54,11 +57,13 @@ NSString *kMSACNoDirFileErrorDesc(NSString *filePath) {
 };
 
 #pragma mark - Install error descriptions
+
 NSString const *kMSACInstallNoPackageHashErrorDesc = @"Update package to be installed has no hash.";
 
 NSString const *kMSACNoAppVersionErrorDesc = @"Unable to get package info for app.";
 
 #pragma mark - Error keys
+
 NSString const *kMSACDownloadCodeErrorKey = MS_APP_CENTER_BASE_DOMAIN "DownloadKey";
 NSString const *kMSACUpdateErrorKey = MS_APP_CENTER_BASE_DOMAIN "UpdateKey";
 NSString const *kMSACParseErrorKey = MS_APP_CENTER_BASE_DOMAIN "ParseKey";

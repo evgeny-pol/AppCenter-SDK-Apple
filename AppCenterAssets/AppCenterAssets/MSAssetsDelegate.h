@@ -11,7 +11,7 @@
  *
  * @param package The instance of MSRemotePackage.
  */
-- (void)didReceiveRemotePackageOnUpdateCheck:(MSRemotePackage *)package;
+- (void)didReceiveRemotePackageOnCheckForUpdate:(MSRemotePackage *)package;
 
 /**
  * Callback method that will be called by CheckForUpdate in case of error
@@ -33,7 +33,7 @@
  * @param receivedBytes amount of bytes received.
  * @param totalBytes amount of bytes total.
  */
-- (void)packageDownloadProgress:(long long)receivedBytes totalBytes:(long long)totalBytes;
+- (void)didReceiveBytesForPackageDownloadProgress:(long long)receivedBytes totalBytes:(long long)totalBytes;
 
 @end
 
