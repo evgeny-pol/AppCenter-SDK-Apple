@@ -1,4 +1,6 @@
-@class MSRemotePackage;
+#import "MSAssetsSyncStatus.h"
+
+@class MSAssetsRemotePackage;
 
 @protocol MSAssetsDelegate <NSObject>
 
@@ -7,9 +9,9 @@
 /**
  * Callback method that will be called by CheckForUpdate
  *
- * @param package The instance of MSRemotePackage.
+ * @param package The instance of MSAssetsRemotePackage.
  */
-- (void)didReceiveRemotePackageOnUpdateCheck:(MSRemotePackage *)package;
+- (void)didReceiveRemotePackageOnCheckForUpdate:(MSAssetsRemotePackage *)package;
 
 /**
  * Callback method that will be called by CheckForUpdate in case of error
@@ -18,6 +20,12 @@
  */
 - (void)didFailToQueryRemotePackageOnCheckForUpdate:(NSError *)error;
 
+/**
+ * Callback method for receiving sync status changes.
+ *
+ * @param syncStatus new sync status.
+ */
+- (void)syncStatusChanged:(MSAssetsSyncStatus)syncStatus;
 
 /**
  * Callback method for receiving package download progress.
@@ -25,7 +33,7 @@
  * @param receivedBytes amount of bytes received.
  * @param totalBytes amount of bytes total.
  */
-- (void)packageDownloadProgress:(long long)receivedBytes totalBytes:(long long)totalBytes;
+- (void)didReceiveBytesForPackageDownloadProgress:(long long)receivedBytes totalBytes:(long long)totalBytes;
 
 @end
 

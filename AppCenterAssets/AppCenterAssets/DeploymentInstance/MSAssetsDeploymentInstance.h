@@ -1,7 +1,7 @@
 #import "MSAssetsUpdateUtilities.h"
 #import "MSAssetsUpdateManager.h"
 #import "MSAssetsDelegate.h"
-#import "MSLocalPackage.h"
+#import "MSAssetsLocalPackage.h"
 #import "MSAssetsDeploymentInstanceState.h"
 #import "MSAssetsDownloadHandler.h"
 #import "MSAssetsAcquisitionManager.h"
@@ -20,23 +20,78 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol MSAssetsPlatformSpecificImplementation <NSObject>
 
+/**
+ * Performs all work needed to be done on native side to support install modes but `MSAssetsInstallModeOnNextRestart`.
+ */
 - (void) handleInstallModesForUpdateInstall:(MSAssetsInstallMode)installMode;
+
+/**
+ * Loads application.
+ *
+ * @param assetsRestartListener listener to notify that the app is loaded.
+ */
 - (void) loadApp:(MSAssetsRestartListener)assetsRestartListener;
+
+/**
+ * Clears debug cache files.
+ *
+ * @param error error occurred during read/write operations.
+ */
 - (void) clearDebugCacheWithError:(NSError *__autoreleasing *)error;
-- (BOOL) isPackageLatest:(MSLocalPackage *)packageMetadata appVersion:(NSString *)appVersion;
+
+/**
+ * Checks whether the specified package is latest.
+ *
+ * @param packageMetadata   info about the package to be checked.
+ * @param appVersion version of the currently installed application.
+ * @return `true` if package is latest.
+ */
+- (BOOL) isPackageLatest:(MSAssetsLocalPackage *)packageMetadata appVersion:(NSString *)appVersion;
+
+/**
+ * Gets binary version apk build time.
+ *
+ * @return time in `NSTimeInterval`.
+ */
 - (NSTimeInterval) getBinaryResourcesModifiedTime;
 @end
 
 /**
  * A handler for delivering the download results.
  *
- * @param downloadedPackage an instance of downloaded `MSLocalPackage`.
+ * @param downloadedPackage an instance of downloaded `MSAssetsLocalPackage`.
  * Can be `nil` in case of download error.
  * @param error download error, if occurred.
  */
-typedef void (^MSDownloadHandler)(MSLocalPackage * _Nullable downloadedPackage, NSError * _Nullable error);
+typedef void (^MSDownloadHandler)(MSAssetsLocalPackage * _Nullable downloadedPackage, NSError * _Nullable error);
+
+
+/**
+ * A handler to deliver error that occured during downloading+installing a package.
+ *
+ * @param error error or `nil`.
+ */
+typedef void (^MSDownloadInstallHandler)(NSError * _Nullable error);
 
 @interface MSAssetsDeploymentInstance: NSObject
+
+/**
+ * Asks the Assets service whether the configured app deployment has an update available
+ * using specified deployment key.
+ *
+ * @param deploymentKey deployment key to use.
+ * @see `MSAssetsDelegate->didReceiveRemotePackageOnCheckForUpdate`.
+ */
+- (void)checkForUpdate:(nullable NSString *)deploymentKey;
+
+/**
+ * Performs just the restart itself.
+ *
+ * @param onlyIfUpdateIsPending restart only if update is pending or unconditionally.
+ * @param assetsRestartListener listener to notify that the application has restarted.
+ * @return `true` if restarted successfully.
+ */
+- (BOOL)restartInternal:(MSAssetsRestartListener)assetsRestartListener onlyIfUpdateIsPending:(BOOL)onlyIfUpdateIsPending;
 
 /**
  * Creates instance of `MSAssetsDeploymentInstance`. Default constructor.
@@ -59,13 +114,11 @@ typedef void (^MSDownloadHandler)(MSLocalPackage * _Nullable downloadedPackage, 
                   platformInstance:(id<MSAssetsPlatformSpecificImplementation>)platformInstance
                          withError:(NSError *__autoreleasing *)error;
 
-- (void)checkForUpdate:(nullable NSString *)deploymentKey;
-
 - (void)sync:(MSAssetsSyncOptions *)syncOptions withCallback:(MSAssetsSyncBlock)callback notifyClientAboutSyncStatus:(BOOL)notifySyncStatus notifyProgress:(BOOL)notifyProgress;
 
 @property (nonatomic, copy, nonnull) NSString *deploymentKey;
 @property (nonatomic, copy, nonnull) NSString *serverUrl;
-@property (nonatomic, copy, nullable) NSString *updateSubFolder;
+//@property (nonatomic, copy, nullable) NSString *updateSubFolder;
 @property (nonatomic, nullable) MSAssetsDeploymentInstanceState *instanceState;
 
 @property (nonatomic) id<MSAssetsDelegate> delegate;

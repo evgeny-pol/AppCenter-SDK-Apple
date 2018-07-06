@@ -3,7 +3,7 @@
 
 /**
  * Basic package class. Contains all the basic information about the update package.
- * Currently extended by `MSRemotePackage` and `MSLocalPackage`.
+ * Currently extended by `MSAssetsRemotePackage` and `MSAssetsLocalPackage`.
  */
 @interface MSAssetsPackage : NSObject <MSSerializableObject>
 

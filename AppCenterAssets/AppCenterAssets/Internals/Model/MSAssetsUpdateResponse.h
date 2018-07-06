@@ -10,7 +10,7 @@
 /**
  * Information about the existing update.
  */
-@property(nonatomic) MSUpdateResponseUpdateInfo *updateInfo;
+@property(nonatomic) MSAssetsUpdateResponseUpdateInfo *updateInfo;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 

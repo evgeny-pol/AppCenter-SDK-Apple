@@ -24,7 +24,7 @@ static NSString *const kMSUpdateCheckEndpoint = @"%@updateCheck";
 static NSString *const kMSReportDeploymentStatusEndpoint = @"%@reportStatus/deploy";
 static NSString *const kMSReportDownloadStatusEndpoint = @"%@reportStatus/download";
 
-- (void)queryUpdateWithCurrentPackage:(MSLocalPackage *)localPackage
+- (void)queryUpdateWithCurrentPackage:(MSAssetsLocalPackage *)localPackage
                     withConfiguration:(MSAssetsConfiguration *)configuration
                     andCompletionHandler:(MSCheckForUpdateCompletionHandler)handler {
     NSString *serverUrl = [self fixServerUrl:[configuration serverUrl]];
@@ -64,16 +64,16 @@ static NSString *const kMSReportDownloadStatusEndpoint = @"%@reportStatus/downlo
                  response = [[MSAssetsUpdateResponse alloc] initWithDictionary:dictionary];
              }
              if (response) {
-                 MSUpdateResponseUpdateInfo *updateInfo = [response updateInfo];
+                 MSAssetsUpdateResponseUpdateInfo *updateInfo = [response updateInfo];
                  if ([updateInfo updateAppVersion]) {
-                     handler([MSRemotePackage createDefaultRemotePackageWithAppVersion:[updateInfo appVersion]
+                     handler([MSAssetsRemotePackage createDefaultRemotePackageWithAppVersion:[updateInfo appVersion]
                                                                   updateAppVersion:[updateInfo updateAppVersion]], nil);
                      return;
                  } else if (![updateInfo isAvailable]) {
                      handler(nil, nil);
                      return;
                  }
-                 handler([MSRemotePackage createRemotePackageFromUpdateInfo:updateInfo
+                 handler([MSAssetsRemotePackage createRemotePackageFromUpdateInfo:updateInfo
                                                            andDeploymentKey:[configuration deploymentKey]], nil);
                  return;
              }
@@ -129,7 +129,7 @@ static NSString *const kMSReportDownloadStatusEndpoint = @"%@reportStatus/downlo
     return jsonError == nil ? jsonString : [jsonError localizedDescription];
 }
 
-- (void)reportDownloadStatus:(nullable MSDownloadStatusReport *)report
+- (void)reportDownloadStatus:(nullable MSAssetsDownloadStatusReport *)report
            withConfiguration:(nullable MSAssetsConfiguration *)configuration {
     NSString *serverUrl = [self fixServerUrl:[configuration serverUrl]];
     NSString *baseUrl = [[NSString alloc] initWithFormat:kMSReportDownloadStatusEndpoint, serverUrl];
@@ -158,7 +158,7 @@ static NSString *const kMSReportDownloadStatusEndpoint = @"%@reportStatus/downlo
      }];
 }
 
-- (void)reportDeploymentStatus:(nullable MSDeploymentStatusReport *) report
+- (void)reportDeploymentStatus:(nullable MSAssetsDeploymentStatusReport *) report
              withConfiguration:(nullable MSAssetsConfiguration *) configuration {
     NSString *serverUrl = [self fixServerUrl:[configuration serverUrl]];
     NSString *deploymentKey = [configuration deploymentKey];

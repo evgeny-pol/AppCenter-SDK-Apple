@@ -1,4 +1,4 @@
-#import "MSLocalPackage.h"
+#import "MSAssetsLocalPackage.h"
 #import "MSAssetsUpdateUtilities.h"
 
 /**
@@ -21,14 +21,14 @@
  *
  * @return current package json object.
 */
-- (MSLocalPackage *)getCurrentPackage:(NSError **)error;
+- (MSAssetsLocalPackage *)getCurrentPackage:(NSError **)error;
 
 /**
  * Gets previous package json object.
  *
  * @return previous package json object.
 */
-- (MSLocalPackage *)getPreviousPackage:(NSError **)error;
+- (MSAssetsLocalPackage *)getPreviousPackage:(NSError **)error;
 
 /**
  * Gets the identifier of the current package (hash).
@@ -45,7 +45,7 @@
  *
  * @return previous package json object.
 */
-- (MSLocalPackage *)getPackage:(NSString *)packageHash
+- (MSAssetsLocalPackage *)getPackage:(NSString *)packageHash
                           error:(NSError **)error;
 
 /**

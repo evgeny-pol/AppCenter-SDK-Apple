@@ -1,12 +1,12 @@
 #import <Foundation/Foundation.h>
-#import "MSDownloadStatusReport.h"
+#import "MSAssetsDownloadStatusReport.h"
 #import "MSAssetsIllegalArgumentException.h"
 
 static NSString *const kMSClientUniqueId = @"clientUniqueId";
 static NSString *const kMSDeploymentKey = @"deploymentKey";
 static NSString *const kMSLabel = @"label";
 
-@implementation MSDownloadStatusReport
+@implementation MSAssetsDownloadStatusReport
 
 - (instancetype)init {
     self = [super init];
@@ -22,19 +22,19 @@ static NSString *const kMSLabel = @"label";
         if (clientUniqueId != nil) {
             _clientUniqueId = clientUniqueId;
         } else {
-            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSDownloadStatusReport.class) argument:kMSClientUniqueId];
+            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSAssetsDownloadStatusReport.class) argument:kMSClientUniqueId];
         }
         NSString *deploymentKey = dictionary[kMSDeploymentKey];
         if (deploymentKey != nil) {
             _deploymentKey = deploymentKey;
         } else {
-            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSDownloadStatusReport.class) argument:kMSDeploymentKey];
+            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSAssetsDownloadStatusReport.class) argument:kMSDeploymentKey];
         }
         NSString *label = dictionary[kMSLabel];
         if (label != nil) {
             _label = label;
         } else {
-            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSDownloadStatusReport.class) argument:kMSLabel];
+            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSAssetsDownloadStatusReport.class) argument:kMSLabel];
         }
     }
     return self;
@@ -59,21 +59,21 @@ static NSString *const kMSLabel = @"label";
                            deviceId:(nonnull NSString *)clientUniqueId
                    andDeploymentKey:(nonnull NSString *) deploymentKey {
     if ((self = [super init])) {
-        MSDownloadStatusReport *report = [[MSDownloadStatusReport alloc] init];
+        MSAssetsDownloadStatusReport *report = [[MSAssetsDownloadStatusReport alloc] init];
         if (clientUniqueId != nil) {
             [report setClientUniqueId:clientUniqueId];
         } else {
-            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSDownloadStatusReport.class) argument:kMSClientUniqueId];
+            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSAssetsDownloadStatusReport.class) argument:kMSClientUniqueId];
         }
         if (deploymentKey != nil) {
             [report setDeploymentKey:deploymentKey];
         } else {
-            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSDownloadStatusReport.class) argument:kMSDeploymentKey];
+            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSAssetsDownloadStatusReport.class) argument:kMSDeploymentKey];
         }
         if (label != nil) {
             [report setLabel:label];
         } else {
-            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSDownloadStatusReport.class) argument:kMSLabel];
+            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSAssetsDownloadStatusReport.class) argument:kMSLabel];
         }
     }
     return self;
@@ -88,19 +88,19 @@ static NSString *const kMSLabel = @"label";
         if (label != nil) {
             _label = label;
         } else {
-            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSDownloadStatusReport.class) argument:kMSLabel];
+            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSAssetsDownloadStatusReport.class) argument:kMSLabel];
         }
         NSString *deploymentKey = [coder decodeObjectForKey:kMSDeploymentKey];
         if (deploymentKey != nil) {
             _deploymentKey = deploymentKey;
         } else {
-            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSDownloadStatusReport.class) argument:kMSDeploymentKey];
+            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSAssetsDownloadStatusReport.class) argument:kMSDeploymentKey];
         }
         NSString *clientId = [coder decodeObjectForKey:kMSClientUniqueId];
         if (clientId != nil) {
             _clientUniqueId = clientId;
         } else {
-            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSDownloadStatusReport.class) argument:kMSClientUniqueId];
+            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSAssetsDownloadStatusReport.class) argument:kMSClientUniqueId];
         }
     }
     return self;

@@ -1,5 +1,5 @@
 #import "MSAssetsDownloadHandler.h"
-#import "MSDownloadPackageResult.h"
+#import "MSAssetsDownloadPackageResult.h"
 #import "MSAssetsErrorUtils.h"
 
 @implementation MSAssetsDownloadHandler {
@@ -133,7 +133,7 @@ didCompleteWithError:(NSError *)error {
         }
         
         BOOL isZip = _header[0] == 'P' && _header[1] == 'K' && _header[2] == 3 && _header[3] == 4;
-        MSDownloadPackageResult *result = [MSDownloadPackageResult new];
+        MSAssetsDownloadPackageResult *result = [MSAssetsDownloadPackageResult new];
         [result setIsZip:isZip];
         [result setDownloadFile:[self downloadFilePath]];
         if (self.completionHandler != nil) {

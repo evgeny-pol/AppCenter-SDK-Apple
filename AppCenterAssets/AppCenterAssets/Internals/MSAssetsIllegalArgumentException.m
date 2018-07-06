@@ -8,4 +8,4 @@
     self = [super initWithName:@"MSAssetsIllegalArgumentException" reason: reason userInfo: nil];
     return self;
 }
-@end 
+@end

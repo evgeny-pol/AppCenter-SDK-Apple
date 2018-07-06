@@ -7,4 +7,4 @@
 
 - (instancetype)initWithClass:(NSString *)className argument:(NSString *)argument;
 
-@end 
+@end
