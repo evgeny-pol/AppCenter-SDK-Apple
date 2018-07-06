@@ -3,8 +3,8 @@
 #import "MSAssetsReportSender.h"
 #import "MSHttpSenderPrivate.h"
 #import "MSLoggerInternal.h"
-#import "MSDeploymentStatusReport.h"
-#import "MSDownloadStatusReport.h"
+#import "MSAssetsDeploymentStatusReport.h"
+#import "MSAssetsDownloadStatusReport.h"
 #import "MSAssetsReportType.h"
 
 @implementation MSAssetsReportSender {
@@ -23,7 +23,7 @@
 }
 
 - (NSURLRequest *)createRequest:(NSObject *)data {
-    NSObject <MSSerializableObject> *container = _reportType == MsAssetsReportTypeDownload ? (MSDownloadStatusReport *)data : (MSDeploymentStatusReport *)data;
+    NSObject <MSSerializableObject> *container = _reportType == MsAssetsReportTypeDownload ? (MSAssetsDownloadStatusReport *)data : (MSAssetsDeploymentStatusReport *)data;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.sendURL];
     
     request.HTTPMethod = @"POST";

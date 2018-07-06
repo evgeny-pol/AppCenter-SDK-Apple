@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
-#import "MSLocalPackage.h"
+#import "MSAssetsLocalPackage.h"
 #import "MSAssetsPackage.h"
-#import "MSDeploymentStatusReport.h"
+#import "MSAssetsDeploymentStatusReport.h"
 #import "MSAssetsSettingManager.h"
 
 /**
@@ -18,15 +18,15 @@
  * @param appVersion current app version.
  * @return new binary update report.
  */
-- (MSDeploymentStatusReport *)buildBinaryUpdateReportWithAppVersion:(NSString * _Nonnull)appVersion;
+- (MSAssetsDeploymentStatusReport *)buildBinaryUpdateReportWithAppVersion:(NSString * _Nonnull)appVersion;
 
 /**
  * Builds update report using current local package information.
  *
- * @param currentPackage instance of `MSLocalPackage` with package information.
+ * @param currentPackage instance of `MSAssetsLocalPackage` with package information.
  * @return new update report.
  */
-- (MSDeploymentStatusReport *)buildUpdateReportWithPackage:(MSLocalPackage * _Nonnull)currentPackage;
+- (MSAssetsDeploymentStatusReport *)buildUpdateReportWithPackage:(MSAssetsLocalPackage * _Nonnull)currentPackage;
 
 /**
  * Builds rollback report using current local package information.
@@ -34,7 +34,7 @@
  * @param failedPackage instance of `MSAssetsPackage` with package information.
  * @return new rollback report.
  */
-- (MSDeploymentStatusReport *)buildRollbackReportWithFailedPackage:(MSAssetsPackage * _Nonnull)failedPackage;
+- (MSAssetsDeploymentStatusReport *)buildRollbackReportWithFailedPackage:(MSAssetsPackage * _Nonnull)failedPackage;
 
 
 @end

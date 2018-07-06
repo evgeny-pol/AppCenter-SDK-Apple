@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-#import "MSDeploymentStatusReport.h"
+#import "MSAssetsDeploymentStatusReport.h"
 #import "MSAssetsPackage.h"
 #import "MSAssetsIllegalArgumentException.h"
 
@@ -9,7 +9,7 @@ static NSString *const kMSPreviousLabelOrAppVersion = @"previousLabelOrAppVersio
 static NSString *const kMSStatus = @"status";
 static NSString *const kMSAssetsPackage = @"package";
 
-@implementation MSDeploymentStatusReport
+@implementation MSAssetsDeploymentStatusReport
 
 - (instancetype)init {
     self = [super init];
@@ -25,13 +25,13 @@ static NSString *const kMSAssetsPackage = @"package";
         if (appVersion != nil) {
             _appVersion = appVersion;
         } else {
-            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSDeploymentStatusReport.class) argument:kMSAppVersion];
+            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSAssetsDeploymentStatusReport.class) argument:kMSAppVersion];
         }
         NSString *previousKey = dictionary[kMSPreviousDeploymentKey];
         if (previousKey != nil) {
             _previousDeploymentKey = previousKey;
         } else {
-            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSDeploymentStatusReport.class) argument:kMSPreviousDeploymentKey];
+            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSAssetsDeploymentStatusReport.class) argument:kMSPreviousDeploymentKey];
         }
         if (dictionary[kMSPreviousLabelOrAppVersion]) {
             self.previousLabelOrAppVersion = dictionary[kMSPreviousLabelOrAppVersion];
@@ -78,13 +78,13 @@ static NSString *const kMSAssetsPackage = @"package";
         if (appVersion != nil) {
             _appVersion = appVersion;
         } else {
-            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSDeploymentStatusReport.class) argument:kMSAppVersion];
+            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSAssetsDeploymentStatusReport.class) argument:kMSAppVersion];
         }
         NSString *previousKey = [coder decodeObjectForKey:kMSPreviousDeploymentKey];
         if (previousKey != nil) {
             _previousDeploymentKey = previousKey;
         } else {
-            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSDeploymentStatusReport.class) argument:kMSPreviousDeploymentKey];
+            @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSAssetsDeploymentStatusReport.class) argument:kMSPreviousDeploymentKey];
         }
         _previousLabelOrAppVersion = [coder decodeObjectForKey:kMSPreviousLabelOrAppVersion];
         _status = (MSAssetsDeploymentStatus) [coder decodeIntForKey:kMSStatus];

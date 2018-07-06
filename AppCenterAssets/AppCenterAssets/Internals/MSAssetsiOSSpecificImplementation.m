@@ -17,7 +17,7 @@
     
 }
 
-- (BOOL) isPackageLatest:(MSLocalPackage *)packageMetadata
+- (BOOL) isPackageLatest:(MSAssetsLocalPackage *)packageMetadata
               appVersion:(NSString *)appVersion {
     NSTimeInterval binaryModifiedDateDuringPackageInstall = 0.0;
     NSString *binaryModifiedDateDuringPackageInstallString = [packageMetadata binaryModifiedTime];
