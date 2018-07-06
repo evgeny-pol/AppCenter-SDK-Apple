@@ -3,9 +3,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Domain
+
 extern NSString *const kMSACErrorDomain;
     
 #pragma mark - Error codes
+
 NS_ENUM(NSInteger){
     kMSACQueryUpdateErrorCode = 100,
     kMSACParseErrorCode = 101,
@@ -16,6 +18,7 @@ NS_ENUM(NSInteger){
 };
         
 #pragma mark - Error descriptions
+    
 extern NSString const *kMSACQueryUpdateErrorDesc;
 extern NSString const *kMSACQueryUpdateParseErrorDesc;
 extern NSString const *kMSACUpdateAvailableButNotTargetingBinary;
@@ -36,7 +39,9 @@ extern NSString *kMSACUnzipFileErrorDesc(NSString *filePath, NSString *dest);
 extern NSString *kMSACNoDirFileErrorDesc(NSString *filePath);
 extern NSString const *kMSACInstallNoPackageHashErrorDesc;
 extern NSString const *kMSACNoAppVersionErrorDesc;
+    
 #pragma mark - Error keys
+    
 extern NSString const *kMSACDownloadCodeErrorKey;
 extern NSString const *kMSACParseErrorKey;
 extern NSString const *kMSACUpdateErrorKey;

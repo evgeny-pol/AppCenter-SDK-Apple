@@ -148,8 +148,8 @@ static BOOL isRunningBinaryVersion = NO;
                 [self.delegate didFailToQueryRemotePackageOnCheckForUpdate:error];
             return;
         } else {
-            if ([self.delegate respondsToSelector:@selector(didReceiveRemotePackageOnUpdateCheck:)])
-                [self.delegate didReceiveRemotePackageOnUpdateCheck:update];
+            if ([self.delegate respondsToSelector:@selector(didReceiveRemotePackageOnCheckForUpdate:)])
+                [self.delegate didReceiveRemotePackageOnCheckForUpdate:update];
         }
 
     }];
@@ -384,8 +384,8 @@ static BOOL isRunningBinaryVersion = NO;
                            if (!strongSelf) {
                                return;
                            }
-                           if ([[strongSelf delegate] respondsToSelector:@selector(packageDownloadProgress:totalBytes:)]) {
-                               [[strongSelf delegate] packageDownloadProgress:receivedContentLength totalBytes:expectedContentLength];
+                           if ([[strongSelf delegate] respondsToSelector:@selector(didReceiveBytesForPackageDownloadProgress:totalBytes:)]) {
+                               [[strongSelf delegate] didReceiveBytesForPackageDownloadProgress:receivedContentLength totalBytes:expectedContentLength];
                            }
                        } andCompletionHandler:^(MSDownloadPackageResult *downloadResult, NSError *err) {
                            typeof(self) strongSelf = weakSelf;

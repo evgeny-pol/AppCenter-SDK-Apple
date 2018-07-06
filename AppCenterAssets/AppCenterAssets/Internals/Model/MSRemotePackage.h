@@ -45,7 +45,7 @@
  * @param updateInfo    update info response from server.
  * @return instance of the `MSRemotePackage`.
  */
-+ (MSRemotePackage *)createRemotePackageFromUpdateInfo:(MSUpdateResponseUpdateInfo *)updateInfo
++ (MSRemotePackage *)createRemotePackageFromUpdateInfo:(MSAssetsUpdateResponseUpdateInfo *)updateInfo
                                       andDeploymentKey:(NSString *)deploymentKey;
 
 /**
