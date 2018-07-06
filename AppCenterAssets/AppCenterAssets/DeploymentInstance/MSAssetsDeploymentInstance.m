@@ -336,7 +336,7 @@ static BOOL isRunningBinaryVersion = NO;
  * @param completeHandler completion handler to deliver results/errors to.
  */
 - (void)downloadUpdate:(MSAssetsRemotePackage *)updatePackage
-       completeHandler:(MSAssetsDownloadHandler)completeHandler {
+       completeHandler:(MSAssetsPackageDownloadHandler)completeHandler {
     NSString *packageHash = [updatePackage packageHash];
     NSString *newUpdateFolderPath = [[self updateManager] getPackageFolderPath:packageHash];
     NSString *newUpdateMetadataPath = [newUpdateFolderPath stringByAppendingPathComponent:UpdateMetadataFileName];
