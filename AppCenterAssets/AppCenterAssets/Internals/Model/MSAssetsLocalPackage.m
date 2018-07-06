@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-#import "MSLocalPackage.h"
+#import "MSassetsLocalPackage.h"
 
 static NSString *const kMSIsPending = @"isPending";
 static NSString *const kMSEntryPoint = @"entryPoint";
@@ -7,7 +7,7 @@ static NSString *const kMSIsFirstRun = @"isFirstRun";
 static NSString *const kMSIsDebugOnly = @"_isDebugOnly";
 static NSString *const kMSBinaryModifiedTime = @"binaryModifiedTime";
 
-@implementation MSLocalPackage
+@implementation MSAssetsLocalPackage
 
 - (instancetype)init {
     self = [super init];
@@ -55,13 +55,13 @@ static NSString *const kMSBinaryModifiedTime = @"binaryModifiedTime";
     return dict;
 }
 
-+ (MSLocalPackage *)createLocalPackageWithPackage:(MSAssetsPackage *)assetsPackage
++ (MSAssetsLocalPackage *)createLocalPackageWithPackage:(MSAssetsPackage *)assetsPackage
                                     failedInstall:(BOOL)failedInstall
                                        isFirstRun:(BOOL)isFirstRun
                                         isPending:(BOOL)isPending
                                       isDebugOnly:(BOOL)isDebugOnly
                                        entryPoint:(NSString *)entryPoint {
-    MSLocalPackage *localPackage = [[MSLocalPackage alloc] init];
+    MSAssetsLocalPackage *localPackage = [[MSAssetsLocalPackage alloc] init];
     [localPackage setAppVersion:[assetsPackage appVersion]];
     [localPackage setDeploymentKey:[assetsPackage deploymentKey]];
     [localPackage setUpdateDescription:[assetsPackage updateDescription]];
@@ -76,8 +76,8 @@ static NSString *const kMSBinaryModifiedTime = @"binaryModifiedTime";
     return localPackage;
 }
 
-+ (MSLocalPackage *)createLocalPackageWithAppVersion:(NSString *)appVersion {
-    MSLocalPackage *localPackage = [[MSLocalPackage alloc] init];
++ (MSAssetsLocalPackage *)createLocalPackageWithAppVersion:(NSString *)appVersion {
+    MSAssetsLocalPackage *localPackage = [[MSAssetsLocalPackage alloc] init];
     [localPackage setAppVersion:appVersion];
     [localPackage setDeploymentKey:@""];
     [localPackage setUpdateDescription:@""];

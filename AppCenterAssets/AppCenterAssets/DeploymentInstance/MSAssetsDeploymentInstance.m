@@ -1,7 +1,7 @@
 #import "MSAssets.h"
 #import "MSAssetsDeploymentInstanceState.h"
 #import "MSAssetsUpdateUtilities.h"
-#import "MSLocalPackage.h"
+#import "MSAssetsLocalPackage.h"
 #import "MSAssetsErrors.h"
 #import "MSAssetsErrorUtils.h"
 #import "MSLogger.h"
@@ -97,7 +97,7 @@ static BOOL isRunningBinaryVersion = NO;
     if (pendingUpdate == nil) {
         return;
     }
-    MSLocalPackage *packageMetadata = [[self updateManager] getCurrentPackage:error];
+    MSAssetsLocalPackage *packageMetadata = [[self updateManager] getCurrentPackage:error];
     if (error) {
         return;
     }
@@ -142,7 +142,7 @@ static BOOL isRunningBinaryVersion = NO;
 }
 
 - (void)checkForUpdate:(nullable NSString *)deploymentKey {
-    [self checkForUpdate:deploymentKey withCompletionHandler:^( MSRemotePackage *update,  NSError * _Nullable error){
+    [self checkForUpdate:deploymentKey withCompletionHandler:^( MSAssetsRemotePackage *update,  NSError * _Nullable error){
         if (error) {
             if ([self.delegate respondsToSelector:@selector(didFailToQueryRemotePackageOnCheckForUpdate:)])
                 [self.delegate didFailToQueryRemotePackageOnCheckForUpdate:error];
@@ -167,17 +167,17 @@ static BOOL isRunningBinaryVersion = NO;
     if (deploymentKey)
         config.deploymentKey = deploymentKey;
 
-    MSLocalPackage *localPackage = [[self getCurrentPackage] mutableCopy];
+    MSAssetsLocalPackage *localPackage = [[self getCurrentPackage] mutableCopy];
 
-    MSLocalPackage *queryPackage;
+    MSAssetsLocalPackage *queryPackage;
     if (localPackage){
         MSLogInfo([MSAssets logTag], @"Got local package");
         queryPackage = localPackage;
     }
     else{
-        queryPackage = [MSLocalPackage createLocalPackageWithAppVersion:config.appVersion];
+        queryPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:config.appVersion];
     }
-    [[self acquisitionManager] queryUpdateWithCurrentPackage:queryPackage withConfiguration:config andCompletionHandler:^( MSRemotePackage *update,  NSError * _Nullable error){
+    [[self acquisitionManager] queryUpdateWithCurrentPackage:queryPackage withConfiguration:config andCompletionHandler:^( MSAssetsRemotePackage *update,  NSError * _Nullable error){
         if (error) {
             handler(nil, error);
             return;
@@ -296,10 +296,10 @@ static BOOL isRunningBinaryVersion = NO;
     return configuration;
 }
 
-- (MSLocalPackage *)getUpdateMetadataForState:(MSAssetsUpdateState)updateState
+- (MSAssetsLocalPackage *)getUpdateMetadataForState:(MSAssetsUpdateState)updateState
                  currentPackageGettingError:(NSError * __autoreleasing *)error {
     NSError *__autoreleasing internalError;
-    MSLocalPackage *package = [[[self updateManager] getCurrentPackage:&internalError] mutableCopy];
+    MSAssetsLocalPackage *package = [[[self updateManager] getCurrentPackage:&internalError] mutableCopy];
     if (internalError){
         error = &internalError;
         return nil;
@@ -352,9 +352,9 @@ static BOOL isRunningBinaryVersion = NO;
 
 }
 
-- (MSLocalPackage *)getCurrentPackage {
+- (MSAssetsLocalPackage *)getCurrentPackage {
     NSError *error;
-    MSLocalPackage *currentPackage = [self getUpdateMetadataForState:MSAssetsUpdateStateLatest currentPackageGettingError:&error];
+    MSAssetsLocalPackage *currentPackage = [self getUpdateMetadataForState:MSAssetsUpdateStateLatest currentPackageGettingError:&error];
     if (error){
         MSLogInfo([MSAssets logTag], @"An error occured: %@", [error localizedDescription]);
         return nil;
@@ -368,7 +368,7 @@ static BOOL isRunningBinaryVersion = NO;
  * @param updatePackage update to download.
  * @param completeHandler completion handler to deliver results/errors to.
  */
-- (void)downloadUpdate:(MSRemotePackage *)updatePackage
+- (void)downloadUpdate:(MSAssetsRemotePackage *)updatePackage
        completeHandler:(MSDownloadHandler)completeHandler {
     NSString *packageHash = [updatePackage packageHash];
     NSString *newUpdateFolderPath = [[self updateManager] getPackageFolderPath:packageHash];
@@ -397,7 +397,7 @@ static BOOL isRunningBinaryVersion = NO;
                            if ([[strongSelf delegate] respondsToSelector:@selector(didReceiveBytesForPackageDownloadProgress:totalBytes:)]) {
                                [[strongSelf delegate] didReceiveBytesForPackageDownloadProgress:receivedContentLength totalBytes:expectedContentLength];
                            }
-                       } andCompletionHandler:^(MSDownloadPackageResult *downloadResult, NSError *err) {
+                       } andCompletionHandler:^(MSAssetsDownloadPackageResult *downloadResult, NSError *err) {
                            typeof(self) strongSelf = weakSelf;
                            if (!strongSelf) {
                                return;
@@ -436,7 +436,7 @@ static BOOL isRunningBinaryVersion = NO;
                                    return;
                                }
                            }
-                           MSLocalPackage *localPackage = [MSLocalPackage createLocalPackageWithPackage:updatePackage
+                           MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithPackage:updatePackage
                                                                                           failedInstall:NO
                                                                                              isFirstRun: NO
                                                                                               isPending:YES
@@ -465,13 +465,13 @@ static BOOL isRunningBinaryVersion = NO;
  * @param configuration configuration to use.
  * @param handler handler to deliver errors to.
  */
-- (void) doDownloadAndInstall:(MSRemotePackage *)remotePackage
+- (void) doDownloadAndInstall:(MSAssetsRemotePackage *)remotePackage
                   syncOptions:(MSAssetsSyncOptions *)syncOptions
                 configuration:(MSAssetsConfiguration *)configuration
                       handler:(MSDownloadInstallHandler)handler {
     [self notifyAboutSyncStatusChange:MSAssetsSyncStatusDownloadingPackage instanceState:[self instanceState]];
     __weak typeof(self) weakSelf = self;
-    [self downloadUpdate:remotePackage completeHandler:^(MSLocalPackage * _Nullable downloadedPackage, NSError * _Nullable error) {
+    [self downloadUpdate:remotePackage completeHandler:^(MSAssetsLocalPackage * _Nullable downloadedPackage, NSError * _Nullable error) {
         typeof(self) strongSelf = weakSelf;
         if (!strongSelf) {
             return;
@@ -485,7 +485,7 @@ static BOOL isRunningBinaryVersion = NO;
         if (!label) {
             label = @"";
         }
-        MSDownloadStatusReport *report = [[MSDownloadStatusReport alloc] initReportWithLabel:label
+        MSAssetsDownloadStatusReport *report = [[MSAssetsDownloadStatusReport alloc] initReportWithLabel:label
                                                                                     deviceId:[configuration clientUniqueId]
                                                                             andDeploymentKey:[configuration deploymentKey]];
         [[strongSelf acquisitionManager] reportDownloadStatus:report withConfiguration:configuration];
@@ -570,7 +570,7 @@ static BOOL isRunningBinaryVersion = NO;
  * @see `MSAssetsSyncOptions->minimumBackgroundDuration`.
  * @return error installation error.
  */
-- (NSError *)installUpdate:(MSLocalPackage*)updatePackage
+- (NSError *)installUpdate:(MSAssetsLocalPackage*)updatePackage
           installMode:(MSAssetsInstallMode)installMode
 minimumBackgroundDuration:(int)minimumBackgroundDuration {
     NSString *packageHash = [updatePackage packageHash];

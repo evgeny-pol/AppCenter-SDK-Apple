@@ -25,7 +25,7 @@ static NSString *const UnzippedFolderName = @"unzipped";
     return self;
 }
 
-- (MSLocalPackage *)getCurrentPackage:(NSError * __autoreleasing *)error {
+- (MSAssetsLocalPackage *)getCurrentPackage:(NSError * __autoreleasing *)error {
     NSString *packageHash = [self getCurrentPackageHash:error];
     if (!packageHash) {
         return nil;
@@ -67,7 +67,7 @@ static NSString *const UnzippedFolderName = @"unzipped";
     return [[MSAssetsPackageInfo alloc] initWithDictionary:json];
 }
 
-- (MSLocalPackage *)getPackage:(NSString *)packageHash
+- (MSAssetsLocalPackage *)getPackage:(NSString *)packageHash
                           error:(NSError * __autoreleasing *)error {
     NSString *updateDirectoryPath = [self getPackageFolderPath:packageHash];
     NSString *updateMetadataFilePath = [updateDirectoryPath stringByAppendingPathComponent:UpdateMetadataFileName];
@@ -93,14 +93,14 @@ static NSString *const UnzippedFolderName = @"unzipped";
         return nil;
     }
 
-    return [[MSLocalPackage alloc] initWithDictionary:json];
+    return [[MSAssetsLocalPackage alloc] initWithDictionary:json];
 }
 
 - (NSString *)getPackageFolderPath:(NSString *)packageHash {
     return [[self getMSAssetsPath] stringByAppendingPathComponent:packageHash];
 }
 
-- (MSLocalPackage *)getPreviousPackage:(NSError * __autoreleasing *)error {
+- (MSAssetsLocalPackage *)getPreviousPackage:(NSError * __autoreleasing *)error {
     NSString *packageHash = [self getPreviousPackageHash:error];
     if (!packageHash) {
         return nil;

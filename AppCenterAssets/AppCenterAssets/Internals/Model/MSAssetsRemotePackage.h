@@ -5,7 +5,7 @@
 /**
  * Represents information about a remote package (on server).
  */
-@interface MSRemotePackage : MSAssetsPackage
+@interface MSAssetsRemotePackage : MSAssetsPackage
 
 /**
  * Url to access package on server.
@@ -30,9 +30,9 @@
  * @param downloadUrl      url to access package on server.
  * @param updateAppVersion whether the client should trigger a store update.
  * @param assetsPackage  basic package containing the information.
- * @return instance of the `MSRemotePackage`.
+ * @return instance of the `MSAssetsRemotePackage`.
  */
-+ (MSRemotePackage *)createRemotePackageFromPackage:(MSAssetsPackage *)assetsPackage
++ (MSAssetsRemotePackage *)createRemotePackageFromPackage:(MSAssetsPackage *)assetsPackage
                                       failedInstall:(BOOL)failedInstall
                                         packageSize:(long)packageSize
                                         downloadUrl:(NSString *)downloadUrl
@@ -43,9 +43,9 @@
  *
  * @param deploymentKey the deployment key that was used to originally download this update.
  * @param updateInfo    update info response from server.
- * @return instance of the `MSRemotePackage`.
+ * @return instance of the `MSAssetsRemotePackage`.
  */
-+ (MSRemotePackage *)createRemotePackageFromUpdateInfo:(MSAssetsUpdateResponseUpdateInfo *)updateInfo
++ (MSAssetsRemotePackage *)createRemotePackageFromUpdateInfo:(MSAssetsUpdateResponseUpdateInfo *)updateInfo
                                       andDeploymentKey:(NSString *)deploymentKey;
 
 /**
@@ -53,9 +53,9 @@
  *
  * @param appVersion       current app version.
  * @param updateAppVersion whether the client should trigger a store update.
- * @return instance of the `MSRemotePackage`.
+ * @return instance of the `MSAssetsRemotePackage`.
  */
-+ (MSRemotePackage *)createDefaultRemotePackageWithAppVersion:(NSString *)appVersion
++ (MSAssetsRemotePackage *)createDefaultRemotePackageWithAppVersion:(NSString *)appVersion
                                updateAppVersion:(BOOL)updateAppVersion;
 @end
 

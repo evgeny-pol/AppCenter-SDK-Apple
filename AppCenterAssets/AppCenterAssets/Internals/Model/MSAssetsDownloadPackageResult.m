@@ -1,10 +1,10 @@
 #import <Foundation/Foundation.h>
-#import "MSDownloadPackageResult.h"
+#import "MSAssetsDownloadPackageResult.h"
 
 static NSString *const kMSDownloadFile = @"downloadFile";
 static NSString *const kMSisZip = @"isZip";
 
-@implementation MSDownloadPackageResult
+@implementation MSAssetsDownloadPackageResult
 
 - (instancetype)init {
     self = [super init];
