@@ -146,7 +146,6 @@ static BOOL isRunningBinaryVersion = NO;
         if (error) {
             if ([self.delegate respondsToSelector:@selector(didFailToQueryRemotePackageOnCheckForUpdate:)])
                 [self.delegate didFailToQueryRemotePackageOnCheckForUpdate:error];
-            return;
         } else {
             if ([self.delegate respondsToSelector:@selector(didReceiveRemotePackageOnCheckForUpdate:)])
                 [self.delegate didReceiveRemotePackageOnCheckForUpdate:update];
@@ -262,6 +261,17 @@ static BOOL isRunningBinaryVersion = NO;
         } else if (syncOptions.updateDialog)
         {
             MSAssetsUpdateDialog *updateDialogOptions = syncOptions.updateDialog;
+            NSString *message;
+            NSString *acceptButtonText;
+            NSString *declineButtonText = updateDialogOptions.optionalIgnoreButtonLabel;
+            if (remotePackage.isMandatory) {
+                message = updateDialogOptions.mandatoryUpdateMessage;
+                acceptButtonText = updateDialogOptions.mandatoryContinueButtonLabel;
+            } else {
+                message = updateDialogOptions.optionalUpdateMessage;
+                acceptButtonText = updateDialogOptions.optionalInstallButtonLabel;
+            }
+            if (updateDialogOptions.appendReleaseDescription && remotePackage.description)
         }
     }];
 }
