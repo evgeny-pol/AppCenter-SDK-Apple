@@ -42,7 +42,7 @@ static dispatch_once_t onceToken;
                                                                                                  platformInstance:[[MSAssetsiOSSpecificImplementation alloc] init]
                                                                                                         withError:error];
     if (error) {
-        return nil;
+ //       return nil;
     }
     return assetsDeploymentInstance;
 }
