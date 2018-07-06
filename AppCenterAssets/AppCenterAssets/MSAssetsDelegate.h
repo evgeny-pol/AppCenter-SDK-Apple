@@ -1,6 +1,6 @@
 #import "MSAssetsSyncStatus.h"
 
-@class MSRemotePackage;
+@class MSAssetsRemotePackage;
 
 @protocol MSAssetsDelegate <NSObject>
 
@@ -9,9 +9,9 @@
 /**
  * Callback method that will be called by CheckForUpdate
  *
- * @param package The instance of MSRemotePackage.
+ * @param package The instance of MSAssetsRemotePackage.
  */
-- (void)didReceiveRemotePackageOnCheckForUpdate:(MSRemotePackage *)package;
+- (void)didReceiveRemotePackageOnCheckForUpdate:(MSAssetsRemotePackage *)package;
 
 /**
  * Callback method that will be called by CheckForUpdate in case of error

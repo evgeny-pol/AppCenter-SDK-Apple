@@ -40,7 +40,7 @@
     [_assetsDeployment checkForUpdate:@"EAk0sEsG9uZii-_T4TCJYS1go6JfByhZUk-bX"];
 }
 
-- (void)didReceiveRemotePackageOnCheckForUpdate:(MSRemotePackage *)package {
+- (void)didReceiveRemotePackageOnCheckForUpdate:(MSAssetsRemotePackage *)package {
     if (!package) {
         dispatch_async(dispatch_get_main_queue(), ^{
             self.result.text = @"No update available";

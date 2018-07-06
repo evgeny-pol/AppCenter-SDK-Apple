@@ -4,7 +4,7 @@
 /**
  * Class representing the downloaded update package.
  */
-@interface MSDownloadPackageResult : NSObject <MSSerializableObject>
+@interface MSAssetsDownloadPackageResult : NSObject <MSSerializableObject>
 
 /**
  * Path to the file containing the update.

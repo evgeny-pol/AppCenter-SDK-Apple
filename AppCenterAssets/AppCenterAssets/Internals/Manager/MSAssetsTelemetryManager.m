@@ -1,7 +1,7 @@
 #import "MSAssetsTelemetryManager.h"
-#import "MSLocalPackage.h"
+#import "MSAssetsLocalPackage.h"
 #import "MSAssetsPackage.h"
-#import "MSDeploymentStatusReport.h"
+#import "MSAssetsDeploymentStatusReport.h"
 #import "MSAssetsStatusReportIdentifier.h"
 
 @interface MSAssetsTelemetryManager ()
@@ -22,13 +22,13 @@
     return self;
 }
 
-- (MSDeploymentStatusReport *)buildBinaryUpdateReportWithAppVersion:(NSString * _Nonnull)appVersion {
+- (MSAssetsDeploymentStatusReport *)buildBinaryUpdateReportWithAppVersion:(NSString * _Nonnull)appVersion {
     MSAssetsStatusReportIdentifier *previousStatusReportIdentifier = [[self settingManager] getPreviousStatusReportIdentifier];
-    MSDeploymentStatusReport *report = nil;
+    MSAssetsDeploymentStatusReport *report = nil;
     if (previousStatusReportIdentifier == nil) {
         
         /* There was no previous status report */
-        report = [MSDeploymentStatusReport new];
+        report = [MSAssetsDeploymentStatusReport new];
         [report setAppVersion:appVersion];
         [report setLabel:@""];
         [report setStatus:MSAssetsDeploymentStatusSucceeded];
@@ -36,11 +36,11 @@
         BOOL identifierHasDeploymentKey = [previousStatusReportIdentifier hasDeploymentKey];
         NSString *identifierLabel = [previousStatusReportIdentifier versionLabelOrEmpty];
         if (identifierHasDeploymentKey || ![identifierLabel isEqualToString:appVersion]) {
-            report = [MSDeploymentStatusReport new];
+            report = [MSAssetsDeploymentStatusReport new];
             if (identifierHasDeploymentKey) {
                 NSString *previousDeploymentKey = [previousStatusReportIdentifier deploymentKey];
                 NSString *previousLabel = [previousStatusReportIdentifier versionLabel];
-                report = [MSDeploymentStatusReport new];
+                report = [MSAssetsDeploymentStatusReport new];
                 [report setAppVersion:appVersion];
                 [report setPreviousDeploymentKey:previousDeploymentKey];
                 [report setPreviousLabelOrAppVersion:previousLabel];
@@ -55,20 +55,20 @@
     return report;
 }
 
-- (MSDeploymentStatusReport *)buildUpdateReportWithPackage:(MSAssetsPackage * _Nonnull)currentPackage {
+- (MSAssetsDeploymentStatusReport *)buildUpdateReportWithPackage:(MSAssetsPackage * _Nonnull)currentPackage {
     MSAssetsStatusReportIdentifier *currentPackageIdentifier = [self  buildPackageStatusReportIdentifier:currentPackage];
     MSAssetsStatusReportIdentifier *previousStatusReportIdentifier = [[self settingManager] getPreviousStatusReportIdentifier];
-    MSDeploymentStatusReport *report = nil;
+    MSAssetsDeploymentStatusReport *report = nil;
     if (currentPackageIdentifier != nil) {
         if (previousStatusReportIdentifier == nil) {
-            report = [MSDeploymentStatusReport new];
+            report = [MSAssetsDeploymentStatusReport new];
             [report setAssetsPackage:currentPackage];
             [report setStatus:MSAssetsDeploymentStatusSucceeded];
         } else {
             
             /* Compare identifiers as strings for simplicity */
             if (![[previousStatusReportIdentifier toString] isEqualToString:[currentPackageIdentifier toString]]) {
-                report = [MSDeploymentStatusReport new];
+                report = [MSAssetsDeploymentStatusReport new];
                 if ([previousStatusReportIdentifier hasDeploymentKey]) {
                     NSString *previousDeploymentKey = [previousStatusReportIdentifier deploymentKey];
                     NSString *previousLabel = [previousStatusReportIdentifier versionLabel];
@@ -103,8 +103,8 @@
     }
 }
 
-- (MSDeploymentStatusReport *)buildRollbackReportWithFailedPackage:(MSAssetsPackage * _Nonnull)failedPackage {
-    MSDeploymentStatusReport *report = [MSDeploymentStatusReport new];
+- (MSAssetsDeploymentStatusReport *)buildRollbackReportWithFailedPackage:(MSAssetsPackage * _Nonnull)failedPackage {
+    MSAssetsDeploymentStatusReport *report = [MSAssetsDeploymentStatusReport new];
     [report setAssetsPackage:failedPackage];
     [report setStatus:MSAssetsDeploymentStatusFailed];
     return report;

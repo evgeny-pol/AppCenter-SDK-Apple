@@ -1,4 +1,4 @@
-#import "MSDownloadPackageResult.h"
+#import "MSAssetsDownloadPackageResult.h"
 
 
 /**
@@ -7,7 +7,7 @@
 * @param downloadResult result of the download (`nil` in case of error).
 * @param error error if occurred (`nil` if download successful).
 */
-typedef void (^MSDownloadCompletionHandler)(MSDownloadPackageResult *downloadResult, NSError *error);
+typedef void (^MSDownloadCompletionHandler)(MSAssetsDownloadPackageResult *downloadResult, NSError *error);
 
 
 /**

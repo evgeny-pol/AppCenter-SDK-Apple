@@ -2,12 +2,12 @@
 #import "MSAssetsPackage.h"
 #import "MSAssetsDeploymentStatus.h"
 #import "MSSerializableObject.h"
-#import "MSDownloadStatusReport.h"
+#import "MSAssetsDownloadStatusReport.h"
 
 /**
  * Represents a report about the deployment.
  */
-@interface MSDeploymentStatusReport : MSDownloadStatusReport
+@interface MSAssetsDeploymentStatusReport : MSAssetsDownloadStatusReport
 
 /**
  * The version of the app that was deployed (for a native app upgrade).

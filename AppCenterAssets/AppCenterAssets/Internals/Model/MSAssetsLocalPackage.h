@@ -4,7 +4,7 @@
 /**
  * Represents the downloaded package.
  */
-@interface MSLocalPackage : MSAssetsPackage
+@interface MSAssetsLocalPackage : MSAssetsPackage
 
 /**
  * Indicates whether this update is in a `pending` state.
@@ -42,9 +42,9 @@
  * @param isDebugOnly     whether this package is intended for debug mode.
  * @param entryPoint      the path to the application entry point.
  * @param assetsPackage   basic package containing the information.
- * @return instance of the `MSLocalPackage`.
+ * @return instance of the `MSAssetsLocalPackage`.
  */
-+ (MSLocalPackage *)createLocalPackageWithPackage:(MSAssetsPackage *)assetsPackage
++ (MSAssetsLocalPackage *)createLocalPackageWithPackage:(MSAssetsPackage *)assetsPackage
                                     failedInstall:(BOOL)failedInstall
                                        isFirstRun:(BOOL)isFirstRun
                                         isPending:(BOOL)isPending
@@ -55,9 +55,9 @@
  * Creates adefault instance of the package (can be used to query the update).
  *
  * @param appVersion   version of the binary contents.
- * @return instance of the `MSLocalPackage`.
+ * @return instance of the `MSAssetsLocalPackage`.
  */
-+ (MSLocalPackage *)createLocalPackageWithAppVersion:(NSString *)appVersion;
++ (MSAssetsLocalPackage *)createLocalPackageWithAppVersion:(NSString *)appVersion;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 

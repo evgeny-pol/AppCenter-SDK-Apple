@@ -1,12 +1,12 @@
 #import <Foundation/Foundation.h>
-#import "MSRemotePackage.h"
+#import "MSAssetsRemotePackage.h"
 #import "MSAssetsUpdateResponseUpdateInfo.h"
 
 static NSString *const kMSDownloadUrl = @"downloadUrl";
 static NSString *const kMSPackageSize = @"packageSize";
 static NSString *const kMSUpdateAppVersion = @"updateAppVersion";
 
-@implementation MSRemotePackage
+@implementation MSAssetsRemotePackage
 
 - (instancetype)init {
     self = [super init];
@@ -24,12 +24,12 @@ static NSString *const kMSUpdateAppVersion = @"updateAppVersion";
     return dict;
 }
 
-+ (MSRemotePackage *)createRemotePackageFromPackage:(MSAssetsPackage *)assetsPackage
++ (MSAssetsRemotePackage *)createRemotePackageFromPackage:(MSAssetsPackage *)assetsPackage
                                       failedInstall:(BOOL)failedInstall
                                         packageSize:(long)packageSize
                                         downloadUrl:(NSString *)downloadUrl
                                    updateAppVersion:(BOOL)updateAppVersion {
-    MSRemotePackage *remotePackage = [[MSRemotePackage alloc] init];
+    MSAssetsRemotePackage *remotePackage = [[MSAssetsRemotePackage alloc] init];
     [remotePackage setAppVersion:[assetsPackage appVersion]];
     [remotePackage setDeploymentKey:[assetsPackage deploymentKey]];
     [remotePackage setUpdateDescription:[assetsPackage updateDescription]];
@@ -44,9 +44,9 @@ static NSString *const kMSUpdateAppVersion = @"updateAppVersion";
 }
 
 
-+ (MSRemotePackage *)createRemotePackageFromUpdateInfo:(MSAssetsUpdateResponseUpdateInfo *)updateInfo
++ (MSAssetsRemotePackage *)createRemotePackageFromUpdateInfo:(MSAssetsUpdateResponseUpdateInfo *)updateInfo
                                       andDeploymentKey:(NSString *)deploymentKey {
-    MSRemotePackage *remotePackage = [[MSRemotePackage alloc] init];
+    MSAssetsRemotePackage *remotePackage = [[MSAssetsRemotePackage alloc] init];
     [remotePackage setAppVersion:[updateInfo appVersion]];
     [remotePackage setDeploymentKey:deploymentKey];
     [remotePackage setUpdateDescription:[updateInfo updateDescription]];
@@ -60,9 +60,9 @@ static NSString *const kMSUpdateAppVersion = @"updateAppVersion";
     return remotePackage;
 }
 
-+ (MSRemotePackage *)createDefaultRemotePackageWithAppVersion:(NSString *)appVersion
++ (MSAssetsRemotePackage *)createDefaultRemotePackageWithAppVersion:(NSString *)appVersion
                                              updateAppVersion:(BOOL)updateAppVersion {
-    MSRemotePackage *remotePackage = [[MSRemotePackage alloc] init];
+    MSAssetsRemotePackage *remotePackage = [[MSAssetsRemotePackage alloc] init];
     [remotePackage setAppVersion:appVersion];
     [remotePackage setUpdateAppVersion:updateAppVersion];
     return remotePackage;

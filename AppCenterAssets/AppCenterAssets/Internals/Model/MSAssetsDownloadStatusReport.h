@@ -4,7 +4,7 @@
 /**
  * Represents a report sent after downloading package.
  */
-@interface MSDownloadStatusReport : NSObject <MSSerializableObject>
+@interface MSAssetsDownloadStatusReport : NSObject <MSSerializableObject>
 
 /**
  * The id of the device.
@@ -30,7 +30,7 @@
  * @param clientUniqueId id of the device.
  * @param deploymentKey  deployment key to use to query the CodePush server for an update.
  * @param label          internal label automatically given to the update by the CodePush server.
- * @return instance of `MSDownloadStatusReport`.
+ * @return instance of `MSAssetsDownloadStatusReport`.
  */
 - (instancetype)initReportWithLabel:(nonnull NSString *)label
                                                  deviceId:(nonnull NSString *)clientUniqueId

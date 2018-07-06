@@ -1,7 +1,7 @@
 #import "MSAssetsUpdateUtilities.h"
 #import "MSAssetsUpdateManager.h"
 #import "MSAssetsDelegate.h"
-#import "MSLocalPackage.h"
+#import "MSAssetsLocalPackage.h"
 #import "MSAssetsDeploymentInstanceState.h"
 #import "MSAssetsDownloadHandler.h"
 #import "MSAssetsAcquisitionManager.h"
@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @param appVersion version of the currently installed application.
  * @return `true` if package is latest.
  */
-- (BOOL) isPackageLatest:(MSLocalPackage *)packageMetadata appVersion:(NSString *)appVersion;
+- (BOOL) isPackageLatest:(MSAssetsLocalPackage *)packageMetadata appVersion:(NSString *)appVersion;
 
 /**
  * Gets binary version apk build time.
@@ -59,11 +59,11 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * A handler for delivering the download results.
  *
- * @param downloadedPackage an instance of downloaded `MSLocalPackage`.
+ * @param downloadedPackage an instance of downloaded `MSAssetsLocalPackage`.
  * Can be `nil` in case of download error.
  * @param error download error, if occurred.
  */
-typedef void (^MSDownloadHandler)(MSLocalPackage * _Nullable downloadedPackage, NSError * _Nullable error);
+typedef void (^MSDownloadHandler)(MSAssetsLocalPackage * _Nullable downloadedPackage, NSError * _Nullable error);
 
 
 /**
