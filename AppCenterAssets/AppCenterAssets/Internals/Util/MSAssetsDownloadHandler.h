@@ -33,7 +33,7 @@ typedef void (^MSDownloadProgressHandler)(long long received, long long total);
 * Initializes the download handler and saves all the necessary data for the work.
 *
 * @param operationQueue queue to be executed on.
-* @return instance of `MSDownloadHandler`.
+* @return instance of `MSAssetsDownloadHandler`.
 */
 - (id)initWithOperationQueue:(dispatch_queue_t)operationQueue;
 
