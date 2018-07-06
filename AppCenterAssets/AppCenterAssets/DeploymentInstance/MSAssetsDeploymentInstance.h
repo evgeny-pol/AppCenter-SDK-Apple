@@ -63,7 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
  * Can be `nil` in case of download error.
  * @param error download error, if occurred.
  */
-typedef void (^MSAssetsDownloadHandler)(MSAssetsLocalPackage * _Nullable downloadedPackage, NSError * _Nullable error);
+typedef void (^MSAssetsPackageDownloadHandler)(MSAssetsLocalPackage * _Nullable downloadedPackage, NSError * _Nullable error);
 
 
 /**

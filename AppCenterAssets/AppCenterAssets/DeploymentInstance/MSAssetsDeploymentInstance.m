@@ -239,7 +239,7 @@ static BOOL isRunningBinaryVersion = NO;
         config.deploymentKey = syncOptions.deploymentKey;
 
     self.instanceState.syncInProgress = YES;
-    
+
     [self notifyAboutSyncStatusChange: MSAssetsSyncStatusCheckingForUpdate instanceState:[self instanceState]];
 
     [self checkForUpdate:syncOptions.deploymentKey withCompletionHandler:^( MSAssetsRemotePackage *remotePackage,  NSError * _Nullable error) {
@@ -259,8 +259,8 @@ static BOOL isRunningBinaryVersion = NO;
                 [self notifyAboutSyncStatusChange:MSAssetsSyncStatusUpToDate instanceState:[self instanceState]];
             }
             self.instanceState.syncInProgress = NO;
-        } else if (syncOptions.updateDialog)
-        {
+        }
+        else if (syncOptions.updateDialog) {
             MSAssetsUpdateDialog *updateDialogOptions = syncOptions.updateDialog;
             NSString *message;
             NSString *acceptButtonText;
@@ -277,27 +277,48 @@ static BOOL isRunningBinaryVersion = NO;
             }
             [self notifyAboutSyncStatusChange:MSAssetsSyncStatusAwaitingUserAction instanceState:[self instanceState]];
 
-            UIAlertController* alert = [UIAlertController alertControllerWithTitle:updateDialogOptions.title
-
-                                                            message:message
-                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:updateDialogOptions.title                                                                  message:message preferredStyle:UIAlertControllerStyleAlert];
 
             [alert.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 
-            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:acceptButtonText
-                                                                    style:UIAlertActionStyleDefault
-                                                                  handler:^(UIAlertAction * action) {
-                                                                      if (action) {};
-                                                                      [self doDownloadAndInstall:remotePackage syncOptions:syncOptions configuration:config
-                                                                                         handler:^(NSError * _Nullable merror) {
-                                                                                             if (merror) {};
-
-                                                                                         }];
-                                                                  }];
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:acceptButtonText style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                if (action) {};
+                [self doDownloadAndInstall:remotePackage syncOptions:syncOptions configuration:config handler:^(NSError * _Nullable error_internal) {
+                    if (error_internal) {};
+                }];
+            }];
             [alert addAction:defaultAction];
+
+            if (remotePackage.isMandatory) {
+                UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:declineButtonText style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                    if (action) {};
+                    [self notifyAboutSyncStatusChange:MSAssetsSyncStatusUpdateIgnored instanceState:[self instanceState]];
+                    //[self syncCompleted:callback];
+                }];
+                [alert addAction:cancelAction];
+            }
+
+            UIViewController *presentingController = [UIApplication sharedApplication].keyWindow.rootViewController;
+
+            if (presentingController == nil) {
+                MSLogInfo([MSAssets logTag], @"Tried to display alert view but there is no application window");
+                return;
+            }
+
+            [presentingController presentViewController:alert animated:YES completion:nil];
+            //https://stackoverflow.com/questions/21075540/presentviewcontrolleranimatedyes-view-will-not-appear-until-user-taps-again
+            //below fixes issue when alert was not shown until tap
+            dispatch_async(dispatch_get_main_queue(), ^{});
+        }
+        else {
+            MSLogInfo([MSAssets logTag], @"Do download and install");
+            [self doDownloadAndInstall:remotePackage syncOptions:syncOptions configuration:config handler:^(NSError * _Nullable error_internal) {
+                if (error_internal) {};
+            }];
         }
     }];
 }
+
 
 - (MSAssetsConfiguration *)getConfigurationWithError:(NSError * __autoreleasing*)error {
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
@@ -392,7 +413,7 @@ static BOOL isRunningBinaryVersion = NO;
  * @param completeHandler completion handler to deliver results/errors to.
  */
 - (void)downloadUpdate:(MSAssetsRemotePackage *)updatePackage
-       completeHandler:(MSAssetsDownloadHandler)completeHandler {
+       completeHandler:(MSAssetsPackageDownloadHandler)completeHandler {
     NSString *packageHash = [updatePackage packageHash];
     NSString *newUpdateFolderPath = [[self updateManager] getPackageFolderPath:packageHash];
     NSString *newUpdateMetadataPath = [newUpdateFolderPath stringByAppendingPathComponent:UpdateMetadataFileName];
