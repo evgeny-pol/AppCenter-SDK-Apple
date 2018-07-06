@@ -1072,10 +1072,10 @@
 				CD09077820CDD1880026F862 /* Enum */,
 				04A1409C1ECE7245001CEE94 /* Util */,
 				E85547CF1D2D6521002DF6E2 /* AppCenter+Internal.h */,
-				A374CD4920EF71BA00BE4EC8 /* MSAssetsIllegalArgumentException.h */,
-				A374CD4A20EF71F400BE4EC8 /* MSAssetsIllegalArgumentException.m */,
 				04D914D620EDF5D20042B9C2 /* MSAssetsiOSSpecificImplementation.h */,
 				04D914D720EDF6070042B9C2 /* MSAssetsiOSSpecificImplementation.m */,
+				A374CD4920EF71BA00BE4EC8 /* MSAssetsIllegalArgumentException.h */,
+				A374CD4A20EF71F400BE4EC8 /* MSAssetsIllegalArgumentException.m */,
 				0482865320E24952005FEFD8 /* MSAssetsErrors.h */,
 				0482865420E24968005FEFD8 /* MSAssetsErrors.m */,
 			);
