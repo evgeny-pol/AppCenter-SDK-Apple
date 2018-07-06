@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-#import "MSassetsLocalPackage.h"
+#import "MSAssetsLocalPackage.h"
 
 static NSString *const kMSIsPending = @"isPending";
 static NSString *const kMSEntryPoint = @"entryPoint";
