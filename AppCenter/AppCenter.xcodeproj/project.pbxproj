@@ -297,6 +297,39 @@
 		04A1408B1ECE63CB001CEE94 /* MSIngestionSenderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E829E4221D25C8BA00F19DA1 /* MSIngestionSenderTests.m */; };
 		04B7BBEF1E5FAD4D001A0CE1 /* MSSenderUtilTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B7BBEE1E5FAD4D001A0CE1 /* MSSenderUtilTests.m */; };
 		04BED7101ECB63A800E20975 /* OCHamcrest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04BED70E1ECB63A100E20975 /* OCHamcrest.framework */; };
+		04D9155C20EFA1850042B9C2 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 04D9153920EFA1850042B9C2 /* unzip.c */; };
+		04D9155D20EFA1850042B9C2 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 04D9153A20EFA1850042B9C2 /* zip.c */; };
+		04D9155E20EFA1850042B9C2 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 04D9153B20EFA1850042B9C2 /* ioapi.c */; };
+		04D9155F20EFA1850042B9C2 /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 04D9153C20EFA1850042B9C2 /* mztools.c */; };
+		04D9156020EFA1850042B9C2 /* crypt.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D9153D20EFA1850042B9C2 /* crypt.h */; };
+		04D9156120EFA1850042B9C2 /* zip.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D9153E20EFA1850042B9C2 /* zip.h */; };
+		04D9156220EFA1850042B9C2 /* unzip.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D9153F20EFA1850042B9C2 /* unzip.h */; };
+		04D9156320EFA1850042B9C2 /* mztools.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D9154020EFA1850042B9C2 /* mztools.h */; };
+		04D9156420EFA1850042B9C2 /* ioapi.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D9154120EFA1850042B9C2 /* ioapi.h */; };
+		04D9156520EFA1850042B9C2 /* SSZipArchive.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D9154220EFA1850042B9C2 /* SSZipArchive.h */; };
+		04D9156620EFA1850042B9C2 /* Common.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D9154420EFA1850042B9C2 /* Common.h */; };
+		04D9156720EFA1850042B9C2 /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D9154520EFA1850042B9C2 /* SSZipArchive.m */; };
+		04D9156820EFA1850042B9C2 /* prng.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D9154720EFA1850042B9C2 /* prng.h */; };
+		04D9156920EFA1850042B9C2 /* aeskey.c in Sources */ = {isa = PBXBuildFile; fileRef = 04D9154820EFA1850042B9C2 /* aeskey.c */; };
+		04D9156A20EFA1850042B9C2 /* hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 04D9154920EFA1850042B9C2 /* hmac.c */; };
+		04D9156B20EFA1850042B9C2 /* aestab.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D9154A20EFA1850042B9C2 /* aestab.h */; };
+		04D9156C20EFA1850042B9C2 /* pwd2key.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D9154B20EFA1850042B9C2 /* pwd2key.h */; };
+		04D9156D20EFA1850042B9C2 /* aescrypt.c in Sources */ = {isa = PBXBuildFile; fileRef = 04D9154C20EFA1850042B9C2 /* aescrypt.c */; };
+		04D9156E20EFA1850042B9C2 /* fileenc.c in Sources */ = {isa = PBXBuildFile; fileRef = 04D9154D20EFA1850042B9C2 /* fileenc.c */; };
+		04D9156F20EFA1850042B9C2 /* aesopt.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D9154E20EFA1850042B9C2 /* aesopt.h */; };
+		04D9157020EFA1850042B9C2 /* aes_via_ace.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D9154F20EFA1850042B9C2 /* aes_via_ace.h */; };
+		04D9157120EFA1850042B9C2 /* sha1.c in Sources */ = {isa = PBXBuildFile; fileRef = 04D9155020EFA1850042B9C2 /* sha1.c */; };
+		04D9157220EFA1850042B9C2 /* brg_types.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D9155120EFA1850042B9C2 /* brg_types.h */; };
+		04D9157320EFA1850042B9C2 /* entropy.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D9155220EFA1850042B9C2 /* entropy.h */; };
+		04D9157420EFA1850042B9C2 /* hmac.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D9155320EFA1850042B9C2 /* hmac.h */; };
+		04D9157520EFA1850042B9C2 /* brg_endian.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D9155420EFA1850042B9C2 /* brg_endian.h */; };
+		04D9157620EFA1850042B9C2 /* prng.c in Sources */ = {isa = PBXBuildFile; fileRef = 04D9155520EFA1850042B9C2 /* prng.c */; };
+		04D9157720EFA1850042B9C2 /* aes.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D9155620EFA1850042B9C2 /* aes.h */; };
+		04D9157820EFA1850042B9C2 /* pwd2key.c in Sources */ = {isa = PBXBuildFile; fileRef = 04D9155720EFA1850042B9C2 /* pwd2key.c */; };
+		04D9157920EFA1850042B9C2 /* aestab.c in Sources */ = {isa = PBXBuildFile; fileRef = 04D9155820EFA1850042B9C2 /* aestab.c */; };
+		04D9157A20EFA1850042B9C2 /* sha1.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D9155920EFA1850042B9C2 /* sha1.h */; };
+		04D9157B20EFA1850042B9C2 /* fileenc.h in Headers */ = {isa = PBXBuildFile; fileRef = 04D9155A20EFA1850042B9C2 /* fileenc.h */; };
+		04D9157C20EFA1850042B9C2 /* entropy.c in Sources */ = {isa = PBXBuildFile; fileRef = 04D9155B20EFA1850042B9C2 /* entropy.c */; };
 		04F21A071ECB74200074978D /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F21A041ECB73EE0074978D /* OHHTTPStubs.framework */; };
 		04F3613D1FE1A92000A5A6D2 /* MSNoAutoAssignSessionIdLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 04F3613C1FE1A92000A5A6D2 /* MSNoAutoAssignSessionIdLog.h */; };
 		04F3613E1FE1A95600A5A6D2 /* MSNoAutoAssignSessionIdLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 04F3613C1FE1A92000A5A6D2 /* MSNoAutoAssignSessionIdLog.h */; };
@@ -618,6 +651,40 @@
 		049BC8291ECE3A5A00FB6719 /* macOS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = macOS.xcconfig; sourceTree = "<group>"; };
 		04B7BBEE1E5FAD4D001A0CE1 /* MSSenderUtilTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSSenderUtilTests.m; sourceTree = "<group>"; };
 		04BED70E1ECB63A100E20975 /* OCHamcrest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCHamcrest.framework; path = ../../Vendor/macOS/OCHamcrest/OCHamcrest.framework; sourceTree = "<group>"; };
+		04D9153920EFA1850042B9C2 /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unzip.c; sourceTree = "<group>"; };
+		04D9153A20EFA1850042B9C2 /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip.c; sourceTree = "<group>"; };
+		04D9153B20EFA1850042B9C2 /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
+		04D9153C20EFA1850042B9C2 /* mztools.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mztools.c; sourceTree = "<group>"; };
+		04D9153D20EFA1850042B9C2 /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
+		04D9153E20EFA1850042B9C2 /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
+		04D9153F20EFA1850042B9C2 /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unzip.h; sourceTree = "<group>"; };
+		04D9154020EFA1850042B9C2 /* mztools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mztools.h; sourceTree = "<group>"; };
+		04D9154120EFA1850042B9C2 /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
+		04D9154220EFA1850042B9C2 /* SSZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSZipArchive.h; sourceTree = "<group>"; };
+		04D9154320EFA1850042B9C2 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		04D9154420EFA1850042B9C2 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		04D9154520EFA1850042B9C2 /* SSZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSZipArchive.m; sourceTree = "<group>"; };
+		04D9154720EFA1850042B9C2 /* prng.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = prng.h; sourceTree = "<group>"; };
+		04D9154820EFA1850042B9C2 /* aeskey.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aeskey.c; sourceTree = "<group>"; };
+		04D9154920EFA1850042B9C2 /* hmac.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hmac.c; sourceTree = "<group>"; };
+		04D9154A20EFA1850042B9C2 /* aestab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aestab.h; sourceTree = "<group>"; };
+		04D9154B20EFA1850042B9C2 /* pwd2key.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pwd2key.h; sourceTree = "<group>"; };
+		04D9154C20EFA1850042B9C2 /* aescrypt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aescrypt.c; sourceTree = "<group>"; };
+		04D9154D20EFA1850042B9C2 /* fileenc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fileenc.c; sourceTree = "<group>"; };
+		04D9154E20EFA1850042B9C2 /* aesopt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aesopt.h; sourceTree = "<group>"; };
+		04D9154F20EFA1850042B9C2 /* aes_via_ace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes_via_ace.h; sourceTree = "<group>"; };
+		04D9155020EFA1850042B9C2 /* sha1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sha1.c; sourceTree = "<group>"; };
+		04D9155120EFA1850042B9C2 /* brg_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = brg_types.h; sourceTree = "<group>"; };
+		04D9155220EFA1850042B9C2 /* entropy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = entropy.h; sourceTree = "<group>"; };
+		04D9155320EFA1850042B9C2 /* hmac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hmac.h; sourceTree = "<group>"; };
+		04D9155420EFA1850042B9C2 /* brg_endian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = brg_endian.h; sourceTree = "<group>"; };
+		04D9155520EFA1850042B9C2 /* prng.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = prng.c; sourceTree = "<group>"; };
+		04D9155620EFA1850042B9C2 /* aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes.h; sourceTree = "<group>"; };
+		04D9155720EFA1850042B9C2 /* pwd2key.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pwd2key.c; sourceTree = "<group>"; };
+		04D9155820EFA1850042B9C2 /* aestab.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aestab.c; sourceTree = "<group>"; };
+		04D9155920EFA1850042B9C2 /* sha1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sha1.h; sourceTree = "<group>"; };
+		04D9155A20EFA1850042B9C2 /* fileenc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fileenc.h; sourceTree = "<group>"; };
+		04D9155B20EFA1850042B9C2 /* entropy.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = entropy.c; sourceTree = "<group>"; };
 		04F21A041ECB73EE0074978D /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = ../../macOS/OHHTTPStubs/OHHTTPStubs.framework; sourceTree = "<group>"; };
 		04F3613C1FE1A92000A5A6D2 /* MSNoAutoAssignSessionIdLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSNoAutoAssignSessionIdLog.h; sourceTree = "<group>"; };
 		04FD126A1E4103CC007ABFE7 /* MSKeychainUtilTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSKeychainUtilTests.m; sourceTree = "<group>"; };
@@ -909,6 +976,64 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
+		04D9153720EFA1850042B9C2 /* SSZipArchive */ = {
+			isa = PBXGroup;
+			children = (
+				04D9153820EFA1850042B9C2 /* minizip */,
+				04D9154220EFA1850042B9C2 /* SSZipArchive.h */,
+				04D9154320EFA1850042B9C2 /* README.md */,
+				04D9154420EFA1850042B9C2 /* Common.h */,
+				04D9154520EFA1850042B9C2 /* SSZipArchive.m */,
+				04D9154620EFA1850042B9C2 /* aes */,
+			);
+			name = SSZipArchive;
+			path = ../../../../Vendor/iOS/SSZipArchive;
+			sourceTree = "<group>";
+		};
+		04D9153820EFA1850042B9C2 /* minizip */ = {
+			isa = PBXGroup;
+			children = (
+				04D9153920EFA1850042B9C2 /* unzip.c */,
+				04D9153A20EFA1850042B9C2 /* zip.c */,
+				04D9153B20EFA1850042B9C2 /* ioapi.c */,
+				04D9153C20EFA1850042B9C2 /* mztools.c */,
+				04D9153D20EFA1850042B9C2 /* crypt.h */,
+				04D9153E20EFA1850042B9C2 /* zip.h */,
+				04D9153F20EFA1850042B9C2 /* unzip.h */,
+				04D9154020EFA1850042B9C2 /* mztools.h */,
+				04D9154120EFA1850042B9C2 /* ioapi.h */,
+			);
+			path = minizip;
+			sourceTree = "<group>";
+		};
+		04D9154620EFA1850042B9C2 /* aes */ = {
+			isa = PBXGroup;
+			children = (
+				04D9154720EFA1850042B9C2 /* prng.h */,
+				04D9154820EFA1850042B9C2 /* aeskey.c */,
+				04D9154920EFA1850042B9C2 /* hmac.c */,
+				04D9154A20EFA1850042B9C2 /* aestab.h */,
+				04D9154B20EFA1850042B9C2 /* pwd2key.h */,
+				04D9154C20EFA1850042B9C2 /* aescrypt.c */,
+				04D9154D20EFA1850042B9C2 /* fileenc.c */,
+				04D9154E20EFA1850042B9C2 /* aesopt.h */,
+				04D9154F20EFA1850042B9C2 /* aes_via_ace.h */,
+				04D9155020EFA1850042B9C2 /* sha1.c */,
+				04D9155120EFA1850042B9C2 /* brg_types.h */,
+				04D9155220EFA1850042B9C2 /* entropy.h */,
+				04D9155320EFA1850042B9C2 /* hmac.h */,
+				04D9155420EFA1850042B9C2 /* brg_endian.h */,
+				04D9155520EFA1850042B9C2 /* prng.c */,
+				04D9155620EFA1850042B9C2 /* aes.h */,
+				04D9155720EFA1850042B9C2 /* pwd2key.c */,
+				04D9155820EFA1850042B9C2 /* aestab.c */,
+				04D9155920EFA1850042B9C2 /* sha1.h */,
+				04D9155A20EFA1850042B9C2 /* fileenc.h */,
+				04D9155B20EFA1850042B9C2 /* entropy.c */,
+			);
+			path = aes;
+			sourceTree = "<group>";
+		};
 		04F21A021ECB73AA0074978D /* macOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -1188,6 +1313,7 @@
 		E83283C21D46C62E000B029E /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				04D9153720EFA1850042B9C2 /* SSZipArchive */,
 				E83283C31D46C62E000B029E /* Reachability */,
 			);
 			path = Vendor;
@@ -1429,9 +1555,12 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04D9157320EFA1850042B9C2 /* entropy.h in Headers */,
 				E8A8D1EB1D3057A90022931E /* MSUserDefaults.h in Headers */,
+				04D9156C20EFA1850042B9C2 /* pwd2key.h in Headers */,
 				38F1944E1DADB93100D3E0FE /* MSHttpSenderPrivate.h in Headers */,
 				E80EB1071D50273700C9003F /* MSSenderCall.h in Headers */,
+				04D9156B20EFA1850042B9C2 /* aestab.h in Headers */,
 				E84B8E321D235209006FD231 /* MSSender.h in Headers */,
 				3844FF1F1E8C2716003E9194 /* MSLogWithProperties.h in Headers */,
 				387C758F1D64E50800D68CC1 /* MSServiceCommon.h in Headers */,
@@ -1441,9 +1570,14 @@
 				3844FF221E8C2716003E9194 /* MSAbstractLog.h in Headers */,
 				F803BBF31E8E3677004B1E7A /* MSCustomProperties.h in Headers */,
 				B2CD74571F22BB710070E7DF /* MSWrapperSdk.h in Headers */,
+				04D9157B20EFA1850042B9C2 /* fileenc.h in Headers */,
 				3849BA7A1EF314440072E3E0 /* MSDBStorage.h in Headers */,
+				04D9156820EFA1850042B9C2 /* prng.h in Headers */,
+				04D9157520EFA1850042B9C2 /* brg_endian.h in Headers */,
 				6E3E2C9E1D35701000B1EE50 /* MSLog.h in Headers */,
+				04D9157220EFA1850042B9C2 /* brg_types.h in Headers */,
 				354274212016769C00BE766F /* MSChannelProtocol.h in Headers */,
+				04D9157A20EFA1850042B9C2 /* sha1.h in Headers */,
 				35D0B7531DDFABFD003EACCD /* MSWrapperLogger.h in Headers */,
 				3542742320167DD500BE766F /* MSEnable.h in Headers */,
 				354274202016769C00BE766F /* MSChannelGroupProtocol.h in Headers */,
@@ -1458,7 +1592,11 @@
 				E8753D6E1D4BE53F00241513 /* MSSenderUtil.h in Headers */,
 				045C85101FE0B1D900089540 /* MSSessionContext.h in Headers */,
 				E8E48F951D50FF4300A8C1B0 /* MSSenderCallDelegate.h in Headers */,
+				04D9156320EFA1850042B9C2 /* mztools.h in Headers */,
 				E83283C61D46C62E000B029E /* MS_Reachability.h in Headers */,
+				04D9156520EFA1850042B9C2 /* SSZipArchive.h in Headers */,
+				04D9156420EFA1850042B9C2 /* ioapi.h in Headers */,
+				04D9156220EFA1850042B9C2 /* unzip.h in Headers */,
 				6E04016B1D1C9E1F0051BCFA /* MSConstants.h in Headers */,
 				B2CD74AF1F22BE270070E7DF /* MSUtility+Date.h in Headers */,
 				047EBBA01FE3086B009BB1C8 /* MSSessionHistoryInfo.h in Headers */,
@@ -1467,6 +1605,7 @@
 				B2CD749D1F22BE270070E7DF /* MSConstants+Internal.h in Headers */,
 				384772A61DA5691F009365DE /* MSSenderDelegate.h in Headers */,
 				D38023E91E6EFC7C00466558 /* MSStartServiceLog.h in Headers */,
+				04D9156120EFA1850042B9C2 /* zip.h in Headers */,
 				387C76FD1D6C9CF100D68CC1 /* MSServiceAbstract.h in Headers */,
 				B2CD74A61F22BE270070E7DF /* MSUtility+Application.h in Headers */,
 				B2CD74AC1F22BE270070E7DF /* MSUtility+ApplicationPrivate.h in Headers */,
@@ -1480,20 +1619,26 @@
 				B2CD745E1F22BBBB0070E7DF /* MSWrapperSdkInternal.h in Headers */,
 				04754F431EA980FD002CBA46 /* MSDeviceTrackerPrivate.h in Headers */,
 				386A69ED1FD8843D0057B316 /* MSKeychainUtilPrivate.h in Headers */,
+				04D9157720EFA1850042B9C2 /* aes.h in Headers */,
 				38C633C91FDF163D005F40C9 /* MSAppDelegateUtil.h in Headers */,
 				3844FF211E8C2716003E9194 /* MSDevice.h in Headers */,
 				6E04016C1D1C9E1F0051BCFA /* AppCenter.h in Headers */,
+				04D9156020EFA1850042B9C2 /* crypt.h in Headers */,
 				E84B8E351D235226006FD231 /* MSHttpSender.h in Headers */,
 				6E171B601D234717000DC480 /* MSLogContainer.h in Headers */,
+				04D9157020EFA1850042B9C2 /* aes_via_ace.h in Headers */,
+				04D9156F20EFA1850042B9C2 /* aesopt.h in Headers */,
 				B2CD74C11F22BE270070E7DF /* MSUtility+StringFormatting.h in Headers */,
 				38C447241ECE5352002E1B11 /* MSAppDelegateForwarderPrivate.h in Headers */,
 				B2CD74BB1F22BE270070E7DF /* MSUtility+File.h in Headers */,
+				04D9157420EFA1850042B9C2 /* hmac.h in Headers */,
 				6EF628F41D371B1600CAFF64 /* MSChannelUnitConfiguration.h in Headers */,
 				6E04016F1D1C9E460051BCFA /* MSAppCenterInternal.h in Headers */,
 				38C633C71FDF15DD005F40C9 /* MSCustomApplicationDelegate.h in Headers */,
 				6E0401701D1C9E460051BCFA /* MSService.h in Headers */,
 				6E0401711D1C9E460051BCFA /* MSServiceInternal.h in Headers */,
 				B2CD74A01F22BE270070E7DF /* MSUtility.h in Headers */,
+				04D9156620EFA1850042B9C2 /* Common.h in Headers */,
 				385AD9221D95898D008B354A /* MSServiceAbstractProtected.h in Headers */,
 				3844FF131E8C22CC003E9194 /* MSAbstractLogInternal.h in Headers */,
 				381C91E91D3DB65D004512F1 /* MSDeviceTracker.h in Headers */,
@@ -1922,20 +2067,28 @@
 			files = (
 				6E0401571D1C9AAA0051BCFA /* MSAppCenter.m in Sources */,
 				3592ABA81DC90E3600EF4592 /* MSLogger.m in Sources */,
+				04D9157C20EFA1850042B9C2 /* entropy.c in Sources */,
 				B2CD74B21F22BE270070E7DF /* MSUtility+Date.m in Sources */,
 				6EF628F51D371B1600CAFF64 /* MSChannelUnitConfiguration.m in Sources */,
 				B2CD74A31F22BE270070E7DF /* MSUtility.m in Sources */,
 				6E171B611D234717000DC480 /* MSLogContainer.m in Sources */,
+				04D9156920EFA1850042B9C2 /* aeskey.c in Sources */,
 				B2CD74B81F22BE270070E7DF /* MSUtility+Environment.m in Sources */,
 				047EBB9D1FE30842009BB1C8 /* MSSessionHistoryInfo.m in Sources */,
 				3889933A1E29B26D00C27B36 /* MSAppCenterErrors.m in Sources */,
 				B2FD53631E56501B0050F909 /* MSDeviceHistoryInfo.m in Sources */,
+				04D9157920EFA1850042B9C2 /* aestab.c in Sources */,
 				3849BA7C1EF3145A0072E3E0 /* MSDBStorage.m in Sources */,
+				04D9156E20EFA1850042B9C2 /* fileenc.c in Sources */,
 				F803BBF41E8E3677004B1E7A /* MSCustomProperties.m in Sources */,
+				04D9155C20EFA1850042B9C2 /* unzip.c in Sources */,
 				B28E41D52076ECFE00CC6AD8 /* MSUtility+PropertyValidation.m in Sources */,
 				B2CD74881F22BD910070E7DF /* MSLogDBStorage.m in Sources */,
+				04D9156A20EFA1850042B9C2 /* hmac.c in Sources */,
 				E84B8E361D235226006FD231 /* MSHttpSender.m in Sources */,
+				04D9157820EFA1850042B9C2 /* pwd2key.c in Sources */,
 				D38024061E7126F500466558 /* MSServiceAbstract.m in Sources */,
+				04D9157120EFA1850042B9C2 /* sha1.c in Sources */,
 				B2CD74C41F22BE270070E7DF /* MSUtility+StringFormatting.m in Sources */,
 				E84B8E301D2351DB006FD231 /* MSChannelGroupDefault.m in Sources */,
 				B2CD74BE1F22BE270070E7DF /* MSUtility+File.m in Sources */,
@@ -1945,6 +2098,8 @@
 				E88EBBED1D2C612E007E7785 /* MSAbstractLog.m in Sources */,
 				045BC3171E3FD88600B6C960 /* MSKeychainUtil.m in Sources */,
 				35D0B7541DDFABFD003EACCD /* MSWrapperLogger.m in Sources */,
+				04D9157620EFA1850042B9C2 /* prng.c in Sources */,
+				04D9156720EFA1850042B9C2 /* SSZipArchive.m in Sources */,
 				B2CD745A1F22BB710070E7DF /* MSWrapperSdk.m in Sources */,
 				3844FF201E8C2716003E9194 /* MSDevice.m in Sources */,
 				6E0684641D36BC8D00A8CC6C /* MSChannelUnitDefault.m in Sources */,
@@ -1953,9 +2108,13 @@
 				045C85151FE0B4F500089540 /* MSSessionContext.m in Sources */,
 				E83283C71D46C62E000B029E /* MS_Reachability.m in Sources */,
 				E8010E6B1D2DD4EF0035196F /* MSLogWithProperties.m in Sources */,
+				04D9155E20EFA1850042B9C2 /* ioapi.c in Sources */,
 				E8A8D1EC1D3057A90022931E /* MSUserDefaults.m in Sources */,
 				04754F421EA980FD002CBA46 /* MSDeviceTracker.m in Sources */,
+				04D9155D20EFA1850042B9C2 /* zip.c in Sources */,
 				BA682E63DDB55EED56809831 /* MSIngestionSender.m in Sources */,
+				04D9155F20EFA1850042B9C2 /* mztools.c in Sources */,
+				04D9156D20EFA1850042B9C2 /* aescrypt.c in Sources */,
 				B2CD74A91F22BE270070E7DF /* MSUtility+Application.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
