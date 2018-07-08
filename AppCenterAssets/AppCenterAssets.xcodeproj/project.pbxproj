@@ -735,10 +735,10 @@
 				0482865820E27B62005FEFD8 /* MSAssetsDownloadHandler.m */,
 				0431061020E9311500F42296 /* MSAssetsUpdateUtilities.h */,
 				0431061120E9312600F42296 /* MSAssetsUpdateUtilities.m */,
-				0431074020EA726600F42296 /* MSAssetsErrorUtils.h */,
-				0431074120EA727B00F42296 /* MSAssetsErrorUtils.m */,
 				0431074320EB48F900F42296 /* MSAssetsUpdateUtilities+JWT.h */,
 				0431074420EB490B00F42296 /* MSAssetsUpdateUtilities+JWT.m */,
+				0431074020EA726600F42296 /* MSAssetsErrorUtils.h */,
+				0431074120EA727B00F42296 /* MSAssetsErrorUtils.m */,
 			);
 			path = Util;
 			sourceTree = "<group>";

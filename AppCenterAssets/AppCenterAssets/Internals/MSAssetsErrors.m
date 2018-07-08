@@ -40,6 +40,7 @@ NSString *kMSACDownloadPackageInvalidFileErrorDesc(NSString *filePath) {
 }
 
 #pragma mark - File error descriptions
+
 NSString *kMSACDeleteFileErrorDesc(NSString *filePath) {
     return [[NSString alloc] initWithFormat: @"Unable to delete file at %@", filePath];
 };
