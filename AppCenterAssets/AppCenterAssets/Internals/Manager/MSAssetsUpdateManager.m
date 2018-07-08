@@ -284,7 +284,7 @@ static NSString *const UnzippedFolderName = @"unzipped";
     NSString *entryPoint = [[self updateUtilities] findEntryPointInFolder:newUpdateFolderPath
                                                          expectedFileName:expectedEntryPointFileName
                                                                     error:error];
-    if (error) {
+    if (*error) {
         return nil;
     }
     if ([MSUtility fileExistsForPathComponent:newUpdateMetadataPath]) {

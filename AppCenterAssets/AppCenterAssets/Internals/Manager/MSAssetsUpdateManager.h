@@ -1,5 +1,5 @@
 #import "MSAssetsLocalPackage.h"
-#import "MSAssetsUpdateUtilities.h"
+#import "MSAssetsUpdateUtilities+JWT.h"
 
 /**
  * Manager responsible for update read/write actions.

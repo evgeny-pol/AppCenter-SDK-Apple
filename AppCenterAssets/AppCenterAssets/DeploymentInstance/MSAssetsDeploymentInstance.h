@@ -1,4 +1,4 @@
-#import "MSAssetsUpdateUtilities.h"
+#import "MSAssetsUpdateUtilities+JWT.h"
 #import "MSAssetsUpdateManager.h"
 #import "MSAssetsDelegate.h"
 #import "MSAssetsLocalPackage.h"

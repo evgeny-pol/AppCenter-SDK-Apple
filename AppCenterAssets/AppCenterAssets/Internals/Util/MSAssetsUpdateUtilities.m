@@ -11,12 +11,7 @@
 NSString *const ManifestFolderPrefix = @"Assets";
 NSString *const AssetsFolderName = @"assets";
 
-@interface MSAssetsUpdateUtilities ()
 
-// Private Access
-@property MSAssetsSettingManager *settingManager;
-
-@end
 
 
 @implementation MSAssetsUpdateUtilities
@@ -215,7 +210,9 @@ NSString *const AssetsFolderName = @"assets";
     for (NSURL *file in folderFiles) {
         NSString *fileName = [[file absoluteString] lastPathComponent];
         NSString *fullFilePath = [folderPath stringByAppendingPathComponent:fileName];
-        if ([file hasDirectoryPath]) {
+        BOOL isDir;
+        NSString *fullPath;
+        if ((fullPath = [file path]) && [[NSFileManager defaultManager] fileExistsAtPath:fullPath isDirectory:&isDir] && isDir) {
             NSString *mainBundlePathInFolder = [self findEntryPointInFolder:fullFilePath
                                                            expectedFileName:expectedFileName
                                                                       error:error];

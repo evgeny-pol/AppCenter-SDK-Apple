@@ -1,6 +1,6 @@
 #import "MSAssets.h"
 #import "MSAssetsDeploymentInstanceState.h"
-#import "MSAssetsUpdateUtilities.h"
+#import "MSAssetsUpdateUtilities+JWT.h"
 #import "MSAssetsLocalPackage.h"
 #import "MSAssetsErrors.h"
 #import "MSAssetsErrorUtils.h"
