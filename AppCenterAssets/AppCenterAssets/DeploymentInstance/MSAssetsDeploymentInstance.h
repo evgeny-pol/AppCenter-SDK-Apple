@@ -117,7 +117,7 @@ typedef void (^MSAssetsDownloadInstallHandler)(NSError * _Nullable error);
 - (void) doDownloadAndInstall:(MSAssetsRemotePackage *)remotePackage
                   syncOptions:(MSAssetsSyncOptions *)syncOptions
                 configuration:(MSAssetsConfiguration *)configuration
-                      handler:(MSDownloadInstallHandler)handler;
+                      handler:(MSAssetsDownloadInstallHandler)handler;
 
 /**
  * Gets native Assets configuration.
