@@ -15,6 +15,7 @@
 #import "MSAssetsSyncOptions.h"
 #import "MSAssetsSyncStatus.h"
 #import "MSAssetsRemotePackage.h"
+#import "MSAlertController.h"
 
 @implementation MSAssetsDeploymentInstance {
     BOOL _didUpdateProgress;
@@ -208,12 +209,7 @@ static BOOL isRunningBinaryVersion = NO;
     MSLogInfo([MSAssets logTag], @"Check for update called");
 }
 
-- (void)sync:(MSAssetsSyncOptions *)syncOptions withCallback:(MSAssetsSyncBlock)callback notifyClientAboutSyncStatus:(BOOL)notifySyncStatus notifyProgress:(BOOL)notifyProgress {
-
-    if (syncOptions) {};
-    if (callback) {};
-    if (notifySyncStatus) {};
-    if (notifyProgress) {};
+- (void)sync:(MSAssetsSyncOptions *)syncOptions {
 
     if (self.instanceState.syncInProgress){
         MSLogInfo([MSAssets logTag], @"Sync already in progress.");
@@ -242,23 +238,31 @@ static BOOL isRunningBinaryVersion = NO;
 
     [self notifyAboutSyncStatusChange: MSAssetsSyncStatusCheckingForUpdate instanceState:[self instanceState]];
 
+    __weak typeof(self) weakSelf = self;
     [self checkForUpdate:syncOptions.deploymentKey withCompletionHandler:^( MSAssetsRemotePackage *remotePackage,  NSError * _Nullable error) {
+
+        typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) {
+            return;
+        }
+
         if (error) {
             // ???
         }
+
         BOOL updateShouldBeIgnored = remotePackage && remotePackage.failedInstall && syncOptions.ignoreFailedUpdates;
 
         if (!remotePackage || updateShouldBeIgnored){
             if (updateShouldBeIgnored){
                 MSLogInfo([MSAssets logTag], @"An update is available, but it is being ignored due to having been previously rolled back.");
             }
-            MSAssetsLocalPackage *currentPackage = [self getCurrentPackage];
+            MSAssetsLocalPackage *currentPackage = [strongSelf getCurrentPackage];
             if (currentPackage && currentPackage.isPending) {
-                [self notifyAboutSyncStatusChange:MSAssetsSyncStatusUpdateInstalled instanceState:[self instanceState]];
+                [strongSelf notifyAboutSyncStatusChange:MSAssetsSyncStatusUpdateInstalled instanceState:[strongSelf instanceState]];
             } else {
-                [self notifyAboutSyncStatusChange:MSAssetsSyncStatusUpToDate instanceState:[self instanceState]];
+                [strongSelf notifyAboutSyncStatusChange:MSAssetsSyncStatusUpToDate instanceState:[strongSelf instanceState]];
             }
-            self.instanceState.syncInProgress = NO;
+            strongSelf.instanceState.syncInProgress = NO;
         }
         else if (syncOptions.updateDialog) {
             MSAssetsUpdateDialog *updateDialogOptions = syncOptions.updateDialog;
@@ -275,15 +279,15 @@ static BOOL isRunningBinaryVersion = NO;
             if (updateDialogOptions.appendReleaseDescription && (remotePackage.description.length == 0)) {
                 message = [updateDialogOptions.descriptionPrefix stringByAppendingFormat:@" %@", remotePackage.description];
             }
-            [self notifyAboutSyncStatusChange:MSAssetsSyncStatusAwaitingUserAction instanceState:[self instanceState]];
+            [strongSelf notifyAboutSyncStatusChange:MSAssetsSyncStatusAwaitingUserAction instanceState:[strongSelf instanceState]];
 
-            UIAlertController* alert = [UIAlertController alertControllerWithTitle:updateDialogOptions.title                                                                  message:message preferredStyle:UIAlertControllerStyleAlert];
+            MSAlertController *alert = [MSAlertController alertControllerWithTitle:updateDialogOptions.title message:message preferredStyle:UIAlertControllerStyleAlert];
 
             [alert.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 
             UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:acceptButtonText style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                 if (action) {};
-                [self doDownloadAndInstall:remotePackage syncOptions:syncOptions configuration:config handler:^(NSError * _Nullable error_internal) {
+                [strongSelf doDownloadAndInstall:remotePackage syncOptions:syncOptions configuration:config handler:^(NSError * _Nullable error_internal) {
                     if (error_internal) {};
                 }];
             }];
@@ -292,27 +296,20 @@ static BOOL isRunningBinaryVersion = NO;
             if (remotePackage.isMandatory) {
                 UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:declineButtonText style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                     if (action) {};
-                    [self notifyAboutSyncStatusChange:MSAssetsSyncStatusUpdateIgnored instanceState:[self instanceState]];
-                    //[self syncCompleted:callback];
+                    [strongSelf notifyAboutSyncStatusChange:MSAssetsSyncStatusUpdateIgnored instanceState:[strongSelf instanceState]];
                 }];
                 [alert addAction:cancelAction];
             }
 
-            UIViewController *presentingController = nil;//[UIApplication sharedApplication].keyWindow.rootViewController;
+            [alert show];
 
-            if (presentingController == nil) {
-                MSLogInfo([MSAssets logTag], @"Tried to display alert view but there is no application window");
-                return;
-            }
-
-            [presentingController presentViewController:alert animated:YES completion:nil];
             //https://stackoverflow.com/questions/21075540/presentviewcontrolleranimatedyes-view-will-not-appear-until-user-taps-again
             //below fixes issue when alert was not shown until tap
-            dispatch_async(dispatch_get_main_queue(), ^{});
+            //dispatch_async(dispatch_get_main_queue(), ^{});
         }
         else {
             MSLogInfo([MSAssets logTag], @"Do download and install");
-            [self doDownloadAndInstall:remotePackage syncOptions:syncOptions configuration:config handler:^(NSError * _Nullable error_internal) {
+            [strongSelf doDownloadAndInstall:remotePackage syncOptions:syncOptions configuration:config handler:^(NSError * _Nullable error_internal) {
                 if (error_internal) {};
             }];
         }

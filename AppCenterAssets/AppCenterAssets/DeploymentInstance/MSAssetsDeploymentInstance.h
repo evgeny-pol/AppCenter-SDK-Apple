@@ -126,7 +126,7 @@ typedef void (^MSAssetsDownloadInstallHandler)(NSError * _Nullable error);
  */
 - (MSAssetsConfiguration *)getConfigurationWithError:(NSError * __autoreleasing*)error;
 
-- (void)sync:(MSAssetsSyncOptions *)syncOptions withCallback:(MSAssetsSyncBlock)callback notifyClientAboutSyncStatus:(BOOL)notifySyncStatus notifyProgress:(BOOL)notifyProgress;
+- (void)sync:(MSAssetsSyncOptions *)syncOptions;
 
 @property (nonatomic, copy, nonnull) NSString *deploymentKey;
 @property (nonatomic, copy, nonnull) NSString *serverUrl;
