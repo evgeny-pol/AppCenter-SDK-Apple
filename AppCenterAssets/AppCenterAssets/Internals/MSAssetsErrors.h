@@ -30,6 +30,7 @@ extern NSString const *kMSACSignatureVerificationIntegrityCheckErrorDesc;
 extern NSString const *kMSACSignatureVerificationCodeSigningCheckErrorDesc;
 extern NSString *kMSACSignatureVerificationNoSignatureErrorDesc(NSString *signatureFilePath);
 extern NSString *kMSACDownloadPackageErrorDesc(NSString *downloadUrl);
+extern NSString *kMSACDownloadPackageInvalidFileErrorDesc(NSString *filePath);
 extern NSString *kMSACDownloadPackageStatusCodeErrorDesc(NSString *downloadUrl, long statusCode);
 extern NSString *kMSACDeleteFileErrorDesc(NSString *filePath);
 extern NSString *kMSACCreateFileErrorDesc(NSString *filePath);

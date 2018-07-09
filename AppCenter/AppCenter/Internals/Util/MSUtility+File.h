@@ -98,4 +98,31 @@ extern NSString *MSUtilityFileCategory;
  */
 + (NSURL *)fullURLForPathComponent:(NSString *)filePathComponent;
 
+/**
+ * Moves file from one folder to another.
+ *
+ * @param fileToMove  path to the file to be moved.
+ * @param newFolder   path to be moved to.
+ * @param newFileName new name for the file to be moved.
+ * @return a flag indicating success or fail.
+ */
++ (BOOL)moveFile:(NSString *)fileToMove toFolder:(NSString *)newFolder withNewName:(NSString*)newFileName;
+
+/**
+ * Copies the contents of one directory to another. Copies all the contents recursively.
+ *
+ * @param sourceDir path to the directory to copy files from.
+ * @param destDir   path to the directory to copy files to.
+ * @return a flag indicating success or fail.
+ */
++ (BOOL)copyDirectoryContentsFromPathComponent:(NSString *)sourceDir toPathComponent:(NSString *)destDir;
+
+/**
+ * Gets files from archive.
+ *
+ * @param pathComponent path to archive.
+ * @param destination path for the unzipped files to be saved.
+ * @return a flag indicating success or fail.
+ */
++ (BOOL)unzipFileAtPathComponent:(NSString *)pathComponent toPathComponent:(NSString *)destination;
 @end

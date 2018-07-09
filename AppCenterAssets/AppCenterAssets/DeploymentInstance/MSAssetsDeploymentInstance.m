@@ -1,6 +1,6 @@
 #import "MSAssets.h"
 #import "MSAssetsDeploymentInstanceState.h"
-#import "MSAssetsUpdateUtilities.h"
+#import "MSAssetsUpdateUtilities+JWT.h"
 #import "MSAssetsLocalPackage.h"
 #import "MSAssetsErrors.h"
 #import "MSAssetsErrorUtils.h"
@@ -9,7 +9,7 @@
 #import "MSAssetsDownloadHandler.h"
 #import <UIKit/UIKit.h>
 #import "MSAssetsSettingManager.h"
-#import "MSAssetsFileUtils.h"
+#import "MSUtility+File.h"
 #import "MSAssetsInstallMode.h"
 #import "MSAssetsUpdateState.h"
 #import "MSAssetsSyncOptions.h"
@@ -59,12 +59,12 @@ static BOOL isRunningBinaryVersion = NO;
             *error = [MSAssetsErrorUtils getNoAppVersionError];
             return nil;
         }
-        _downloadHandler = [[MSAssetsDownloadHandler alloc] initWithOperationQueue: dispatch_get_main_queue()];
-        _updateUtilities = [[MSAssetsUpdateUtilities alloc] init];
-        _updateManager = [[MSAssetsUpdateManager alloc] init];
-        _acquisitionManager = [[MSAssetsAcquisitionManager alloc] init];
+        _downloadHandler = nil;
         _settingManager = [[MSAssetsSettingManager alloc] init];
-        _telemetryManager = [[MSAssetsTelemetryManager alloc] init];
+        _updateUtilities = [[MSAssetsUpdateUtilities alloc] initWithSettingManager:_settingManager];
+        _updateManager = [[MSAssetsUpdateManager alloc] initWithUpdateUtils:_updateUtilities];
+        _acquisitionManager = [[MSAssetsAcquisitionManager alloc] init];
+        _telemetryManager = [[MSAssetsTelemetryManager alloc] initWithSettingManager:_settingManager];
         _restartManager = [[MSAssetsRestartManager alloc] initWithRestartHandler:^(BOOL onlyIfUpdateIsPending, MSAssetsRestartListener restartListener) {
             [self restartInternal:restartListener onlyIfUpdateIsPending:onlyIfUpdateIsPending];
         }];
@@ -353,6 +353,7 @@ static BOOL isRunningBinaryVersion = NO;
         completeHandler(nil, nil);
         return;
     }
+    self.downloadHandler = [[MSAssetsDownloadHandler alloc] initWithOperationQueue: dispatch_get_main_queue()];
     __weak typeof(self) weakSelf = self;
     [[self downloadHandler] downloadWithUrl:[updatePackage downloadUrl]
                                      toPath:downloadFile
@@ -396,7 +397,7 @@ static BOOL isRunningBinaryVersion = NO;
                                    return;                                   
                                }
                            } else {
-                               BOOL result = [MSAssetsFileUtils moveFile:downloadFile toFolder:newUpdateFolderPath withNewName:strongSelf->_entryPoint];
+                               BOOL result = [MSUtility moveFile:downloadFile toFolder:newUpdateFolderPath withNewName:strongSelf->_entryPoint];
                                if (!result) {
                                    error = [MSAssetsErrorUtils getFileMoveError:downloadFile destination:newUpdateFolderPath];
                                    completeHandler(nil, error);
@@ -443,6 +444,9 @@ static BOOL isRunningBinaryVersion = NO;
         if (!strongSelf) {
             return;
         }
+        
+        // Destroy the handler because each time a new handler should be created.
+        strongSelf.downloadHandler = nil;
         if (error) {
             [[strongSelf settingManager] saveFailedUpdate:remotePackage];
             handler(error);

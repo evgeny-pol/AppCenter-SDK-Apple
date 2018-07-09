@@ -3,6 +3,7 @@
 #import "MSAppCenterInternal.h"
 #import "MSLogger.h"
 #import "MSUtility+File.h"
+#import "SSZipArchive.h"
 
 /*
  * Workaround for exporting symbols from category object files.
@@ -206,6 +207,93 @@ static NSString *const kMSAppCenterBundleIdentifier = @"com.microsoft.appcenter"
   } else {
     return YES;
   }
+}
+
++ (BOOL)unzipFileAtPathComponent:(NSString *)pathComponent toPathComponent:(NSString *)destination {
+    NSURL *sourceFileURL = [[self appCenterDirectoryURL] URLByAppendingPathComponent:pathComponent];
+    if (!sourceFileURL) {
+        return NO;
+    }
+    NSURL *destinationFileURL = [[self appCenterDirectoryURL] URLByAppendingPathComponent:destination];
+    if (!destinationFileURL) {
+        return NO;
+    }
+    return [SSZipArchive unzipFileAtPath:[sourceFileURL path]
+                           toDestination:[destinationFileURL path]];
+}
+
++ (BOOL)copyDirectoryContentsFromPathComponent:(NSString *)sourceDir toPathComponent:(NSString *)destDir {
+    if (![MSUtility fileExistsForPathComponent:sourceDir]) {
+        MSLogInfo([MSAppCenter logTag], @"Error copying item at path %@ to path %@. Source path does not exist.", sourceDir, destDir);
+        return NO;
+    }
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL isDir;
+    NSURL *fullUrl = [[self appCenterDirectoryURL] URLByAppendingPathComponent:destDir];
+    NSString *fullPath;
+    if (!(fullPath = [fullUrl path]) || !([fileManager fileExistsAtPath:fullPath isDirectory:&isDir] && isDir)) {
+        if (![MSUtility createDirectoryAtURL:fullUrl]) {
+            MSLogInfo([MSAppCenter logTag], @"Error copying item at path %@ to path %@. Error creating destination directory.", sourceDir, destDir);
+            return NO;
+        }
+    }
+    
+    NSArray<NSURL *> *sourceFiles = [MSUtility contentsOfDirectory:sourceDir propertiesForKeys:nil];
+    for (NSURL *currentFile in sourceFiles) {
+        NSString *fileName = [currentFile lastPathComponent];
+        if ([MSUtility fileExistsForPathComponent:[sourceDir stringByAppendingPathComponent:fileName]]) {
+            if (![currentFile hasDirectoryPath]) {
+                NSError *error;
+                NSString *fromPath = [sourceDir stringByAppendingPathComponent:fileName];
+                NSString *toPath = [destDir stringByAppendingPathComponent:fileName];
+                NSURL *sourceFileURL = [[self appCenterDirectoryURL] URLByAppendingPathComponent:fromPath];
+                NSURL *destFileURL = [[self appCenterDirectoryURL] URLByAppendingPathComponent:toPath];
+                NSString *fullFromPath;
+                NSString *fullDestPath;
+                if (!sourceFileURL || !(fullFromPath = [sourceFileURL path]) || !destFileURL || !(fullDestPath = [destFileURL path])) {
+                    MSLogInfo([MSAppCenter logTag], @"Error copying item at path %@ to path %@. %@", fromPath, toPath, [error localizedDescription]);
+                    return NO;
+                }
+                if (![fileManager copyItemAtPath:fullFromPath toPath:fullDestPath error:&error]) {
+                    MSLogInfo([MSAppCenter logTag], @"Error copying item at path %@ to path %@. %@", fromPath, toPath, [error localizedDescription]);
+                    return NO;
+                }
+            }
+            else {
+                return [MSUtility copyDirectoryContentsFromPathComponent:[sourceDir stringByAppendingPathComponent:fileName]
+                                                    toPathComponent:[destDir stringByAppendingPathComponent:fileName]];
+            }
+        }
+    }
+    return YES;
+}
+
+
++ (BOOL)moveFile:(NSString *)fileToMove toFolder:(NSString *)newFolder withNewName:(NSString*)newFileName {
+    NSURL *fullUrl = [[self appCenterDirectoryURL] URLByAppendingPathComponent:newFolder];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (!([MSUtility fileExistsForPathComponent:newFolder] && [fullUrl hasDirectoryPath])) {
+        if (![MSUtility createDirectoryAtURL:fullUrl]) {
+            MSLogInfo([MSAppCenter logTag], @"Error moving item at path %@ to path %@. Error creating destination directory.", fileToMove, newFolder);
+            return NO;
+        }
+    }
+    
+    NSString *newFilePath = [newFolder stringByAppendingPathComponent:newFileName];
+    NSError *error;
+    NSURL *sourceFileURL = [[self appCenterDirectoryURL] URLByAppendingPathComponent:fileToMove];
+    NSURL *destURL = [[self appCenterDirectoryURL] URLByAppendingPathComponent:newFilePath];
+    NSString *fullSourceFilePath;
+    NSString *fullDestPath;
+    if (!sourceFileURL || !(fullSourceFilePath = [sourceFileURL path]) || !destURL || !(fullDestPath = [destURL path])) {
+        MSLogInfo([MSAppCenter logTag], @"Error moving item at path %@ to path %@. %@", fileToMove, newFilePath, [error localizedDescription]);
+        return NO;
+    }
+    if (![fileManager moveItemAtPath:fullSourceFilePath toPath:fullDestPath error:&error]) {
+        MSLogInfo([MSAppCenter logTag], @"Error moving item at path %@ to path %@. %@", fileToMove, newFilePath, [error localizedDescription]);
+        return NO;
+    }
+    return YES;
 }
 
 @end
