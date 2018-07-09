@@ -287,8 +287,7 @@ static BOOL isRunningBinaryVersion = NO;
 
             [alert.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 
-            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:acceptButtonText style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                if (action) {};
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:acceptButtonText style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction * action) {
                 __weak typeof(strongSelf) weakSelfLvl2 = strongSelf;
                 [strongSelf doDownloadAndInstall:remotePackage syncOptions:syncOptions configuration:config handler:^(NSError * _Nullable error_internal) {
                     if (error_internal) {
@@ -308,8 +307,7 @@ static BOOL isRunningBinaryVersion = NO;
             [alert addAction:defaultAction];
 
             if (remotePackage.isMandatory) {
-                UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:declineButtonText style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                    if (action) {};
+                UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:declineButtonText style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction * action) {
                     [strongSelf notifyAboutSyncStatusChange:MSAssetsSyncStatusUpdateIgnored instanceState:[strongSelf instanceState]];
                 }];
                 [alert addAction:cancelAction];
