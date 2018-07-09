@@ -29,6 +29,21 @@ static NSString *kMSAppSecretKey = @"appsecret=";
   return [stringBuffer copy];
 }
 
++ (NSString *)sha256WithData:(NSData *)oldData {
+    
+    unsigned char hashedData[CC_SHA256_DIGEST_LENGTH];
+    CC_SHA256(oldData.bytes, (CC_LONG)(oldData.length), hashedData);
+    
+    // Convert hashed data to NSString.
+    NSData *data = [NSData dataWithBytes:hashedData length:sizeof(hashedData)];
+    NSMutableString *stringBuffer = [NSMutableString stringWithCapacity:([data length] * 2)];
+    const unsigned char *dataBuffer = [data bytes];
+    for (NSUInteger i = 0; i < [data length]; i++) {
+        [stringBuffer appendFormat:@"%02x", dataBuffer[i]];
+    }
+    return [stringBuffer copy];
+}
+
 + (NSString *)appSecretFrom:(NSString *)string {
   NSArray *components = [string componentsSeparatedByString:@";"];
   if (components == nil || components.count == 0) {

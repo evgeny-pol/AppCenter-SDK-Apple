@@ -13,6 +13,7 @@
 #import <Foundation/Foundation.h>
 
 @interface NSString (Base64Addition)
+extern NSString *const CategoryReference;
 +(NSString *)stringFromBase64String:(NSString *)base64String;
 +(NSString *)stringFromBase64UrlEncodedString:(NSString *)base64UrlEncodedString;
 -(NSString *)base64String;
