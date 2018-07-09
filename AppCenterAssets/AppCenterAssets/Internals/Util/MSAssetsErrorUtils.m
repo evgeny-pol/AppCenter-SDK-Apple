@@ -54,6 +54,12 @@
     return [NSError errorWithDomain:kMSACErrorDomain code:kMSACDownloadPackageErrorCode userInfo:userInfo];
 }
 
++ (NSError *)getDownloadPackageErrorFilePath:(NSString *)filePath {
+    NSDictionary *userInfo = @{kMSACDownloadCodeErrorKey : kMSACDownloadPackageInvalidFileErrorDesc(filePath)};
+    return [NSError errorWithDomain:kMSACErrorDomain code:kMSACDownloadPackageErrorCode userInfo:userInfo];
+    
+}
+
 + (NSError *)getNoContentHashError {
     NSDictionary *userInfo = @{kMSACSignatureVerificationErrorKey : kMSACSignatureVerificationNoContentHashErrorDesc};
     return [NSError errorWithDomain:kMSACErrorDomain code:kMSACSignatureVerificationErrorCode userInfo:userInfo];

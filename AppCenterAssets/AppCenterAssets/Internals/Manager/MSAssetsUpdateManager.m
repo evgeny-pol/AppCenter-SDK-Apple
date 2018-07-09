@@ -2,7 +2,7 @@
 #import "MSAssetsPackageInfo.h"
 #import "MSUtility+File.h"
 #import "MSAssetsErrorUtils.h"
-#import "MSAssetsFileUtils.h"
+#import "MSUtility+File.h"
 #import "MSAssetsConstants.h"
 #import "MSLogger.h"
 #import "MSAssets.h"
@@ -123,20 +123,18 @@ static NSString *const UnzippedFolderName = @"unzipped";
 }
 
 - (NSString *)getMSAssetsPath {
-    NSString* assetsPath = [[MSUtility fullURLForPathComponent:@"Assets"] path];
-    if (![MSUtility fileExistsForPathComponent:assetsPath]) {
-        NSURL *result = [MSUtility createDirectoryForPathComponent:assetsPath];
+    if (![MSUtility fileExistsForPathComponent:@"Assets"]) {
+        NSURL *result = [MSUtility createDirectoryForPathComponent:@"Assets"];
         if (!result) {
-            MSLogError([MSAssets logTag], @"Can't create directory %@ for downloading file", assetsPath);
+            MSLogError([MSAssets logTag], @"Can't create Assets directory.");
             return nil;
         }
-        [result setResourceValue:@YES forKey:NSURLIsExcludedFromBackupKey error:nil];
     }
     /*if ([MSAssetsDeploymentInstance isUsingTestConfiguration]) {
         assetsPath = [assetsPath stringByAppendingPathComponent:@"TestPackages"];
     }*/
 
-    return assetsPath;
+    return @"Assets";
 }
 
 - (NSString *)getDownloadFilePath {
@@ -162,7 +160,7 @@ static NSString *const UnzippedFolderName = @"unzipped";
 - (void)unzipPackage:(NSString *)filePath
                error:(NSError * __autoreleasing *)error {
     NSString *unzippedFolderPath = [self getUnzippedFolderPath];
-    BOOL result = [MSAssetsFileUtils unzipFileAtPath:filePath toDestination:unzippedFolderPath];
+    BOOL result = [MSUtility unzipFileAtPathComponent:filePath toPathComponent:unzippedFolderPath];
     if (result) {
         result = [MSUtility deleteItemForPathComponent:filePath];
         if (!result) {
@@ -272,7 +270,7 @@ static NSString *const UnzippedFolderName = @"unzipped";
             return nil;
         }
     }
-    BOOL result = [MSAssetsFileUtils copyDirectoryContentsFrom:unzippedFolderPath to:newUpdateFolderPath];
+    BOOL result = [MSUtility copyDirectoryContentsFromPathComponent:unzippedFolderPath toPathComponent:newUpdateFolderPath];
     if (!result) {
         *error = [MSAssetsErrorUtils getFileCopyError:unzippedFolderPath destination:newUpdateFolderPath];
         return nil;
@@ -286,7 +284,7 @@ static NSString *const UnzippedFolderName = @"unzipped";
     NSString *entryPoint = [[self updateUtilities] findEntryPointInFolder:newUpdateFolderPath
                                                          expectedFileName:expectedEntryPointFileName
                                                                     error:error];
-    if (error) {
+    if (*error) {
         return nil;
     }
     if ([MSUtility fileExistsForPathComponent:newUpdateMetadataPath]) {

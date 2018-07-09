@@ -1,6 +1,7 @@
 #import "MSAssetsDownloadHandler.h"
 #import "MSAssetsDownloadPackageResult.h"
 #import "MSAssetsErrorUtils.h"
+#import "MSUtility+File.h"
 
 @implementation MSAssetsDownloadHandler {
     // Header chars used to determine if the file is a zip.
@@ -17,8 +18,18 @@
                   toPath:(NSString *)downloadFilePath
    withProgressCallback:(MSDownloadProgressHandler)progressCallback
    andCompletionHandler:(MSDownloadCompletionHandler)completionHandler {
-    self.outputFileStream = [NSOutputStream outputStreamToFileAtPath:downloadFilePath
+    
+    // Need to retrieve a full path to the file as we are not working with `MSUtility` here.
+    NSURL *fullUrl = [MSUtility fullURLForPathComponent: downloadFilePath];
+    NSString * path;
+    if (!fullUrl || !(path = [fullUrl path])) {
+        NSError *error = [MSAssetsErrorUtils getDownloadPackageErrorFilePath:downloadFilePath];
+        completionHandler(nil, error);
+    }
+    self.outputFileStream = [NSOutputStream outputStreamToFileAtPath:path
                                                               append:NO];
+    [self.outputFileStream scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+ 
     self.downloadUrl = url;
     self.progressCallback = progressCallback;
     self.completionHandler = completionHandler;
@@ -68,13 +79,13 @@ didReceiveResponse:(NSURLResponse *)response
 - (void)URLSession:(NSURLSession *) __unused session
           dataTask:(NSURLSessionDataTask *) dataTask
     didReceiveData:(NSData *)data {
+    const uint8_t *bytes = (const uint8_t*)[data bytes];
     if (self.receivedContentLength < 4) {
         for (int i = 0; i < (int)[data length]; i++) {
             int headerOffset = (int)self.receivedContentLength + i;
             if (headerOffset >= 4) {
                 break;
             }
-            const char *bytes = [data bytes];
             _header[headerOffset] = bytes[i];
         }
     }
@@ -82,16 +93,16 @@ didReceiveResponse:(NSURLResponse *)response
     self.receivedContentLength = self.receivedContentLength + [data length];
     
     NSInteger bytesLeft = [data length];
-    
+    NSInteger bytesWritten = -1;
     do {
-        NSInteger bytesWritten = [self.outputFileStream write:[data bytes]
+        bytesWritten = [self.outputFileStream write:bytes
                                                     maxLength:bytesLeft];
         if (bytesWritten == -1) {
             break;
         }
         bytesLeft -= bytesWritten;
     } while (bytesLeft > 0);
-    
+    if (bytesWritten > 0) {
     if (self.progressCallback != nil) {
         self.progressCallback(self.expectedContentLength, self.receivedContentLength);
     }
@@ -105,6 +116,7 @@ didReceiveResponse:(NSURLResponse *)response
         if (self.completionHandler != nil) {
             self.completionHandler(nil, [self.outputFileStream streamError]);
         }
+    }
     }
 }
 

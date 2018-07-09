@@ -12,6 +12,7 @@
 + (NSError *)getNoSignatureError;
 + (NSError *)getDownloadPackageError:(NSString *)downloadUrl statusCode:(NSInteger)statusCode;
 + (NSError *)getDownloadPackageError:(NSString *)downloadUrl;
++ (NSError *)getDownloadPackageErrorFilePath:(NSString *)filePath;
 + (NSError *)getNoContentHashError;
 + (NSError *)getUpdateParseError;
 + (NSError *)getUpdateError:(NSString *)errorString;
