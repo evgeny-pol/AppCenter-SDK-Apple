@@ -59,9 +59,26 @@
         }
 
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.result.text = info;
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Check for update results"
+                                                            message:info
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
         });
     }
+}
+- (void)didReceiveBytesForPackageDownloadProgress:(long long)receivedBytes totalBytes:(long long)totalBytes {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.result.hidden = false;
+        int percentage = (int) (((receivedBytes * 1.0) / totalBytes) * 100);
+        if (percentage == 100) {
+            self.result.hidden = true;
+        } else {
+            self.result.text = [[NSString alloc] initWithFormat:@"Downloading update: %d %%...", percentage];
+        }
+});
+    
 }
 
 - (void)didFailToQueryRemotePackageOnCheckForUpdate:(NSError *)error {

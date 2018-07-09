@@ -191,6 +191,8 @@
 		4B6A9EAD20E618760044589C /* MSAssetsReportSender.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6A9EAB20E618760044589C /* MSAssetsReportSender.m */; };
 		4B721CF120EA7FFC0040A566 /* MSAssetsStatusReportIdentifier.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B721CEF20EA7FFB0040A566 /* MSAssetsStatusReportIdentifier.h */; };
 		4B9421F420E28B2500289E0A /* MSAssetsUpdateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9421F320E28B2500289E0A /* MSAssetsUpdateManager.m */; };
+		4BE3179520F3561E006AEE79 /* MSAlertController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BE3179320F3561D006AEE79 /* MSAlertController.h */; };
+		4BE3179620F3561E006AEE79 /* MSAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE3179420F3561D006AEE79 /* MSAlertController.m */; };
 		6E0684381D35A3B900A8CC6C /* OCHamcrestIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E0684371D35A3B900A8CC6C /* OCHamcrestIOS.framework */; };
 		A31B561920DD093700D81CA1 /* MSAssetsDeploymentInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B561820DD093700D81CA1 /* MSAssetsDeploymentInstance.m */; };
 		A31B562820DD3FA000D81CA1 /* MSAssetsBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = A31B562720DD3FA000D81CA1 /* MSAssetsBuilder.m */; };
@@ -415,6 +417,8 @@
 		4B721CF020EA7FFB0040A566 /* MSAssetsStatusReportIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSAssetsStatusReportIdentifier.m; sourceTree = "<group>"; };
 		4B9421F320E28B2500289E0A /* MSAssetsUpdateManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsUpdateManager.m; sourceTree = "<group>"; };
 		4B9421F520E28B4400289E0A /* MSAssetsUpdateManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsUpdateManager.h; sourceTree = "<group>"; };
+		4BE3179320F3561D006AEE79 /* MSAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSAlertController.h; path = ../../Vendor/iOS/MSAlertController/MSAlertController.h; sourceTree = "<group>"; };
+		4BE3179420F3561D006AEE79 /* MSAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MSAlertController.m; path = ../../Vendor/iOS/MSAlertController/MSAlertController.m; sourceTree = "<group>"; };
 		4BE5528320E4D5EF00620DB1 /* MSAssetsDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsDelegate.h; sourceTree = "<group>"; };
 		6E0684371D35A3B900A8CC6C /* OCHamcrestIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCHamcrestIOS.framework; path = ../../Vendor/iOS/OCHamcrest/OCHamcrestIOS.framework; sourceTree = "<group>"; };
 		A31B561820DD093700D81CA1 /* MSAssetsDeploymentInstance.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsDeploymentInstance.m; sourceTree = "<group>"; };
@@ -531,6 +535,8 @@
 			isa = PBXGroup;
 			children = (
 				04E4317020F3960A00BA9021 /* Base64 */,
+				4BE3179320F3561D006AEE79 /* MSAlertController.h */,
+				4BE3179420F3561D006AEE79 /* MSAlertController.m */,
 				043106D420EA48D600F42296 /* JWT */,
 			);
 			name = Vendor;
@@ -1069,6 +1075,7 @@
 				E85547F81D2D6A7D002DF6E2 /* MSAssets.h in Headers */,
 				0431072F20EA48D700F42296 /* JWTAlgorithmNone.h in Headers */,
 				0431071220EA48D600F42296 /* JWTClaimsSetVerifier.h in Headers */,
+				4BE3179520F3561E006AEE79 /* MSAlertController.h in Headers */,
 				0431071B20EA48D700F42296 /* JWTAlgorithmDataHolderChain.h in Headers */,
 				0431072B20EA48D700F42296 /* JWTAlgorithmESBase.h in Headers */,
 			);
@@ -1384,6 +1391,7 @@
 				A3898E7C20DB9D7800E9BF37 /* MSAssetsConstants.m in Sources */,
 				A374CD4B20EF71F400BE4EC8 /* MSAssetsIllegalArgumentException.m in Sources */,
 				0431072720EA48D700F42296 /* JWTCryptoSecurity.m in Sources */,
+				4BE3179620F3561E006AEE79 /* MSAlertController.m in Sources */,
 				046F462820DFCAC800813F5A /* MSSignatureExceptionType.h in Sources */,
 				0482865920E27B63005FEFD8 /* MSAssetsDownloadHandler.m in Sources */,
 				0431072020EA48D700F42296 /* JWTAlgorithmHSBase.m in Sources */,
