@@ -247,7 +247,9 @@ static BOOL isRunningBinaryVersion = NO;
         }
 
         if (error) {
-            // ???
+            MSLogInfo([MSAssets logTag], @"Error during CheckForUpdate");
+            [strongSelf notifyAboutSyncStatusChange:MSAssetsSyncStatusUnknownError instanceState:[strongSelf instanceState]];
+            return;
         }
 
         BOOL updateShouldBeIgnored = remotePackage && remotePackage.failedInstall && syncOptions.ignoreFailedUpdates;
@@ -287,8 +289,20 @@ static BOOL isRunningBinaryVersion = NO;
 
             UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:acceptButtonText style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                 if (action) {};
+                __weak typeof(strongSelf) weakSelfLvl2 = strongSelf;
                 [strongSelf doDownloadAndInstall:remotePackage syncOptions:syncOptions configuration:config handler:^(NSError * _Nullable error_internal) {
-                    if (error_internal) {};
+                    if (error_internal) {
+                        [[MSAssetsSettingManager new] saveFailedUpdate:remotePackage];
+                    }
+                    typeof(self) strongSelfLvl2 = weakSelfLvl2;
+                    if (!strongSelfLvl2) {
+                        return;
+                    }
+                    if (error_internal) {
+                        MSLogInfo([MSAssets logTag], @"Error during doDownloadAndInstall");
+                        [strongSelfLvl2 notifyAboutSyncStatusChange:MSAssetsSyncStatusUnknownError instanceState:[strongSelfLvl2 instanceState]];
+                        return;
+                    };
                 }];
             }];
             [alert addAction:defaultAction];
@@ -302,15 +316,24 @@ static BOOL isRunningBinaryVersion = NO;
             }
 
             [alert show];
-
-            //https://stackoverflow.com/questions/21075540/presentviewcontrolleranimatedyes-view-will-not-appear-until-user-taps-again
-            //below fixes issue when alert was not shown until tap
-            //dispatch_async(dispatch_get_main_queue(), ^{});
         }
         else {
             MSLogInfo([MSAssets logTag], @"Do download and install");
+            __weak typeof(strongSelf) weakSelfLvl2 = strongSelf;
             [strongSelf doDownloadAndInstall:remotePackage syncOptions:syncOptions configuration:config handler:^(NSError * _Nullable error_internal) {
-                if (error_internal) {};
+                if (error_internal) {
+                    [[MSAssetsSettingManager new] saveFailedUpdate:remotePackage];
+                }
+                typeof(self) strongSelfLvl2 = weakSelfLvl2;
+                if (!strongSelfLvl2) {
+                    return;
+                }
+                if (error_internal) {
+                    MSLogInfo([MSAssets logTag], @"Error during doDownloadAndInstall");
+                    [[MSAssetsSettingManager new] saveFailedUpdate:remotePackage];
+                    [strongSelfLvl2 notifyAboutSyncStatusChange:MSAssetsSyncStatusUnknownError instanceState:[strongSelfLvl2 instanceState]];
+                    return;
+                };
             }];
         }
     }];
