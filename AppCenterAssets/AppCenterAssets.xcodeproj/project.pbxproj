@@ -132,7 +132,6 @@
 		0431073E20EA48D700F42296 /* JWTCoding+ResultTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 0431070E20EA48D600F42296 /* JWTCoding+ResultTypes.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		0431073F20EA48D700F42296 /* JWTCoding+VersionOne.h in Headers */ = {isa = PBXBuildFile; fileRef = 0431070F20EA48D600F42296 /* JWTCoding+VersionOne.h */; };
 		0431074220EA727B00F42296 /* MSAssetsErrorUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0431074120EA727B00F42296 /* MSAssetsErrorUtils.m */; };
-		0431074520EB490B00F42296 /* MSAssetsUpdateUtilities+JWT.m in Sources */ = {isa = PBXBuildFile; fileRef = 0431074420EB490B00F42296 /* MSAssetsUpdateUtilities+JWT.m */; };
 		043121511EE0C20A007054C5 /* MSAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = E85547C51D2D6253002DF6E2 /* MSAssets.m */; };
 		0431215B1EE0C20A007054C5 /* AppCenter+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = E85547CF1D2D6521002DF6E2 /* AppCenter+Internal.h */; };
 		0431215F1EE0C20A007054C5 /* AppCenterAssets.h in Headers */ = {isa = PBXBuildFile; fileRef = E85547CC1D2D63EF002DF6E2 /* AppCenterAssets.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -176,6 +175,12 @@
 		04A082071F74BB8C00DC776D /* MSService.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A082051F74BB8600DC776D /* MSService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04BED7181ECB64FB00E20975 /* OCHamcrest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04BED7161ECB64CE00E20975 /* OCHamcrest.framework */; };
 		04D914D820EDF6070042B9C2 /* MSAssetsiOSSpecificImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D914D720EDF6070042B9C2 /* MSAssetsiOSSpecificImplementation.m */; };
+		04E4313120F351A100BA9021 /* MSAssetsUpdateUtilities+JWT.h in Sources */ = {isa = PBXBuildFile; fileRef = 0431074320EB48F900F42296 /* MSAssetsUpdateUtilities+JWT.h */; };
+		04E4313620F3526800BA9021 /* MSAssetsUpdateUtilities+JWT.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E4313520F3526800BA9021 /* MSAssetsUpdateUtilities+JWT.m */; };
+		04E4313720F3536800BA9021 /* MSAssetsUpdateUtilities+JWT.h in Headers */ = {isa = PBXBuildFile; fileRef = 0431074320EB48F900F42296 /* MSAssetsUpdateUtilities+JWT.h */; };
+		04E4313820F3572200BA9021 /* MSAssetsUpdateUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 0431061020E9311500F42296 /* MSAssetsUpdateUtilities.h */; };
+		04E4317320F3960A00BA9021 /* MF_Base64Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 04E4317120F3960A00BA9021 /* MF_Base64Additions.h */; };
+		04E4317420F3960A00BA9021 /* MF_Base64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E4317220F3960A00BA9021 /* MF_Base64Additions.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		3568A7E1201A71D000F3B860 /* MSLogWithProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 358F9BC52019590100B9E22C /* MSLogWithProperties.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3568A7EE201A9BBB00F3B860 /* MSLogWithProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 358F9BC52019590100B9E22C /* MSLogWithProperties.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3568A7EF201A9BBB00F3B860 /* MSService.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A082051F74BB8600DC776D /* MSService.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -348,7 +353,6 @@
 		0431074020EA726600F42296 /* MSAssetsErrorUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsErrorUtils.h; sourceTree = "<group>"; };
 		0431074120EA727B00F42296 /* MSAssetsErrorUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsErrorUtils.m; sourceTree = "<group>"; };
 		0431074320EB48F900F42296 /* MSAssetsUpdateUtilities+JWT.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MSAssetsUpdateUtilities+JWT.h"; sourceTree = "<group>"; };
-		0431074420EB490B00F42296 /* MSAssetsUpdateUtilities+JWT.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MSAssetsUpdateUtilities+JWT.m"; sourceTree = "<group>"; };
 		0431216C1EE0C20A007054C5 /* libAppCenterAssets.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAppCenterAssets.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		043121721EE0C248007054C5 /* tvOS.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = tvOS.modulemap; sourceTree = "<group>"; };
 		043121731EE0C248007054C5 /* tvOS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = tvOS.xcconfig; sourceTree = "<group>"; };
@@ -398,6 +402,9 @@
 		04BED7161ECB64CE00E20975 /* OCHamcrest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCHamcrest.framework; path = ../../Vendor/macOS/OCHamcrest/OCHamcrest.framework; sourceTree = "<group>"; };
 		04D914D620EDF5D20042B9C2 /* MSAssetsiOSSpecificImplementation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsiOSSpecificImplementation.h; sourceTree = "<group>"; };
 		04D914D720EDF6070042B9C2 /* MSAssetsiOSSpecificImplementation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsiOSSpecificImplementation.m; sourceTree = "<group>"; };
+		04E4313520F3526800BA9021 /* MSAssetsUpdateUtilities+JWT.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MSAssetsUpdateUtilities+JWT.m"; sourceTree = "<group>"; };
+		04E4317120F3960A00BA9021 /* MF_Base64Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_Base64Additions.h; sourceTree = "<group>"; };
+		04E4317220F3960A00BA9021 /* MF_Base64Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MF_Base64Additions.m; sourceTree = "<group>"; };
 		04ED31E91EAAD32B0033BAAE /* macOS.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = macOS.modulemap; sourceTree = "<group>"; };
 		04ED31EB1EAAD3390033BAAE /* iOS.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = iOS.modulemap; sourceTree = "<group>"; };
 		358F9BC52019590100B9E22C /* MSLogWithProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSLogWithProperties.h; path = ../AppCenter/AppCenter/Model/MSLogWithProperties.h; sourceTree = "<group>"; };
@@ -523,6 +530,7 @@
 		043106D320EA48A500F42296 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				04E4317020F3960A00BA9021 /* Base64 */,
 				043106D420EA48D600F42296 /* JWT */,
 			);
 			name = Vendor;
@@ -736,9 +744,9 @@
 				0431061020E9311500F42296 /* MSAssetsUpdateUtilities.h */,
 				0431061120E9312600F42296 /* MSAssetsUpdateUtilities.m */,
 				0431074320EB48F900F42296 /* MSAssetsUpdateUtilities+JWT.h */,
-				0431074420EB490B00F42296 /* MSAssetsUpdateUtilities+JWT.m */,
 				0431074020EA726600F42296 /* MSAssetsErrorUtils.h */,
 				0431074120EA727B00F42296 /* MSAssetsErrorUtils.m */,
+				04E4313520F3526800BA9021 /* MSAssetsUpdateUtilities+JWT.m */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -791,6 +799,16 @@
 				6E0684371D35A3B900A8CC6C /* OCHamcrestIOS.framework */,
 			);
 			name = iOS;
+			sourceTree = "<group>";
+		};
+		04E4317020F3960A00BA9021 /* Base64 */ = {
+			isa = PBXGroup;
+			children = (
+				04E4317120F3960A00BA9021 /* MF_Base64Additions.h */,
+				04E4317220F3960A00BA9021 /* MF_Base64Additions.m */,
+			);
+			name = Base64;
+			path = ../../Vendor/iOS/Base64/Base64;
 			sourceTree = "<group>";
 		};
 		1182FBF520E0DCD300CC9460 /* AssetsBuilder */ = {
@@ -1016,6 +1034,8 @@
 				CD09078120CDD4A70026F862 /* MSAssetsUpdateState.h in Headers */,
 				CD09076A20CCBB0C0026F862 /* MSAssetsPackage.h in Headers */,
 				0431071F20EA48D700F42296 /* JWTAlgorithmHSBase.h in Headers */,
+				04E4313820F3572200BA9021 /* MSAssetsUpdateUtilities.h in Headers */,
+				04E4313720F3536800BA9021 /* MSAssetsUpdateUtilities+JWT.h in Headers */,
 				0431073020EA48D700F42296 /* JWTAlgorithmFactory.h in Headers */,
 				0431072820EA48D700F42296 /* JWTCryptoKey.h in Headers */,
 				04A082061F74BB8600DC776D /* MSService.h in Headers */,
@@ -1027,6 +1047,7 @@
 				E85547F91D2D6A9B002DF6E2 /* AppCenter+Internal.h in Headers */,
 				0431073220EA48D700F42296 /* JWTErrorDescription.h in Headers */,
 				0431073A20EA48D700F42296 /* JWTCoding.h in Headers */,
+				04E4317320F3960A00BA9021 /* MF_Base64Additions.h in Headers */,
 				CD09077B20CDD24E0026F862 /* MSAssetsDeploymentStatus.h in Headers */,
 				CD09078320CDD4E30026F862 /* MSAssetsReportType.h in Headers */,
 				0431071320EA48D600F42296 /* JWTClaimsSetSerializer.h in Headers */,
@@ -1349,6 +1370,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04E4313120F351A100BA9021 /* MSAssetsUpdateUtilities+JWT.h in Sources */,
 				0431072620EA48D700F42296 /* JWTCryptoKeyExtractor.m in Sources */,
 				046F461220DFAE6B00813F5A /* MSAssetsUpdateResponseUpdateInfo.m in Sources */,
 				0431074220EA727B00F42296 /* MSAssetsErrorUtils.m in Sources */,
@@ -1358,6 +1380,7 @@
 				0431071520EA48D600F42296 /* JWTClaim.m in Sources */,
 				046F461020DFAAA900813F5A /* MSAssetsRemotePackage.m in Sources */,
 				4B6A9EAD20E618760044589C /* MSAssetsReportSender.m in Sources */,
+				04E4317420F3960A00BA9021 /* MF_Base64Additions.m in Sources */,
 				A3898E7C20DB9D7800E9BF37 /* MSAssetsConstants.m in Sources */,
 				A374CD4B20EF71F400BE4EC8 /* MSAssetsIllegalArgumentException.m in Sources */,
 				0431072720EA48D700F42296 /* JWTCryptoSecurity.m in Sources */,
@@ -1368,6 +1391,7 @@
 				0431073B20EA48D700F42296 /* JWTCoding+VersionTwo.m in Sources */,
 				04D914D820EDF6070042B9C2 /* MSAssetsiOSSpecificImplementation.m in Sources */,
 				0431073420EA48D700F42296 /* JWTErrorDescription.m in Sources */,
+				04E4313620F3526800BA9021 /* MSAssetsUpdateUtilities+JWT.m in Sources */,
 				0431073E20EA48D700F42296 /* JWTCoding+ResultTypes.m in Sources */,
 				046F460E20DFA52500813F5A /* MSAssetsLocalPackage.m in Sources */,
 				0431073C20EA48D700F42296 /* JWTCoding+VersionThree.m in Sources */,
@@ -1375,7 +1399,6 @@
 				A31B561920DD093700D81CA1 /* MSAssetsDeploymentInstance.m in Sources */,
 				0482864F20E23802005FEFD8 /* MSAssetsAcquisitionManager.m in Sources */,
 				A31B562820DD3FA000D81CA1 /* MSAssetsBuilder.m in Sources */,
-				0431074520EB490B00F42296 /* MSAssetsUpdateUtilities+JWT.m in Sources */,
 				4B9421F420E28B2500289E0A /* MSAssetsUpdateManager.m in Sources */,
 				E85547C61D2D6253002DF6E2 /* MSAssets.m in Sources */,
 				0431061220E9312600F42296 /* MSAssetsUpdateUtilities.m in Sources */,
@@ -1595,6 +1618,11 @@
 					"-Wreserved-id-macro",
 					"-fpie",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					UIKit,
+				);
 				WARNING_CFLAGS = (
 					"-Weverything",
 					"-Wno-deprecated-declarations",
@@ -1620,6 +1648,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 049BC82A1ECE3B9400FB6719 /* iOS.xcconfig */;
 			buildSettings = {
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					UIKit,
+				);
 				WARNING_CFLAGS = (
 					"-Weverything",
 					"-Wno-deprecated-declarations",

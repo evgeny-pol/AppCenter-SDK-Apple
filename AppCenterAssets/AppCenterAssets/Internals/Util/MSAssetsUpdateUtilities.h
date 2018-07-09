@@ -12,7 +12,6 @@ extern NSString *const AssetsFolderName;
 // Private Access
 @property MSAssetsSettingManager *settingManager;
 
-
 - (id)initWithSettingManager: (MSAssetsSettingManager*)settingManager;
 
 /**

@@ -12,6 +12,7 @@
 
 #import "MF_Base64Additions.h"
 
+NSString *const CategoryReference = @"base64";
 @implementation MF_Base64Codec
 
 +(NSString *)base64StringFromBase64UrlEncodedString:(NSString *)base64UrlEncodedString

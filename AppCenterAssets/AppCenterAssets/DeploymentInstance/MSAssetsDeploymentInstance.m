@@ -14,6 +14,7 @@
 #import "MSAssetsUpdateState.h"
 #import "MSAssetsSyncOptions.h"
 #import "MSAssetsSyncStatus.h"
+#import "MF_Base64Additions.h"
 
 @implementation MSAssetsDeploymentInstance {
     BOOL _didUpdateProgress;
@@ -29,6 +30,9 @@
 static NSString *const DownloadFileName = @"download.zip";
 static NSString *const UpdateMetadataFileName = @"app.json";
 
+__attribute__((used)) static void importCategories() {
+    [NSString stringWithFormat:@"%@ %@", BundleJWTFile, CategoryReference];
+}
 
 static BOOL isRunningBinaryVersion = NO;
 //static BOOL needToReportRollback = NO;

@@ -7,6 +7,8 @@
 //
 
 #import "JWTBase64Coder.h"
+#import "MF_Base64Additions.h"
+
 
 @interface JWTBase64Coder (ConditionLinking)
 + (BOOL)isBase64AddtionsAvailable;

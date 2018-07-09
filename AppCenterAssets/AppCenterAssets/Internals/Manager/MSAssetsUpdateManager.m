@@ -313,7 +313,7 @@ static NSString *const UnzippedFolderName = @"unzipped";
     NSError *error = nil;
     BOOL isSignatureVerificationEnabled = (publicKey != nil);
     NSString *signaturePath = [[self updateUtilities] getSignatureFilePath:newUpdateFolderPath];
-    BOOL isSignatureAppearedInApp = [MSUtility fileExistsForPathComponent:signaturePath];
+    BOOL isSignatureAppearedInApp = signaturePath && [MSUtility fileExistsForPathComponent:signaturePath];
     if (isSignatureVerificationEnabled) {
         if (isSignatureAppearedInApp) {
             BOOL verified = [[self updateUtilities] verifyFolderHash:newUpdateHash folderPath:newUpdateFolderPath error:&error];
