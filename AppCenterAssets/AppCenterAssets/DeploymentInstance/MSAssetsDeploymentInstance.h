@@ -1,4 +1,4 @@
-#import "MSAssetsUpdateUtilities.h"
+#import "MSAssetsUpdateUtilities+JWT.h"
 #import "MSAssetsUpdateManager.h"
 #import "MSAssetsDelegate.h"
 #import "MSAssetsLocalPackage.h"
@@ -114,7 +114,19 @@ typedef void (^MSAssetsDownloadInstallHandler)(NSError * _Nullable error);
                   platformInstance:(id<MSAssetsPlatformSpecificImplementation>)platformInstance
                          withError:(NSError *__autoreleasing *)error;
 
-- (void)sync:(MSAssetsSyncOptions *)syncOptions withCallback:(MSAssetsSyncBlock)callback notifyClientAboutSyncStatus:(BOOL)notifySyncStatus notifyProgress:(BOOL)notifyProgress;
+- (void) doDownloadAndInstall:(MSAssetsRemotePackage *)remotePackage
+                  syncOptions:(MSAssetsSyncOptions *)syncOptions
+                configuration:(MSAssetsConfiguration *)configuration
+                      handler:(MSAssetsDownloadInstallHandler)handler;
+
+/**
+ * Gets native Assets configuration.
+ *
+ * @return native Assets configuration.
+ */
+- (MSAssetsConfiguration *)getConfigurationWithError:(NSError * __autoreleasing*)error;
+
+- (void)sync:(MSAssetsSyncOptions *)syncOptions;
 
 @property (nonatomic, copy, nonnull) NSString *deploymentKey;
 @property (nonatomic, copy, nonnull) NSString *serverUrl;
@@ -125,7 +137,7 @@ typedef void (^MSAssetsDownloadInstallHandler)(NSError * _Nullable error);
 
 @property (nonatomic, nonnull) id<MSAssetsPlatformSpecificImplementation> platformInstance;
 @property (nonatomic, copy, readonly) MSAssetsTelemetryManager *telemetryManager;
-@property (nonatomic, readonly, nullable) MSAssetsDownloadHandler *downloadHandler;
+@property (nonatomic, nullable) MSAssetsDownloadHandler *downloadHandler;
 @property (nonatomic, readonly, nullable) MSAssetsUpdateUtilities *updateUtilities;
 @property (nonatomic, readonly) MSAssetsUpdateManager *updateManager;
 @property (nonatomic, readonly) MSAssetsAcquisitionManager *acquisitionManager;

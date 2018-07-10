@@ -24,6 +24,8 @@ extern NSString *MSUtilityStringFormattingCategory;
  */
 + (NSString *)sha256:(NSString *)string;
 
++ (NSString *)sha256WithData:(NSData *)data;
+
 /**
  * Extract app secret from a string.
  *

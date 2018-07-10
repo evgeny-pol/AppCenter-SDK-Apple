@@ -1,6 +1,6 @@
 #import "MSAssets.h"
 #import "MSAssetsDeploymentInstanceState.h"
-#import "MSAssetsUpdateUtilities.h"
+#import "MSAssetsUpdateUtilities+JWT.h"
 #import "MSAssetsLocalPackage.h"
 #import "MSAssetsErrors.h"
 #import "MSAssetsErrorUtils.h"
@@ -9,11 +9,14 @@
 #import "MSAssetsDownloadHandler.h"
 #import <UIKit/UIKit.h>
 #import "MSAssetsSettingManager.h"
-#import "MSAssetsFileUtils.h"
+#import "MSUtility+File.h"
 #import "MSAssetsInstallMode.h"
 #import "MSAssetsUpdateState.h"
 #import "MSAssetsSyncOptions.h"
 #import "MSAssetsSyncStatus.h"
+#import "MSAssetsRemotePackage.h"
+#import "MSAlertController.h"
+#import "MF_Base64Additions.h"
 
 @implementation MSAssetsDeploymentInstance {
     BOOL _didUpdateProgress;
@@ -29,6 +32,9 @@
 static NSString *const DownloadFileName = @"download.zip";
 static NSString *const UpdateMetadataFileName = @"app.json";
 
+__attribute__((used)) static void importCategories() {
+    [NSString stringWithFormat:@"%@ %@", BundleJWTFile, CategoryReference];
+}
 
 static BOOL isRunningBinaryVersion = NO;
 //static BOOL needToReportRollback = NO;
@@ -59,12 +65,12 @@ static BOOL isRunningBinaryVersion = NO;
             *error = [MSAssetsErrorUtils getNoAppVersionError];
             return nil;
         }
-        _downloadHandler = [[MSAssetsDownloadHandler alloc] initWithOperationQueue: dispatch_get_main_queue()];
-        _updateUtilities = [[MSAssetsUpdateUtilities alloc] init];
-        _updateManager = [[MSAssetsUpdateManager alloc] init];
-        _acquisitionManager = [[MSAssetsAcquisitionManager alloc] init];
+        _downloadHandler = nil;
         _settingManager = [[MSAssetsSettingManager alloc] init];
-        _telemetryManager = [[MSAssetsTelemetryManager alloc] init];
+        _updateUtilities = [[MSAssetsUpdateUtilities alloc] initWithSettingManager:_settingManager];
+        _updateManager = [[MSAssetsUpdateManager alloc] initWithUpdateUtils:_updateUtilities];
+        _acquisitionManager = [[MSAssetsAcquisitionManager alloc] init];
+        _telemetryManager = [[MSAssetsTelemetryManager alloc] initWithSettingManager:_settingManager];
         _restartManager = [[MSAssetsRestartManager alloc] initWithRestartHandler:^(BOOL onlyIfUpdateIsPending, MSAssetsRestartListener restartListener) {
             [self restartInternal:restartListener onlyIfUpdateIsPending:onlyIfUpdateIsPending];
         }];
@@ -146,7 +152,6 @@ static BOOL isRunningBinaryVersion = NO;
         if (error) {
             if ([self.delegate respondsToSelector:@selector(didFailToQueryRemotePackageOnCheckForUpdate:)])
                 [self.delegate didFailToQueryRemotePackageOnCheckForUpdate:error];
-            return;
         } else {
             if ([self.delegate respondsToSelector:@selector(didReceiveRemotePackageOnCheckForUpdate:)])
                 [self.delegate didReceiveRemotePackageOnCheckForUpdate:update];
@@ -168,7 +173,7 @@ static BOOL isRunningBinaryVersion = NO;
     if (deploymentKey)
         config.deploymentKey = deploymentKey;
 
-    MSAssetsLocalPackage *localPackage = [[self getCurrentPackage] mutableCopy];
+    MSAssetsLocalPackage *localPackage = [self getCurrentPackage];
 
     MSAssetsLocalPackage *queryPackage;
     if (localPackage){
@@ -208,12 +213,7 @@ static BOOL isRunningBinaryVersion = NO;
     MSLogInfo([MSAssets logTag], @"Check for update called");
 }
 
-- (void)sync:(MSAssetsSyncOptions *)syncOptions withCallback:(MSAssetsSyncBlock)callback notifyClientAboutSyncStatus:(BOOL)notifySyncStatus notifyProgress:(BOOL)notifyProgress {
-
-    if (syncOptions) {};
-    if (callback) {};
-    if (notifySyncStatus) {};
-    if (notifyProgress) {};
+- (void)sync:(MSAssetsSyncOptions *)syncOptions {
 
     if (self.instanceState.syncInProgress){
         MSLogInfo([MSAssets logTag], @"Sync already in progress.");
@@ -239,9 +239,109 @@ static BOOL isRunningBinaryVersion = NO;
         config.deploymentKey = syncOptions.deploymentKey;
 
     self.instanceState.syncInProgress = YES;
-    
+
     [self notifyAboutSyncStatusChange: MSAssetsSyncStatusCheckingForUpdate instanceState:[self instanceState]];
+
+    __weak typeof(self) weakSelf = self;
+    [self checkForUpdate:syncOptions.deploymentKey withCompletionHandler:^( MSAssetsRemotePackage *remotePackage,  NSError * _Nullable error) {
+
+        typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) {
+            return;
+        }
+
+        if (error) {
+            MSLogInfo([MSAssets logTag], @"Error during CheckForUpdate");
+            [strongSelf notifyAboutSyncStatusChange:MSAssetsSyncStatusUnknownError instanceState:[strongSelf instanceState]];
+            return;
+        }
+
+        BOOL updateShouldBeIgnored = remotePackage && remotePackage.failedInstall && syncOptions.ignoreFailedUpdates;
+
+        if (!remotePackage || updateShouldBeIgnored){
+            if (updateShouldBeIgnored){
+                MSLogInfo([MSAssets logTag], @"An update is available, but it is being ignored due to having been previously rolled back.");
+            }
+            MSAssetsLocalPackage *currentPackage = [strongSelf getCurrentPackage];
+            if (currentPackage && currentPackage.isPending) {
+                [strongSelf notifyAboutSyncStatusChange:MSAssetsSyncStatusUpdateInstalled instanceState:[strongSelf instanceState]];
+            } else {
+                [strongSelf notifyAboutSyncStatusChange:MSAssetsSyncStatusUpToDate instanceState:[strongSelf instanceState]];
+            }
+            strongSelf.instanceState.syncInProgress = NO;
+        }
+        else if (syncOptions.updateDialog) {
+            MSAssetsUpdateDialog *updateDialogOptions = syncOptions.updateDialog;
+            NSString *message;
+            NSString *acceptButtonText;
+            NSString *declineButtonText = updateDialogOptions.optionalIgnoreButtonLabel;
+            if (remotePackage.isMandatory) {
+                message = updateDialogOptions.mandatoryUpdateMessage;
+                acceptButtonText = updateDialogOptions.mandatoryContinueButtonLabel;
+            } else {
+                message = updateDialogOptions.optionalUpdateMessage;
+                acceptButtonText = updateDialogOptions.optionalInstallButtonLabel;
+            }
+            if (updateDialogOptions.appendReleaseDescription && (remotePackage.description.length == 0)) {
+                message = [updateDialogOptions.descriptionPrefix stringByAppendingFormat:@" %@", remotePackage.description];
+            }
+            [strongSelf notifyAboutSyncStatusChange:MSAssetsSyncStatusAwaitingUserAction instanceState:[strongSelf instanceState]];
+
+            MSAlertController *alert = [MSAlertController alertControllerWithTitle:updateDialogOptions.title message:message preferredStyle:UIAlertControllerStyleAlert];
+
+            [alert.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:acceptButtonText style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction * action) {
+                __weak typeof(strongSelf) weakSelfLvl2 = strongSelf;
+                [strongSelf doDownloadAndInstall:remotePackage syncOptions:syncOptions configuration:config handler:^(NSError * _Nullable error_internal) {
+                    if (error_internal) {
+                        [[MSAssetsSettingManager new] saveFailedUpdate:remotePackage];
+                    }
+                    typeof(self) strongSelfLvl2 = weakSelfLvl2;
+                    if (!strongSelfLvl2) {
+                        return;
+                    }
+                    if (error_internal) {
+                        MSLogInfo([MSAssets logTag], @"Error during doDownloadAndInstall");
+                        [strongSelfLvl2 notifyAboutSyncStatusChange:MSAssetsSyncStatusUnknownError instanceState:[strongSelfLvl2 instanceState]];
+                        return;
+                    };
+                }];
+            }];
+            [alert addAction:defaultAction];
+
+            if (!remotePackage.isMandatory) {
+                UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:declineButtonText style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction * action) {
+                    strongSelf.instanceState.syncInProgress = NO;
+                    [strongSelf notifyAboutSyncStatusChange:MSAssetsSyncStatusUpdateIgnored instanceState:[strongSelf instanceState]];
+                }];
+                [alert addAction:cancelAction];
+            }
+
+            [alert show];
+        }
+        else {
+            MSLogInfo([MSAssets logTag], @"Do download and install");
+            __weak typeof(strongSelf) weakSelfLvl2 = strongSelf;
+            [strongSelf doDownloadAndInstall:remotePackage syncOptions:syncOptions configuration:config handler:^(NSError * _Nullable error_internal) {
+                if (error_internal) {
+                    [[MSAssetsSettingManager new] saveFailedUpdate:remotePackage];
+                }
+                typeof(self) strongSelfLvl2 = weakSelfLvl2;
+                if (!strongSelfLvl2) {
+                    return;
+                }
+                if (error_internal) {
+                    MSLogInfo([MSAssets logTag], @"Error during doDownloadAndInstall");
+                    [[MSAssetsSettingManager new] saveFailedUpdate:remotePackage];
+                    [strongSelfLvl2 notifyAboutSyncStatusChange:MSAssetsSyncStatusUnknownError instanceState:[strongSelfLvl2 instanceState]];
+                    return;
+                };
+            }];
+        }
+    }];
 }
+
 
 - (MSAssetsConfiguration *)getConfigurationWithError:(NSError * __autoreleasing*)error {
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
@@ -266,7 +366,7 @@ static BOOL isRunningBinaryVersion = NO;
 - (MSAssetsLocalPackage *)getUpdateMetadataForState:(MSAssetsUpdateState)updateState
                  currentPackageGettingError:(NSError * __autoreleasing *)error {
     NSError *__autoreleasing internalError;
-    MSAssetsLocalPackage *package = [[[self updateManager] getCurrentPackage:&internalError] mutableCopy];
+    MSAssetsLocalPackage *package = [[self updateManager] getCurrentPackage:&internalError];
     if (internalError){
         error = &internalError;
         return nil;
@@ -353,6 +453,7 @@ static BOOL isRunningBinaryVersion = NO;
         completeHandler(nil, nil);
         return;
     }
+    self.downloadHandler = [[MSAssetsDownloadHandler alloc] initWithOperationQueue: dispatch_get_main_queue()];
     __weak typeof(self) weakSelf = self;
     [[self downloadHandler] downloadWithUrl:[updatePackage downloadUrl]
                                      toPath:downloadFile
@@ -396,7 +497,7 @@ static BOOL isRunningBinaryVersion = NO;
                                    return;                                   
                                }
                            } else {
-                               BOOL result = [MSAssetsFileUtils moveFile:downloadFile toFolder:newUpdateFolderPath withNewName:strongSelf->_entryPoint];
+                               BOOL result = [MSUtility moveFile:downloadFile toFolder:newUpdateFolderPath withNewName:strongSelf->_entryPoint];
                                if (!result) {
                                    error = [MSAssetsErrorUtils getFileMoveError:downloadFile destination:newUpdateFolderPath];
                                    completeHandler(nil, error);
@@ -443,6 +544,9 @@ static BOOL isRunningBinaryVersion = NO;
         if (!strongSelf) {
             return;
         }
+        
+        // Destroy the handler because each time a new handler should be created.
+        strongSelf.downloadHandler = nil;
         if (error) {
             [[strongSelf settingManager] saveFailedUpdate:remotePackage];
             handler(error);

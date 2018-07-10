@@ -35,6 +35,9 @@ NSString *kMSACDownloadPackageErrorDesc(NSString *downloadUrl) {
 NSString *kMSACDownloadPackageStatusCodeErrorDesc(NSString *downloadUrl, long statusCode) {
     return [[NSString alloc] initWithFormat: @"Error occurred during package downloading. Received %ld response from %@", statusCode, downloadUrl];
 };
+NSString *kMSACDownloadPackageInvalidFileErrorDesc(NSString *filePath) {
+    return [[NSString alloc] initWithFormat: @"Error occurred during package downloading. Wrong path: %@", filePath];
+}
 
 #pragma mark - File error descriptions
 

@@ -9,6 +9,9 @@ extern NSString *const AssetsFolderName;
  */
 @interface MSAssetsUpdateUtilities : NSObject
 
+// Private Access
+@property MSAssetsSettingManager *settingManager;
+
 - (id)initWithSettingManager: (MSAssetsSettingManager*)settingManager;
 
 /**

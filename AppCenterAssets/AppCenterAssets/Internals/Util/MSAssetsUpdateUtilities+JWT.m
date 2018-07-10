@@ -7,7 +7,6 @@
 #import "MSAssetsUpdateUtilities+JWT.h"
 
 NSString *const BundleJWTFile = @".codepushrelease";
-
 @implementation MSAssetsUpdateUtilities (JWT)
 
 - (NSDictionary *) verifyAndDecodeJWT:(NSString *)jwt
@@ -75,14 +74,15 @@ NSString *const BundleJWTFile = @".codepushrelease";
 }
 
 - (NSString *)getSignatureFilePath:(NSString *)updateFolderPath {
-    NSString *jwtPath = [NSString stringWithFormat:@"%@/%@/%@", updateFolderPath, ManifestFolderPrefix, BundleJWTFile];
+    NSString *jwtPath = [NSString stringWithFormat:@"%@/%@", updateFolderPath, BundleJWTFile];
     if ([MSUtility fileExistsForPathComponent:jwtPath]) {
         return jwtPath;
     } else {
         NSArray<NSURL *> *contents = [MSUtility contentsOfDirectory:updateFolderPath propertiesForKeys:nil];
         for (NSURL *content in contents) {
             if ([content hasDirectoryPath]) {
-                NSString *path = [self getSignatureFilePath:[content path]];
+                NSString *fileName = [content lastPathComponent];
+                NSString *path = [self getSignatureFilePath:[updateFolderPath stringByAppendingPathComponent:fileName]];
                 if (path != nil) {
                     return path;
                 }
@@ -96,7 +96,7 @@ NSString *const BundleJWTFile = @".codepushrelease";
                         error:(NSError * __autoreleasing *)error {
     NSString *signatureFilePath = [self getSignatureFilePath:folderPath];
     if ([MSUtility fileExistsForPathComponent:signatureFilePath]) {
-        return [NSString stringWithContentsOfFile:signatureFilePath encoding:NSUTF8StringEncoding error:error];
+        return [[NSString alloc] initWithData:[MSUtility loadDataForPathComponent:signatureFilePath] encoding:NSUTF8StringEncoding];
     } else {
         *error = [MSAssetsErrorUtils getNoSignatureError:signatureFilePath];
         return nil;

@@ -1,5 +1,6 @@
 #import <Foundation/Foundation.h>
 #import "MSAssetsUpdateUtilities.h"
+#import "MSAssetsUpdateUtilities+JWT.h"
 #import "MSUtility+File.h"
 #import "MSUtility+StringFormatting.h"
 #import "MSAssets.h"
@@ -8,16 +9,8 @@
 #import "MSAssetsSettingManager.h"
 #include <CommonCrypto/CommonDigest.h>
 
-NSString *const ManifestFolderPrefix = @"Assets";
+NSString *const ManifestFolderPrefix = @"CodePush";
 NSString *const AssetsFolderName = @"assets";
-
-@interface MSAssetsUpdateUtilities ()
-
-// Private Access
-@property MSAssetsSettingManager *settingManager;
-
-@end
-
 
 @implementation MSAssetsUpdateUtilities
 
@@ -33,7 +26,7 @@ NSString *const AssetsFolderName = @"assets";
                           folderPath:(NSString *)folderPath
                           pathPrefix:(NSString *)pathPrefix
                                 error:(NSError *  __autoreleasing *)error {
-    NSArray<NSURL *> *contents = [MSUtility contentsOfDirectory:folderPath propertiesForKeys:nil];
+    NSArray<NSURL *> * contents = [MSUtility contentsOfDirectory:folderPath propertiesForKeys:nil];
     
     if (contents == nil) {
         *error = [MSAssetsErrorUtils getNoDirError:folderPath];
@@ -42,7 +35,7 @@ NSString *const AssetsFolderName = @"assets";
     for (NSURL *content in contents) {
         NSString *fileName = [[content absoluteString] lastPathComponent];
         NSString *fullFilePath = [folderPath stringByAppendingPathComponent:fileName];
-        NSString *relativePath = [pathPrefix length] == 0 ? @"" : [pathPrefix stringByAppendingPathComponent:fileName];
+        NSString *relativePath = [pathPrefix stringByAppendingPathComponent:fileName];
         if ([self isHashIgnoredFor:relativePath]) {
             continue;
         }
@@ -52,7 +45,7 @@ NSString *const AssetsFolderName = @"assets";
                 return NO;
             }
         } else {
-            NSData *fileData = [MSUtility loadDataForPathComponent: [content absoluteString]];
+            NSData *fileData = [MSUtility loadDataForPathComponent: fullFilePath];
             if (fileData != nil) {
                 [manifest addObject: [[relativePath stringByAppendingString:@":"] stringByAppendingString:[self computeHashFor: fileData]]];
             }
@@ -76,9 +69,9 @@ NSString *const AssetsFolderName = @"assets";
 }
 
 -(NSString *)computeHashFor:(NSData *)data {
-    NSString *dataString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    if (dataString != nil) {
-        return [MSUtility sha256:dataString];
+//    NSString *dataString = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+    if (data != nil) {
+        return [MSUtility sha256WithData:data];
     }
     return @"";
 }
@@ -215,7 +208,9 @@ NSString *const AssetsFolderName = @"assets";
     for (NSURL *file in folderFiles) {
         NSString *fileName = [[file absoluteString] lastPathComponent];
         NSString *fullFilePath = [folderPath stringByAppendingPathComponent:fileName];
-        if ([file hasDirectoryPath]) {
+        BOOL isDir;
+        NSString *fullPath;
+        if ((fullPath = [file path]) && [[NSFileManager defaultManager] fileExistsAtPath:fullPath isDirectory:&isDir] && isDir) {
             NSString *mainBundlePathInFolder = [self findEntryPointInFolder:fullFilePath
                                                            expectedFileName:expectedFileName
                                                                       error:error];
