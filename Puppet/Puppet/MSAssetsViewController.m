@@ -7,6 +7,7 @@
 
 @interface MSAssetsViewController ()
 
+@property (weak, nonatomic) IBOutlet UITextView *updatePathView;
 @property (weak, nonatomic) IBOutlet UILabel *syncStatus;
 @property (weak, nonatomic) IBOutlet UISwitch *enabled;
 @property (weak, nonatomic) IBOutlet UILabel *result;
@@ -30,6 +31,7 @@
     } else {
         [_assetsDeployment setDelegate:self];
     }
+    [self updatePath];
 }
 
 - (IBAction)enabledSwitchUpdated:(UISwitch *)sender {
@@ -42,6 +44,11 @@
     [syncOptions setDeploymentKey:@"4VnyrkITHiZ6Qroh19nsQkebgfZLSyNJucKym"];
     [syncOptions setUpdateDialog:[MSAssetsUpdateDialog new]];
     [_assetsDeployment sync:syncOptions];
+}
+
+-(void)updatePath {
+    NSString *path = [_assetsDeployment getCurrentUpdateEntryPoint];
+    self.updatePathView.text = path;
 }
 
 - (void)checkForUpdate {
@@ -126,6 +133,7 @@
             break;
         case MSAssetsSyncStatusUpdateInstalled:
             syncStatusString = @"Update installed";
+            [self updatePath];
             break;
         case MSAssetsSyncStatusInstallingUpdate:
             syncStatusString = @"Installing update";

@@ -117,4 +117,11 @@
 - (NSError *)installPackage:(NSString *)packageHash
    removePendingUpdate:(BOOL)removePendingUpdate;
 
+/**
+ * Gets the path to current update contents.
+ * @param updateEntryPath path to the update in package contents, if provided.
+ * @return path to current update contents.
+ */
+-(NSString *)getCurrentUpdatePath:(NSString *)updateEntryPath;
+
 @end
