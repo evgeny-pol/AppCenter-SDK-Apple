@@ -213,6 +213,10 @@ static BOOL isRunningBinaryVersion = NO;
     MSLogInfo([MSAssets logTag], @"Check for update called");
 }
 
+- (NSString *)getCurrentUpdateEntryPoint {
+    return [[self updateManager] getCurrentUpdatePath: _entryPoint];
+}
+
 - (void)sync:(MSAssetsSyncOptions *)syncOptions {
 
     if (self.instanceState.syncInProgress){

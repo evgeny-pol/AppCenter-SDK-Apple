@@ -126,6 +126,7 @@ typedef void (^MSAssetsDownloadInstallHandler)(NSError * _Nullable error);
  */
 - (MSAssetsConfiguration *)getConfigurationWithError:(NSError * __autoreleasing*)error;
 
+- (NSString *)getCurrentUpdateEntryPoint;
 - (void)sync:(MSAssetsSyncOptions *)syncOptions;
 
 @property (nonatomic, copy, nonnull) NSString *deploymentKey;

@@ -231,6 +231,31 @@ static NSString *const UnzippedFolderName = @"unzipped";
     return nil;
 }
 
+- (NSString *)getCurrentUpdatePath:(NSString *)updateEntryPath {
+    NSError *error;
+    NSString *packageHash = [self getCurrentPackageHash:&error];
+    if (error) {
+        MSLogInfo([MSAssets logTag], @"%@", [error localizedDescription]);
+        return nil;
+    }
+    if (packageHash == nil) {
+        return nil;
+    }
+    NSString *packageFolder = [self getPackageFolderPath:packageHash];
+    if (packageFolder == nil) {
+        return nil;
+    }
+    MSAssetsLocalPackage *localPackage = [self getCurrentPackage:&error];
+    if (error) {
+        MSLogInfo([MSAssets logTag], @"%@", [error localizedDescription]);
+        return nil;
+    }
+    if (localPackage == nil) {
+        return nil;
+    }
+    return [packageFolder stringByAppendingPathComponent:updateEntryPath];
+}
+
 - (NSString *)mergeDiffWithNewUpdateFolder:(NSString *)newUpdateFolderPath
                      newUpdateMetadataPath:(NSString *)newUpdateMetadataPath
                              newUpdateHash:(NSString *)newUpdateHash
