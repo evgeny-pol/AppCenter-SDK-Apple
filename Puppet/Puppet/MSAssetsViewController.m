@@ -7,6 +7,7 @@
 
 @interface MSAssetsViewController ()
 
+@property (weak, nonatomic) IBOutlet UILabel *syncStatus;
 @property (weak, nonatomic) IBOutlet UISwitch *enabled;
 @property (weak, nonatomic) IBOutlet UILabel *result;
 @property (nonatomic) MSAssetsDeploymentInstance *assetsDeployment;
@@ -36,14 +37,21 @@
     sender.on = [MSAssets isEnabled];
 }
 
-- (IBAction)checkForUpdate {
-    [_assetsDeployment checkForUpdate:@"EAk0sEsG9uZii-_T4TCJYS1go6JfByhZUk-bX"];
+-(void)sync {
+    MSAssetsSyncOptions *syncOptions = [MSAssetsSyncOptions new];
+    [syncOptions setDeploymentKey:@"4VnyrkITHiZ6Qroh19nsQkebgfZLSyNJucKym"];
+    [syncOptions setUpdateDialog:[MSAssetsUpdateDialog new]];
+    [_assetsDeployment sync:syncOptions];
+}
+
+- (void)checkForUpdate {
+    [_assetsDeployment checkForUpdate:@"4VnyrkITHiZ6Qroh19nsQkebgfZLSyNJucKym"];
 }
 
 - (void)didReceiveRemotePackageOnCheckForUpdate:(MSAssetsRemotePackage *)package {
     if (!package) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.result.text = @"No update available";
+            self.syncStatus.text = @"No update available";
         });
     } else {
         NSMutableString *info = @"";
@@ -68,17 +76,73 @@
         });
     }
 }
+
 - (void)didReceiveBytesForPackageDownloadProgress:(long long)receivedBytes totalBytes:(long long)totalBytes {
     dispatch_async(dispatch_get_main_queue(), ^{
         self.result.hidden = false;
         int percentage = (int) (((receivedBytes * 1.0) / totalBytes) * 100);
         if (percentage == 100) {
-            self.result.hidden = true;
+            self.result.text = @"Package downloaded";
         } else {
-            self.result.text = [[NSString alloc] initWithFormat:@"Downloading update: %d %%...", percentage];
+            self.result.text = [[NSString alloc] initWithFormat:@"%d %%...", percentage];
         }
-});
+    });
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    switch ([indexPath section]) {
+        case 1: {
+            switch (indexPath.row) {
+                case 0: {
+                    [self checkForUpdate];
+                    break;
+                }
+                case 2:
+                    [self sync];
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+}
+
+- (void)syncStatusChanged:(MSAssetsSyncStatus __unused)syncStatus {
+    NSString *syncStatusString = @"";
+    switch (syncStatus) {
+        case MSAssetsSyncStatusUpToDate:
+            syncStatusString = @"Up to date";
+            break;
+        case MSAssetsSyncStatusUnknownError:
+            syncStatusString = @"Unknown error";
+            break;
+        case MSAssetsSyncStatusUpdateIgnored:
+            syncStatusString = @"Update ignored";
+            break;
+        case MSAssetsSyncStatusSyncInProgress:
+            syncStatusString = @"Sync in progress";
+            break;
+        case MSAssetsSyncStatusUpdateInstalled:
+            syncStatusString = @"Update installed";
+            break;
+        case MSAssetsSyncStatusInstallingUpdate:
+            syncStatusString = @"Installing update";
+            break;
+        case MSAssetsSyncStatusCheckingForUpdate:
+            syncStatusString = @"Checking for update";
+            break;
+        case MSAssetsSyncStatusAwaitingUserAction:
+            syncStatusString = @"Awaiting user action";
+            break;
+        case MSAssetsSyncStatusDownloadingPackage:
+            syncStatusString = @"Downloading package";
+            break;
+        default:
+            break;
+    }
+    self.syncStatus.text = syncStatusString;
 }
 
 - (void)didFailToQueryRemotePackageOnCheckForUpdate:(NSError *)error {
@@ -86,6 +150,4 @@
         self.result.text = error.description;
     });
 }
-
-
 @end

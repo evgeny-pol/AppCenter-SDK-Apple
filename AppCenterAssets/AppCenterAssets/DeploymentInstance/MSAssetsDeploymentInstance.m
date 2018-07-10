@@ -310,8 +310,9 @@ static BOOL isRunningBinaryVersion = NO;
             }];
             [alert addAction:defaultAction];
 
-            if (remotePackage.isMandatory) {
+            if (!remotePackage.isMandatory) {
                 UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:declineButtonText style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction * action) {
+                    strongSelf.instanceState.syncInProgress = NO;
                     [strongSelf notifyAboutSyncStatusChange:MSAssetsSyncStatusUpdateIgnored instanceState:[strongSelf instanceState]];
                 }];
                 [alert addAction:cancelAction];
