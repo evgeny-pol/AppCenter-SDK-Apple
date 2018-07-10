@@ -10,6 +10,7 @@
 #import "MSAssetsInstallMode.h"
 #import "MSAssetsRestartManager.h"
 #import "MSAssetsSyncOptions.h"
+#import "MSAssetsiOSSpecificImplementation.h"
 
 typedef void(^MSAssetsSyncBlock)();
 typedef void(^MSAssetsInstallCompleteBlock)();
@@ -17,44 +18,6 @@ typedef void(^MSAssetsDownloadSuccessBlock)(NSError*, NSDictionary*);
 typedef void(^MSAssetsDownloadFailBlock)(NSError*);
 
 NS_ASSUME_NONNULL_BEGIN
-
-@protocol MSAssetsPlatformSpecificImplementation <NSObject>
-
-/**
- * Performs all work needed to be done on native side to support install modes but `MSAssetsInstallModeOnNextRestart`.
- */
-- (void) handleInstallModesForUpdateInstall:(MSAssetsInstallMode)installMode;
-
-/**
- * Loads application.
- *
- * @param assetsRestartListener listener to notify that the app is loaded.
- */
-- (void) loadApp:(MSAssetsRestartListener)assetsRestartListener;
-
-/**
- * Clears debug cache files.
- *
- * @param error error occurred during read/write operations.
- */
-- (void) clearDebugCacheWithError:(NSError *__autoreleasing *)error;
-
-/**
- * Checks whether the specified package is latest.
- *
- * @param packageMetadata   info about the package to be checked.
- * @param appVersion version of the currently installed application.
- * @return `true` if package is latest.
- */
-- (BOOL) isPackageLatest:(MSAssetsLocalPackage *)packageMetadata appVersion:(NSString *)appVersion;
-
-/**
- * Gets binary version apk build time.
- *
- * @return time in `NSTimeInterval`.
- */
-- (NSTimeInterval) getBinaryResourcesModifiedTime;
-@end
 
 /**
  * A handler for delivering the download results.
@@ -127,6 +90,7 @@ typedef void (^MSAssetsDownloadInstallHandler)(NSError * _Nullable error);
 - (MSAssetsConfiguration *)getConfigurationWithError:(NSError * __autoreleasing*)error;
 
 - (NSString *)getCurrentUpdateEntryPoint;
+- (void) notifyApplicationReady;
 - (void)sync:(MSAssetsSyncOptions *)syncOptions;
 
 @property (nonatomic, copy, nonnull) NSString *deploymentKey;

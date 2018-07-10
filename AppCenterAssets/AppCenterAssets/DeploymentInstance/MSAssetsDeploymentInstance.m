@@ -32,6 +32,7 @@
 static NSString *const DownloadFileName = @"download.zip";
 static NSString *const UpdateMetadataFileName = @"app.json";
 
+// We must reference all the categories here so that they are not cleaned because of the current optimization level.
 __attribute__((used)) static void importCategories() {
     [NSString stringWithFormat:@"%@ %@", BundleJWTFile, CategoryReference];
 }
@@ -83,8 +84,8 @@ static BOOL isRunningBinaryVersion = NO;
             }
         }
         [self initializeUpdateAfterRestartWithError:error];
-        if (error) {
- //           return nil;
+        if (*error) {
+            return nil;
         }
     }
     return self;
@@ -104,7 +105,7 @@ static BOOL isRunningBinaryVersion = NO;
         return;
     }
     MSAssetsLocalPackage *packageMetadata = [[self updateManager] getCurrentPackage:error];
-    if (error) {
+    if (*error) {
         return;
     }
     if (packageMetadata == nil || ([[self platformInstance] isPackageLatest:packageMetadata appVersion:_appVersion]
@@ -130,6 +131,11 @@ static BOOL isRunningBinaryVersion = NO;
          * we will know that we need to rollback when the app next starts. */
         [[self settingManager] savePendingUpdate:pendingUpdate];
     }
+}
+
+- (void) notifyApplicationReady {
+    [[self settingManager] removePendingUpdate];
+    //TODO: status reports?
 }
 
 - (void) rollbackPackage {
@@ -218,7 +224,6 @@ static BOOL isRunningBinaryVersion = NO;
 }
 
 - (void)sync:(MSAssetsSyncOptions *)syncOptions {
-
     if (self.instanceState.syncInProgress){
         MSLogInfo([MSAssets logTag], @"Sync already in progress.");
         [self notifyAboutSyncStatusChange: MSAssetsSyncStatusSyncInProgress instanceState:[self instanceState]];
@@ -257,6 +262,7 @@ static BOOL isRunningBinaryVersion = NO;
         if (error) {
             MSLogInfo([MSAssets logTag], @"Error during CheckForUpdate");
             [strongSelf notifyAboutSyncStatusChange:MSAssetsSyncStatusUnknownError instanceState:[strongSelf instanceState]];
+            strongSelf.instanceState.syncInProgress = NO;
             return;
         }
 
@@ -305,6 +311,7 @@ static BOOL isRunningBinaryVersion = NO;
                     if (!strongSelfLvl2) {
                         return;
                     }
+                    strongSelf.instanceState.syncInProgress = NO;
                     if (error_internal) {
                         MSLogInfo([MSAssets logTag], @"Error during doDownloadAndInstall");
                         [strongSelfLvl2 notifyAboutSyncStatusChange:MSAssetsSyncStatusUnknownError instanceState:[strongSelfLvl2 instanceState]];
@@ -335,6 +342,7 @@ static BOOL isRunningBinaryVersion = NO;
                 if (!strongSelfLvl2) {
                     return;
                 }
+                strongSelf.instanceState.syncInProgress = NO;
                 if (error_internal) {
                     MSLogInfo([MSAssets logTag], @"Error during doDownloadAndInstall");
                     [[MSAssetsSettingManager new] saveFailedUpdate:remotePackage];

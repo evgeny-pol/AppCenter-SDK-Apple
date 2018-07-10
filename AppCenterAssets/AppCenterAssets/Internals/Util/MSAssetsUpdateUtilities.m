@@ -35,7 +35,7 @@ NSString *const AssetsFolderName = @"assets";
     for (NSURL *content in contents) {
         NSString *fileName = [[content absoluteString] lastPathComponent];
         NSString *fullFilePath = [folderPath stringByAppendingPathComponent:fileName];
-        NSString *relativePath = [pathPrefix stringByAppendingPathComponent:fileName];
+        NSString *relativePath = pathPrefix.length == 0 ? fileName : [pathPrefix stringByAppendingPathComponent:fileName];
         if ([self isHashIgnoredFor:relativePath]) {
             continue;
         }
@@ -113,11 +113,11 @@ NSString *const AssetsFolderName = @"assets";
 }
 
 
-- (void)copyNecessaryFilesFromCurrentPackage: (NSString * __unused)currentPackageFolderPath
+- (void)copyNecessaryFilesFromCurrentPackage: (NSString *)currentPackageFolderPath
                             diffManifestPath:(NSString *)diffManifestPath
                               newPackagePath:(NSString *)newPackagePath
                                        error:(NSError * __autoreleasing *)error {
-    //[MSAssetsFieUtils copyEntriesInFolder:currentPackageFolderPath dest:newPackagePath];
+    [MSUtility copyDirectoryContentsFromPathComponent:currentPackageFolderPath toPathComponent:newPackagePath];
     NSData *data = [MSUtility loadDataForPathComponent:diffManifestPath];
     if (data != nil) {
         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData: data options:0 error:nil];
