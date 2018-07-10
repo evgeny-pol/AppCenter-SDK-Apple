@@ -134,6 +134,7 @@
         case MSAssetsSyncStatusUpdateInstalled:
             syncStatusString = @"Update installed";
             [self updatePath];
+            [_assetsDeployment notifyApplicationReady];
             break;
         case MSAssetsSyncStatusInstallingUpdate:
             syncStatusString = @"Installing update";
