@@ -173,7 +173,7 @@ static BOOL isRunningBinaryVersion = NO;
     if (deploymentKey)
         config.deploymentKey = deploymentKey;
 
-    MSAssetsLocalPackage *localPackage = [[self getCurrentPackage] mutableCopy];
+    MSAssetsLocalPackage *localPackage = [self getCurrentPackage];
 
     MSAssetsLocalPackage *queryPackage;
     if (localPackage){
@@ -365,7 +365,7 @@ static BOOL isRunningBinaryVersion = NO;
 - (MSAssetsLocalPackage *)getUpdateMetadataForState:(MSAssetsUpdateState)updateState
                  currentPackageGettingError:(NSError * __autoreleasing *)error {
     NSError *__autoreleasing internalError;
-    MSAssetsLocalPackage *package = [[[self updateManager] getCurrentPackage:&internalError] mutableCopy];
+    MSAssetsLocalPackage *package = [[self updateManager] getCurrentPackage:&internalError];
     if (internalError){
         error = &internalError;
         return nil;

@@ -45,18 +45,14 @@ static NSString *const UnzippedFolderName = @"unzipped";
 
 - (MSAssetsPackageInfo *)getCurrentPackageInfo:(NSError * __autoreleasing *)error {
     NSString *statusFilePath = [self getStatusFilePath];
-    if (![[NSFileManager defaultManager] fileExistsAtPath:statusFilePath]) {
+    if (![MSUtility fileExistsForPathComponent:statusFilePath]) {
         return [[MSAssetsPackageInfo alloc] init];
     }
 
-    NSString *content = [NSString stringWithContentsOfFile:statusFilePath
-                                                  encoding:NSUTF8StringEncoding
-                                                     error:error];
-    if (!content) {
+    NSData *data = [MSUtility loadDataForPathComponent:statusFilePath];
+    if (!data) {
         return nil;
     }
-
-    NSData *data = [content dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data
                                                          options:kNilOptions
                                                            error:error];
@@ -72,18 +68,14 @@ static NSString *const UnzippedFolderName = @"unzipped";
     NSString *updateDirectoryPath = [self getPackageFolderPath:packageHash];
     NSString *updateMetadataFilePath = [updateDirectoryPath stringByAppendingPathComponent:UpdateMetadataFileName];
 
-    if (![[NSFileManager defaultManager] fileExistsAtPath:updateMetadataFilePath]) {
+    if (![MSUtility fileExistsForPathComponent:updateMetadataFilePath]) {
         return nil;
     }
 
-    NSString *updateMetadataString = [NSString stringWithContentsOfFile:updateMetadataFilePath
-                                                               encoding:NSUTF8StringEncoding
-                                                                  error:error];
-    if (!updateMetadataString) {
+    NSData *updateMetadata = [MSUtility loadDataForPathComponent:updateMetadataFilePath];
+    if (!updateMetadata) {
         return nil;
     }
-
-    NSData *updateMetadata = [updateMetadataString dataUsingEncoding:NSUTF8StringEncoding];
 
     NSDictionary* json = [NSJSONSerialization JSONObjectWithData:updateMetadata
                                                          options:kNilOptions
@@ -232,7 +224,7 @@ static NSString *const UnzippedFolderName = @"unzipped";
     if (error) {
         return error;
     }
-    NSURL *createdFile = [MSUtility createFileAtPathComponent:[self getStatusFilePath] withData:jsonData atomically:YES forceOverwrite:NO];
+    NSURL *createdFile = [MSUtility createFileAtPathComponent:[self getStatusFilePath] withData:jsonData atomically:YES forceOverwrite:YES];
     if (createdFile == nil) {
         return [MSAssetsErrorUtils getUpdatePackageInfoError];
     }
