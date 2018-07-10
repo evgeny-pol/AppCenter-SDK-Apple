@@ -267,7 +267,7 @@ static NSString *const UnzippedFolderName = @"unzipped";
     BOOL isDiffUpdate = [MSUtility fileExistsForPathComponent:diffManifestPath];
     if (isDiffUpdate) {
         NSString *currentPackageFolderPath = [self currentPackageFolderPathWithError:error];
-        if (error) {
+        if (*error) {
             return nil;
         }
         if (currentPackageFolderPath != nil) {
@@ -275,7 +275,7 @@ static NSString *const UnzippedFolderName = @"unzipped";
                                                         diffManifestPath:diffManifestPath
                                                           newPackagePath:newUpdateFolderPath
                                                                    error:error];
-            if (error) {
+            if (*error) {
                 return nil;
             }
         } else {
