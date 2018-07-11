@@ -59,19 +59,18 @@ static NSString *const kMSLabel = @"label";
                            deviceId:(nonnull NSString *)clientUniqueId
                    andDeploymentKey:(nonnull NSString *) deploymentKey {
     if ((self = [super init])) {
-        MSAssetsDownloadStatusReport *report = [[MSAssetsDownloadStatusReport alloc] init];
         if (clientUniqueId != nil) {
-            [report setClientUniqueId:clientUniqueId];
+            _clientUniqueId = clientUniqueId;
         } else {
             @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSAssetsDownloadStatusReport.class) argument:kMSClientUniqueId];
         }
         if (deploymentKey != nil) {
-            [report setDeploymentKey:deploymentKey];
+            _deploymentKey = deploymentKey;
         } else {
             @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSAssetsDownloadStatusReport.class) argument:kMSDeploymentKey];
         }
         if (label != nil) {
-            [report setLabel:label];
+            _label = label;
         } else {
             @throw [[MSAssetsIllegalArgumentException alloc] initWithClass:NSStringFromClass(MSAssetsDownloadStatusReport.class) argument:kMSLabel];
         }
