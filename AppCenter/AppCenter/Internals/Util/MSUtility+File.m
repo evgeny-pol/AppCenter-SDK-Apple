@@ -254,13 +254,16 @@ static NSString *const kMSAppCenterBundleIdentifier = @"com.microsoft.appcenter"
                     MSLogInfo([MSAppCenter logTag], @"Error copying item at path %@ to path %@. %@", fromPath, toPath, [error localizedDescription]);
                     return NO;
                 }
+                if ([MSUtility fileExistsForPathComponent:toPath]) {
+                    [MSUtility deleteItemForPathComponent:toPath];
+                }
                 if (![fileManager copyItemAtPath:fullFromPath toPath:fullDestPath error:&error]) {
                     MSLogInfo([MSAppCenter logTag], @"Error copying item at path %@ to path %@. %@", fromPath, toPath, [error localizedDescription]);
                     return NO;
                 }
             }
             else {
-                return [MSUtility copyDirectoryContentsFromPathComponent:[sourceDir stringByAppendingPathComponent:fileName]
+                [MSUtility copyDirectoryContentsFromPathComponent:[sourceDir stringByAppendingPathComponent:fileName]
                                                     toPathComponent:[destDir stringByAppendingPathComponent:fileName]];
             }
         }

@@ -7,10 +7,16 @@
 
 @interface MSAssetsViewController ()
 
-@property (weak, nonatomic) IBOutlet UITextView *updatePathView;
+@property (weak, nonatomic) IBOutlet UILabel *updatePathView;
 @property (weak, nonatomic) IBOutlet UILabel *syncStatus;
 @property (weak, nonatomic) IBOutlet UISwitch *enabled;
 @property (weak, nonatomic) IBOutlet UILabel *result;
+@property (weak, nonatomic) IBOutlet UITableViewCell *cellCheckForUpdate;
+@property (weak, nonatomic) IBOutlet UITableViewCell *cellDownloadStatus;
+@property (weak, nonatomic) IBOutlet UITableViewCell *cellSync;
+@property (weak, nonatomic) IBOutlet UITableViewCell *cellSyncStatus;
+@property (weak, nonatomic) IBOutlet UITableViewCell *cellUpdatePath;
+
 @property (nonatomic) MSAssetsDeploymentInstance *assetsDeployment;
 
 @end
@@ -32,11 +38,22 @@
         [_assetsDeployment setDelegate:self];
     }
     [self updatePath];
+    [self updateCells];
+}
+
+- (void)updateCells
+{
+    [self.cellCheckForUpdate setUserInteractionEnabled:[MSAssets isEnabled]];
+    [self.cellDownloadStatus setUserInteractionEnabled:[MSAssets isEnabled]];
+    [self.cellSync setUserInteractionEnabled:[MSAssets isEnabled]];
+    [self.cellSyncStatus setUserInteractionEnabled:[MSAssets isEnabled]];
+    [self.cellUpdatePath setUserInteractionEnabled:[MSAssets isEnabled]];
 }
 
 - (IBAction)enabledSwitchUpdated:(UISwitch *)sender {
     [MSAssets setEnabled:sender.on];
     sender.on = [MSAssets isEnabled];
+    [self updateCells];
 }
 
 -(void)sync {
@@ -106,7 +123,7 @@
                     [self checkForUpdate];
                     break;
                 }
-                case 2:
+                case 1:
                     [self sync];
                     break;
                 default:
@@ -117,41 +134,44 @@
 }
 
 - (void)syncStatusChanged:(MSAssetsSyncStatus __unused)syncStatus {
-    NSString *syncStatusString = @"";
-    switch (syncStatus) {
-        case MSAssetsSyncStatusUpToDate:
-            syncStatusString = @"Up to date";
-            break;
-        case MSAssetsSyncStatusUnknownError:
-            syncStatusString = @"Unknown error";
-            break;
-        case MSAssetsSyncStatusUpdateIgnored:
-            syncStatusString = @"Update ignored";
-            break;
-        case MSAssetsSyncStatusSyncInProgress:
-            syncStatusString = @"Sync in progress";
-            break;
-        case MSAssetsSyncStatusUpdateInstalled:
-            syncStatusString = @"Update installed";
-            [self updatePath];
-            [_assetsDeployment notifyApplicationReady];
-            break;
-        case MSAssetsSyncStatusInstallingUpdate:
-            syncStatusString = @"Installing update";
-            break;
-        case MSAssetsSyncStatusCheckingForUpdate:
-            syncStatusString = @"Checking for update";
-            break;
-        case MSAssetsSyncStatusAwaitingUserAction:
-            syncStatusString = @"Awaiting user action";
-            break;
-        case MSAssetsSyncStatusDownloadingPackage:
-            syncStatusString = @"Downloading package";
-            break;
-        default:
-            break;
-    }
-    self.syncStatus.text = syncStatusString;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSString *syncStatusString = @"";
+        switch (syncStatus) {
+            case MSAssetsSyncStatusUpToDate:
+                syncStatusString = @"Up to date";
+                break;
+            case MSAssetsSyncStatusUnknownError:
+                syncStatusString = @"Unknown error";
+                break;
+            case MSAssetsSyncStatusUpdateIgnored:
+                syncStatusString = @"Update ignored";
+                break;
+            case MSAssetsSyncStatusSyncInProgress:
+                syncStatusString = @"Sync in progress";
+                break;
+            case MSAssetsSyncStatusUpdateInstalled:
+                syncStatusString = @"Update installed";
+                [self updatePath];
+                [_assetsDeployment notifyApplicationReady];
+                break;
+            case MSAssetsSyncStatusInstallingUpdate:
+                syncStatusString = @"Installing update";
+                break;
+            case MSAssetsSyncStatusCheckingForUpdate:
+                syncStatusString = @"Checking for update";
+                break;
+            case MSAssetsSyncStatusAwaitingUserAction:
+                syncStatusString = @"Awaiting user action";
+                break;
+            case MSAssetsSyncStatusDownloadingPackage:
+                syncStatusString = @"Downloading package";
+                break;
+            default:
+                break;
+        }
+        self.syncStatus.text = syncStatusString;
+    });
+
 }
 
 - (void)didFailToQueryRemotePackageOnCheckForUpdate:(NSError *)error {
