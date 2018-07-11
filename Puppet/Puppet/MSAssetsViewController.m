@@ -38,18 +38,22 @@
         [_assetsDeployment setDelegate:self];
     }
     [self updatePath];
+    [self updateCells];
+}
+
+- (void)updateCells
+{
+    [self.cellCheckForUpdate setUserInteractionEnabled:[MSAssets isEnabled]];
+    [self.cellDownloadStatus setUserInteractionEnabled:[MSAssets isEnabled]];
+    [self.cellSync setUserInteractionEnabled:[MSAssets isEnabled]];
+    [self.cellSyncStatus setUserInteractionEnabled:[MSAssets isEnabled]];
+    [self.cellUpdatePath setUserInteractionEnabled:[MSAssets isEnabled]];
 }
 
 - (IBAction)enabledSwitchUpdated:(UISwitch *)sender {
     [MSAssets setEnabled:sender.on];
     sender.on = [MSAssets isEnabled];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.cellCheckForUpdate setUserInteractionEnabled:sender.on];
-        [self.cellDownloadStatus setUserInteractionEnabled:sender.on];
-        [self.cellSync setUserInteractionEnabled:sender.on];
-        [self.cellSyncStatus setUserInteractionEnabled:sender.on];
-        [self.cellUpdatePath setUserInteractionEnabled:sender.on];
-    });
+    [self updateCells];
 }
 
 -(void)sync {
