@@ -7,7 +7,7 @@
 
 @interface MSAssetsViewController ()
 
-@property (weak, nonatomic) IBOutlet UITextView *updatePathView;
+@property (weak, nonatomic) IBOutlet UILabel *updatePathView;
 @property (weak, nonatomic) IBOutlet UILabel *syncStatus;
 @property (weak, nonatomic) IBOutlet UISwitch *enabled;
 @property (weak, nonatomic) IBOutlet UILabel *result;
@@ -106,7 +106,7 @@
                     [self checkForUpdate];
                     break;
                 }
-                case 2:
+                case 1:
                     [self sync];
                     break;
                 default:
