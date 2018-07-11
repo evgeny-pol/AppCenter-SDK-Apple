@@ -26,7 +26,7 @@
 /**
  * Minimum background duration value.
  */
-@property(nonatomic) BOOL minimumBackgroundDuration;
+@property(nonatomic) int minimumBackgroundDuration;
 
 /**
  * Indicates current install mode.
