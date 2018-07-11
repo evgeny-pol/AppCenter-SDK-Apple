@@ -144,7 +144,7 @@ static NSString *const kMSReportDownloadStatusEndpoint = @"%@reportStatus/downlo
              return;
          }
          if (error) {
-             MSLogError([MSAssets logTag], @"Error reporting download status: %@", [error localizedDescription]);
+             MSLogError([MSAssets logTag], @"Error reporting download status: %@ %@", [error localizedDescription], [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
              return;
          }
          strongSelf->_reportSender = nil;
@@ -181,7 +181,7 @@ static NSString *const kMSReportDownloadStatusEndpoint = @"%@reportStatus/downlo
              return;
          }
          if (error) {
-             MSLogError([MSAssets logTag], @"Error reporting deploy status: %@", [error localizedDescription]);
+             MSLogError([MSAssets logTag], @"Error reporting deploy status: %@. %@", [error localizedDescription], [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
              return;
          }
          strongSelf->_reportSender = nil;

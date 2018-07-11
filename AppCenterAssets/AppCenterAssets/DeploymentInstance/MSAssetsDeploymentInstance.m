@@ -135,7 +135,33 @@ static BOOL isRunningBinaryVersion = NO;
 
 - (void) notifyApplicationReady {
     [[self settingManager] removePendingUpdate];
-    //TODO: status reports?
+    NSError *error = nil;
+    MSAssetsDeploymentStatusReport *report = [self getNewStatusReportWithError:&error];
+    if (error) {
+        MSLogInfo([MSAssets logTag], @"An error occurred during obtaining new status report. %@", [error localizedDescription]);
+        return;
+    }
+    if (report) {
+        [self reportStatus:report];
+    }
+}
+
+- (void)reportStatus:(MSAssetsDeploymentStatusReport *)report {
+    NSError *error = nil;
+    MSAssetsConfiguration *configuration = [self getConfigurationWithError:&error];
+    if (report.appVersion.length == 0) {
+        MSLogInfo([MSAssets logTag], @"Reporting binary update (%@)", report.appVersion);
+    } else {
+        NSString *label = report.assetsPackage != nil ? report.assetsPackage.label : report.label;
+        if (report.status == MSAssetsDeploymentStatusSucceeded) {
+            MSLogInfo([MSAssets logTag], @"Reporting update success (%@)", label);
+        } else {
+            MSLogInfo([MSAssets logTag], @"Reporting update rollback (%@)", label);
+        }
+        [configuration setDeploymentKey:report.assetsPackage == nil ? report.deploymentKey : report.assetsPackage.deploymentKey];
+    }
+    [[self acquisitionManager] reportDeploymentStatus:report withConfiguration:configuration];
+    [[self telemetryManager] saveReportedStatus:report];
 }
 
 - (void) rollbackPackage {
@@ -522,7 +548,7 @@ static BOOL isRunningBinaryVersion = NO;
                                                                                               isPending:YES
                                                                                             isDebugOnly:NO
                                                                                              entryPoint: entryPoint];                           
-                           [localPackage setBinaryModifiedTime: [NSString stringWithFormat:@"%f", [[strongSelf platformInstance] getBinaryResourcesModifiedTime]]];
+                           [localPackage setBinaryModifiedTime: [NSString stringWithFormat:@"%ld", [[strongSelf platformInstance] getBinaryResourcesModifiedTime]]];
                            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[localPackage serializeToDictionary] options:NSJSONWritingPrettyPrinted error:&error];
                            if (error) {
                                completeHandler(nil, error);
@@ -686,4 +712,33 @@ minimumBackgroundDuration:(int)minimumBackgroundDuration {
     return nil;
 }
 
+/**
+ * Retrieves status report for sending.
+ *
+ * @param error error, if occurred.
+ * @return status report for sending.
+ */
+- (MSAssetsDeploymentStatusReport *)getNewStatusReportWithError:(NSError * __autoreleasing *)error {
+    if (self.instanceState.needToReportRollback) {
+        self.instanceState.needToReportRollback = NO;
+        NSArray<MSAssetsPackage *> *failedUpdates = [[self settingManager] getFailedUpdates];
+        if (failedUpdates && failedUpdates.count > 0) {
+            MSAssetsPackage *failedPackage = failedUpdates.lastObject;
+            if (failedPackage) {
+                return [[self telemetryManager] buildRollbackReportWithFailedPackage:failedPackage];
+            }
+        }
+    } else if (self.instanceState.didUpdate) {
+        MSAssetsLocalPackage *localPackage = [[self updateManager] getCurrentPackage:error];
+        if (*error) {
+            return nil;
+        }
+        if (localPackage != nil) {
+            return [[self telemetryManager] buildUpdateReportWithPackage:localPackage];
+        }
+    } else if (self.instanceState.isRunningBinaryVersion) {
+        return [[self telemetryManager] buildBinaryUpdateReportWithAppVersion:_appVersion];
+    }
+    return nil;
+}
 @end

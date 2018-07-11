@@ -110,4 +110,19 @@
     return report;
 }
 
+- (void)saveReportedStatus:(MSAssetsDeploymentStatusReport *)report {
+    if (report.status == MSAssetsDeploymentStatusFailed) {
+        return;
+    }
+    MSAssetsStatusReportIdentifier *identifier;
+    if (report.appVersion.length == 0) {
+        identifier = [[MSAssetsStatusReportIdentifier alloc] initWithAppVersion:report.appVersion];
+    } else if (report.assetsPackage != nil) {
+        identifier = [self buildPackageStatusReportIdentifier:report.assetsPackage];
+    }
+    if (identifier) {
+        [[self settingManager] saveIdentifierOfReportedStatus:identifier];
+    }
+}
+
 @end

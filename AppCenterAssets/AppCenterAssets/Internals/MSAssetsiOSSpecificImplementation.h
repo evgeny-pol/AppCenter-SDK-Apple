@@ -35,9 +35,9 @@
 /**
  * Gets binary version apk build time.
  *
- * @return time in `NSTimeInterval`.
+ * @return time in ms.
  */
-- (NSTimeInterval) getBinaryResourcesModifiedTime;
+- (long) getBinaryResourcesModifiedTime;
 @end
 
 @interface MSAssetsiOSSpecificImplementation : NSObject<MSAssetsPlatformSpecificImplementation>

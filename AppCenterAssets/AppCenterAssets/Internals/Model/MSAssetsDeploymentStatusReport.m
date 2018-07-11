@@ -44,7 +44,7 @@ static NSString *const kMSAssetsPackage = @"package";
             }
         }
         if (dictionary[kMSStatus]) {
-            self.status = [dictionary[kMSStatus] intValue];
+            self.status = [dictionary[kMSStatus] isEqualToString:@"DeploymentSucceeded"] ? MSAssetsDeploymentStatusSucceeded : MSAssetsDeploymentStatusFailed;
         }
     }
     return self;
@@ -62,7 +62,7 @@ static NSString *const kMSAssetsPackage = @"package";
     if (self.previousLabelOrAppVersion) {
         dict[kMSPreviousLabelOrAppVersion] = self.previousLabelOrAppVersion;
     }
-    dict[kMSStatus] = [NSNumber numberWithInt:self.status];
+    dict[kMSStatus] = self.status == MSAssetsDeploymentStatusSucceeded ? @"DeploymentSucceeded" : @"DeploymentFailed";
     if (self.assetsPackage) {
         dict[kMSAssetsPackage] = [self.assetsPackage serializeToDictionary];
     }
