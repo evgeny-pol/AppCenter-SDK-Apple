@@ -30,14 +30,14 @@
     && [appVersion isEqualToString:packageAppVersion];
 }
 
-- (NSTimeInterval) getBinaryResourcesModifiedTime {
+- (long) getBinaryResourcesModifiedTime {
     NSURL *binaryBundleURL = [[NSBundle mainBundle] bundleURL];
     if (binaryBundleURL != nil) {
         NSString *filePath = [binaryBundleURL path];
         if (filePath != nil) {
             NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil];
             NSDate *modifiedDate = [fileAttributes objectForKey:NSFileModificationDate];
-            return [modifiedDate timeIntervalSince1970];
+            return (long)([modifiedDate timeIntervalSince1970] * 1000);
         }
     }
     return 0;

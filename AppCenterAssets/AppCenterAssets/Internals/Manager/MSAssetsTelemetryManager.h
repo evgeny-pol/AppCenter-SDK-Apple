@@ -36,5 +36,11 @@
  */
 - (MSAssetsDeploymentStatusReport *)buildRollbackReportWithFailedPackage:(MSAssetsPackage * _Nonnull)failedPackage;
 
+/**
+ * Saves already sent status report.
+ *
+ * @param report report to save.
+ */
+- (void)saveReportedStatus:(MSAssetsDeploymentStatusReport *)report;
 
 @end

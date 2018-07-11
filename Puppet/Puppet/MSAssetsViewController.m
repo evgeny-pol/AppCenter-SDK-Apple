@@ -131,11 +131,18 @@
         case MSAssetsSyncStatusSyncInProgress:
             syncStatusString = @"Sync in progress";
             break;
-        case MSAssetsSyncStatusUpdateInstalled:
+        case MSAssetsSyncStatusUpdateInstalled: {
             syncStatusString = @"Update installed";
             [self updatePath];
-            [_assetsDeployment notifyApplicationReady];
+            NSError *error = nil;
+            [_assetsDeployment initializeUpdateAfterRestartWithError:&error];
+            if (error) {
+                NSLog([error localizedDescription]);
+            } else {
+                [_assetsDeployment notifyApplicationReady];
+            }
             break;
+        }
         case MSAssetsSyncStatusInstallingUpdate:
             syncStatusString = @"Installing update";
             break;

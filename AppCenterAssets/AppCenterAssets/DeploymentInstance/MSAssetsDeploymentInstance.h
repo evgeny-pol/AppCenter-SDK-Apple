@@ -77,11 +77,6 @@ typedef void (^MSAssetsDownloadInstallHandler)(NSError * _Nullable error);
                   platformInstance:(id<MSAssetsPlatformSpecificImplementation>)platformInstance
                          withError:(NSError *__autoreleasing *)error;
 
-- (void) doDownloadAndInstall:(MSAssetsRemotePackage *)remotePackage
-                  syncOptions:(MSAssetsSyncOptions *)syncOptions
-                configuration:(MSAssetsConfiguration *)configuration
-                      handler:(MSAssetsDownloadInstallHandler)handler;
-
 /**
  * Gets native Assets configuration.
  *
@@ -89,10 +84,28 @@ typedef void (^MSAssetsDownloadInstallHandler)(NSError * _Nullable error);
  */
 - (MSAssetsConfiguration *)getConfigurationWithError:(NSError * __autoreleasing*)error;
 
+/**
+ * Gets current package update entry point.
+ *
+ * @return path to update contents.
+ */
 - (NSString *)getCurrentUpdateEntryPoint;
+
+/**
+ * Notifies the runtime that a freshly installed update should be considered successful,
+ * and therefore, an automatic client-side rollback isn't necessary.
+ */
 - (void) notifyApplicationReady;
+
+/**
+ * Synchronizes your app assets with the latest release to the configured deployment.
+ *
+ * @param syncOptions sync options.
+ * @see `MSAssetsDelegate->syncStatusChanged`.
+ */
 - (void)sync:(MSAssetsSyncOptions *)syncOptions;
 
+- (void)initializeUpdateAfterRestartWithError:(NSError * __autoreleasing *)error;
 @property (nonatomic, copy, nonnull) NSString *deploymentKey;
 @property (nonatomic, copy, nonnull) NSString *serverUrl;
 //@property (nonatomic, copy, nullable) NSString *updateSubFolder;
