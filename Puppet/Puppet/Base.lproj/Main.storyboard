@@ -945,7 +945,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ckl-Ma-KWR" userLabel="Enabled">
-                                                    <rect key="frame" x="305" y="6" width="44" height="31"/>
+                                                    <rect key="frame" x="304" y="6" width="43" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                                                     <connections>
                                                         <action selector="enabledSwitchUpdated:" destination="9IQ-u6-UVl" eventType="valueChanged" id="tHT-77-WnY"/>
@@ -1077,6 +1077,11 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="cellCheckForUpdate" destination="4On-ni-mmw" id="16p-s9-6KE"/>
+                        <outlet property="cellDownloadStatus" destination="IJs-mD-7SP" id="03f-Km-u94"/>
+                        <outlet property="cellSync" destination="IfG-xP-CqK" id="hZs-8y-QUp"/>
+                        <outlet property="cellSyncStatus" destination="bMA-El-Rrx" id="ZXh-ae-m0B"/>
+                        <outlet property="cellUpdatePath" destination="uZc-l1-LLC" id="7ZA-le-NJ6"/>
                         <outlet property="enabled" destination="Ckl-Ma-KWR" id="YGu-ib-8YC"/>
                         <outlet property="result" destination="aGc-H0-Qij" id="aAV-NZ-Li2"/>
                         <outlet property="syncStatus" destination="qpG-qO-cmg" id="jjo-ya-arT"/>
