@@ -222,7 +222,6 @@ static BOOL isRunningBinaryVersion = NO;
         }
         if (!update) {
             handler(nil, nil);
-            return;
         }
         if (!update || update.updateAppVersion ||
             (localPackage && ([update.packageHash isEqualToString:localPackage.packageHash])) ||
