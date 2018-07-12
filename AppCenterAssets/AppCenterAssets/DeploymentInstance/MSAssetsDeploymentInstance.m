@@ -337,7 +337,7 @@ static BOOL isRunningBinaryVersion = NO;
                     if (!strongSelfLvl2) {
                         return;
                     }
-                    strongSelf.instanceState.syncInProgress = NO;
+                    strongSelfLvl2.instanceState.syncInProgress = NO;
                     if (error_internal) {
                         MSLogInfo([MSAssets logTag], @"Error during doDownloadAndInstall");
                         [strongSelfLvl2 notifyAboutSyncStatusChange:MSAssetsSyncStatusUnknownError instanceState:[strongSelfLvl2 instanceState]];
