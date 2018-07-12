@@ -4,6 +4,11 @@
 
 #import "MSAssetsViewController.h"
 #import "AppCenterAssets.h"
+#import "MSLogger.h"
+#import "MSUtility+File.h"
+
+#define kDeploymentKey "6__rlrR5VCT3JT7DqDUNuxVA2qTpSJI_st4X7"
+
 
 @interface MSAssetsViewController ()
 
@@ -16,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *cellSync;
 @property (weak, nonatomic) IBOutlet UITableViewCell *cellSyncStatus;
 @property (weak, nonatomic) IBOutlet UITableViewCell *cellUpdatePath;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
 @property (nonatomic) MSAssetsDeploymentInstance *assetsDeployment;
 
@@ -39,6 +45,7 @@
     }
     [self updatePath];
     [self updateCells];
+    [self updateImage];
 }
 
 - (void)updateCells
@@ -58,7 +65,7 @@
 
 -(void)sync {
     MSAssetsSyncOptions *syncOptions = [MSAssetsSyncOptions new];
-    [syncOptions setDeploymentKey:@"4VnyrkITHiZ6Qroh19nsQkebgfZLSyNJucKym"];
+    [syncOptions setDeploymentKey:@kDeploymentKey];
     [syncOptions setUpdateDialog:[MSAssetsUpdateDialog new]];
     [_assetsDeployment sync:syncOptions];
 }
@@ -68,8 +75,30 @@
     self.updatePathView.text = path;
 }
 
+- (void)updateImage {
+    MSLogInfo([MSAssets logTag], @"Puppet: update image");
+    NSString *path = [[_assetsDeployment getCurrentUpdateEntryPoint] stringByAppendingPathComponent:@"CodePushAssets/laptop_phone_howitworks.png"];
+
+    MSLogInfo([MSAssets logTag], path);
+
+    NSData *data = [MSUtility loadDataForPathComponent:path];
+
+    if (data) {
+        MSLogInfo([MSAssets logTag],
+                  @"File exists");
+    } else {
+        MSLogInfo([MSAssets logTag], @"File not found");
+    }
+
+    UIImage *image = [UIImage imageWithData:data];
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (image) [self.imageView setImage:image];
+    });
+}
+
 - (void)checkForUpdate {
-    [_assetsDeployment checkForUpdate:@"4VnyrkITHiZ6Qroh19nsQkebgfZLSyNJucKym"];
+    [_assetsDeployment checkForUpdate:@kDeploymentKey];
 }
 
 - (void)didReceiveRemotePackageOnCheckForUpdate:(MSAssetsRemotePackage *)package {
@@ -152,6 +181,7 @@
             case MSAssetsSyncStatusUpdateInstalled:
                 syncStatusString = @"Update installed";
                 [self updatePath];
+                [self updateImage];
                 [_assetsDeployment notifyApplicationReady];
                 break;
             case MSAssetsSyncStatusInstallingUpdate:
