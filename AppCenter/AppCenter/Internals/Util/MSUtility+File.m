@@ -101,8 +101,6 @@ static NSString *const kMSAppCenterBundleIdentifier = @"com.microsoft.appcenter"
   }
 }
 
-//fileURL    NSURL *    @"file:///Users/alexanderoreshko/Library/Developer/CoreSimulator/Devices/803962F3-5B43-4AF9-9213-CC14E692185B/data/Containers/Data/Application/833CC98F-516A-4CB1-8D8F-5AABF78EAFCF/Library/Application%20Support/com.microsoft.appcenter/Assets/codepush.json"    0x00006080000a3d20
-
 /**
  * TODO candidate for refactoring. Should return pathComponents and not full URLs.
  * Has big impact on crashes logic.
