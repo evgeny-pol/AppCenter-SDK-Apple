@@ -79,7 +79,7 @@ static BOOL isRunningBinaryVersion = NO;
         _platformInstance = platformInstance;
         if (_isDebugMode && [_settingManager isPendingUpdate:nil]) {
             [_platformInstance clearDebugCacheWithError:error];
-            if (error) {
+            if (*error) {
                 return nil;
             }
         }

@@ -50,6 +50,7 @@ static id<MSAssetsPlatformSpecificImplementation> platformImpl;
     return assetsDeploymentInstance;
 }
 
+// The ability to override platform specific implementation in other platforms (react, cordova).
 + (void) setPlatformImplementation:(id<MSAssetsPlatformSpecificImplementation>)impl {
     platformImpl = impl;
 }
