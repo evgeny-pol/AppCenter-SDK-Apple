@@ -180,6 +180,8 @@ static BOOL isRunningBinaryVersion = NO;
 }
 
 - (void)checkForUpdate:(nullable NSString *)deploymentKey {
+    if (![MSAssets isEnabled])
+        return;
     [self checkForUpdate:deploymentKey withCompletionHandler:^( MSAssetsRemotePackage *update,  NSError * _Nullable error){
         if (error) {
             if ([self.delegate respondsToSelector:@selector(didFailToQueryRemotePackageOnCheckForUpdate:)])
@@ -228,6 +230,7 @@ static BOOL isRunningBinaryVersion = NO;
             ((!localPackage || localPackage.isDebugOnly) && [config.packageHash isEqualToString:update.packageHash] )){
             if (update && update.updateAppVersion){
                 MSLogInfo([MSAssets logTag], @"An update is available but it is not targeting the binary version of your app.");
+                [self.delegate handleBinaryVersionMismatchCallback];
                 handler(nil, nil);
                 return;
             }
@@ -249,6 +252,9 @@ static BOOL isRunningBinaryVersion = NO;
 }
 
 - (void)sync:(MSAssetsSyncOptions *)syncOptions {
+    if (![MSAssets isEnabled])
+        return;
+    
     if (self.instanceState.syncInProgress){
         MSLogInfo([MSAssets logTag], @"Sync already in progress.");
         [self notifyAboutSyncStatusChange: MSAssetsSyncStatusSyncInProgress instanceState:[self instanceState]];
