@@ -209,4 +209,12 @@
         self.result.text = error.description;
     });
 }
+
+- (void)handleBinaryVersionMismatchCallback
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.result.text = @"Binary mismatch";
+    });
+}
+
 @end

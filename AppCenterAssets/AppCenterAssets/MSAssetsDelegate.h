@@ -35,5 +35,11 @@
  */
 - (void)didReceiveBytesForPackageDownloadProgress:(long long)receivedBytes totalBytes:(long long)totalBytes;
 
+/**
+ * Callback method that will be called by CheckForUpdate in case of binary version mismatch
+ *
+ */
+- (void)handleBinaryVersionMismatchCallback;
+
 @end
 
