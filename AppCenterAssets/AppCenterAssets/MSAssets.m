@@ -17,14 +17,17 @@ static NSString *const kMSGroupId = @"Assets";
 // Singleton
 static MSAssets *sharedInstance = nil;
 static dispatch_once_t onceToken;
+static id<MSAssetsPlatformSpecificImplementation> platformImpl;
 
-@implementation MSAssets
+@implementation MSAssets {
+    
+}
 
 #pragma mark - Service initialization
 
 - (instancetype)init {
   if ((self = [super init])) {
-      
+      platformImpl = [[MSAssetsiOSSpecificImplementation alloc] init];
   }
   return self;
 }
@@ -39,12 +42,16 @@ static dispatch_once_t onceToken;
                                                                                                     deploymentKey:builder.deploymentKey
                                                                                                       inDebugMode:NO
                                                                                                         serverUrl:builder.serverUrl
-                                                                                                 platformInstance:[[MSAssetsiOSSpecificImplementation alloc] init]
+                                                                                                 platformInstance:platformImpl
                                                                                                         withError:error];
-    if (error) {
- //       return nil;
+    if (*error) {
+        return nil;
     }
     return assetsDeploymentInstance;
+}
+
++ (void) setPlatformImplementation:(id<MSAssetsPlatformSpecificImplementation>)impl {
+    platformImpl = impl;
 }
 
 #pragma mark - MSServiceInternal
