@@ -77,9 +77,11 @@
 
 - (void)updateImage {
     MSLogInfo([MSAssets logTag], @"Puppet: update image");
-    NSString *path = [[_assetsDeployment getCurrentUpdateEntryPoint] stringByAppendingPathComponent:@"CodePushAssets/laptop_phone_howitworks.png"];
+    NSString *path = [[_assetsDeployment getCurrentUpdateEntryPoint] stringByAppendingPathComponent:@"pictures/image.jpg"];
 
-    MSLogInfo([MSAssets logTag], path);
+    if (path) {
+        MSLogInfo([MSAssets logTag], path);
+    
 
     NSData *data = [MSUtility loadDataForPathComponent:path];
 
@@ -95,6 +97,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         if (image) [self.imageView setImage:image];
     });
+    }
 }
 
 - (void)checkForUpdate {
