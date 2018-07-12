@@ -6,6 +6,7 @@
 #import "AppCenterAssets.h"
 #import "MSLogger.h"
 #import "MSUtility+File.h"
+#import "MSAlertController.h"
 
 #define kDeploymentKey "6__rlrR5VCT3JT7DqDUNuxVA2qTpSJI_st4X7"
 
@@ -48,8 +49,7 @@
     [self updateImage];
 }
 
-- (void)updateCells
-{
+- (void)updateCells {
     [self.cellCheckForUpdate setUserInteractionEnabled:[MSAssets isEnabled]];
     [self.cellDownloadStatus setUserInteractionEnabled:[MSAssets isEnabled]];
     [self.cellSync setUserInteractionEnabled:[MSAssets isEnabled]];
@@ -78,25 +78,18 @@
 - (void)updateImage {
     MSLogInfo([MSAssets logTag], @"Puppet: update image");
     NSString *path = [[_assetsDeployment getCurrentUpdateEntryPoint] stringByAppendingPathComponent:@"pictures/image.jpg"];
-
     if (path) {
-        MSLogInfo([MSAssets logTag], path);
-    
-
-    NSData *data = [MSUtility loadDataForPathComponent:path];
-
-    if (data) {
-        MSLogInfo([MSAssets logTag],
-                  @"File exists");
-    } else {
-        MSLogInfo([MSAssets logTag], @"File not found");
-    }
-
-    UIImage *image = [UIImage imageWithData:data];
-
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (image) [self.imageView setImage:image];
-    });
+        MSLogInfo([MSAssets logTag], @"%@", path);
+        NSData *data = [MSUtility loadDataForPathComponent:path];
+        if (data) {
+            MSLogInfo([MSAssets logTag], @"File exists");
+        } else {
+            MSLogInfo([MSAssets logTag], @"File not found");
+        }
+        UIImage *image = [UIImage imageWithData:data];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (image) [self.imageView setImage:image];
+        });
     }
 }
 
@@ -110,24 +103,17 @@
             self.syncStatus.text = @"No update available";
         });
     } else {
-        NSMutableString *info = @"";
-        NSMutableDictionary *dict = package.serializeToDictionary;
-        for(NSString *key in dict) {
-            info = [info stringByAppendingString:key];
-            info = [info stringByAppendingString:@":"];
-            if ([dict objectForKey:key])
-                info = [info stringByAppendingString:[[dict objectForKey:key] description]];
-            else
-                info = [info stringByAppendingString:@"[no value]"];
-            info = [info stringByAppendingString:@"\n"];
-        }
-
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[package serializeToDictionary] options: NSJSONWritingPrettyPrinted error:nil];
+        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        jsonString = [jsonString stringByReplacingOccurrencesOfString:@"\\/" withString:@"/"];
+        jsonString = [jsonString stringByReplacingOccurrencesOfString:@"{" withString:@""];
+        jsonString = [jsonString stringByReplacingOccurrencesOfString:@"}" withString:@""];
+       
         dispatch_async(dispatch_get_main_queue(), ^{
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Check for update results"
-                                                            message:info
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
+            MSAlertController *alert = [MSAlertController alertControllerWithTitle:@"Check for update results" message:jsonString preferredStyle:UIAlertControllerStyleAlert];
+            [alert.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            [alert addAction:defaultAction];
             [alert show];
         });
     }
@@ -147,7 +133,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
     switch ([indexPath section]) {
         case 1: {
             switch (indexPath.row) {
