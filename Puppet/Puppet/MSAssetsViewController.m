@@ -8,7 +8,7 @@
 #import "MSUtility+File.h"
 #import "MSAlertController.h"
 
-#define kDeploymentKey "X0s3Jrpp7TBLmMe5x_UG0b8hf-a8SknGZWL7Q"
+#define kDeploymentKey "6__rlrR5VCT3JT7DqDUNuxVA2qTpSJI_st4X7"
 
 
 @interface MSAssetsViewController ()
