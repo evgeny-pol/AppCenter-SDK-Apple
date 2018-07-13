@@ -8,7 +8,7 @@
 #import "MSUtility+File.h"
 #import "MSAlertController.h"
 
-#define kDeploymentKey "6__rlrR5VCT3JT7DqDUNuxVA2qTpSJI_st4X7"
+#define kDeploymentKey "X0s3Jrpp7TBLmMe5x_UG0b8hf-a8SknGZWL7Q"
 
 
 @interface MSAssetsViewController ()
@@ -37,6 +37,7 @@
     NSError *error = nil;
     _assetsDeployment = [MSAssets makeDeploymentInstanceWithBuilder:^(MSAssetsBuilder *builder) {
         [builder setServerUrl:@"https://codepush.azurewebsites.net/"];
+   //     [builder setPublicKey:@"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvccK8BF19rl2teRIJpkeIzFkqelB9OET1FfOJTnu9IHPmZn0gZLgvr0Xog2KG70xUUcD/QW8oUwGNWafK46AUDLBDhLdLFnxoOI7E1FfhwqmIIKaiiaPBwTbRGl8/WMXJ5AY4FufmrygUI0dPlF2xravX5MbbnOaX8ZWfJcNjDYAfBbC4Zx8Rp/gjHoREHDg5Q306WeKXbd3c/nTMhiG4hinJjAEl3PPrRLN/l9dk6SnEyB4MH+r6sLLsGnvtFODhMG9ygclO/bBLUpRI/McQqMRymeaeuf/l6lvYLyUocuIm9V0m574eIKKCjE2jyoIrXu9gWPxpNjK1eFe8gv+zQIDAQAB"];
     } error:&error];
     
     if (error) {
@@ -77,7 +78,7 @@
 
 - (void)updateImage {
     MSLogInfo([MSAssets logTag], @"Puppet: update image");
-    NSString *path = [[_assetsDeployment getCurrentUpdateEntryPoint] stringByAppendingPathComponent:@"pictures/image.jpg"];
+    NSString *path = [[_assetsDeployment getCurrentUpdateEntryPoint] stringByAppendingPathComponent:@"cp_assets/laptop_phone_howitworks.png"];
     if (path) {
         MSLogInfo([MSAssets logTag], @"%@", path);
         NSData *data = [MSUtility loadDataForPathComponent:path];
