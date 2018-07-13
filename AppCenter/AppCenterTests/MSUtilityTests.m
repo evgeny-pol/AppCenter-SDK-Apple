@@ -6,6 +6,7 @@
 #import "MSUtility+File.h"
 #import "MSUtility+PropertyValidation.h"
 #import "MSUtility+StringFormatting.h"
+#import "SSZipArchive.h"
 
 @interface MSUtilityTests : XCTestCase
 
@@ -716,33 +717,83 @@
 }
 
 - (void)testContentsOfDirectory {
-
   // If
   NSString *expectedString = @"Something";
-  NSString *parentDir = @"testing";
-  NSString *pathComponent = [NSString stringWithFormat:@"%@%@", parentDir, @"/testFile."];
-  BOOL forceOverwrite = NO;
-  BOOL atomical = YES;
-  NSUInteger fileCount;
-  for (fileCount = 0; fileCount<3 ; fileCount++){
-    [MSUtility createFileAtPathComponent:[NSString stringWithFormat:@"%@%lu", pathComponent, (unsigned long)fileCount]
-                                withData:[[NSString stringWithFormat:@"%@%lu", expectedString, (unsigned long)fileCount] dataUsingEncoding:NSUTF8StringEncoding]
-                              atomically:atomical
-                          forceOverwrite:forceOverwrite];
-  }
+  NSString *parentDir = @"testing/contentsSource";
+  NSUInteger fileCount = 3;
+  [self createFolderWithFilesAtPath:parentDir withContent:expectedString count:fileCount];
 
   // When
   NSArray<NSURL *> *contents = [MSUtility contentsOfDirectory:parentDir propertiesForKeys:nil];
 
   // Then
   XCTAssertTrue(contents.count == fileCount);
-  for (NSURL *fileUrl in contents){
-    NSString *testNb = fileUrl.pathExtension;
-    NSString *content = [NSString stringWithContentsOfURL:fileUrl encoding:NSUTF8StringEncoding error:nil];
-    XCTAssertTrue([fileUrl checkResourceIsReachableAndReturnError:nil]);
-    BOOL test = [content isEqualToString:[NSString stringWithFormat:@"%@%@", expectedString, testNb]];
+  
+  [self verifyFolderContents:contents shouldContainString:expectedString];
+}
+
+- (void)testMoveFile {
+    // If
+    NSString *expectedString = @"Something";
+    NSString *parentDir = @"testing/moveSource";
+    NSString *moveDir = @"testing/testingMove";
+    NSString *moveName = @"newFile.txt";
+    
+    NSString *pathComponent = [NSString stringWithFormat:@"%@%@", parentDir, @"/testFile.txt"];
+    BOOL forceOverwrite = NO;
+    BOOL atomical = YES;
+   
+    [MSUtility createFileAtPathComponent:[NSString stringWithFormat:@"%@", pathComponent]
+                                    withData:[[NSString stringWithFormat:@"%@", expectedString] dataUsingEncoding:NSUTF8StringEncoding]
+                                  atomically:atomical
+                              forceOverwrite:forceOverwrite];
+    
+    [MSUtility moveFile:pathComponent toFolder:moveDir withNewName:moveName];
+  
+    NSString *movedPathComponent = [NSString stringWithFormat:@"%@/%@", moveDir, moveName];
+    NSString *content = [[NSString alloc] initWithData:[MSUtility loadDataForPathComponent:movedPathComponent] encoding:NSUTF8StringEncoding];
+    BOOL test = [content isEqualToString:[NSString stringWithFormat:@"%@", expectedString]];
     XCTAssertTrue(test);
-  }
+}
+
+- (void)testCopyFiles {
+    // If
+    NSString *expectedString = @"Something";
+    NSString *parentDir = @"testing/copySource";
+    NSString *copyDir = @"testing/testingCopy";
+    NSUInteger fileCount = 3;
+    [self createFolderWithFilesAtPath:parentDir withContent:expectedString count:fileCount];
+    
+    // When
+    [MSUtility copyDirectoryContentsFromPathComponent:parentDir toPathComponent:copyDir];
+    NSArray<NSURL *> *contents = [MSUtility contentsOfDirectory:copyDir propertiesForKeys:nil];
+    
+    // Then
+    XCTAssertTrue(contents.count == fileCount);
+    [self verifyFolderContents:contents shouldContainString:expectedString];
+}
+
+- (void)testUnzipFiles {
+    // If
+    NSString *expectedString = @"Something";
+    NSString *parentDir = @"testing/unzipSource";
+    NSString *unzipDir = @"testing/testingUnzipped";
+    NSUInteger fileCount = 3;
+    [self createFolderWithFilesAtPath:parentDir withContent:expectedString count:fileCount];
+    
+    NSString *pathComponentZip = @"testing/zipFile.zip";
+    NSURL *zipUrl = [MSUtility fullURLForPathComponent:pathComponentZip];
+    NSURL *parentUrl = [MSUtility fullURLForPathComponent:parentDir];
+    BOOL f = [SSZipArchive createZipFileAtPath:[zipUrl path] withContentsOfDirectory:[parentUrl path]];
+    
+    // When
+    f = [MSUtility unzipFileAtPathComponent:pathComponentZip toPathComponent:unzipDir];
+    NSArray<NSURL *> *contents = [MSUtility contentsOfDirectory:unzipDir propertiesForKeys:nil];
+    
+    // Then
+    XCTAssertTrue(contents.count == fileCount);
+    
+    [self verifyFolderContents:contents shouldContainString:expectedString];
 }
 
 - (void)testFileExistsForPathComponent {
@@ -824,6 +875,29 @@
   XCTAssertNotNil(url);
   XCTAssertNotNil(url);
   XCTAssertTrue([[url absoluteString] isEqualToString:([actual absoluteString])?:@""]);
+}
+
+- (void)verifyFolderContents:(NSArray<NSURL *> *)contents shouldContainString:(NSString *)expectedString {
+    for (NSURL *fileUrl in contents){
+        NSString *testNb = fileUrl.pathExtension;
+        NSString *content = [NSString stringWithContentsOfURL:fileUrl encoding:NSUTF8StringEncoding error:nil];
+        XCTAssertTrue([fileUrl checkResourceIsReachableAndReturnError:nil]);
+        BOOL test = [content isEqualToString:[NSString stringWithFormat:@"%@%@", expectedString, testNb]];
+        XCTAssertTrue(test);
+    }
+}
+
+- (void)createFolderWithFilesAtPath:(NSString *)parentDir withContent:(NSString *)expectedString count:(NSUInteger)count {
+    NSString *pathComponent = [NSString stringWithFormat:@"%@%@", parentDir, @"/testFile."];
+    BOOL forceOverwrite = NO;
+    BOOL atomical = YES;
+    NSUInteger fileCount;
+    for (fileCount = 0; fileCount<count ; fileCount++){
+        [MSUtility createFileAtPathComponent:[NSString stringWithFormat:@"%@%lu", pathComponent, (unsigned long)fileCount]
+                                    withData:[[NSString stringWithFormat:@"%@%lu", expectedString, (unsigned long)fileCount] dataUsingEncoding:NSUTF8StringEncoding]
+                                  atomically:atomical
+                              forceOverwrite:forceOverwrite];
+    }
 }
 
 @end
