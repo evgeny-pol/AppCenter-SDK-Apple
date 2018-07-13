@@ -33,7 +33,7 @@ NSString *const AssetsFolderName = @"assets";
         return NO;
     }
     for (NSURL *content in contents) {
-        NSString *fileName = [[content absoluteString] lastPathComponent];
+        NSString *fileName = [[[content absoluteString] lastPathComponent] stringByReplacingOccurrencesOfString:@"%20" withString:@" "];
         NSString *fullFilePath = [folderPath stringByAppendingPathComponent:fileName];
         NSString *relativePath = pathPrefix.length == 0 ? fileName : [pathPrefix stringByAppendingPathComponent:fileName];
         if ([self isHashIgnoredFor:relativePath]) {
