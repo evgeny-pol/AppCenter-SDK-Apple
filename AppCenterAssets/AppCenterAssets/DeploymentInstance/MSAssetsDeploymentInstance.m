@@ -11,7 +11,6 @@
 #import "MSAssetsSettingManager.h"
 #import "MSUtility+File.h"
 #import "MSAssetsInstallMode.h"
-#import "MSAssetsUpdateState.h"
 #import "MSAssetsSyncOptions.h"
 #import "MSAssetsSyncStatus.h"
 #import "MSAssetsRemotePackage.h"
