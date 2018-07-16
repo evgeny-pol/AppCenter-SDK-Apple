@@ -2,7 +2,7 @@
 
 #define MS_APP_CENTER_BASE_DOMAIN @"com.Microsoft.AppCenter."
 
-//#pragma mark - Domain
+#pragma mark - Domain
 
 NSString *const kMSACAssetsErrorDomain = MS_APP_CENTER_BASE_DOMAIN @"ErrorDomain";
 
