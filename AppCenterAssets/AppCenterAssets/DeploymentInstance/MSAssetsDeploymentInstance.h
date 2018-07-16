@@ -11,6 +11,7 @@
 #import "MSAssetsRestartManager.h"
 #import "MSAssetsSyncOptions.h"
 #import "MSAssetsiOSSpecificImplementation.h"
+#import "MSAssetsUpdateState.h"
 
 typedef void(^MSAssetsSyncBlock)();
 typedef void(^MSAssetsInstallCompleteBlock)();
@@ -96,6 +97,16 @@ typedef void (^MSAssetsDownloadInstallHandler)(NSError * _Nullable error);
  * and therefore, an automatic client-side rollback isn't necessary.
  */
 - (void) notifyApplicationReady;
+
+/**
+ * Retrieves the metadata for an installed update (e.g. description, mandatory)
+ * whose state matches the specified <code>updateState</code> parameter.
+ *
+ * @param updateState current update state.
+ * @return installed update metadata.
+ */
+- (MSAssetsLocalPackage *)getUpdateMetadataForState:(MSAssetsUpdateState)updateState
+                         withError:(NSError * __autoreleasing *)error;
 
 /**
  * Synchronizes your app assets with the latest release to the configured deployment.

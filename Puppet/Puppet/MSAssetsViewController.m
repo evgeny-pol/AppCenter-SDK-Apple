@@ -8,7 +8,7 @@
 #import "MSUtility+File.h"
 #import "MSAlertController.h"
 
-#define kDeploymentKey "6__rlrR5VCT3JT7DqDUNuxVA2qTpSJI_st4X7"
+#define kDeploymentKey "X0s3Jrpp7TBLmMe5x_UG0b8hf-a8SknGZWL7Q"
 
 
 @interface MSAssetsViewController ()
@@ -77,7 +77,7 @@
 
 - (void)updateImage {
     MSLogInfo([MSAssets logTag], @"Puppet: update image");
-    NSString *path = [[_assetsDeployment getCurrentUpdateEntryPoint] stringByAppendingPathComponent:@"pictures/image.jpg"];
+    NSString *path = [[_assetsDeployment getCurrentUpdateEntryPoint] stringByAppendingPathComponent:@"cp_assets/laptop_phone_howitworks.png"];
     if (path) {
         MSLogInfo([MSAssets logTag], @"%@", path);
         NSData *data = [MSUtility loadDataForPathComponent:path];
@@ -201,7 +201,11 @@
 - (void)handleBinaryVersionMismatchCallback
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.result.text = @"Binary mismatch";
+        MSAlertController *alert = [MSAlertController alertControllerWithTitle:@"Check for update results" message:@"Binary mismatch" preferredStyle:UIAlertControllerStyleAlert];
+        [alert.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        [alert addAction:defaultAction];
+        [alert show];
     });
 }
 

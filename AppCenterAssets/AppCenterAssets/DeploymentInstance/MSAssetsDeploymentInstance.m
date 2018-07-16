@@ -11,7 +11,6 @@
 #import "MSAssetsSettingManager.h"
 #import "MSUtility+File.h"
 #import "MSAssetsInstallMode.h"
-#import "MSAssetsUpdateState.h"
 #import "MSAssetsSyncOptions.h"
 #import "MSAssetsSyncStatus.h"
 #import "MSAssetsRemotePackage.h"
@@ -407,7 +406,7 @@ static BOOL isRunningBinaryVersion = NO;
 }
 
 - (MSAssetsLocalPackage *)getUpdateMetadataForState:(MSAssetsUpdateState)updateState
-                 currentPackageGettingError:(NSError * __autoreleasing *)error {
+                 withError:(NSError * __autoreleasing *)error {
     NSError *__autoreleasing internalError;
     MSAssetsLocalPackage *package = [[self updateManager] getCurrentPackage:&internalError];
     if (internalError){
@@ -464,7 +463,7 @@ static BOOL isRunningBinaryVersion = NO;
 
 - (MSAssetsLocalPackage *)getCurrentPackage {
     NSError *error;
-    MSAssetsLocalPackage *currentPackage = [self getUpdateMetadataForState:MSAssetsUpdateStateLatest currentPackageGettingError:&error];
+    MSAssetsLocalPackage *currentPackage = [self getUpdateMetadataForState:MSAssetsUpdateStateLatest withError:&error];
     if (error){
         MSLogInfo([MSAssets logTag], @"An error occured: %@", [error localizedDescription]);
         return nil;
