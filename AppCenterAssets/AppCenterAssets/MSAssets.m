@@ -19,9 +19,7 @@ static MSAssets *sharedInstance = nil;
 static dispatch_once_t onceToken;
 static id<MSAssetsPlatformSpecificImplementation> platformImpl;
 
-@implementation MSAssets {
-    
-}
+@implementation MSAssets
 
 #pragma mark - Service initialization
 

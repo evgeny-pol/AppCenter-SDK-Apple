@@ -1,4 +1,5 @@
 #import "MSServiceAbstract.h"
+#import "MSServiceInternal.h"
 #import "MSAssetsBuilder.h"
 #import "MSAssetsDeploymentInstance.h"
 
@@ -7,7 +8,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * App Center Assets service.
  */
-@interface MSAssets : MSServiceAbstract
+@interface MSAssets : MSServiceAbstract <MSServiceInternal>
 
 + (NSString *)logTag;
 

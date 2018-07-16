@@ -9,6 +9,8 @@
 #import "MSAssets.h"
 #import "MSAppCenter.h"
 
+static NSString *const kMSAssetsServiceName = @"Analytics";
+
 @interface MSAssetsTests : XCTestCase
 
 @end
@@ -39,5 +41,8 @@
     XCTAssertTrue([MSAssets isEnabled]);
 }
 
+- (void)testServiceNameIsCorrect {
+    XCTAssertEqual([MSAssets serviceName], kMSAssetsServiceName);
+}
 
 @end
