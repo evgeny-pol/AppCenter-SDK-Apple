@@ -2,9 +2,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#pragma mark - Domain
+//#pragma mark - Domain
 
-extern NSString *const kMSACErrorDomain;
+extern NSString *const kMSACAssetsErrorDomain;
     
 #pragma mark - Error codes
 
@@ -43,7 +43,7 @@ extern NSString const *kMSACNoAppVersionErrorDesc;
     
 #pragma mark - Error keys
     
-extern NSString const *kMSACDownloadCodeErrorKey;
+extern NSString const *kMSACAssetsDownloadCodeErrorKey;
 extern NSString const *kMSACParseErrorKey;
 extern NSString const *kMSACUpdateErrorKey;
 extern NSString const *kMSACInstallErrorKey;
