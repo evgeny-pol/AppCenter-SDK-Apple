@@ -1,10 +1,3 @@
-//
-//  MSAssetsTests.m
-//  
-//
-//  Created by Alexander Oreshko on 16/07/2018.
-//
-
 #import <XCTest/XCTest.h>
 #import "MSAssets.h"
 #import "MSAppCenter.h"
