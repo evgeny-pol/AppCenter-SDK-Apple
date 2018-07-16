@@ -9,7 +9,7 @@
 #import "MSAssets.h"
 #import "MSAppCenter.h"
 
-static NSString *const kMSAssetsServiceName = @"Analytics";
+static NSString *const kMSAssetsServiceName = @"Assets";
 
 @interface MSAssetsTests : XCTestCase
 
