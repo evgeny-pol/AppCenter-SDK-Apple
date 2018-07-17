@@ -4,7 +4,7 @@
 
 #pragma mark - Domain
 
-NSString *const kMSACErrorDomain = MS_APP_CENTER_BASE_DOMAIN @"ErrorDomain";
+NSString *const kMSACAssetsErrorDomain = MS_APP_CENTER_BASE_DOMAIN @"ErrorDomain";
 
 #pragma mark - Update error descriptions
 
@@ -68,7 +68,7 @@ NSString const *kMSACNoAppVersionErrorDesc = @"Unable to get package info for ap
 
 #pragma mark - Error keys
 
-NSString const *kMSACDownloadCodeErrorKey = MS_APP_CENTER_BASE_DOMAIN "DownloadKey";
+NSString const *kMSACAssetsDownloadCodeErrorKey = MS_APP_CENTER_BASE_DOMAIN "DownloadKey";
 NSString const *kMSACUpdateErrorKey = MS_APP_CENTER_BASE_DOMAIN "UpdateKey";
 NSString const *kMSACParseErrorKey = MS_APP_CENTER_BASE_DOMAIN "ParseKey";
 NSString const *kMSACSignatureVerificationErrorKey = MS_APP_CENTER_BASE_DOMAIN "SignatureKey";

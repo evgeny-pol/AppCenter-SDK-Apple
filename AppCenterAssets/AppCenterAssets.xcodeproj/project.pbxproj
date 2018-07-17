@@ -191,6 +191,12 @@
 		4B6A9EAD20E618760044589C /* MSAssetsReportSender.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6A9EAB20E618760044589C /* MSAssetsReportSender.m */; };
 		4B721CF120EA7FFC0040A566 /* MSAssetsStatusReportIdentifier.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B721CEF20EA7FFB0040A566 /* MSAssetsStatusReportIdentifier.h */; };
 		4B9421F420E28B2500289E0A /* MSAssetsUpdateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9421F320E28B2500289E0A /* MSAssetsUpdateManager.m */; };
+		4BC7861C20FD177F009A6E51 /* MSAssetsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BC7861B20FD177F009A6E51 /* MSAssetsTests.m */; };
+		4BC7861D20FD177F009A6E51 /* MSAssetsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BC7861B20FD177F009A6E51 /* MSAssetsTests.m */; };
+		4BC7861E20FD177F009A6E51 /* MSAssetsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BC7861B20FD177F009A6E51 /* MSAssetsTests.m */; };
+		4BC7862020FD17E5009A6E51 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4BC7861F20FD17E4009A6E51 /* Info.plist */; };
+		4BC7862120FD17E5009A6E51 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4BC7861F20FD17E4009A6E51 /* Info.plist */; };
+		4BC7862220FD17E5009A6E51 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4BC7861F20FD17E4009A6E51 /* Info.plist */; };
 		4BE3179520F3561E006AEE79 /* MSAlertController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BE3179320F3561D006AEE79 /* MSAlertController.h */; };
 		4BE3179620F3561E006AEE79 /* MSAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE3179420F3561D006AEE79 /* MSAlertController.m */; };
 		6E0684381D35A3B900A8CC6C /* OCHamcrestIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E0684371D35A3B900A8CC6C /* OCHamcrestIOS.framework */; };
@@ -417,6 +423,8 @@
 		4B721CF020EA7FFB0040A566 /* MSAssetsStatusReportIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSAssetsStatusReportIdentifier.m; sourceTree = "<group>"; };
 		4B9421F320E28B2500289E0A /* MSAssetsUpdateManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsUpdateManager.m; sourceTree = "<group>"; };
 		4B9421F520E28B4400289E0A /* MSAssetsUpdateManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsUpdateManager.h; sourceTree = "<group>"; };
+		4BC7861B20FD177F009A6E51 /* MSAssetsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSAssetsTests.m; sourceTree = "<group>"; };
+		4BC7861F20FD17E4009A6E51 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4BE3179320F3561D006AEE79 /* MSAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSAlertController.h; path = ../../Vendor/iOS/MSAlertController/MSAlertController.h; sourceTree = "<group>"; };
 		4BE3179420F3561D006AEE79 /* MSAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MSAlertController.m; path = ../../Vendor/iOS/MSAlertController/MSAlertController.m; sourceTree = "<group>"; };
 		4BE5528320E4D5EF00620DB1 /* MSAssetsDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsDelegate.h; sourceTree = "<group>"; };
@@ -992,6 +1000,8 @@
 		E85547D61D2D6723002DF6E2 /* AppCenterAssetsTests */ = {
 			isa = PBXGroup;
 			children = (
+				4BC7861F20FD17E4009A6E51 /* Info.plist */,
+				4BC7861B20FD177F009A6E51 /* MSAssetsTests.m */,
 				04A140B21ECE814E001CEE94 /* Util */,
 				04A140B11ECE811D001CEE94 /* Model */,
 				6E0684361D35A39300A8CC6C /* Frameworks */,
@@ -1235,6 +1245,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BC7862220FD17E5009A6E51 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1242,6 +1253,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BC7862120FD17E5009A6E51 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1249,6 +1261,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BC7862020FD17E5009A6E51 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1353,6 +1366,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BC7861E20FD177F009A6E51 /* MSAssetsTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1360,6 +1374,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BC7861D20FD177F009A6E51 /* MSAssetsTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1444,6 +1459,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BC7861C20FD177F009A6E51 /* MSAssetsTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
