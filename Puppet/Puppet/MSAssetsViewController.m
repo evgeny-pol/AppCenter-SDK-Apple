@@ -44,22 +44,22 @@
     self.enabled.on = [MSAssets isEnabled];
     
     NSError *error = nil;
-    _assetsDeployment = [MSAssets makeDeploymentInstanceWithBuilder:^(MSAssetsBuilder *builder) {
+    self.assetsDeployment = [MSAssets makeDeploymentInstanceWithBuilder:^(MSAssetsBuilder *builder) {
     } error:&error];
     
     if (error) {
         NSLog(@"%@", [error localizedDescription]);
     } else {
-        [_assetsDeployment setDelegate:self];
+        [self.assetsDeployment setDelegate:self];
     }
 
-    _assetsDeployment2 = [MSAssets makeDeploymentInstanceWithBuilder:^(MSAssetsBuilder *builder) {
+    self.assetsDeployment2 = [MSAssets makeDeploymentInstanceWithBuilder:^(MSAssetsBuilder *builder) {
     } error:&error];
 
     if (error) {
         NSLog(@"%@", [error localizedDescription]);
     } else {
-        [_assetsDeployment2 setDelegate:self];
+        [self.assetsDeployment2 setDelegate:self];
     }
 
     [self updatePath];
@@ -88,24 +88,24 @@
     MSAssetsSyncOptions *syncOptions = [MSAssetsSyncOptions new];
     [syncOptions setDeploymentKey:@kDeploymentKey];
     [syncOptions setUpdateDialog:[MSAssetsUpdateDialog new]];
-    [_assetsDeployment sync:syncOptions];
+    [self.assetsDeployment sync:syncOptions];
 }
 
 -(void)sync2 {
     MSAssetsSyncOptions *syncOptions = [MSAssetsSyncOptions new];
     [syncOptions setDeploymentKey:@kDeploymentKey2];
     [syncOptions setUpdateDialog:[MSAssetsUpdateDialog new]];
-    [_assetsDeployment2 sync:syncOptions];
+    [self.assetsDeployment2 sync:syncOptions];
 }
 
 -(void)updatePath {
-    self.updatePathView.text = [_assetsDeployment getCurrentUpdateEntryPoint];
-    self.updatePathView2.text = [_assetsDeployment2 getCurrentUpdateEntryPoint];;
+    self.updatePathView.text = [self.assetsDeployment getCurrentUpdateEntryPoint];
+    self.updatePathView2.text = [self.assetsDeployment2 getCurrentUpdateEntryPoint];;
 }
 
 - (void)updateImage {
     MSLogInfo([MSAssets logTag], @"Puppet: update image");
-    NSString *path = [[_assetsDeployment getCurrentUpdateEntryPoint] stringByAppendingPathComponent:@"cp_assets/square.png"];
+    NSString *path = [[self.assetsDeployment getCurrentUpdateEntryPoint] stringByAppendingPathComponent:@"cp_assets/square.png"];
     if (path) {
         MSLogInfo([MSAssets logTag], @"%@", path);
         NSData *data = [MSUtility loadDataForPathComponent:path];
@@ -121,7 +121,7 @@
     }
 
 
-    NSString *path2 = [[_assetsDeployment2 getCurrentUpdateEntryPoint] stringByAppendingPathComponent:@"cp_assets2/square.png"];
+    NSString *path2 = [[self.assetsDeployment2 getCurrentUpdateEntryPoint] stringByAppendingPathComponent:@"cp_assets2/square.png"];
     if (path2) {
         MSLogInfo([MSAssets logTag], @"%@", path2);
         NSData *data = [MSUtility loadDataForPathComponent:path2];
@@ -138,11 +138,11 @@
 }
 
 - (void)checkForUpdate {
-    [_assetsDeployment checkForUpdate:@kDeploymentKey];
+    [self.assetsDeployment checkForUpdate:@kDeploymentKey];
 }
 
 - (void)checkForUpdate2 {
-    [_assetsDeployment2 checkForUpdate:@kDeploymentKey2];
+    [self.assetsDeployment2 checkForUpdate:@kDeploymentKey2];
 }
 
 - (void)didReceiveRemotePackageOnCheckForUpdate:(MSAssetsRemotePackage *)package {
@@ -227,7 +227,7 @@
                 syncStatusString = @"Update installed";
                 [self updatePath];
                 [self updateImage];
-                [_assetsDeployment notifyApplicationReady];
+                [self.assetsDeployment notifyApplicationReady];
                 break;
             case MSAssetsSyncStatusInstallingUpdate:
                 syncStatusString = @"Installing update";
