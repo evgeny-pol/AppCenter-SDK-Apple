@@ -45,7 +45,6 @@
     
     NSError *error = nil;
     _assetsDeployment = [MSAssets makeDeploymentInstanceWithBuilder:^(MSAssetsBuilder *builder) {
-        [builder setServerUrl:@"https://codepush.azurewebsites.net/"];
     } error:&error];
     
     if (error) {
@@ -55,7 +54,6 @@
     }
 
     _assetsDeployment2 = [MSAssets makeDeploymentInstanceWithBuilder:^(MSAssetsBuilder *builder) {
-        [builder setServerUrl:@"https://codepush.azurewebsites.net/"];
     } error:&error];
 
     if (error) {
