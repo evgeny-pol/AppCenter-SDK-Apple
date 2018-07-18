@@ -63,9 +63,9 @@ static NSString *const kMSAssetsServiceName = @"Assets";
 }
 
 - (void)testSettingDelegateWorks {
-    id<MSAssetsDelegate> delegateMock = OCMProtocolMock(@protocol(MSAssetsDelegate));
+//    id<MSAssetsDelegate> delegateMock = OCMProtocolMock(@protocol(MSAssetsDelegate));
     XCTAssertNotNil(self.assetsDeployment.delegate);
-    XCTAssertEqual(self.assetsDeployment.delegate, delegateMock);
+    XCTAssertEqual(self.assetsDeployment.delegate, self);
 }
 
 - (void)testMSAssetsPackageSerialization {

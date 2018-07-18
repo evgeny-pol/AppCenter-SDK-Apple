@@ -57,7 +57,8 @@ static BOOL isRunningBinaryVersion = NO;
         } else {
             _serverUrl = @"https://codepush.azurewebsites.net/";
         }
-        NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+        NSDictionary *infoDictionary = [[NSBundle bundleForClass:[self class]] infoDictionary];
+
         NSString *appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
         if (appVersion) {
             _appVersion = appVersion;
@@ -386,7 +387,8 @@ static BOOL isRunningBinaryVersion = NO;
 
 
 - (MSAssetsConfiguration *)getConfigurationWithError:(NSError * __autoreleasing*)error {
-    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSDictionary *infoDictionary = [[NSBundle bundleForClass:[self class]] infoDictionary];
+
     MSAssetsConfiguration *configuration = [MSAssetsConfiguration new];
     NSString *appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
     if (appVersion == nil) {
