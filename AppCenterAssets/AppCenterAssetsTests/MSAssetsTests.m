@@ -2,7 +2,7 @@
 #import "MSAssets.h"
 #import "MSAppCenter.h"
 #import "MSTestFrameworks.h"
-
+#import "MSAssetsPackageInfo.h"
 
 
 static NSString *const kMSAssetsServiceName = @"Assets";
@@ -68,6 +68,26 @@ static NSString *const kMSAssetsServiceName = @"Assets";
     XCTAssertEqual(self.assetsDeployment.delegate, delegateMock);
 }
 
+- (void)testMSAssetsPackageSerialization {
+    NSDictionary *dictIn = [[NSDictionary alloc] initWithObjectsAndKeys:@"1.0", @"appVersion", @"X0s3Jrpp7TBLmMe5x_UG0b8hf-a8SknGZWL7Q", @"deploymentKey",  @"descriptionText", @"description", @NO, @"failedInstall",  @NO, @"isMandatory",  @"labelText", @"label", @"packageHashData", @"packageHash", nil];
+    MSAssetsPackage *package = [[MSAssetsPackage alloc] initWithDictionary:dictIn];
+    NSDictionary *dictOut = [package serializeToDictionary];
+    XCTAssertEqual(dictIn[@"appVersion"], dictOut[@"appVersion"]);
+    XCTAssertEqual(dictIn[@"deploymentKey"], dictOut[@"deploymentKey"]);
+    XCTAssertEqual(dictIn[@"description"], dictOut[@"description"]);
+    XCTAssertEqual(dictIn[@"failedInstall"], dictOut[@"failedInstall"]);
+    XCTAssertEqual(dictIn[@"isMandatory"], dictOut[@"isMandatory"]);
+    XCTAssertEqual(dictIn[@"label"], dictOut[@"label"]);
+    XCTAssertEqual(dictIn[@"packageHash"], dictOut[@"packageHash"]);
+}
+
+- (void)testMSAssetsPackageInfoSerialization {
+    NSDictionary *dictIn = [[NSDictionary alloc] initWithObjectsAndKeys:@"currentPackageInfo", @"currentPackage", @"previousPackageInfo", @"previousPackage", nil];
+    MSAssetsPackageInfo *packageInfo = [[MSAssetsPackageInfo alloc] initWithDictionary:dictIn];
+    NSDictionary *dictOut = [packageInfo serializeToDictionary];
+    XCTAssertEqual(dictIn[@"currentPackage"], dictOut[@"currentPackage"]);
+    XCTAssertEqual(dictIn[@"previousPackage"], dictOut[@"previousPackage"]);
+}
 
 
 
