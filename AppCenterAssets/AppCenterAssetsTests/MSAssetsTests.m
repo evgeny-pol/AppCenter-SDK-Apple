@@ -29,8 +29,6 @@ static NSString *const kMSAssetsServiceName = @"Assets";
 
     if (error) {
         NSLog(@"%@", [error localizedDescription]);
-    } else {
-        [self.assetsDeployment setDelegate:self];
     }
 }
 
@@ -64,6 +62,8 @@ static NSString *const kMSAssetsServiceName = @"Assets";
 
 - (void)testSettingDelegateWorks {
 //    id<MSAssetsDelegate> delegateMock = OCMProtocolMock(@protocol(MSAssetsDelegate));
+
+    [self.assetsDeployment setDelegate:self];
     XCTAssertNotNil(self.assetsDeployment.delegate);
     XCTAssertEqual(self.assetsDeployment.delegate, self);
 }
