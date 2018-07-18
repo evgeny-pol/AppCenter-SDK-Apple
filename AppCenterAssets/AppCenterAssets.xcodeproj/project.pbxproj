@@ -80,7 +80,6 @@
 
 /* Begin PBXBuildFile section */
 		0420A6871ECA7A4B00915619 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0420A6861ECA7A4B00915619 /* OCMock.framework */; };
-		0420A6931ECA7B1100915619 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0420A6921ECA7B1100915619 /* OCMock.framework */; };
 		0431060920E6475300F42296 /* MSAssetsRestartManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0431060820E6475300F42296 /* MSAssetsRestartManager.m */; };
 		0431060C20E664FE00F42296 /* MSAssetsTelemetryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0431060B20E664FE00F42296 /* MSAssetsTelemetryManager.m */; };
 		0431060F20E66DAF00F42296 /* MSAssetsStatusReportIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 0431060E20E66DAF00F42296 /* MSAssetsStatusReportIdentifier.m */; };
@@ -191,6 +190,8 @@
 		4B6A9EAD20E618760044589C /* MSAssetsReportSender.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6A9EAB20E618760044589C /* MSAssetsReportSender.m */; };
 		4B721CF120EA7FFC0040A566 /* MSAssetsStatusReportIdentifier.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B721CEF20EA7FFB0040A566 /* MSAssetsStatusReportIdentifier.h */; };
 		4B9421F420E28B2500289E0A /* MSAssetsUpdateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9421F320E28B2500289E0A /* MSAssetsUpdateManager.m */; };
+		4BA8E63620FE903200489031 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BA8E63520FE903200489031 /* OCMock.framework */; };
+		4BA8E63820FE90B400489031 /* MSTestFrameworks.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BA8E63720FE90B400489031 /* MSTestFrameworks.h */; };
 		4BC7861C20FD177F009A6E51 /* MSAssetsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BC7861B20FD177F009A6E51 /* MSAssetsTests.m */; };
 		4BC7861D20FD177F009A6E51 /* MSAssetsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BC7861B20FD177F009A6E51 /* MSAssetsTests.m */; };
 		4BC7861E20FD177F009A6E51 /* MSAssetsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BC7861B20FD177F009A6E51 /* MSAssetsTests.m */; };
@@ -300,7 +301,6 @@
 /* Begin PBXFileReference section */
 		041CFF8B1ECCFF6700B4654B /* Tests iOS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "Tests iOS.xcconfig"; path = "../../Config/Tests iOS.xcconfig"; sourceTree = "<group>"; };
 		0420A6861ECA7A4B00915619 /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMock.framework; path = ../../macOS/OCMock/OCMock.framework; sourceTree = "<group>"; };
-		0420A6921ECA7B1100915619 /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMock.framework; path = ../../iOS/OCMock/OCMock.framework; sourceTree = "<group>"; };
 		0431060720E6474300F42296 /* MSAssetsRestartManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsRestartManager.h; sourceTree = "<group>"; };
 		0431060820E6475300F42296 /* MSAssetsRestartManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsRestartManager.m; sourceTree = "<group>"; };
 		0431060A20E664F000F42296 /* MSAssetsTelemetryManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsTelemetryManager.h; sourceTree = "<group>"; };
@@ -423,6 +423,8 @@
 		4B721CF020EA7FFB0040A566 /* MSAssetsStatusReportIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSAssetsStatusReportIdentifier.m; sourceTree = "<group>"; };
 		4B9421F320E28B2500289E0A /* MSAssetsUpdateManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsUpdateManager.m; sourceTree = "<group>"; };
 		4B9421F520E28B4400289E0A /* MSAssetsUpdateManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsUpdateManager.h; sourceTree = "<group>"; };
+		4BA8E63520FE903200489031 /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMock.framework; path = ../../iOS/OCMock/OCMock.framework; sourceTree = "<group>"; };
+		4BA8E63720FE90B400489031 /* MSTestFrameworks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSTestFrameworks.h; path = ../../../AppCenter/AppCenterTests/Util/MSTestFrameworks.h; sourceTree = "<group>"; };
 		4BC7861B20FD177F009A6E51 /* MSAssetsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSAssetsTests.m; sourceTree = "<group>"; };
 		4BC7861F20FD17E4009A6E51 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4BE3179320F3561D006AEE79 /* MSAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSAlertController.h; path = ../../Vendor/iOS/MSAlertController/MSAlertController.h; sourceTree = "<group>"; };
@@ -513,10 +515,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BA8E63620FE903200489031 /* OCMock.framework in Frameworks */,
 				0446DF641F3B95F200C8E338 /* libAppCenter.a in Frameworks */,
 				E85547DA1D2D6723002DF6E2 /* libAppCenterAssets.a in Frameworks */,
 				6E0684381D35A3B900A8CC6C /* OCHamcrestIOS.framework in Frameworks */,
-				0420A6931ECA7B1100915619 /* OCMock.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -526,7 +528,7 @@
 		0420A68F1ECA7ACD00915619 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				0420A6921ECA7B1100915619 /* OCMock.framework */,
+				4BA8E63520FE903200489031 /* OCMock.framework */,
 			);
 			name = iOS;
 			sourceTree = "<group>";
@@ -785,6 +787,7 @@
 		04A140B21ECE814E001CEE94 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				4BA8E63720FE90B400489031 /* MSTestFrameworks.h */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1078,6 +1081,7 @@
 				CD09077F20CDD2F10026F862 /* MSAssetsSyncStatus.h in Headers */,
 				0431072520EA48D700F42296 /* JWTCryptoSecurity.h in Headers */,
 				E85547F71D2D6A7D002DF6E2 /* AppCenterAssets.h in Headers */,
+				4BA8E63820FE90B400489031 /* MSTestFrameworks.h in Headers */,
 				0431073920EA48D700F42296 /* JWTCoding+ResultTypes.h in Headers */,
 				4B6A9EAC20E618760044589C /* MSAssetsReportSender.h in Headers */,
 				0431071C20EA48D700F42296 /* JWTAlgorithmDataHolder.h in Headers */,
