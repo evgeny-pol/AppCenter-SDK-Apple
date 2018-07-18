@@ -137,7 +137,7 @@ static NSString *const kMSAssetsServiceName = @"Assets";
 }
 
 - (void)testMSAssetsUpdateResponseUpdateInfoSerialization {
-    NSDictionary *dictIn = [[NSDictionary alloc] initWithObjectsAndKeys:@"downloadURLData", @"downloadURL", @"descriptionData", @"description", @NO, @"isAvailable", @NO, @"isMandatory", @"appVersionData", @"appVersion", @"labelData", @"label", @"packageHashData", @"packageHash", 1024, @"packageSize", @"updateAppVersionData", @"updateAppVersion", @YES, @"shouldRunBinaryVersion", nil];
+    NSDictionary *dictIn = [[NSDictionary alloc] initWithObjectsAndKeys:@"downloadURLData", @"downloadURL", @"descriptionData", @"description", @NO, @"isAvailable", @NO, @"isMandatory", @"appVersionData", @"appVersion", @"labelData", @"label", @"packageHashData", @"packageHash", @"1024", @"packageSize", @"updateAppVersionData", @"updateAppVersion", @YES, @"shouldRunBinaryVersion", nil];
     MSAssetsUpdateResponseUpdateInfo *updateResponseUpdateInfo = [[MSAssetsUpdateResponseUpdateInfo alloc] initWithDictionary:dictIn];
     NSDictionary *dictOut = [updateResponseUpdateInfo serializeToDictionary];
     XCTAssertEqual(dictIn[@"downloadURL"], dictOut[@"downloadURL"]);
