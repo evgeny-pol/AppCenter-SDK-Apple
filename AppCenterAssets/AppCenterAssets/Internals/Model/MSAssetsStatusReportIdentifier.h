@@ -58,9 +58,9 @@
 - (BOOL)hasDeploymentKey;
 
 /**
- * Gets version label or empty string if it equals `null`.
+ * Gets version label or empty string if it equals `nil`.
  *
- * @return version label or empty string if it equals `null`.
+ * @return version label or empty string if it equals `nil`.
  */
 - (NSString *)versionLabelOrEmpty;
 
