@@ -402,19 +402,12 @@ static BOOL isRunningBinaryVersion = NO;
 
 
 - (MSAssetsConfiguration *)getConfigurationWithError:(NSError * __autoreleasing*)error {
-    NSDictionary *infoDictionary = [[NSBundle bundleForClass:[self class]] infoDictionary];
-
     MSAssetsConfiguration *configuration = [MSAssetsConfiguration new];
-    NSString *appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-    if (appVersion == nil) {
-        *error = [MSAssetsErrorUtils getNoAppVersionError];
-        return nil;
-    }
     NSString *clientId = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     if (clientId == nil) {
         clientId = @"";
     }
-    configuration.appVersion = appVersion;
+    configuration.appVersion = _appVersion;
     configuration.clientUniqueId = clientId;
     configuration.deploymentKey = [self deploymentKey];
     configuration.serverUrl = [self serverUrl];
