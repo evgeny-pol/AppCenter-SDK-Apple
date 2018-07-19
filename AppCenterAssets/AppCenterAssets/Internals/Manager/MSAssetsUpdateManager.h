@@ -14,7 +14,7 @@
  * @param updateUtilities instance of `MSAssetsUpdateUtilities`.
  * @return manager instance.
  */
-- (instancetype)initWithUpdateUtils:(MSAssetsUpdateUtilities *)updateUtilities;
+- (instancetype)initWithUpdateUtils:(MSAssetsUpdateUtilities *)updateUtilities andBaseDir:(NSString *)baseDir andAppName:(NSString *)appName;
 
 /**
  * Gets current package json object.

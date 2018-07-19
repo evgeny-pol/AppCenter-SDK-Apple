@@ -141,8 +141,6 @@ static NSString *const kMSAppCenterBundleIdentifier = @"com.microsoft.appcenter"
   }
 }
 
-#pragma mark - Private methods.
-
 + (NSURL *)appCenterDirectoryURL {
   static NSURL *dirURL = nil;
   static dispatch_once_t predFilesDir;
@@ -195,6 +193,9 @@ static NSString *const kMSAppCenterBundleIdentifier = @"com.microsoft.appcenter"
   }
   return NO;
 }
+
+#pragma mark - Private methods.
+
 
 + (BOOL)disableBackupForDirectoryURL:(nonnull NSURL *)directoryURL {
   NSError *error = nil;
