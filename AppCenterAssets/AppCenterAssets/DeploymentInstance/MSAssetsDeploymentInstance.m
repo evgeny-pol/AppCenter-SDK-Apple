@@ -402,6 +402,7 @@ static BOOL isRunningBinaryVersion = NO;
 
 
 - (MSAssetsConfiguration *)getConfigurationWithError:(NSError * __autoreleasing*)error {
+
     MSAssetsConfiguration *configuration = [MSAssetsConfiguration new];
     NSString *clientId = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     if (clientId == nil) {
