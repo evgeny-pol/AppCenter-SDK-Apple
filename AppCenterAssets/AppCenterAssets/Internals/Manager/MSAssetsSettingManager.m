@@ -23,9 +23,13 @@ static NSString *const kMSBinaryHash = @"MSAssetsBinaryHash";
     return self;
 }
 
+- (NSString *)getAppSpecificKey:(NSString *)key {
+    return [_appName stringByAppendingString:key];
+}
+
 - (NSMutableArray<MSAssetsPackage *> *)getFailedUpdates {
     NSMutableArray<MSAssetsPackage *> *failedPackages;
-    NSData *data = [MS_USER_DEFAULTS objectForKey:[_appName stringByAppendingString:kMSFailedUpdates]];
+    NSData *data = [MS_USER_DEFAULTS objectForKey:[self getAppSpecificKey:kMSFailedUpdates]];
     if (data != nil) {
         failedPackages = (NSMutableArray *)[[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
     }
@@ -36,7 +40,7 @@ static NSString *const kMSBinaryHash = @"MSAssetsBinaryHash";
 }
 
 - (MSAssetsPendingUpdate *)getPendingUpdate {
-    NSData *data = [MS_USER_DEFAULTS objectForKey:[_appName stringByAppendingString:kMSPendingUpdate]];
+    NSData *data = [MS_USER_DEFAULTS objectForKey:[self getAppSpecificKey:kMSPendingUpdate]];
     if (data != nil) {
         return [NSKeyedUnarchiver unarchiveObjectWithData:data];
     }
@@ -60,11 +64,11 @@ static NSString *const kMSBinaryHash = @"MSAssetsBinaryHash";
 }
 
 - (void)removeFailedUpdates {
-    [MS_USER_DEFAULTS removeObjectForKey:[_appName stringByAppendingString:kMSFailedUpdates]];
+    [MS_USER_DEFAULTS removeObjectForKey:[self getAppSpecificKey:kMSFailedUpdates]];
 }
 
 - (void)removePendingUpdate {
-    [MS_USER_DEFAULTS removeObjectForKey:[_appName stringByAppendingString:kMSPendingUpdate]];
+    [MS_USER_DEFAULTS removeObjectForKey:[self getAppSpecificKey:kMSPendingUpdate]];
 }
 
 - (void)saveFailedUpdate:(MSAssetsPackage *_Nonnull)failedPackage {
@@ -83,7 +87,7 @@ static NSString *const kMSBinaryHash = @"MSAssetsBinaryHash";
 }
 
 - (MSAssetsStatusReportIdentifier *)getPreviousStatusReportIdentifier {
-    NSString *identifier = [MS_USER_DEFAULTS objectForKey:[_appName stringByAppendingString:kMSReportIdentifier]];
+    NSString *identifier = [MS_USER_DEFAULTS objectForKey:[self getAppSpecificKey:kMSReportIdentifier]];
     if (identifier != nil) {
         return [MSAssetsStatusReportIdentifier reportIdentifierFromString:identifier];
     }
@@ -97,7 +101,7 @@ static NSString *const kMSBinaryHash = @"MSAssetsBinaryHash";
 
 - (NSMutableDictionary *)getBinaryHash {
     NSMutableDictionary *binaryHashes;
-    NSData *data = [MS_USER_DEFAULTS objectForKey:[_appName stringByAppendingString:kMSBinaryHash]];
+    NSData *data = [MS_USER_DEFAULTS objectForKey:[self getAppSpecificKey:kMSBinaryHash]];
     if (data != nil) {
         binaryHashes = (NSMutableDictionary *)[[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
     }
@@ -108,6 +112,6 @@ static NSString *const kMSBinaryHash = @"MSAssetsBinaryHash";
 }
 
 - (void)removeBinaryHash {
-    [MS_USER_DEFAULTS removeObjectForKey:[_appName stringByAppendingString:kMSBinaryHash]];
+    [MS_USER_DEFAULTS removeObjectForKey:[self getAppSpecificKey:kMSBinaryHash]];
 }
 @end
