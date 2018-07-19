@@ -8,6 +8,8 @@
  */
 @interface MSAssetsSettingManager : NSObject
 
+- (instancetype)initWithAppName:(nonnull NSString *)appName;
+
 /**
  * Gets an array with containing failed updates info arranged by time of the failure ascending.
  * Each item represents an instance of `MSAssetsPackage` that has failed to update.

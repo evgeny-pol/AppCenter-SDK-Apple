@@ -74,15 +74,15 @@ static BOOL isRunningBinaryVersion = NO;
         }
 
         _downloadHandler = nil;
-        _settingManager = [[MSAssetsSettingManager alloc] init];
+
+        if (!appName) appName = @"Assets";
+
+        _settingManager = [[MSAssetsSettingManager alloc] initWithAppName:appName];
+
         _updateUtilities = [[MSAssetsUpdateUtilities alloc] initWithSettingManager:_settingManager];
 
-        NSString *appNameWithDeploymentKey;
-        if (appName) {
-            appNameWithDeploymentKey = [appName stringByAppendingPathComponent:_deploymentKey];;
-        } else {
-            appNameWithDeploymentKey = [@"Assets" stringByAppendingPathComponent:_deploymentKey];
-        }
+        NSString *appNameWithDeploymentKey = [appName stringByAppendingPathComponent:_deploymentKey];
+
         _updateManager = [[MSAssetsUpdateManager alloc] initWithUpdateUtils:_updateUtilities andBaseDir:baseDir andAppName:appNameWithDeploymentKey];
         
         _acquisitionManager = [[MSAssetsAcquisitionManager alloc] init];
