@@ -45,6 +45,9 @@ static BOOL isRunningBinaryVersion = NO;
                      deploymentKey:(NSString *)deploymentKey
                        inDebugMode:(BOOL)isDebugMode
                          serverUrl:(NSString *)serverUrl
+                           baseDir:(NSString *)baseDir
+                           appName:(NSString *)appName
+                        appVersion:(NSString *)appVersion
                   platformInstance:(id<MSAssetsPlatformSpecificImplementation>)platformInstance
                          withError:(NSError *__autoreleasing *)error {
     if ((self = [super init])) {
@@ -57,18 +60,31 @@ static BOOL isRunningBinaryVersion = NO;
         } else {
             _serverUrl = @"https://codepush.azurewebsites.net/";
         }
-        NSDictionary *infoDictionary = [[NSBundle bundleForClass:[self class]] infoDictionary];
-        NSString *appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+
         if (appVersion) {
             _appVersion = appVersion;
         } else {
+            NSDictionary *infoDictionary = [[NSBundle bundleForClass:[self class]] infoDictionary];
+            _appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+        }
+
+        if (!_appVersion) {
             *error = [MSAssetsErrorUtils getNoAppVersionError];
             return nil;
         }
+
         _downloadHandler = nil;
-        _settingManager = [[MSAssetsSettingManager alloc] init];
+
+        if (!appName) appName = @"Assets";
+
+        _settingManager = [[MSAssetsSettingManager alloc] initWithAppName:appName];
+
         _updateUtilities = [[MSAssetsUpdateUtilities alloc] initWithSettingManager:_settingManager];
-        _updateManager = [[MSAssetsUpdateManager alloc] initWithUpdateUtils:_updateUtilities];
+
+        NSString *appNameWithDeploymentKey = [appName stringByAppendingPathComponent:_deploymentKey];
+
+        _updateManager = [[MSAssetsUpdateManager alloc] initWithUpdateUtils:_updateUtilities andBaseDir:baseDir andAppName:appNameWithDeploymentKey];
+        
         _acquisitionManager = [[MSAssetsAcquisitionManager alloc] init];
         _telemetryManager = [[MSAssetsTelemetryManager alloc] initWithSettingManager:_settingManager];
         _restartManager = [[MSAssetsRestartManager alloc] initWithRestartHandler:^(BOOL onlyIfUpdateIsPending, MSAssetsRestartListener restartListener) {
@@ -386,18 +402,13 @@ static BOOL isRunningBinaryVersion = NO;
 
 
 - (MSAssetsConfiguration *)getConfigurationWithError:(NSError * __autoreleasing*)error {
-    NSDictionary *infoDictionary = [[NSBundle bundleForClass:[self class]] infoDictionary];
+
     MSAssetsConfiguration *configuration = [MSAssetsConfiguration new];
-    NSString *appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-    if (appVersion == nil) {
-        *error = [MSAssetsErrorUtils getNoAppVersionError];
-        return nil;
-    }
     NSString *clientId = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     if (clientId == nil) {
         clientId = @"";
     }
-    configuration.appVersion = appVersion;
+    configuration.appVersion = _appVersion;
     configuration.clientUniqueId = clientId;
     configuration.deploymentKey = [self deploymentKey];
     configuration.serverUrl = [self serverUrl];

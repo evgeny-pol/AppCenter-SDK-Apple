@@ -54,6 +54,21 @@ extern NSString *MSUtilityFileCategory;
 + (NSURL *)createDirectoryForPathComponent:(NSString *)directoryPathComponent;
 
 /**
+ * Creates a directory inside the specified path, intermediate directories are also created if
+ * nonexistent.
+ *
+ * @param directoryPathComponent A string representing the path of the directory to create.
+ *
+ * @return `YES` if the operation was successful or if the item already exists, otherwise `NO`.
+ * @param path The path where directory should be created.
+*
+ * @discussion SDK files should not be backed up in iCloud. Thus, iCloud backup is explicitely
+ * deactivated on every folder created.
+ */
++ (NSURL *)createDirectoryForPathComponent:(NSString *)directoryPathComponent inPath:(NSString *)path;
+
+
+/**
  * Load a data at a filePathComponent, e.g. load data at "/Crashes/foo.bar".
  *
  * @param filePathComponent A string representing the pathComponent of the file to read.
@@ -79,6 +94,16 @@ extern NSString *MSUtilityFileCategory;
  * @return `YES` if a file or existence exists at the specified location. Otherwiese `NO`.
  */
 + (BOOL)fileExistsForPathComponent:(NSString *)filePathComponent;
+
+/**
+ * Checks for existence of a path component in specified path.
+ *
+ * @param filePathComponent The path component to check.
+ * @param path The path to add to.
+ *
+ * @return `YES` if a file or existence exists at the specified location. Otherwiese `NO`.
+ */
++ (BOOL)fileExistsForPathComponent:(NSString *)filePathComponent inPath:(NSString *)path;
 
 /**
  * Removes a file at the given URL if it exists.
@@ -125,4 +150,12 @@ extern NSString *MSUtilityFileCategory;
  * @return a flag indicating success or fail.
  */
 + (BOOL)unzipFileAtPathComponent:(NSString *)pathComponent toPathComponent:(NSString *)destination;
+
+/**
+ * Get App Center Directory
+ *
+ * @return App Center Directory URL.
+ */
++ (NSURL *)appCenterDirectoryURL;
+
 @end

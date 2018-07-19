@@ -75,6 +75,9 @@ typedef void (^MSAssetsDownloadInstallHandler)(NSError * _Nullable error);
                      deploymentKey:(NSString *)deploymentKey
                        inDebugMode:(BOOL)isDebugMode
                          serverUrl:(NSString *)serverUrl
+                           baseDir:(NSString *)baseDir
+                           appName:(NSString *)appName
+                        appVersion:(NSString *)appVersion
                   platformInstance:(id<MSAssetsPlatformSpecificImplementation>)platformInstance
                          withError:(NSError *__autoreleasing *)error;
 

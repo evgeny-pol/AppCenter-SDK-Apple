@@ -91,6 +91,18 @@ static NSString *const kMSAppCenterBundleIdentifier = @"com.microsoft.appcenter"
   }
 }
 
++ (NSURL *)createDirectoryForPathComponent:(NSString *)directoryPathComponent inPath:(NSString *)path{
+    @synchronized(self) {
+        if (directoryPathComponent && path) {
+            NSURL *pathURL = [NSURL URLWithString:path];
+            NSURL *subDirURL = [pathURL URLByAppendingPathComponent:directoryPathComponent];
+            BOOL success = [self createDirectoryAtURL:subDirURL];
+            return success ? subDirURL : nil;
+        }
+        return nil;
+    }
+}
+
 + (NSData *)loadDataForPathComponent:(NSString *)filePathComponent {
   @synchronized(self) {
     if (filePathComponent) {
@@ -132,6 +144,14 @@ static NSString *const kMSAppCenterBundleIdentifier = @"com.microsoft.appcenter"
   }
 }
 
++ (BOOL)fileExistsForPathComponent:(NSString *)filePathComponent inPath:(NSString *)path {
+    {
+        NSURL *pathURL = [NSURL URLWithString:path];
+        NSURL *fileURL = [pathURL URLByAppendingPathComponent:filePathComponent];
+        return [fileURL checkResourceIsReachableAndReturnError:nil];
+    }
+}
+
 + (NSURL *)fullURLForPathComponent:(NSString *)filePathComponent {
   {
     if (filePathComponent) {
@@ -140,8 +160,6 @@ static NSString *const kMSAppCenterBundleIdentifier = @"com.microsoft.appcenter"
     return nil;
   }
 }
-
-#pragma mark - Private methods.
 
 + (NSURL *)appCenterDirectoryURL {
   static NSURL *dirURL = nil;
@@ -195,6 +213,9 @@ static NSString *const kMSAppCenterBundleIdentifier = @"com.microsoft.appcenter"
   }
   return NO;
 }
+
+#pragma mark - Private methods.
+
 
 + (BOOL)disableBackupForDirectoryURL:(nonnull NSURL *)directoryURL {
   NSError *error = nil;
