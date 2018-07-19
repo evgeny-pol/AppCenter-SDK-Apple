@@ -8,6 +8,9 @@
         _serverUrl = nil;
         _updateSubFolder = nil;
         _publicKey = nil;
+        _baseDir = nil;
+        _appName = nil;
+        _appVersion = nil;
     }
     return self;
 }

@@ -8,7 +8,12 @@
 #import "MSAssets.h"
 #import "MSAssetsUpdateUtilities+JWT.h"
 
-@implementation MSAssetsUpdateManager 
+@implementation MSAssetsUpdateManager {
+    NSString *_baseDir;
+    NSString *_appName;
+}
+
+//@implementation MSAssetsUpdateManager
 
 static NSString *const DiffManifestFileName = @"hotcodepush.json";
 static NSString *const DownloadFileName = @"download.zip";
@@ -18,9 +23,16 @@ static NSString *const UpdateBundleFileName = @"app.jsbundle";
 static NSString *const UpdateMetadataFileName = @"app.json";
 static NSString *const UnzippedFolderName = @"unzipped";
 
-- (instancetype)initWithUpdateUtils:(MSAssetsUpdateUtilities *)updateUtilities {
+- (instancetype)initWithUpdateUtils:(MSAssetsUpdateUtilities *)updateUtilities andBaseDir:(NSString *)baseDir andAppName:(NSString *)appName {
     if ((self = [super init])) {
         _updateUtilities = updateUtilities;
+        if (baseDir) {
+            _baseDir = baseDir;
+        } else {
+            _baseDir = [[MSUtility appCenterDirectoryURL] absoluteString];
+        }
+        _appName = appName;
+
     }
     return self;
 }
@@ -115,18 +127,19 @@ static NSString *const UnzippedFolderName = @"unzipped";
 }
 
 - (NSString *)getMSAssetsPath {
-    if (![MSUtility fileExistsForPathComponent:@"Assets"]) {
-        NSURL *result = [MSUtility createDirectoryForPathComponent:@"Assets"];
+    if (![MSUtility fileExistsForPathComponent:_appName]) {
+        NSURL *result = [MSUtility createDirectoryForPathComponent:_appName];
         if (!result) {
             MSLogError([MSAssets logTag], @"Can't create Assets directory.");
             return nil;
         }
     }
+
     /*if ([MSAssetsDeploymentInstance isUsingTestConfiguration]) {
         assetsPath = [assetsPath stringByAppendingPathComponent:@"TestPackages"];
     }*/
 
-    return @"Assets";
+    return _appName;
 }
 
 - (NSString *)getDownloadFilePath {

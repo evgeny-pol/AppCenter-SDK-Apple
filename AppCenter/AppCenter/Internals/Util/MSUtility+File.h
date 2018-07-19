@@ -125,4 +125,12 @@ extern NSString *MSUtilityFileCategory;
  * @return a flag indicating success or fail.
  */
 + (BOOL)unzipFileAtPathComponent:(NSString *)pathComponent toPathComponent:(NSString *)destination;
+
+/**
+ * Get App Center Directory
+ *
+ * @return App Center Directory URL.
+ */
++ (NSURL *)appCenterDirectoryURL;
+
 @end

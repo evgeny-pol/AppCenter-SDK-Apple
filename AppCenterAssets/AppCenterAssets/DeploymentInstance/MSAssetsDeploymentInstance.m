@@ -45,6 +45,9 @@ static BOOL isRunningBinaryVersion = NO;
                      deploymentKey:(NSString *)deploymentKey
                        inDebugMode:(BOOL)isDebugMode
                          serverUrl:(NSString *)serverUrl
+                           baseDir:(NSString *)baseDir
+                           appName:(NSString *)appName
+                        appVersion:(NSString *)appVersion
                   platformInstance:(id<MSAssetsPlatformSpecificImplementation>)platformInstance
                          withError:(NSError *__autoreleasing *)error {
     if ((self = [super init])) {
@@ -57,19 +60,31 @@ static BOOL isRunningBinaryVersion = NO;
         } else {
             _serverUrl = @"https://codepush.azurewebsites.net/";
         }
-        NSDictionary *infoDictionary = [[NSBundle bundleForClass:[self class]] infoDictionary];
 
-        NSString *appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
         if (appVersion) {
             _appVersion = appVersion;
         } else {
+            NSDictionary *infoDictionary = [[NSBundle bundleForClass:[self class]] infoDictionary];
+            _appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+        }
+
+        if (!_appVersion) {
             *error = [MSAssetsErrorUtils getNoAppVersionError];
             return nil;
         }
+
         _downloadHandler = nil;
         _settingManager = [[MSAssetsSettingManager alloc] init];
         _updateUtilities = [[MSAssetsUpdateUtilities alloc] initWithSettingManager:_settingManager];
-        _updateManager = [[MSAssetsUpdateManager alloc] initWithUpdateUtils:_updateUtilities];
+
+        NSString *appNameWithDeploymentKey;
+        if (appName) {
+            appNameWithDeploymentKey = [appName stringByAppendingPathComponent:_deploymentKey];;
+        } else {
+            appNameWithDeploymentKey = [@"Assets" stringByAppendingPathComponent:_deploymentKey];
+        }
+        _updateManager = [[MSAssetsUpdateManager alloc] initWithUpdateUtils:_updateUtilities andBaseDir:baseDir andAppName:appNameWithDeploymentKey];
+        
         _acquisitionManager = [[MSAssetsAcquisitionManager alloc] init];
         _telemetryManager = [[MSAssetsTelemetryManager alloc] initWithSettingManager:_settingManager];
         _restartManager = [[MSAssetsRestartManager alloc] initWithRestartHandler:^(BOOL onlyIfUpdateIsPending, MSAssetsRestartListener restartListener) {

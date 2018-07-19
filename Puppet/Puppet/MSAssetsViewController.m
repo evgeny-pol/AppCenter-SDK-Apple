@@ -45,6 +45,7 @@
     
     NSError *error = nil;
     self.assetsDeployment = [MSAssets makeDeploymentInstanceWithBuilder:^(MSAssetsBuilder *builder) {
+        builder.deploymentKey = @kDeploymentKey;
     } error:&error];
     
     if (error) {
@@ -54,6 +55,7 @@
     }
 
     self.assetsDeployment2 = [MSAssets makeDeploymentInstanceWithBuilder:^(MSAssetsBuilder *builder) {
+        builder.deploymentKey = @kDeploymentKey2;
     } error:&error];
 
     if (error) {
@@ -198,6 +200,22 @@
                 }
                 case 3: {
                     [self sync2];
+                    break;
+                }
+                case 4: {
+                    MSAlertController *alert = [MSAlertController alertControllerWithTitle:@"Path to 1-st update" message:[self.assetsDeployment getCurrentUpdateEntryPoint] preferredStyle:UIAlertControllerStyleAlert];
+                    [alert.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+                    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                    [alert addAction:defaultAction];
+                    [alert show];
+                    break;
+                }
+                case 5: {
+                    MSAlertController *alert = [MSAlertController alertControllerWithTitle:@"Path to 2-st update" message:[self.assetsDeployment2 getCurrentUpdateEntryPoint] preferredStyle:UIAlertControllerStyleAlert];
+                    [alert.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+                    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                    [alert addAction:defaultAction];
+                    [alert show];
                     break;
                 }
                 default:
