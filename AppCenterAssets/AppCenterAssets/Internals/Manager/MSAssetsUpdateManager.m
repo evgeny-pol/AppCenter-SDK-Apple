@@ -127,8 +127,8 @@ static NSString *const UnzippedFolderName = @"unzipped";
 }
 
 - (NSString *)getMSAssetsPath {
-    if (![MSUtility fileExistsForPathComponent:_appName]) {
-        NSURL *result = [MSUtility createDirectoryForPathComponent:_appName];
+    if (![MSUtility fileExistsForPathComponent:_appName inPath:_baseDir]) {
+        NSURL *result = [MSUtility createDirectoryForPathComponent:_appName inPath:_baseDir];
         if (!result) {
             MSLogError([MSAssets logTag], @"Can't create Assets directory.");
             return nil;
