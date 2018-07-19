@@ -35,7 +35,8 @@ static id<MSAssetsPlatformSpecificImplementation> platformImpl;
 + (MSAssetsDeploymentInstance *)makeDeploymentInstanceWithBuilder:(void (^)(MSAssetsBuilder *))updateBlock error:(NSError * __autoreleasing*)error {
     MSAssetsBuilder *builder = [MSAssetsBuilder new];
     updateBlock(builder);
-    MSAssetsDeploymentInstance *assetsDeploymentInstance = [[MSAssetsDeploymentInstance alloc] initWithEntryPoint:builder.updateSubFolder publicKey:builder.publicKey deploymentKey:builder.deploymentKey inDebugMode:NO serverUrl:builder.serverUrl baseDir:builder.baseDir appName:builder.appName appVersion:builder.appVersion platformInstance:platformImpl withError:error];
+    MSAssetsDeploymentInstance *assetsDeploymentInstance = [[MSAssetsDeploymentInstance alloc] initWithEntryPoint:builder.updateSubFolder
+                                    publicKey:builder.publicKey deploymentKey:builder.deploymentKey inDebugMode:NO serverUrl:builder.serverUrl baseDir:builder.baseDir appName:builder.appName appVersion:builder.appVersion platformInstance:platformImpl withError:error];
     if (*error) {
         return nil;
     }
