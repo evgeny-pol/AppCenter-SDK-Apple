@@ -211,7 +211,7 @@
                     break;
                 }
                 case 5: {
-                    MSAlertController *alert = [MSAlertController alertControllerWithTitle:@"Path to 2-st update" message:[self.assetsDeployment2 getCurrentUpdateEntryPoint] preferredStyle:UIAlertControllerStyleAlert];
+                    MSAlertController *alert = [MSAlertController alertControllerWithTitle:@"Path to 2-nd update" message:[self.assetsDeployment2 getCurrentUpdateEntryPoint] preferredStyle:UIAlertControllerStyleAlert];
                     [alert.presentingViewController dismissViewControllerAnimated:YES completion:nil];
                     UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
                     [alert addAction:defaultAction];
