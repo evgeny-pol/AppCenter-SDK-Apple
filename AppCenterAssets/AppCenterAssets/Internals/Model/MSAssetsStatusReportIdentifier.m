@@ -28,9 +28,8 @@
         NSString *versionLabel = parsedIdentifier[0];
         NSString *deploymentKey = parsedIdentifier[1];
         return [[MSAssetsStatusReportIdentifier alloc] initWithAppVersion:versionLabel andDeploymentKey: deploymentKey];
-    } else {
-        return nil;
     }
+    return nil;    
 }
 
 - (NSString *)toString {
@@ -38,7 +37,7 @@
         if ([self deploymentKey] == nil) {
             return [self versionLabel];
         } else {
-            return [[NSString alloc] initWithFormat:@"%@:%@", [self deploymentKey], [self versionLabel]];
+            return [[NSString alloc] initWithFormat:@"%@:%@", [self versionLabel], [self deploymentKey]];
         }
     } else {
         return nil;

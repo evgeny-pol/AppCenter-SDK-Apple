@@ -54,13 +54,14 @@ extern NSString *MSUtilityFileCategory;
 + (NSURL *)createDirectoryForPathComponent:(NSString *)directoryPathComponent;
 
 /**
- * Creates a directory inside the app center sdk's file directory, intermediate directories are also created if
+ * Creates a directory inside the specified path, intermediate directories are also created if
  * nonexistent.
  *
  * @param directoryPathComponent A string representing the path of the directory to create.
  *
  * @return `YES` if the operation was successful or if the item already exists, otherwise `NO`.
- *
+ * @param path The path where directory should be created.
+*
  * @discussion SDK files should not be backed up in iCloud. Thus, iCloud backup is explicitely
  * deactivated on every folder created.
  */
