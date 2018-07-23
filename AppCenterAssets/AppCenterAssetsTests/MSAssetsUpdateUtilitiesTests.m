@@ -49,13 +49,6 @@
     XCTAssertFalse([self.sut isHashIgnoredFor:fileThatIsNotIgnored]);
 }
 
-- (void)testVerifyFolderHashFails {
-    NSString *path = @"noSuchFolder";
-    NSString *expectedHash = @"expectedHash";
-    NSError *error = nil;
-    XCTAssertFalse([self.sut verifyFolderHash:expectedHash folderPath:path error:&error]);
-}
-
 - (void)testAddContentsOfFolderToManifestFailsNoFolder {
     NSString *folderPath = @"noSuchFolder";
     NSError *error = nil;
