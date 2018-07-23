@@ -4,6 +4,9 @@
 #import "MSTestFrameworks.h"
 #import "MSAssetsPackageInfo.h"
 #import "MSAssetsUpdateResponse.h"
+#import "MSAssetsLocalPackage.h"
+#import "MSAssetsRemotePackage.h"
+#import "MSAssetsUpdateRequest.h"
 
 @interface MSAssetsSerializationTests : XCTestCase
 
@@ -281,4 +284,108 @@
     //Then
     XCTAssertNil(identifier);
 }
+
+- (void)testMSAssetsDownloadStatusReportInitialization {
+
+    NSString *clientUniqueId = @"clientUniqueIdData";
+    NSString *deploymentKey = @"deploymentKeyData";
+    NSString *label = @"labelData";
+
+    MSAssetsDownloadStatusReport *downloadStatusReport = [[MSAssetsDownloadStatusReport alloc] initReportWithLabel:label deviceId:clientUniqueId andDeploymentKey:deploymentKey];
+
+    XCTAssertNotNil(downloadStatusReport);
+
+    NSDictionary *dictOut = [downloadStatusReport serializeToDictionary];
+
+    //Then
+    XCTAssertEqualObjects(clientUniqueId, dictOut[@"clientUniqueId"]);
+    XCTAssertEqualObjects(deploymentKey, dictOut[@"deploymentKey"]);
+    XCTAssertEqualObjects(label, dictOut[@"label"]);
+}
+
+- (void)testMSAssetsLocalPackageInitialization {
+
+    NSString *appVersion = @"1.0";
+    MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:appVersion];
+    XCTAssertNotNil(localPackage);
+    XCTAssertEqualObjects(localPackage.appVersion, appVersion);
+
+    NSDictionary *dictIn = [self getAssetsPackageDictionary];
+    MSAssetsPackage *package = [[MSAssetsPackage alloc] initWithDictionary:dictIn];
+    NSString *entryPoint = @"entryPoint";
+    MSAssetsLocalPackage *localPackageFromPackage = [MSAssetsLocalPackage createLocalPackageWithPackage:package failedInstall:NO isFirstRun:NO isPending:NO isDebugOnly:NO entryPoint:entryPoint];
+    XCTAssertNotNil(localPackageFromPackage);
+    XCTAssertEqualObjects(localPackageFromPackage.appVersion, package.appVersion);
+    XCTAssertEqualObjects(localPackageFromPackage.deploymentKey, package.deploymentKey);
+    XCTAssertEqualObjects(localPackageFromPackage.updateDescription, package.updateDescription);
+    XCTAssertFalse(localPackageFromPackage.failedInstall);
+    XCTAssertFalse(localPackageFromPackage.isMandatory);
+    XCTAssertEqualObjects(localPackageFromPackage.label, package.label);
+    XCTAssertEqualObjects(localPackageFromPackage.packageHash, package.packageHash);
+    XCTAssertFalse(localPackageFromPackage.isPending);
+    XCTAssertFalse(localPackageFromPackage.isFirstRun);
+    XCTAssertFalse(localPackageFromPackage.isDebugOnly);
+    XCTAssertEqualObjects(localPackageFromPackage.entryPoint, entryPoint);
+
+}
+
+
+- (void)testMSAssetsRemotePackageInitialization {
+
+    NSString *appVersion = @"1.0";
+    MSAssetsRemotePackage *remotePackage = [MSAssetsRemotePackage createDefaultRemotePackageWithAppVersion:appVersion updateAppVersion:NO];
+    XCTAssertNotNil(remotePackage);
+    XCTAssertEqualObjects(remotePackage.appVersion, appVersion);
+    XCTAssertFalse(remotePackage.updateAppVersion);
+
+    NSDictionary *dictIn = [self getAssetsPackageDictionary];
+    MSAssetsPackage *package = [[MSAssetsPackage alloc] initWithDictionary:dictIn];
+    int packageSize = 1024;
+    NSString *downloadUrl = @"downloadURLData";
+    MSAssetsRemotePackage *remotePackageFromPackage = [MSAssetsRemotePackage createRemotePackageFromPackage:package failedInstall:NO packageSize:packageSize downloadUrl:downloadUrl updateAppVersion:NO];
+    XCTAssertNotNil(remotePackageFromPackage);
+    XCTAssertEqualObjects(remotePackageFromPackage.appVersion, package.appVersion);
+    XCTAssertFalse(remotePackageFromPackage.updateAppVersion);
+    XCTAssertEqualObjects(remotePackageFromPackage.deploymentKey, package.deploymentKey);
+    XCTAssertEqualObjects(remotePackageFromPackage.updateDescription, package.updateDescription);
+    XCTAssertEqual(remotePackageFromPackage.isMandatory, package.isMandatory);
+    XCTAssertEqualObjects(remotePackageFromPackage.label, package.label);
+    XCTAssertEqualObjects(remotePackageFromPackage.packageHash, package.packageHash);
+    XCTAssertEqual(remotePackageFromPackage.failedInstall, package.failedInstall);
+    XCTAssertEqualObjects(remotePackageFromPackage.downloadUrl, downloadUrl);
+    XCTAssertEqual(remotePackageFromPackage.packageSize, packageSize);
+
+    NSDictionary *dictInUpdatenfo = [self getUpdateInfoDictionary];
+    MSAssetsUpdateResponseUpdateInfo *updateResponseUpdateInfo = [[MSAssetsUpdateResponseUpdateInfo alloc] initWithDictionary:dictInUpdatenfo];
+    MSAssetsRemotePackage *remotePackageFromUpdateInfo = [MSAssetsRemotePackage createRemotePackageFromUpdateInfo:updateResponseUpdateInfo andDeploymentKey:dictIn[@"deploymentKey"]];
+    XCTAssertNotNil(remotePackageFromUpdateInfo);
+    XCTAssertEqualObjects(remotePackageFromUpdateInfo.appVersion, updateResponseUpdateInfo.appVersion);
+    XCTAssertEqual(remotePackageFromUpdateInfo.updateAppVersion, updateResponseUpdateInfo.updateAppVersion);
+    XCTAssertEqualObjects(remotePackageFromUpdateInfo.deploymentKey, dictIn[@"deploymentKey"]);
+    XCTAssertEqualObjects(remotePackageFromUpdateInfo.updateDescription, updateResponseUpdateInfo.updateDescription);
+    XCTAssertEqual(remotePackageFromUpdateInfo.isMandatory, updateResponseUpdateInfo.isMandatory);
+    XCTAssertEqualObjects(remotePackageFromUpdateInfo.label, updateResponseUpdateInfo.label);
+    XCTAssertEqualObjects(remotePackageFromUpdateInfo.packageHash, updateResponseUpdateInfo.packageHash);
+    XCTAssertFalse(remotePackageFromUpdateInfo.failedInstall);
+    XCTAssertEqualObjects(remotePackageFromUpdateInfo.downloadUrl, updateResponseUpdateInfo.downloadUrl);
+    XCTAssertEqual(remotePackageFromUpdateInfo.packageSize, updateResponseUpdateInfo.packageSize);
+
+}
+
+- (void)testMSAssetsUpdateRequest {
+
+    NSDictionary *dictIn = [self getAssetsPackageDictionary];
+    MSAssetsPackage *package = [[MSAssetsPackage alloc] initWithDictionary:dictIn];
+    NSString *deploymentKey = @"DEP-KEY";
+    NSString *deviceId = @"DEV-Id";
+    MSAssetsLocalPackage *localPackageFromPackage = [MSAssetsLocalPackage createLocalPackageWithPackage:package failedInstall:NO isFirstRun:NO isPending:NO isDebugOnly:NO entryPoint:@"entryPoint"];
+    MSAssetsUpdateRequest *updateRequest = [MSAssetsUpdateRequest createUpdateRequestWithDeploymentKey:deploymentKey assetsPackage:localPackageFromPackage andDeviceId:deviceId];
+    XCTAssertNotNil(updateRequest);
+    XCTAssertEqualObjects(updateRequest.deploymentKey, deploymentKey);
+    XCTAssertEqualObjects(updateRequest.appVersion, package.appVersion);
+    XCTAssertEqualObjects(updateRequest.packageHash, package.packageHash);
+    XCTAssertEqualObjects(updateRequest.label, package.label);
+    XCTAssertEqualObjects(updateRequest.clientUniqueId, deviceId);
+}
+
 @end
