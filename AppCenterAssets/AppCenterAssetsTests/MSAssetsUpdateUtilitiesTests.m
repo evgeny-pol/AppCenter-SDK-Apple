@@ -5,6 +5,13 @@
 #import "MSUtility+File.h"
 #import <Foundation/Foundation.h>
 
+static NSString *const kSampleFolder = @"sampleFolder";
+static NSString *const kSampleFile = @"SampleFile";
+static NSString *const kSampleFileText = @"SampleFileText";
+static NSString *const kSampleSubfolder = @"sampleSubfolder";
+static NSString *const kSampleFileInSubfolder = @"SampleFileInSubfolder";
+static NSString *const kSampleFileInSubfolderText = @"SampleFileInSubfolderText";
+
 @interface MSAssetsUpdateUtilitiesTests : XCTestCase
 
 @property (nonatomic) MSAssetsUpdateUtilities *sut;
@@ -24,6 +31,13 @@
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
+}
+
+- (NSURL*)createFile:(NSString *)fileName inPath:(NSString *)path withText:(NSString *)text
+{
+    NSData* data = [text dataUsingEncoding:NSUTF8StringEncoding];
+    NSURL* fileURL = [MSUtility createFileAtPathComponent:[path stringByAppendingPathComponent:fileName] withData:data atomically:YES forceOverwrite:YES];
+    return fileURL;
 }
 
 - (void)testUpdateUtilsInitialization {
@@ -59,27 +73,21 @@
 }
 
 - (void)testVerifyFolderHash {
-    NSString *folderPath = @"sampleFolder";
-    NSURL *result = [MSUtility createDirectoryForPathComponent:folderPath];
+    NSURL *result = [MSUtility createDirectoryForPathComponent:kSampleFolder];
     XCTAssertNotNil(result);
-    NSString *fileName = @"SampleFile";
-    NSString *fileText = @"SampleFileText";
-    NSData* data = [fileText dataUsingEncoding:NSUTF8StringEncoding];
-    NSURL* fileURL = [MSUtility createFileAtPathComponent:[folderPath stringByAppendingPathComponent:fileName] withData:data atomically:YES forceOverwrite:YES];
+
+    NSURL* fileURL = [self createFile:kSampleFile inPath:kSampleFolder withText:kSampleFileText];
     XCTAssertNotNil(fileURL);
 
-    NSString *subfolderPath = @"sampleFolder/sampleSubfolder";
-    NSString *fileNameTier2 = @"SampleFileInSubfolder";
-    NSString *fileTextTier2 = @"SampleFileInSubfolderText";
-    NSData *dataTier2 = [fileTextTier2 dataUsingEncoding:NSUTF8StringEncoding];
-    NSURL* fileURLTier2 = [MSUtility createFileAtPathComponent:[subfolderPath stringByAppendingPathComponent:fileNameTier2] withData:dataTier2 atomically:YES forceOverwrite:YES];
+    NSURL* fileURLTier2 = [self createFile:kSampleFileInSubfolder inPath:[kSampleFolder stringByAppendingPathComponent:kSampleSubfolder] withText:kSampleFileInSubfolderText];
     XCTAssertNotNil(fileURLTier2);
 
     NSString *expectedHash = @"3e6f4387b4955bd1693c4344d1228272556666a9c49226734b3c54c62ec1bb01";
     NSError *error = nil;
-    BOOL hashOk = [self.sut verifyFolderHash:expectedHash folderPath:folderPath error:&error];
+    BOOL hashOk = [self.sut verifyFolderHash:expectedHash folderPath:kSampleFolder error:&error];
     XCTAssertNil(error);
     XCTAssertTrue(hashOk);
+    XCTAssertTrue([MSUtility deleteItemForPathComponent:kSampleFolder]);
 }
 
 @end
