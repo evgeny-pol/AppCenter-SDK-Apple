@@ -136,11 +136,6 @@ static NSString *const kMSAssetsServiceName = @"Assets";
     XCTAssertTrue([updateUtilities isHashIgnoredFor:DS_STORE]);
     XCTAssertTrue([updateUtilities isHashIgnoredFor:ASSETS_METADATA]);
     XCTAssertFalse([updateUtilities isHashIgnoredFor:fileThatIsNotIgnored]);
-
 }
-
-
-
-
 
 @end
