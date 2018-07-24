@@ -102,7 +102,7 @@ static NSString *const kSampleFileInSubfolderText = @"SampleFileInSubfolderText"
     XCTAssertEqualObjects(entryPoint, kSampleFile);
 }
 
-- (void)testFindEntryPointInFolderSuccessFoundInSubolder {
+- (void)testFindEntryPointInFolderSuccessFoundInSubаfolder {
     NSString *entryPoint = [self.sut findEntryPointInFolder:kSampleFolder expectedFileName:kSampleFileInSubfolder];
     XCTAssertEqualObjects(entryPoint, [kSampleSubfolder stringByAppendingPathComponent:kSampleFileInSubfolder]);
 }
