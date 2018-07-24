@@ -64,6 +64,7 @@ static NSString *const kMSAssetsServiceName = @"Assets";
 
 - (void)testDeploymentWorks {
     XCTAssertNotNil(self.sut);
+    XCTAssertEqualObjects(self.sut.deploymentKey, @kDeploymentKeyHasUpdate);
 }
 
 - (void)testSettingDelegateWorks {
@@ -113,29 +114,6 @@ static NSString *const kMSAssetsServiceName = @"Assets";
     NSDictionary *dictIn = [[NSDictionary alloc] initWithObjectsAndKeys: @"data", @"key", nil];
     MSAssetsCheckForUpdate *checkForUpdate = [[MSAssetsCheckForUpdate alloc] initWithBaseUrl:@"https://codepush.azurewebsites.net/" queryStrings:dictIn];
     XCTAssertNotNil(checkForUpdate);
-
-}
-
-- (void)testMSAssetsUpdateUtilites {
-
-    id mockSettingManager = OCMClassMock([MSAssetsSettingManager class]);
-    MSAssetsUpdateUtilities *updateUtilities = [[MSAssetsUpdateUtilities alloc] initWithSettingManager:mockSettingManager];
-    XCTAssertNotNil(updateUtilities);
-    XCTAssertEqualObjects(updateUtilities.settingManager, mockSettingManager);
-
-    NSString *sample = @"sample date";
-    NSData* data = [sample dataUsingEncoding:NSUTF8StringEncoding];
-    NSString *hash = [updateUtilities computeHashFor:data];
-    XCTAssertEqualObjects(hash, @"3b1c1062b335527fd77f96d262d0d3fa28dcae9824236d5fa6a5303aa9e7e7e3");
-
-    NSString *__MACOSX = @"__MACOSX/";
-    NSString *DS_STORE = @".DS_Store";
-    NSString *ASSETS_METADATA = @".codepushrelease";
-    NSString *fileThatIsNotIgnored = @"file";
-    XCTAssertTrue([updateUtilities isHashIgnoredFor:__MACOSX]);
-    XCTAssertTrue([updateUtilities isHashIgnoredFor:DS_STORE]);
-    XCTAssertTrue([updateUtilities isHashIgnoredFor:ASSETS_METADATA]);
-    XCTAssertFalse([updateUtilities isHashIgnoredFor:fileThatIsNotIgnored]);
 }
 
 @end
