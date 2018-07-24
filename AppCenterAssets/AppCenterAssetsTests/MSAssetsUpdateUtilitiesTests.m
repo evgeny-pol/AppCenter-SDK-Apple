@@ -4,6 +4,7 @@
 #import "MSAssetsErrorUtils.h"
 #import "MSUtility+File.h"
 #import <Foundation/Foundation.h>
+#import "MSAssetsUpdateUtilities+JWT.h"
 
 static NSString *const kSampleFolder = @"sampleFolder";
 static NSString *const kSampleFile = @"SampleFile";
@@ -11,6 +12,8 @@ static NSString *const kSampleFileText = @"SampleFileText";
 static NSString *const kSampleSubfolder = @"sampleSubfolder";
 static NSString *const kSampleFileInSubfolder = @"SampleFileInSubfolder";
 static NSString *const kSampleFileInSubfolderText = @"SampleFileInSubfolderText";
+//NSString *const BundleJWTFile = @".codepushrelease";
+
 
 @interface MSAssetsUpdateUtilitiesTests : XCTestCase
 
@@ -27,22 +30,17 @@ static NSString *const kSampleFileInSubfolderText = @"SampleFileInSubfolderText"
     _mockSettingManager = OCMClassMock([MSAssetsSettingManager class]);
     self.sut = [[MSAssetsUpdateUtilities alloc] initWithSettingManager:_mockSettingManager];
 
-    [MSUtility createDirectoryForPathComponent:kSampleFolder];
     [self createFile:kSampleFile inPath:kSampleFolder withText:kSampleFileText];
     [self createFile:kSampleFileInSubfolder inPath:[kSampleFolder stringByAppendingPathComponent:kSampleSubfolder] withText:kSampleFileInSubfolderText];
 }
 
 - (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
     [MSUtility deleteItemForPathComponent:kSampleFolder];
 }
 
-- (NSURL*)createFile:(NSString *)fileName inPath:(NSString *)path withText:(NSString *)text
-{
-    NSData* data = [text dataUsingEncoding:NSUTF8StringEncoding];
-    NSURL* fileURL = [MSUtility createFileAtPathComponent:[path stringByAppendingPathComponent:fileName] withData:data atomically:YES forceOverwrite:YES];
-    return fileURL;
+- (void)createFile:(NSString *)fileName inPath:(NSString *)path withText:(NSString *)text {
+    [MSUtility createFileAtPathComponent:[path stringByAppendingPathComponent:fileName] withData:[text dataUsingEncoding:NSUTF8StringEncoding] atomically:YES forceOverwrite:YES];
 }
 
 - (void)testUpdateUtilsInitialization {
@@ -68,17 +66,7 @@ static NSString *const kSampleFileInSubfolderText = @"SampleFileInSubfolderText"
     XCTAssertFalse([self.sut isHashIgnoredFor:fileThatIsNotIgnored]);
 }
 
-- (void)testAddContentsOfFolderToManifestFailsNoFolder {
-    NSString *folderPath = @"noSuchFolder";
-    NSError *error = nil;
-    BOOL result = [self.sut addContentsOfFolderToManifest:nil folderPath:folderPath pathPrefix:@"" error:&error];
-    XCTAssertFalse(result);
-    NSError *expectedError = [MSAssetsErrorUtils getNoDirError:folderPath];
-    XCTAssertEqualObjects(error, expectedError);
-}
-
 - (void)testVerifyFolderHash {
-
     NSString *expectedHash = @"3e6f4387b4955bd1693c4344d1228272556666a9c49226734b3c54c62ec1bb01";
     NSError *error = nil;
     BOOL hashOk = [self.sut verifyFolderHash:expectedHash folderPath:kSampleFolder error:&error];
@@ -86,13 +74,12 @@ static NSString *const kSampleFileInSubfolderText = @"SampleFileInSubfolderText"
     XCTAssertTrue(hashOk);
 }
 
-- (void)testFindEntryPointInFolderFailsNoSuchFolder {
-    NSString *folderPath = @"noSuchFolder";
-    NSString *entryPoint = [self.sut findEntryPointInFolder:folderPath expectedFileName:kSampleFile];
+- (void)testFindEntryPointInFolderFailsNoFolder {
+    NSString *entryPoint = [self.sut findEntryPointInFolder:@"noSuchFolder" expectedFileName:kSampleFile];
     XCTAssertNil(entryPoint);
 }
 
-- (void)testFindEntryPointInFolderFailsNoSuchFile {
+- (void)testFindEntryPointInFolderFailsNoFile {
     NSString *entryPoint = [self.sut findEntryPointInFolder:kSampleFolder expectedFileName:@"noSuchFile"];
     XCTAssertNil(entryPoint);
 }
@@ -105,6 +92,36 @@ static NSString *const kSampleFileInSubfolderText = @"SampleFileInSubfolderText"
 - (void)testFindEntryPointInFolderSuccessFoundInSubаfolder {
     NSString *entryPoint = [self.sut findEntryPointInFolder:kSampleFolder expectedFileName:kSampleFileInSubfolder];
     XCTAssertEqualObjects(entryPoint, [kSampleSubfolder stringByAppendingPathComponent:kSampleFileInSubfolder]);
+}
+
+- (void)testAddContentsOfFolderToManifestFailsNoFolder {
+    NSError *error = nil;
+    NSString *folderPath = @"noSuchFolder";
+    NSMutableArray<NSString *> *manifest = [NSMutableArray<NSString* > array];
+    BOOL result = [self.sut addContentsOfFolderToManifest:manifest folderPath:folderPath pathPrefix:@"prefix" error:&error];
+    XCTAssertFalse(result);
+    NSError *expectedError = [MSAssetsErrorUtils getNoDirError:folderPath];
+    XCTAssertEqualObjects(error, expectedError);
+}
+
+- (void)testAddContentsOfFolderToManifestSuccess {
+    NSError *error = nil;
+    NSMutableArray<NSString *> *manifest = [NSMutableArray<NSString* > array];
+    BOOL result = [self.sut addContentsOfFolderToManifest:manifest folderPath:kSampleFolder pathPrefix:@"prefix" error:&error];
+    XCTAssertTrue(result);
+    XCTAssertEqual(manifest.count, 2);
+    XCTAssertEqualObjects(manifest[0],  @"prefix/sampleSubfolder/SampleFileInSubfolder:5816aa5a89468053aa19df26dd52f710743d02593c932be6c5881964c4226857");
+    XCTAssertEqualObjects(manifest[1],  @"prefix/SampleFile:bd747ef223a7a702a3075c67ea330b286df0ba0a1d732b0708075d811cf95c7c");
+}
+
+- (void)testGetSignatureFilePathFailsNoFolder {
+    NSString *signatureFilePath = [self.sut getSignatureFilePath:@"noSuchFolder"];
+    XCTAssertNil(signatureFilePath);
+}
+
+- (void)testGetSignatureFilePathFailsNoSignature {
+    NSString *signatureFilePath = [self.sut getSignatureFilePath:kSampleFolder];
+    XCTAssertNil(signatureFilePath);
 }
 
 @end
