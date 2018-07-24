@@ -27,20 +27,15 @@ static NSString *const kSampleFileInSubfolderText = @"SampleFileInSubfolderText"
     _mockSettingManager = OCMClassMock([MSAssetsSettingManager class]);
     self.sut = [[MSAssetsUpdateUtilities alloc] initWithSettingManager:_mockSettingManager];
 
-    NSURL *result = [MSUtility createDirectoryForPathComponent:kSampleFolder];
-    XCTAssertNotNil(result);
-
-    NSURL* fileURL = [self createFile:kSampleFile inPath:kSampleFolder withText:kSampleFileText];
-    XCTAssertNotNil(fileURL);
-
-    NSURL* fileURLTier2 = [self createFile:kSampleFileInSubfolder inPath:[kSampleFolder stringByAppendingPathComponent:kSampleSubfolder] withText:kSampleFileInSubfolderText];
-    XCTAssertNotNil(fileURLTier2);
+    [MSUtility createDirectoryForPathComponent:kSampleFolder];
+    [self createFile:kSampleFile inPath:kSampleFolder withText:kSampleFileText];
+    [self createFile:kSampleFileInSubfolder inPath:[kSampleFolder stringByAppendingPathComponent:kSampleSubfolder] withText:kSampleFileInSubfolderText];
 }
 
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
-    XCTAssertTrue([MSUtility deleteItemForPathComponent:kSampleFolder]);
+    [MSUtility deleteItemForPathComponent:kSampleFolder];
 }
 
 - (NSURL*)createFile:(NSString *)fileName inPath:(NSString *)path withText:(NSString *)text
@@ -102,12 +97,12 @@ static NSString *const kSampleFileInSubfolderText = @"SampleFileInSubfolderText"
     XCTAssertNil(entryPoint);
 }
 
-- (void)testFindEntryPointInFolderSuccessFindFileInFolder {
+- (void)testFindEntryPointInFolderSuccessFoundInFolder {
     NSString *entryPoint = [self.sut findEntryPointInFolder:kSampleFolder expectedFileName:kSampleFile];
     XCTAssertEqualObjects(entryPoint, kSampleFile);
 }
 
-- (void)testFindEntryPointInFolderSuccessFindFileInSubolder {
+- (void)testFindEntryPointInFolderSuccessFoundInSubolder {
     NSString *entryPoint = [self.sut findEntryPointInFolder:kSampleFolder expectedFileName:kSampleFileInSubfolder];
     XCTAssertEqualObjects(entryPoint, [kSampleSubfolder stringByAppendingPathComponent:kSampleFileInSubfolder]);
 }
