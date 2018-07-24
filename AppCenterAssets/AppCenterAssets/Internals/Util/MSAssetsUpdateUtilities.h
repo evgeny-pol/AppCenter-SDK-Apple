@@ -95,12 +95,10 @@ extern NSString *const AssetsFolderName;
  *
  * @param folderPath       path to folder containing update files (search location).
  * @param expectedFileName expected file name of the entry point.
- * @param error error occurred while scanning.
  * @return full path to entry point.
  */
 - (NSString *)findEntryPointInFolder:(NSString *)folderPath
-                    expectedFileName:(NSString *)expectedFileName
-                               error:(NSError **)error;
+                    expectedFileName:(NSString *)expectedFileName;
 
 - (NSString *)modifiedDateStringOfFileAtURL:(NSURL *)fileURL;
 @end

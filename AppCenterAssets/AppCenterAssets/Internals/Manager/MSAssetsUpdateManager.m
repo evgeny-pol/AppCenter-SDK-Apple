@@ -311,12 +311,7 @@ static NSString *const UnzippedFolderName = @"unzipped";
         //Not a breaking error.
         MSLogInfo([MSAssets logTag], @"Error deleting downloaded file: %@", unzippedFolderPath);
     }
-    NSString *entryPoint = [[self updateUtilities] findEntryPointInFolder:newUpdateFolderPath
-                                                         expectedFileName:expectedEntryPointFileName
-                                                                    error:error];
-    if (*error) {
-        return nil;
-    }
+    NSString *entryPoint = [[self updateUtilities] findEntryPointInFolder:newUpdateFolderPath expectedFileName:expectedEntryPointFileName];
     if ([MSUtility fileExistsForPathComponent:newUpdateMetadataPath]) {
         deleted = [MSUtility deleteItemForPathComponent:newUpdateMetadataPath];
         if (!deleted) {

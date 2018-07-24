@@ -91,4 +91,25 @@ static NSString *const kSampleFileInSubfolderText = @"SampleFileInSubfolderText"
     XCTAssertTrue(hashOk);
 }
 
+- (void)testFindEntryPointInFolderFailsNoSuchFolder {
+    NSString *folderPath = @"noSuchFolder";
+    NSString *entryPoint = [self.sut findEntryPointInFolder:folderPath expectedFileName:kSampleFile];
+    XCTAssertNil(entryPoint);
+}
+
+- (void)testFindEntryPointInFolderFailsNoSuchFile {
+    NSString *entryPoint = [self.sut findEntryPointInFolder:kSampleFolder expectedFileName:@"noSuchFile"];
+    XCTAssertNil(entryPoint);
+}
+
+- (void)testFindEntryPointInFolderSuccessFindFileInFolder {
+    NSString *entryPoint = [self.sut findEntryPointInFolder:kSampleFolder expectedFileName:kSampleFile];
+    XCTAssertEqualObjects(entryPoint, kSampleFile);
+}
+
+- (void)testFindEntryPointInFolderSuccessFindFileInSubolder {
+    NSString *entryPoint = [self.sut findEntryPointInFolder:kSampleFolder expectedFileName:kSampleFileInSubfolder];
+    XCTAssertEqualObjects(entryPoint, [kSampleSubfolder stringByAppendingPathComponent:kSampleFileInSubfolder]);
+}
+
 @end
