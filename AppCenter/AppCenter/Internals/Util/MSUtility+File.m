@@ -139,6 +139,7 @@ static NSString *const kMSAppCenterBundleIdentifier = @"com.microsoft.appcenter"
 
 + (BOOL)fileExistsForPathComponent:(NSString *)filePathComponent {
   {
+    if (!filePathComponent) return NO;
     NSURL *fileURL = [[self appCenterDirectoryURL] URLByAppendingPathComponent:filePathComponent];
     return [fileURL checkResourceIsReachableAndReturnError:nil];
   }

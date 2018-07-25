@@ -98,7 +98,7 @@ NSString *const BundleJWTFile = @".codepushrelease";
     if ([MSUtility fileExistsForPathComponent:signatureFilePath]) {
         return [[NSString alloc] initWithData:[MSUtility loadDataForPathComponent:signatureFilePath] encoding:NSUTF8StringEncoding];
     } else {
-        *error = [MSAssetsErrorUtils getNoSignatureError:signatureFilePath];
+        *error = [MSAssetsErrorUtils getNoSignatureError:[folderPath stringByAppendingPathComponent:BundleJWTFile]];
         return nil;
     }
 }
