@@ -70,14 +70,14 @@ typedef void (^MSAssetsDownloadInstallHandler)(NSError * _Nullable error);
  * @see `MSAssetsiOSSpecificImplementation`.
  * @param error initialization error.
  */
-- (instancetype)initWithEntryPoint:(NSString *)entryPoint
-                         publicKey:(NSString *)publicKey
-                     deploymentKey:(NSString *)deploymentKey
+- (instancetype)initWithEntryPoint:(nullable NSString *)entryPoint
+                         publicKey:(nullable NSString *)publicKey
+                     deploymentKey:(nullable NSString *)deploymentKey
                        inDebugMode:(BOOL)isDebugMode
-                         serverUrl:(NSString *)serverUrl
-                           baseDir:(NSString *)baseDir
-                           appName:(NSString *)appName
-                        appVersion:(NSString *)appVersion
+                         serverUrl:(nullable NSString *)serverUrl
+                           baseDir:(nullable NSString *)baseDir
+                           appName:(nullable NSString *)appName
+                        appVersion:(nullable NSString *)appVersion
                   platformInstance:(id<MSAssetsPlatformSpecificImplementation>)platformInstance
                          withError:(NSError *__autoreleasing *)error;
 
