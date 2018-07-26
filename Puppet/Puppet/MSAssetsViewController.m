@@ -90,6 +90,8 @@
     MSAssetsSyncOptions *syncOptions = [MSAssetsSyncOptions new];
     [syncOptions setDeploymentKey:@kDeploymentKey];
     [syncOptions setUpdateDialog:[MSAssetsUpdateDialog new]];
+    [syncOptions setInstallMode:MSAssetsInstallModeImmediate];
+    [syncOptions setShouldRestart:NO];
     [self.assetsDeployment sync:syncOptions];
 }
 
