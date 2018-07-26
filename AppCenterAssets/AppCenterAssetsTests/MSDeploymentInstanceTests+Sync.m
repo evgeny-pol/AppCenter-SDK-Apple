@@ -422,7 +422,7 @@
                                       andCancelHandler:OCMOCK_ANY]);
     }
     OCMVerify([assetsMock checkForUpdate:syncOptions.deploymentKey ? syncOptions.deploymentKey : deploymentKey withCompletionHandler:OCMOCK_ANY]);
-    XCTAssertEqual(self.sut.instanceState.syncInProgress, NO);
+    XCTAssertEqual([assetsMock instanceState].syncInProgress, NO);
     [assetsMock stopMocking];
 }
 
