@@ -327,8 +327,7 @@ static BOOL isRunningBinaryVersion = NO;
                 [strongSelf notifyAboutSyncStatusChange:MSAssetsSyncStatusUpToDate instanceState:[strongSelf instanceState]];
             }
             strongSelf.instanceState.syncInProgress = NO;
-        }
-        else if (syncOptions.updateDialog) {
+        } else if (syncOptions.updateDialog) {
             MSAssetsUpdateDialog *updateDialogOptions = syncOptions.updateDialog;
             NSString *message;
             NSString *acceptButtonText;
@@ -340,46 +339,43 @@ static BOOL isRunningBinaryVersion = NO;
                 message = updateDialogOptions.optionalUpdateMessage;
                 acceptButtonText = updateDialogOptions.optionalInstallButtonLabel;
             }
-            if (updateDialogOptions.appendReleaseDescription && (remotePackage.description.length == 0)) {
+            if (updateDialogOptions.appendReleaseDescription && (remotePackage.description.length != 0)) {
                 message = [updateDialogOptions.descriptionPrefix stringByAppendingFormat:@" %@", remotePackage.description];
             }
             [strongSelf notifyAboutSyncStatusChange:MSAssetsSyncStatusAwaitingUserAction instanceState:[strongSelf instanceState]];
 
-            MSAlertController *alert = [MSAlertController alertControllerWithTitle:updateDialogOptions.title message:message preferredStyle:UIAlertControllerStyleAlert];
-
-            [alert.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-
-            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:acceptButtonText style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction * action) {
-                __weak typeof(strongSelf) weakSelfLvl2 = strongSelf;
-                [strongSelf doDownloadAndInstall:remotePackage syncOptions:syncOptions configuration:config handler:^(NSError * _Nullable error_internal) {
-                    if (error_internal) {
-                        [[MSAssetsSettingManager new] saveFailedUpdate:remotePackage];
-                    }
-                    typeof(self) strongSelfLvl2 = weakSelfLvl2;
-                    if (!strongSelfLvl2) {
-                        return;
-                    }
-                    strongSelfLvl2.instanceState.syncInProgress = NO;
-                    if (error_internal) {
-                        MSLogInfo([MSAssets logTag], @"Error during doDownloadAndInstall");
-                        [strongSelfLvl2 notifyAboutSyncStatusChange:MSAssetsSyncStatusUnknownError instanceState:[strongSelfLvl2 instanceState]];
-                        return;
-                    };
-                }];
-            }];
-            [alert addAction:defaultAction];
-
-            if (!remotePackage.isMandatory) {
-                UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:declineButtonText style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction * action) {
-                    strongSelf.instanceState.syncInProgress = NO;
-                    [strongSelf notifyAboutSyncStatusChange:MSAssetsSyncStatusUpdateIgnored instanceState:[strongSelf instanceState]];
-                }];
-                [alert addAction:cancelAction];
-            }
-
-            [alert show];
-        }
-        else {
+            __weak typeof(strongSelf) weakSelfLvl2 = strongSelf;
+            [self showDialogWithAcceptText:acceptButtonText
+                            andDeclineText:declineButtonText
+                                  andTitle:updateDialogOptions.title
+                                andMessage:message
+                           addCancelButton:!remotePackage.isMandatory
+                                andHandler:^{
+                                    if (weakSelfLvl2) {
+                                        [strongSelf doDownloadAndInstall:remotePackage syncOptions:syncOptions configuration:config handler:^(NSError * _Nullable error_internal) {
+                                            if (error_internal) {
+                                                [[MSAssetsSettingManager new] saveFailedUpdate:remotePackage];
+                                            }
+                                            typeof(self) strongSelfLvl2 = weakSelfLvl2;
+                                            if (!strongSelfLvl2) {
+                                                return;
+                                            }
+                                            strongSelfLvl2.instanceState.syncInProgress = NO;
+                                            if (error_internal) {
+                                                MSLogInfo([MSAssets logTag], @"Error during doDownloadAndInstall");
+                                                [strongSelfLvl2 notifyAboutSyncStatusChange:MSAssetsSyncStatusUnknownError instanceState:[strongSelfLvl2 instanceState]];
+                                                return;
+                                            };                                            
+                                        }];
+                                    }
+                                } andCancelHandler:^{
+                                    typeof(self) strongSelfLvl2 = weakSelfLvl2;
+                                    if (strongSelfLvl2) {
+                                        strongSelfLvl2.instanceState.syncInProgress = NO;
+                                        [strongSelfLvl2 notifyAboutSyncStatusChange:MSAssetsSyncStatusUpdateIgnored instanceState:[strongSelfLvl2 instanceState]];
+                                    }
+                                }];
+        } else {
             MSLogInfo([MSAssets logTag], @"Do download and install");
             __weak typeof(strongSelf) weakSelfLvl2 = strongSelf;
             [strongSelf doDownloadAndInstall:remotePackage syncOptions:syncOptions configuration:config handler:^(NSError * _Nullable error_internal) {
@@ -393,7 +389,6 @@ static BOOL isRunningBinaryVersion = NO;
                 strongSelf.instanceState.syncInProgress = NO;
                 if (error_internal) {
                     MSLogInfo([MSAssets logTag], @"Error during doDownloadAndInstall");
-                    [[MSAssetsSettingManager new] saveFailedUpdate:remotePackage];
                     [strongSelfLvl2 notifyAboutSyncStatusChange:MSAssetsSyncStatusUnknownError instanceState:[strongSelfLvl2 instanceState]];
                     return;
                 };
@@ -402,6 +397,27 @@ static BOOL isRunningBinaryVersion = NO;
     }];
 }
 
+- (void) showDialogWithAcceptText:(NSString *)acceptButtonText
+                   andDeclineText:(NSString *)declineButtonText
+                         andTitle:(NSString *)title
+                       andMessage:(NSString *)message
+                      addCancelButton:(BOOL)addCancelAction
+                       andHandler:(void (^ __nullable)())handler
+                 andCancelHandler:(void (^ __nullable)())cancelHandler {
+    MSAlertController *alert = [MSAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    [alert.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:acceptButtonText style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction * action) {
+        handler();
+    }];
+    [alert addAction:defaultAction];
+    if (addCancelAction) {
+        UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:declineButtonText style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction * action) {
+            cancelHandler();
+        }];
+        [alert addAction:cancelAction];
+    }
+    [alert show];
+}
 
 - (MSAssetsConfiguration *)getConfigurationWithError:(NSError * __autoreleasing*)error {
 
@@ -542,10 +558,10 @@ static BOOL isRunningBinaryVersion = NO;
                                    return;
                                }
                                entryPoint = [[strongSelf updateManager] mergeDiffWithNewUpdateFolder:newUpdateFolderPath
-                                                                         newUpdateMetadataPath:newUpdateMetadataPath
-                                                                                 newUpdateHash:[updatePackage packageHash]
-                                                                               publicKeyString: strongSelf->_publicKey
-                                                                    expectedEntryPointFileName:strongSelf->_entryPoint
+                                                                               newUpdateMetadataPath:newUpdateMetadataPath
+                                                                                       newUpdateHash:[updatePackage packageHash]
+                                                                                     publicKeyString: strongSelf->_publicKey
+                                                                          expectedEntryPointFileName:strongSelf->_entryPoint
                                                                                                error:&error];
                                if (error) {
                                    completeHandler(nil, error);
@@ -560,11 +576,11 @@ static BOOL isRunningBinaryVersion = NO;
                                }
                            }
                            MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithPackage:updatePackage
-                                                                                          failedInstall:NO
-                                                                                             isFirstRun: NO
-                                                                                              isPending:YES
-                                                                                            isDebugOnly:NO
-                                                                                             entryPoint: entryPoint];                           
+                                                                                                      failedInstall:NO
+                                                                                                         isFirstRun: NO
+                                                                                                          isPending:YES
+                                                                                                        isDebugOnly:NO
+                                                                                                         entryPoint: entryPoint];                           
                            [localPackage setBinaryModifiedTime: [NSString stringWithFormat:@"%ld", [[strongSelf platformInstance] getBinaryResourcesModifiedTime]]];
                            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[localPackage serializeToDictionary] options:NSJSONWritingPrettyPrinted error:&error];
                            if (error) {
@@ -612,8 +628,8 @@ static BOOL isRunningBinaryVersion = NO;
             label = @"";
         }
         MSAssetsDownloadStatusReport *report = [[MSAssetsDownloadStatusReport alloc] initReportWithLabel:label
-                                                                                    deviceId:[configuration clientUniqueId]
-                                                                            andDeploymentKey:[configuration deploymentKey]];
+                                                                                                deviceId:[configuration clientUniqueId]
+                                                                                        andDeploymentKey:[configuration deploymentKey]];
         [[strongSelf acquisitionManager] reportDownloadStatus:report withConfiguration:configuration];
         MSAssetsInstallMode resolvedInstallMode = [downloadedPackage isMandatory] ? [syncOptions mandatoryInstallMode] : [syncOptions installMode];
         [[strongSelf instanceState] setCurrentInstallMode:resolvedInstallMode];
@@ -697,14 +713,14 @@ static BOOL isRunningBinaryVersion = NO;
  * @return error installation error.
  */
 - (NSError *)installUpdate:(MSAssetsLocalPackage*)updatePackage
-          installMode:(MSAssetsInstallMode)installMode
-minimumBackgroundDuration:(int)minimumBackgroundDuration {
+               installMode:(MSAssetsInstallMode)installMode
+ minimumBackgroundDuration:(int)minimumBackgroundDuration {
     NSString *packageHash = [updatePackage packageHash];
     if (packageHash == nil) {
         return [MSAssetsErrorUtils getNoPackageHashToInstallError];
     }
     NSError *installError = [[self updateManager] installPackage:[updatePackage packageHash]
-                                   removePendingUpdate:[[self settingManager] isPendingUpdate:[updatePackage packageHash]]];
+                                             removePendingUpdate:[[self settingManager] isPendingUpdate:[updatePackage packageHash]]];
     if (installError) {
         return installError;
     }

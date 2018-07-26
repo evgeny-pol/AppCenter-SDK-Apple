@@ -11,15 +11,15 @@
 - (void)setUp {
     NSError *error = nil;
     self.sut = [[MSAssetsDeploymentInstance alloc]
-           initWithEntryPoint:nil
-           publicKey:nil
-           deploymentKey:kMSDeploymentKey
-           inDebugMode:NO
-           serverUrl:nil
-           baseDir:nil
-           appName:nil
-           appVersion:nil
-           platformInstance:[[MSAssetsiOSSpecificImplementation alloc] init]
+                initWithEntryPoint:nil
+                publicKey:nil
+                deploymentKey:kMSDeploymentKey
+                inDebugMode:NO
+                serverUrl:nil
+                baseDir:nil
+                appName:nil
+                appVersion:nil
+                platformInstance:[[MSAssetsiOSSpecificImplementation alloc] init]
                 withError:&error];
     id serviceMock = OCMClassMock([MSAssets class]);
     OCMStub(ClassMethod([serviceMock isEnabled])).andReturn(YES);
@@ -45,12 +45,25 @@
     [assetsMock stopMocking];
 }
 
-- (void)checkForUpdateCallWithDeploymentKey: (NSString *)deploymentKey
-                            andLocalPackage: (MSAssetsLocalPackage *) localPackage
-                                  andConfig: (MSAssetsConfiguration *)configuration
-                           andRemotePackage: (MSAssetsRemotePackage *)rmPackage
-                             andRemoteError: (NSError *)remoteError
-                                andDelegate: (id<MSAssetsDelegate>)delegate
+/**
+ * A helper method to test `MSAssetsDeploymentInstance#checkForUpdate`.
+ *
+ * @param deploymentKey deployment key which will be passed to `checkForUpdate` method.
+ * @param localPackage `MSAssetsLocalPackage` instance which, if passed, will be returned in a `getCurrentPackage` method.
+ * @param configuration `MSAssetsConfiguration` instance which, if passed, will be returned in a `getConfigurationWithError` method.
+ * @param rmPackage `MSAssetsRemotePackage` instance to be returned in a `queryUpdateWithCurrentPackage` callback.
+ * @param remoteError error to be returned in a `queryUpdateWithCurrentPackage` callback.
+ * @param delegate mocked delegate.
+ * @param handler method containing assertions to be made after `checkForUpdate:withCompletionHandler` called its handler.
+ * Note that if you pass *nonnull* delegate above, a simple `checkForUpdate` call will be made (assuming that you'll verify
+ * interactions with the delegate itself), thus making this assertion handler useless.
+ */
+- (void)checkForUpdateCallWithDeploymentKey: (nullable NSString *)deploymentKey
+                            andLocalPackage: (nullable MSAssetsLocalPackage *)localPackage
+                                  andConfig: (nullable MSAssetsConfiguration *)configuration
+                           andRemotePackage: (nullable MSAssetsRemotePackage *)rmPackage
+                             andRemoteError: (nullable NSError *)remoteError
+                                andDelegate: (nullable id<MSAssetsDelegate>)delegate
                       andCallbackCompletion: (MSCheckForUpdateCompletionHandler)handler {
     
     // If
@@ -111,16 +124,16 @@
     MSAssetsConfiguration *configuration = [[MSAssetsConfiguration alloc] init];
     
     [self checkForUpdateCallWithDeploymentKey:kMSDeploymentKey
-                                     andLocalPackage:localPackage
-                                           andConfig:configuration
-                                    andRemotePackage:rmPackage
-                                      andRemoteError:nil
-                                         andDelegate: nil
-                               andCallbackCompletion:^(MSAssetsRemotePackage * _Nullable remotePackage, NSError * _Nullable error) {
-                                   XCTAssertEqualObjects(rmPackage, remotePackage);
-                                   XCTAssertTrue([remotePackage failedInstall]);
-                                   XCTAssertNil(error);
-                               }];
+                              andLocalPackage:localPackage
+                                    andConfig:configuration
+                             andRemotePackage:rmPackage
+                               andRemoteError:nil
+                                  andDelegate:nil
+                        andCallbackCompletion:^(MSAssetsRemotePackage * _Nullable remotePackage, NSError * _Nullable error) {
+                            XCTAssertEqualObjects(rmPackage, remotePackage);
+                            XCTAssertTrue([remotePackage failedInstall]);
+                            XCTAssertNil(error);
+                        }];
 }
 
 - (void)testCheckForUpdateDelegateOnSuccess {
@@ -135,16 +148,16 @@
     OCMStub([delegateMock didReceiveRemotePackageOnCheckForUpdate:OCMOCK_ANY]);
     
     [self checkForUpdateCallWithDeploymentKey:kMSDeploymentKey
-                                        andLocalPackage:localPackage
-                                       andConfig:configuration
-                                andRemotePackage:rmPackage
-                                  andRemoteError:nil
-                                     andDelegate: delegateMock
-                           andCallbackCompletion:^(MSAssetsRemotePackage * _Nullable remotePackage, NSError * _Nullable error) {
-                               XCTAssertEqualObjects(rmPackage, remotePackage);
-                               XCTAssertTrue([remotePackage failedInstall]);
-                               XCTAssertNil(error);
-                           }];
+                              andLocalPackage:localPackage
+                                    andConfig:configuration
+                             andRemotePackage:rmPackage
+                               andRemoteError:nil
+                                  andDelegate: delegateMock
+                        andCallbackCompletion:^(MSAssetsRemotePackage * _Nullable remotePackage, NSError * _Nullable error) {
+                            XCTAssertEqualObjects(rmPackage, remotePackage);
+                            XCTAssertTrue([remotePackage failedInstall]);
+                            XCTAssertNil(error);
+                        }];
     
     //Then
     OCMVerify([delegateMock didReceiveRemotePackageOnCheckForUpdate:OCMOCK_ANY]);
@@ -161,15 +174,15 @@
     OCMStub([delegateMock didFailToQueryRemotePackageOnCheckForUpdate:OCMOCK_ANY]);
     
     [self checkForUpdateCallWithDeploymentKey:kMSDeploymentKey
-                                        andLocalPackage:localPackage
-                                       andConfig:configuration
-                                andRemotePackage:nil
-                                  andRemoteError:mainError
-                                     andDelegate:delegateMock
-                           andCallbackCompletion:^(MSAssetsRemotePackage * _Nullable remotePackage, NSError * _Nullable error) {
-                               XCTAssertEqualObjects(mainError, error);
-                               XCTAssertNil(remotePackage);
-                           }];
+                              andLocalPackage:localPackage
+                                    andConfig:configuration
+                             andRemotePackage:nil
+                               andRemoteError:mainError
+                                  andDelegate:delegateMock
+                        andCallbackCompletion:^(MSAssetsRemotePackage * _Nullable remotePackage, NSError * _Nullable error) {
+                            XCTAssertEqualObjects(mainError, error);
+                            XCTAssertNil(remotePackage);
+                        }];
     
     //Then
     OCMVerify([delegateMock didFailToQueryRemotePackageOnCheckForUpdate:OCMOCK_ANY]);
@@ -189,20 +202,20 @@
     OCMStub([delegateMock handleBinaryVersionMismatchCallback]);
     
     [self checkForUpdateCallWithDeploymentKey:kMSDeploymentKey
-                                     andLocalPackage:localPackage
-                                           andConfig:configuration
-                                    andRemotePackage:rmPackage
-                                      andRemoteError:nil
-                                         andDelegate:delegateMock
-                               andCallbackCompletion:^(MSAssetsRemotePackage * _Nullable remotePackage, NSError * _Nullable error) {
-                                   XCTAssertNil(error);
-                                   XCTAssertNil(remotePackage);
-                                   OCMVerify([delegateMock handleBinaryVersionMismatchCallback]);
-                               }];
+                              andLocalPackage:localPackage
+                                    andConfig:configuration
+                             andRemotePackage:rmPackage
+                               andRemoteError:nil
+                                  andDelegate:delegateMock
+                        andCallbackCompletion:^(MSAssetsRemotePackage * _Nullable remotePackage, NSError * _Nullable error) {
+                            XCTAssertNil(error);
+                            XCTAssertNil(remotePackage);
+                            OCMVerify([delegateMock handleBinaryVersionMismatchCallback]);
+                        }];
 }
 
 - (void)testCheckForUpdateWithNoLocalPackage {
-   
+    
     // If
     MSAssetsRemotePackage *rmPackage = [[MSAssetsRemotePackage alloc] init];
     [rmPackage setPackageHash:kMSPackageHash];
@@ -210,16 +223,16 @@
     [configuration setPackageHash:kMSPackageHash];
     
     [self checkForUpdateCallWithDeploymentKey:kMSDeploymentKey
-                                        andLocalPackage:nil
-                                       andConfig:configuration
-                                andRemotePackage:rmPackage
-                                  andRemoteError:nil
-                                     andDelegate:nil
-                           andCallbackCompletion:^(MSAssetsRemotePackage * _Nullable remotePackage, NSError * _Nullable error) {
-                               XCTAssertNil(error);
-                               XCTAssertNil(remotePackage);
-                           }];
-   
+                              andLocalPackage:nil
+                                    andConfig:configuration
+                             andRemotePackage:rmPackage
+                               andRemoteError:nil
+                                  andDelegate:nil
+                        andCallbackCompletion:^(MSAssetsRemotePackage * _Nullable remotePackage, NSError * _Nullable error) {
+                            XCTAssertNil(error);
+                            XCTAssertNil(remotePackage);
+                        }];
+    
 }
 
 - (void)testCheckForUpdateNoDeploymentKey {
@@ -233,17 +246,17 @@
     [configuration setDeploymentKey:kMSDeploymentKey];
     
     [self checkForUpdateCallWithDeploymentKey:nil
-                                        andLocalPackage:localPackage
-                                       andConfig:configuration
-                                andRemotePackage:rmPackage
-                                  andRemoteError:nil
-                                     andDelegate:nil
-                           andCallbackCompletion:^(MSAssetsRemotePackage * _Nullable remotePackage, NSError * _Nullable error) {
-                               XCTAssertEqualObjects(rmPackage, remotePackage);
-                               XCTAssertEqualObjects(kMSDeploymentKey, [remotePackage deploymentKey]);
-                               XCTAssertTrue([remotePackage failedInstall]);
-                               XCTAssertNil(error);
-                           }];
+                              andLocalPackage:localPackage
+                                    andConfig:configuration
+                             andRemotePackage:rmPackage
+                               andRemoteError:nil
+                                  andDelegate:nil
+                        andCallbackCompletion:^(MSAssetsRemotePackage * _Nullable remotePackage, NSError * _Nullable error) {
+                            XCTAssertEqualObjects(rmPackage, remotePackage);
+                            XCTAssertEqualObjects(kMSDeploymentKey, [remotePackage deploymentKey]);
+                            XCTAssertTrue([remotePackage failedInstall]);
+                            XCTAssertNil(error);
+                        }];
 }
 
 - (void)testCheckForUpdateQueryCallbackError {
@@ -254,15 +267,15 @@
     MSAssetsConfiguration *configuration = [[MSAssetsConfiguration alloc] init];
     
     [self checkForUpdateCallWithDeploymentKey:kMSDeploymentKey
-                                        andLocalPackage:localPackage
-                                       andConfig:configuration
-                                andRemotePackage:nil
-                                  andRemoteError:mainError
-                                     andDelegate:nil
-                           andCallbackCompletion:^(MSAssetsRemotePackage * _Nullable remotePackage, NSError * _Nullable error) {
-                               XCTAssertEqualObjects(mainError, error);
-                               XCTAssertNil(remotePackage);
-                           }];
+                              andLocalPackage:localPackage
+                                    andConfig:configuration
+                             andRemotePackage:nil
+                               andRemoteError:mainError
+                                  andDelegate:nil
+                        andCallbackCompletion:^(MSAssetsRemotePackage * _Nullable remotePackage, NSError * _Nullable error) {
+                            XCTAssertEqualObjects(mainError, error);
+                            XCTAssertNil(remotePackage);
+                        }];
 }
 
 - (void)testCheckForUpdateQueryCallbackNil {
@@ -272,15 +285,15 @@
     MSAssetsConfiguration *configuration = [[MSAssetsConfiguration alloc] init];
     
     [self checkForUpdateCallWithDeploymentKey:kMSDeploymentKey
-                                        andLocalPackage:localPackage
-                                       andConfig:configuration
-                                andRemotePackage:nil
-                                  andRemoteError:nil
-                                     andDelegate:nil
-                           andCallbackCompletion:^(MSAssetsRemotePackage * _Nullable remotePackage, NSError * _Nullable error) {
-                               XCTAssertNil(error);
-                               XCTAssertNil(remotePackage);
-                           }];
+                              andLocalPackage:localPackage
+                                    andConfig:configuration
+                             andRemotePackage:nil
+                               andRemoteError:nil
+                                  andDelegate:nil
+                        andCallbackCompletion:^(MSAssetsRemotePackage * _Nullable remotePackage, NSError * _Nullable error) {
+                            XCTAssertNil(error);
+                            XCTAssertNil(remotePackage);
+                        }];
 }
 
 - (void)testCheckForUpdateFailsOnConfig {
