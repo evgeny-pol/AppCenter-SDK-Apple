@@ -63,7 +63,6 @@
              andDeploymentKey: nil
              andConfiguration:configuration
               andLocalPackage:nil
-             andInstanceState:nil
                   andDelegate:delegateMock
              andRemotePackage:nil
                andRemoteError:remoteError
@@ -89,7 +88,6 @@
              andDeploymentKey: kMSDeploymentKey
              andConfiguration:configuration
               andLocalPackage:nil
-             andInstanceState:nil
                   andDelegate:delegateMock
              andRemotePackage:nil
                andRemoteError:remoteError
@@ -119,7 +117,6 @@
              andDeploymentKey: nil
              andConfiguration:configuration
               andLocalPackage:localPackage
-             andInstanceState:nil
                   andDelegate:delegateMock
              andRemotePackage:remotePackage
                andRemoteError:nil
@@ -147,7 +144,6 @@
              andDeploymentKey: nil
              andConfiguration:configuration
               andLocalPackage:nil
-             andInstanceState:nil
                   andDelegate:delegateMock
              andRemotePackage:remotePackage
                andRemoteError:nil
@@ -176,7 +172,6 @@
              andDeploymentKey: nil
              andConfiguration:configuration
               andLocalPackage:nil
-             andInstanceState:nil
                   andDelegate:delegateMock
              andRemotePackage:remotePackage
                andRemoteError:nil
@@ -211,7 +206,6 @@
              andDeploymentKey: nil
              andConfiguration:configuration
               andLocalPackage:nil
-             andInstanceState:nil
                   andDelegate:delegateMock
              andRemotePackage:remotePackage
                andRemoteError:nil
@@ -249,7 +243,6 @@
              andDeploymentKey: nil
              andConfiguration:configuration
               andLocalPackage:nil
-             andInstanceState:nil
                   andDelegate:delegateMock
              andRemotePackage:remotePackage
                andRemoteError:nil
@@ -286,7 +279,6 @@
              andDeploymentKey: nil
              andConfiguration:configuration
               andLocalPackage:nil
-             andInstanceState:nil
                   andDelegate:delegateMock
              andRemotePackage:remotePackage
                andRemoteError:nil
@@ -315,7 +307,6 @@
              andDeploymentKey: nil
              andConfiguration:configuration
               andLocalPackage:nil
-             andInstanceState:nil
                   andDelegate:delegateMock
              andRemotePackage:remotePackage
                andRemoteError:nil
@@ -342,7 +333,6 @@
              andDeploymentKey: nil
              andConfiguration:configuration
               andLocalPackage:nil
-             andInstanceState:nil
                   andDelegate:delegateMock
              andRemotePackage:nil
                andRemoteError:nil
@@ -361,7 +351,6 @@
  * @param deploymentKey deployment key which, if passed, will be set as instance property.
  * @param configuration `MSAssetsConfiguration` instance which, if passed, will be returned in a `getConfigurationWithError` method.
  * @param localPackage `MSAssetsLocalPackage` instance which will be returned in `getCurrentPackage` method.
- * @param instanceState `MSAssetsDeploymentInstanceState` instance which, if passed, will be set as instance property.
  * @param delegate mocked delegate.
  * @param rmPackage `MSAssetsRemotePackage` instance to be returned in a `checkForUpdate` callback.
  * @param remoteError error to be returned in a `checkForUpdate` callback.
@@ -373,7 +362,6 @@
            andDeploymentKey:(NSString *)deploymentKey
            andConfiguration: (MSAssetsConfiguration *)configuration
             andLocalPackage:(MSAssetsLocalPackage *)localPackage
-           andInstanceState:(MSAssetsDeploymentInstanceState *)instanceState
                 andDelegate:(id<MSAssetsDelegate>)delegate
            andRemotePackage:(MSAssetsRemotePackage *)rmPackage
              andRemoteError:(NSError *)remoteError
@@ -406,9 +394,6 @@
     }
     OCMStub([assetsMock getCurrentPackage]).andReturn(localPackage);
     OCMStub([assetsMock getConfigurationWithError:(NSError * __autoreleasing *)[OCMArg anyPointer]]).andReturn(configuration);
-    if (instanceState != nil) {
-        [assetsMock setInstanceState:instanceState];
-    }
     OCMStub([assetsMock checkForUpdate:syncOptions.deploymentKey ? syncOptions.deploymentKey : deploymentKey withCompletionHandler:OCMOCK_ANY]).andDo(^(NSInvocation *invocation) {
         MSCheckForUpdateCompletionHandler loadCallback;
         [invocation getArgument:&loadCallback atIndex:3];
