@@ -277,12 +277,6 @@ static BOOL isRunningBinaryVersion = NO;
         syncOptions = [[MSAssetsSyncOptions alloc] init];
     if (!syncOptions.deploymentKey)
         syncOptions.deploymentKey = self.deploymentKey;
-    if (!syncOptions.installMode)
-        syncOptions.installMode = MSAssetsInstallModeOnNextRestart;
-    if (!syncOptions.mandatoryInstallMode)
-        syncOptions.mandatoryInstallMode = MSAssetsInstallModeImmediate;
-    if (!syncOptions.checkFrequency)
-        syncOptions.checkFrequency = MSAssetsCheckFrequencyOnAppStart;
 
     NSError *configError = nil;
     MSAssetsConfiguration *config = [self getConfigurationWithError:&configError];
@@ -625,6 +619,16 @@ static BOOL isRunningBinaryVersion = NO;
         } else {
             [[strongSelf restartManager] clearPendingRestarts];
         }
+        
+        if (resolvedInstallMode == MSAssetsInstallModeImmediate) {
+            if ([syncOptions shouldRestart]) {
+                [[strongSelf restartManager] restartAppOnlyIfUpdateIsPending:NO];
+            } else {
+                self.instanceState.didUpdate = YES;
+                [[strongSelf restartManager] clearPendingRestarts];
+            }
+        }
+        
         handler(nil);
     }];
 }
