@@ -4,7 +4,24 @@
 #import "MSLogger.h"
 #import "MSAssetsLocalPackage.h"
 #import "MSAssetsDelegate.h"
-#import "MSDeploymentInstanceTests.h"
+
+static NSString *const kMSDeploymentKey = @"11111111-0000-1111-0000-111111111111";
+static NSString *const kMSPackageHash = @"00000000-1111-0000-1111-000000000000";
+
+@interface MSDeploymentInstanceTests : XCTestCase
+
+@property (nonatomic) MSAssetsDeploymentInstance *sut;
+
+@end
+
+// Make private method available for mocking.
+@interface MSAssetsDeploymentInstance (Test)
+
+- (void)checkForUpdate:(NSString *)deploymentKey withCompletionHandler:(MSCheckForUpdateCompletionHandler)handler;
+- (MSAssetsLocalPackage *)getCurrentPackage;
+- (void) rollbackPackage;
+
+@end
 
 @implementation MSDeploymentInstanceTests
 
@@ -307,6 +324,71 @@
     OCMVerify([assetsMock setDeploymentKey:kMSDeploymentKey]);
     [self waitForExpectationsWithTimeout:1 handler:nil];
     [assetsMock stopMocking];
+}
+
+- (void)testInitializeUpdateAfterRestartUpdateStateIsLoading {
+    id assetsMock = OCMPartialMock(self.sut);
+    
+    NSDictionary *dictUpdate = [[NSDictionary alloc] initWithObjectsAndKeys:
+                            @YES, @"isLoading",
+                            @"hashInfo", @"hash",
+                            nil];
+    MSAssetsPendingUpdate *pendingUpdate = [[MSAssetsPendingUpdate alloc] initWithDictionary:dictUpdate];
+    
+    id mockSettingManager = OCMClassMock([MSAssetsSettingManager class]);
+    OCMStub([mockSettingManager getPendingUpdate]).andReturn(pendingUpdate);
+    [assetsMock setSettingManager:mockSettingManager];
+    
+    NSDictionary *dictLocalPackage = [[NSDictionary alloc] initWithObjectsAndKeys:
+                            @NO, @"isPending",
+                            @"entryPointData", @"entryPoint",
+                            @NO, @"isFirstRun",
+                            @NO, @"_isDebugOnly",
+                            @"binaryModifiedTimeData", @"binaryModifiedTime",
+                            nil];
+    MSAssetsLocalPackage *localPackage = [[MSAssetsLocalPackage alloc] initWithDictionary:dictLocalPackage];
+    
+    id mockUpdateManager = OCMClassMock([MSAssetsUpdateManager class]);
+    OCMStub([mockUpdateManager getCurrentPackage:(NSError * __autoreleasing *)[OCMArg anyPointer]]).andReturn(localPackage);
+    OCMStub([assetsMock updateManager]).andReturn(mockUpdateManager);
+    
+    NSError *error = nil;
+    [assetsMock initializeUpdateAfterRestartWithError:&error];
+    
+    OCMVerify([assetsMock rollbackPackage]);
+}
+
+- (void)testInitializeUpdateAfterRestartUpdateStateLoaded {
+    id assetsMock = OCMPartialMock(self.sut);
+    
+    NSDictionary *dictUpdate = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                @NO, @"isLoading",
+                                @"hashInfo", @"hash",
+                                nil];
+    MSAssetsPendingUpdate *pendingUpdate = [[MSAssetsPendingUpdate alloc] initWithDictionary:dictUpdate];
+    
+    id mockSettingManager = OCMClassMock([MSAssetsSettingManager class]);
+    OCMStub([mockSettingManager getPendingUpdate]).andReturn(pendingUpdate);
+    [assetsMock setSettingManager:mockSettingManager];
+    
+    NSDictionary *dictLocalPackage = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                      @NO, @"isPending",
+                                      @"entryPointData", @"entryPoint",
+                                      @NO, @"isFirstRun",
+                                      @NO, @"_isDebugOnly",
+                                      @"binaryModifiedTimeData", @"binaryModifiedTime",
+                                      nil];
+    MSAssetsLocalPackage *localPackage = [[MSAssetsLocalPackage alloc] initWithDictionary:dictLocalPackage];
+    
+    id mockUpdateManager = OCMClassMock([MSAssetsUpdateManager class]);
+    OCMStub([mockUpdateManager getCurrentPackage:(NSError * __autoreleasing *)[OCMArg anyPointer]]).andReturn(localPackage);
+    OCMStub([assetsMock updateManager]).andReturn(mockUpdateManager);
+    
+    NSError *error = nil;
+    [assetsMock initializeUpdateAfterRestartWithError:&error];
+    
+    XCTAssertTrue([[assetsMock instanceState] didUpdate]);
+    OCMVerify([mockSettingManager savePendingUpdate:pendingUpdate]);
 }
 
 @end
