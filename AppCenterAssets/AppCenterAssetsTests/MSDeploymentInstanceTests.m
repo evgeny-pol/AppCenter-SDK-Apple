@@ -24,7 +24,7 @@
     id serviceMock = OCMClassMock([MSAssets class]);
     OCMStub(ClassMethod([serviceMock isEnabled])).andReturn(YES);
     if (error) {
-        NSLog(@"MSAssetsDeploymentInstance for testing set up failed: %@", [error localizedDescription]);
+        NSLog(@"MSAssetsDeploymentInstance set up for testing failed: %@", [error localizedDescription]);
     }
 }
 
@@ -145,18 +145,18 @@
     MSAssetsConfiguration *configuration = [[MSAssetsConfiguration alloc] init];
     
     id delegateMock = OCMProtocolMock(@protocol(MSAssetsDelegate));
-    OCMStub([delegateMock didReceiveRemotePackageOnCheckForUpdate:OCMOCK_ANY]);
+    OCMStub([delegateMock didReceiveRemotePackageOnCheckForUpdate:rmPackage]);
     
     [self checkForUpdateCallWithDeploymentKey:kMSDeploymentKey
                               andLocalPackage:localPackage
                                     andConfig:configuration
                              andRemotePackage:rmPackage
                                andRemoteError:nil
-                                  andDelegate: delegateMock
+                                  andDelegate:delegateMock
                         andCallbackCompletion:nil];
     
     //Then
-    OCMVerify([delegateMock didReceiveRemotePackageOnCheckForUpdate:OCMOCK_ANY]);
+    OCMVerify([delegateMock didReceiveRemotePackageOnCheckForUpdate:rmPackage]);
 }
 
 - (void)testCheckForUpdateDelegateOnError {

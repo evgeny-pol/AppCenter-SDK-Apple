@@ -60,7 +60,7 @@
     
     //When
     [self syncWithSyncOptions:syncOptions
-             andDeploymentKey: nil
+             andDeploymentKey:nil
              andConfiguration:configuration
               andLocalPackage:nil
                   andDelegate:delegateMock
@@ -114,7 +114,7 @@
     
     //When
     [self syncWithSyncOptions:syncOptions
-             andDeploymentKey: nil
+             andDeploymentKey:nil
              andConfiguration:configuration
               andLocalPackage:localPackage
                   andDelegate:delegateMock
@@ -141,7 +141,7 @@
     
     //When
     [self syncWithSyncOptions:syncOptions
-             andDeploymentKey: nil
+             andDeploymentKey:nil
              andConfiguration:configuration
               andLocalPackage:nil
                   andDelegate:delegateMock
@@ -169,7 +169,7 @@
     
     //When
     [self syncWithSyncOptions:syncOptions
-             andDeploymentKey: nil
+             andDeploymentKey:nil
              andConfiguration:configuration
               andLocalPackage:nil
                   andDelegate:delegateMock
@@ -203,7 +203,7 @@
     
     //When
     [self syncWithSyncOptions:syncOptions
-             andDeploymentKey: nil
+             andDeploymentKey:nil
              andConfiguration:configuration
               andLocalPackage:nil
                   andDelegate:delegateMock
@@ -240,7 +240,7 @@
     
     //When
     [self syncWithSyncOptions:syncOptions
-             andDeploymentKey: nil
+             andDeploymentKey:nil
              andConfiguration:configuration
               andLocalPackage:nil
                   andDelegate:delegateMock
@@ -276,7 +276,7 @@
     
     //When
     [self syncWithSyncOptions:syncOptions
-             andDeploymentKey: nil
+             andDeploymentKey:nil
              andConfiguration:configuration
               andLocalPackage:nil
                   andDelegate:delegateMock
@@ -304,7 +304,7 @@
     
     //When
     [self syncWithSyncOptions:syncOptions
-             andDeploymentKey: nil
+             andDeploymentKey:nil
              andConfiguration:configuration
               andLocalPackage:nil
                   andDelegate:delegateMock
@@ -330,7 +330,7 @@
     
     //When
     [self syncWithSyncOptions:syncOptions
-             andDeploymentKey: nil
+             andDeploymentKey:nil
              andConfiguration:configuration
               andLocalPackage:nil
                   andDelegate:delegateMock
@@ -399,7 +399,7 @@
         [invocation getArgument:&loadCallback atIndex:3];
         loadCallback(rmPackage, remoteError);
     });
-    OCMStub([assetsMock doDownloadAndInstall:rmPackage syncOptions:syncOptions configuration:OCMOCK_ANY handler:OCMOCK_ANY]).andDo(^(NSInvocation *invocation) {
+    OCMStub([assetsMock doDownloadAndInstall:rmPackage syncOptions:syncOptions configuration:configuration handler:OCMOCK_ANY]).andDo(^(NSInvocation *invocation) {
         MSAssetsDownloadInstallHandler loadCallback;
         [invocation getArgument:&loadCallback atIndex:5];
         loadCallback(downloadAndInstallError);
