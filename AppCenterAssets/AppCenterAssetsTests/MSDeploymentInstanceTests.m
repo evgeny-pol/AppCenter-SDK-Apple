@@ -54,9 +54,9 @@
  * @param rmPackage `MSAssetsRemotePackage` instance to be returned in a `queryUpdateWithCurrentPackage` callback.
  * @param remoteError error to be returned in a `queryUpdateWithCurrentPackage` callback.
  * @param delegate mocked delegate.
+ * Note that if you pass *nonnull* handler below, a `checkForUpdate:withCompletionHandler` call will be made.
+ * If you want to verify interactions with the delegate in a simple `checkForUpdate` method, leave handler parameter equal `nil`.
  * @param handler method containing assertions to be made after `checkForUpdate:withCompletionHandler` called its handler.
- * Note that if you pass *nonnull* delegate above, a simple `checkForUpdate` call will be made (assuming that you'll verify
- * interactions with the delegate itself), thus making this assertion handler useless.
  */
 - (void)checkForUpdateCallWithDeploymentKey: (nullable NSString *)deploymentKey
                             andLocalPackage: (nullable MSAssetsLocalPackage *)localPackage
@@ -93,7 +93,7 @@
     }
     
     // When
-    if (delegate != nil) {
+    if (delegate != nil && handler == nil) {
         [assetsMock checkForUpdate:deploymentKey];
     } else {
         [assetsMock checkForUpdate:deploymentKey withCompletionHandler:^(MSAssetsRemotePackage * _Nullable remotePackage, NSError * _Nullable error) {
@@ -153,11 +153,7 @@
                              andRemotePackage:rmPackage
                                andRemoteError:nil
                                   andDelegate: delegateMock
-                        andCallbackCompletion:^(MSAssetsRemotePackage * _Nullable remotePackage, NSError * _Nullable error) {
-                            XCTAssertEqualObjects(rmPackage, remotePackage);
-                            XCTAssertTrue([remotePackage failedInstall]);
-                            XCTAssertNil(error);
-                        }];
+                        andCallbackCompletion:nil];
     
     //Then
     OCMVerify([delegateMock didReceiveRemotePackageOnCheckForUpdate:OCMOCK_ANY]);
@@ -179,10 +175,7 @@
                              andRemotePackage:nil
                                andRemoteError:mainError
                                   andDelegate:delegateMock
-                        andCallbackCompletion:^(MSAssetsRemotePackage * _Nullable remotePackage, NSError * _Nullable error) {
-                            XCTAssertEqualObjects(mainError, error);
-                            XCTAssertNil(remotePackage);
-                        }];
+                        andCallbackCompletion:nil];
     
     //Then
     OCMVerify([delegateMock didFailToQueryRemotePackageOnCheckForUpdate:OCMOCK_ANY]);
