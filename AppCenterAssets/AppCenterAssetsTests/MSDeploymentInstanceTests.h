@@ -31,7 +31,7 @@ static NSString *const kMSPackageHash = @"00000000-1111-0000-1111-000000000000";
                            andRemotePackage: (nullable MSAssetsRemotePackage *)rmPackage
                              andRemoteError: (nullable NSError *)remoteError
                                 andDelegate: (nullable id<MSAssetsDelegate>)delegate
-                      andCallbackCompletion: (MSCheckForUpdateCompletionHandler)handler;
+                      andCallbackCompletion: (nullable MSCheckForUpdateCompletionHandler)handler;
 
 @property (nonatomic) MSAssetsDeploymentInstance *sut;
 @end

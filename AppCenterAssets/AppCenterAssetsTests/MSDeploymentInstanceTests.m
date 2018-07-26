@@ -64,7 +64,7 @@
                            andRemotePackage: (nullable MSAssetsRemotePackage *)rmPackage
                              andRemoteError: (nullable NSError *)remoteError
                                 andDelegate: (nullable id<MSAssetsDelegate>)delegate
-                      andCallbackCompletion: (MSCheckForUpdateCompletionHandler)handler {
+                      andCallbackCompletion: (nullable MSCheckForUpdateCompletionHandler)handler {
     
     // If
     id assetsMock = OCMPartialMock(self.sut);
