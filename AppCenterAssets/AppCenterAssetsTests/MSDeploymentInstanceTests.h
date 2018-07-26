@@ -21,6 +21,8 @@ static NSString *const kMSPackageHash = @"00000000-1111-0000-1111-000000000000";
                   addCancelButton:(BOOL)addCancelAction
                        andHandler:(void (^ __nullable)())handler
                  andCancelHandler:(void (^ __nullable)())cancelHandler;
+- (void) rollbackPackage;
+
 @end
 
 @interface MSDeploymentInstanceTests : XCTestCase
