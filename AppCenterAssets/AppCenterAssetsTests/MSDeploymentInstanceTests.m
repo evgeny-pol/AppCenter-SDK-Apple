@@ -4,23 +4,7 @@
 #import "MSLogger.h"
 #import "MSAssetsLocalPackage.h"
 #import "MSAssetsDelegate.h"
-
-static NSString *const kMSDeploymentKey = @"11111111-0000-1111-0000-111111111111";
-static NSString *const kMSPackageHash = @"00000000-1111-0000-1111-000000000000";
-
-@interface MSDeploymentInstanceTests : XCTestCase
-
-@property (nonatomic) MSAssetsDeploymentInstance *sut;
-
-@end
-
-// Make private method available for mocking.
-@interface MSAssetsDeploymentInstance (Test)
-
-- (void)checkForUpdate:(NSString *)deploymentKey withCompletionHandler:(MSCheckForUpdateCompletionHandler)handler;
-- (MSAssetsLocalPackage *)getCurrentPackage;
-
-@end
+#import "MSDeploymentInstanceTests.h"
 
 @implementation MSDeploymentInstanceTests
 
