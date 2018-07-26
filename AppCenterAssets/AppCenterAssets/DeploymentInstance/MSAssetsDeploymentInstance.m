@@ -25,6 +25,7 @@
     BOOL _isDebugMode;
     NSString *_serverUrl;
     NSString *_appVersion;
+    NSString *_appName;
 }
 
 @synthesize delegate = _delegate;
@@ -40,14 +41,14 @@ static BOOL isRunningBinaryVersion = NO;
 //static BOOL needToReportRollback = NO;
 //static BOOL testConfigurationFlag = NO;
 
-- (instancetype)initWithEntryPoint:(NSString *)entryPoint
-                         publicKey:(NSString *)publicKey
-                     deploymentKey:(NSString *)deploymentKey
+- (instancetype)initWithEntryPoint:(nullable NSString *)entryPoint
+                         publicKey:(nullable NSString *)publicKey
+                     deploymentKey:(nullable NSString *)deploymentKey
                        inDebugMode:(BOOL)isDebugMode
-                         serverUrl:(NSString *)serverUrl
-                           baseDir:(NSString *)baseDir
-                           appName:(NSString *)appName
-                        appVersion:(NSString *)appVersion
+                         serverUrl:(nullable NSString *)serverUrl
+                           baseDir:(nullable NSString *)baseDir
+                           appName:(nullable NSString *)appName
+                        appVersion:(nullable NSString *)appVersion
                   platformInstance:(id<MSAssetsPlatformSpecificImplementation>)platformInstance
                          withError:(NSError *__autoreleasing *)error {
     if ((self = [super init])) {
@@ -75,9 +76,13 @@ static BOOL isRunningBinaryVersion = NO;
 
         _downloadHandler = nil;
 
-        if (!appName) appName = @"Assets";
+        if (!appName) {
+            _appName = @"Assets";
+        } else {
+            _appName = appName;
+        }
 
-        _settingManager = [[MSAssetsSettingManager alloc] initWithAppName:appName];
+        _settingManager = [[MSAssetsSettingManager alloc] initWithAppName:_appName];
 
         _updateUtilities = [[MSAssetsUpdateUtilities alloc] initWithSettingManager:_settingManager];
 
