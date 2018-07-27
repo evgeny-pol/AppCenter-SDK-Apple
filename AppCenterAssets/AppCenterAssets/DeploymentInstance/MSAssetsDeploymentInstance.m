@@ -11,7 +11,6 @@
 #import "MSAssetsSettingManager.h"
 #import "MSUtility+File.h"
 #import "MSAssetsInstallMode.h"
-#import "MSAssetsUpdateState.h"
 #import "MSAssetsSyncOptions.h"
 #import "MSAssetsSyncStatus.h"
 #import "MSAssetsRemotePackage.h"
@@ -26,6 +25,7 @@
     BOOL _isDebugMode;
     NSString *_serverUrl;
     NSString *_appVersion;
+    NSString *_appName;
 }
 
 @synthesize delegate = _delegate;
@@ -41,11 +41,14 @@ static BOOL isRunningBinaryVersion = NO;
 //static BOOL needToReportRollback = NO;
 //static BOOL testConfigurationFlag = NO;
 
-- (instancetype)initWithEntryPoint:(NSString *)entryPoint
-                         publicKey:(NSString *)publicKey
-                     deploymentKey:(NSString *)deploymentKey
+- (instancetype)initWithEntryPoint:(nullable NSString *)entryPoint
+                         publicKey:(nullable NSString *)publicKey
+                     deploymentKey:(nullable NSString *)deploymentKey
                        inDebugMode:(BOOL)isDebugMode
-                         serverUrl:(NSString *)serverUrl
+                         serverUrl:(nullable NSString *)serverUrl
+                           baseDir:(nullable NSString *)baseDir
+                           appName:(nullable NSString *)appName
+                        appVersion:(nullable NSString *)appVersion
                   platformInstance:(id<MSAssetsPlatformSpecificImplementation>)platformInstance
                          withError:(NSError *__autoreleasing *)error {
     if ((self = [super init])) {
@@ -58,18 +61,35 @@ static BOOL isRunningBinaryVersion = NO;
         } else {
             _serverUrl = @"https://codepush.azurewebsites.net/";
         }
-        NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-        NSString *appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+
         if (appVersion) {
             _appVersion = appVersion;
         } else {
+            NSDictionary *infoDictionary = [[NSBundle bundleForClass:[self class]] infoDictionary];
+            _appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+        }
+
+        if (!_appVersion) {
             *error = [MSAssetsErrorUtils getNoAppVersionError];
             return nil;
         }
+
         _downloadHandler = nil;
-        _settingManager = [[MSAssetsSettingManager alloc] init];
+
+        if (!appName) {
+            _appName = @"Assets";
+        } else {
+            _appName = appName;
+        }
+
+        _settingManager = [[MSAssetsSettingManager alloc] initWithAppName:_appName];
+
         _updateUtilities = [[MSAssetsUpdateUtilities alloc] initWithSettingManager:_settingManager];
-        _updateManager = [[MSAssetsUpdateManager alloc] initWithUpdateUtils:_updateUtilities];
+
+        NSString *appNameWithDeploymentKey = [appName stringByAppendingPathComponent:_deploymentKey];
+
+        _updateManager = [[MSAssetsUpdateManager alloc] initWithUpdateUtils:_updateUtilities andBaseDir:baseDir andAppName:appNameWithDeploymentKey];
+        
         _acquisitionManager = [[MSAssetsAcquisitionManager alloc] init];
         _telemetryManager = [[MSAssetsTelemetryManager alloc] initWithSettingManager:_settingManager];
         _restartManager = [[MSAssetsRestartManager alloc] initWithRestartHandler:^(BOOL onlyIfUpdateIsPending, MSAssetsRestartListener restartListener) {
@@ -79,7 +99,7 @@ static BOOL isRunningBinaryVersion = NO;
         _platformInstance = platformInstance;
         if (_isDebugMode && [_settingManager isPendingUpdate:nil]) {
             [_platformInstance clearDebugCacheWithError:error];
-            if (error) {
+            if (*error) {
                 return nil;
             }
         }
@@ -135,7 +155,33 @@ static BOOL isRunningBinaryVersion = NO;
 
 - (void) notifyApplicationReady {
     [[self settingManager] removePendingUpdate];
-    //TODO: status reports?
+    NSError *error = nil;
+    MSAssetsDeploymentStatusReport *report = [self getNewStatusReportWithError:&error];
+    if (error) {
+        MSLogInfo([MSAssets logTag], @"An error occurred during obtaining new status report. %@", [error localizedDescription]);
+        return;
+    }
+    if (report) {
+        [self reportStatus:report];
+    }
+}
+
+- (void)reportStatus:(MSAssetsDeploymentStatusReport *)report {
+    NSError *error = nil;
+    MSAssetsConfiguration *configuration = [self getConfigurationWithError:&error];
+    if (report.appVersion.length == 0) {
+        MSLogInfo([MSAssets logTag], @"Reporting binary update (%@)", report.appVersion);
+    } else {
+        NSString *label = report.assetsPackage != nil ? report.assetsPackage.label : report.label;
+        if (report.status == MSAssetsDeploymentStatusSucceeded) {
+            MSLogInfo([MSAssets logTag], @"Reporting update success (%@)", label);
+        } else {
+            MSLogInfo([MSAssets logTag], @"Reporting update rollback (%@)", label);
+        }
+        [configuration setDeploymentKey:report.assetsPackage == nil ? report.deploymentKey : report.assetsPackage.deploymentKey];
+    }
+    [[self acquisitionManager] reportDeploymentStatus:report withConfiguration:configuration];
+    [[self telemetryManager] saveReportedStatus:report];
 }
 
 - (void) rollbackPackage {
@@ -154,6 +200,8 @@ static BOOL isRunningBinaryVersion = NO;
 }
 
 - (void)checkForUpdate:(nullable NSString *)deploymentKey {
+    if (![MSAssets isEnabled])
+        return;
     [self checkForUpdate:deploymentKey withCompletionHandler:^( MSAssetsRemotePackage *update,  NSError * _Nullable error){
         if (error) {
             if ([self.delegate respondsToSelector:@selector(didFailToQueryRemotePackageOnCheckForUpdate:)])
@@ -194,18 +242,15 @@ static BOOL isRunningBinaryVersion = NO;
             handler(nil, error);
             return;
         }
-        if (!update) {
-            handler(nil, nil);
-            return;
-        }
         if (!update || update.updateAppVersion ||
             (localPackage && ([update.packageHash isEqualToString:localPackage.packageHash])) ||
             ((!localPackage || localPackage.isDebugOnly) && [config.packageHash isEqualToString:update.packageHash] )){
             if (update && update.updateAppVersion){
                 MSLogInfo([MSAssets logTag], @"An update is available but it is not targeting the binary version of your app.");
-                handler(nil, nil);
-                return;
+                [self.delegate handleBinaryVersionMismatchCallback];
             }
+            handler(nil, nil);
+            return;
         } else {
             update.failedInstall = [[self settingManager] existsFailedUpdate:update.packageHash];
             if (deploymentKey){
@@ -224,6 +269,9 @@ static BOOL isRunningBinaryVersion = NO;
 }
 
 - (void)sync:(MSAssetsSyncOptions *)syncOptions {
+    if (![MSAssets isEnabled])
+        return;
+    
     if (self.instanceState.syncInProgress){
         MSLogInfo([MSAssets logTag], @"Sync already in progress.");
         [self notifyAboutSyncStatusChange: MSAssetsSyncStatusSyncInProgress instanceState:[self instanceState]];
@@ -234,12 +282,6 @@ static BOOL isRunningBinaryVersion = NO;
         syncOptions = [[MSAssetsSyncOptions alloc] init];
     if (!syncOptions.deploymentKey)
         syncOptions.deploymentKey = self.deploymentKey;
-    if (!syncOptions.installMode)
-        syncOptions.installMode = MSAssetsInstallModeOnNextRestart;
-    if (!syncOptions.mandatoryInstallMode)
-        syncOptions.mandatoryInstallMode = MSAssetsInstallModeImmediate;
-    if (!syncOptions.checkFrequency)
-        syncOptions.checkFrequency = MSAssetsCheckFrequencyOnAppStart;
 
     NSError *configError = nil;
     MSAssetsConfiguration *config = [self getConfigurationWithError:&configError];
@@ -279,8 +321,7 @@ static BOOL isRunningBinaryVersion = NO;
                 [strongSelf notifyAboutSyncStatusChange:MSAssetsSyncStatusUpToDate instanceState:[strongSelf instanceState]];
             }
             strongSelf.instanceState.syncInProgress = NO;
-        }
-        else if (syncOptions.updateDialog) {
+        } else if (syncOptions.updateDialog) {
             MSAssetsUpdateDialog *updateDialogOptions = syncOptions.updateDialog;
             NSString *message;
             NSString *acceptButtonText;
@@ -292,46 +333,43 @@ static BOOL isRunningBinaryVersion = NO;
                 message = updateDialogOptions.optionalUpdateMessage;
                 acceptButtonText = updateDialogOptions.optionalInstallButtonLabel;
             }
-            if (updateDialogOptions.appendReleaseDescription && (remotePackage.description.length == 0)) {
+            if (updateDialogOptions.appendReleaseDescription && (remotePackage.description.length != 0)) {
                 message = [updateDialogOptions.descriptionPrefix stringByAppendingFormat:@" %@", remotePackage.description];
             }
             [strongSelf notifyAboutSyncStatusChange:MSAssetsSyncStatusAwaitingUserAction instanceState:[strongSelf instanceState]];
 
-            MSAlertController *alert = [MSAlertController alertControllerWithTitle:updateDialogOptions.title message:message preferredStyle:UIAlertControllerStyleAlert];
-
-            [alert.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-
-            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:acceptButtonText style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction * action) {
-                __weak typeof(strongSelf) weakSelfLvl2 = strongSelf;
-                [strongSelf doDownloadAndInstall:remotePackage syncOptions:syncOptions configuration:config handler:^(NSError * _Nullable error_internal) {
-                    if (error_internal) {
-                        [[MSAssetsSettingManager new] saveFailedUpdate:remotePackage];
-                    }
-                    typeof(self) strongSelfLvl2 = weakSelfLvl2;
-                    if (!strongSelfLvl2) {
-                        return;
-                    }
-                    strongSelf.instanceState.syncInProgress = NO;
-                    if (error_internal) {
-                        MSLogInfo([MSAssets logTag], @"Error during doDownloadAndInstall");
-                        [strongSelfLvl2 notifyAboutSyncStatusChange:MSAssetsSyncStatusUnknownError instanceState:[strongSelfLvl2 instanceState]];
-                        return;
-                    };
-                }];
-            }];
-            [alert addAction:defaultAction];
-
-            if (!remotePackage.isMandatory) {
-                UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:declineButtonText style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction * action) {
-                    strongSelf.instanceState.syncInProgress = NO;
-                    [strongSelf notifyAboutSyncStatusChange:MSAssetsSyncStatusUpdateIgnored instanceState:[strongSelf instanceState]];
-                }];
-                [alert addAction:cancelAction];
-            }
-
-            [alert show];
-        }
-        else {
+            __weak typeof(strongSelf) weakSelfLvl2 = strongSelf;
+            [self showDialogWithAcceptText:acceptButtonText
+                            andDeclineText:declineButtonText
+                                  andTitle:updateDialogOptions.title
+                                andMessage:message
+                           addCancelButton:!remotePackage.isMandatory
+                                andHandler:^{
+                                    if (weakSelfLvl2) {
+                                        [strongSelf doDownloadAndInstall:remotePackage syncOptions:syncOptions configuration:config handler:^(NSError * _Nullable error_internal) {
+                                            if (error_internal) {
+                                                [[MSAssetsSettingManager new] saveFailedUpdate:remotePackage];
+                                            }
+                                            typeof(self) strongSelfLvl2 = weakSelfLvl2;
+                                            if (!strongSelfLvl2) {
+                                                return;
+                                            }
+                                            strongSelfLvl2.instanceState.syncInProgress = NO;
+                                            if (error_internal) {
+                                                MSLogInfo([MSAssets logTag], @"Error during doDownloadAndInstall");
+                                                [strongSelfLvl2 notifyAboutSyncStatusChange:MSAssetsSyncStatusUnknownError instanceState:[strongSelfLvl2 instanceState]];
+                                                return;
+                                            };                                            
+                                        }];
+                                    }
+                                } andCancelHandler:^{
+                                    typeof(self) strongSelfLvl2 = weakSelfLvl2;
+                                    if (strongSelfLvl2) {
+                                        strongSelfLvl2.instanceState.syncInProgress = NO;
+                                        [strongSelfLvl2 notifyAboutSyncStatusChange:MSAssetsSyncStatusUpdateIgnored instanceState:[strongSelfLvl2 instanceState]];
+                                    }
+                                }];
+        } else {
             MSLogInfo([MSAssets logTag], @"Do download and install");
             __weak typeof(strongSelf) weakSelfLvl2 = strongSelf;
             [strongSelf doDownloadAndInstall:remotePackage syncOptions:syncOptions configuration:config handler:^(NSError * _Nullable error_internal) {
@@ -345,7 +383,6 @@ static BOOL isRunningBinaryVersion = NO;
                 strongSelf.instanceState.syncInProgress = NO;
                 if (error_internal) {
                     MSLogInfo([MSAssets logTag], @"Error during doDownloadAndInstall");
-                    [[MSAssetsSettingManager new] saveFailedUpdate:remotePackage];
                     [strongSelfLvl2 notifyAboutSyncStatusChange:MSAssetsSyncStatusUnknownError instanceState:[strongSelfLvl2 instanceState]];
                     return;
                 };
@@ -354,20 +391,36 @@ static BOOL isRunningBinaryVersion = NO;
     }];
 }
 
+- (void) showDialogWithAcceptText:(NSString *)acceptButtonText
+                   andDeclineText:(NSString *)declineButtonText
+                         andTitle:(NSString *)title
+                       andMessage:(NSString *)message
+                      addCancelButton:(BOOL)addCancelAction
+                       andHandler:(void (^ __nullable)())handler
+                 andCancelHandler:(void (^ __nullable)())cancelHandler {
+    MSAlertController *alert = [MSAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    [alert.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:acceptButtonText style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction * action) {
+        handler();
+    }];
+    [alert addAction:defaultAction];
+    if (addCancelAction) {
+        UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:declineButtonText style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction * action) {
+            cancelHandler();
+        }];
+        [alert addAction:cancelAction];
+    }
+    [alert show];
+}
 
 - (MSAssetsConfiguration *)getConfigurationWithError:(NSError * __autoreleasing*)error {
-    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+
     MSAssetsConfiguration *configuration = [MSAssetsConfiguration new];
-    NSString *appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-    if (appVersion == nil) {
-        *error = [MSAssetsErrorUtils getNoAppVersionError];
-        return nil;
-    }
     NSString *clientId = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     if (clientId == nil) {
         clientId = @"";
     }
-    configuration.appVersion = appVersion;
+    configuration.appVersion = _appVersion;
     configuration.clientUniqueId = clientId;
     configuration.deploymentKey = [self deploymentKey];
     configuration.serverUrl = [self serverUrl];
@@ -376,7 +429,7 @@ static BOOL isRunningBinaryVersion = NO;
 }
 
 - (MSAssetsLocalPackage *)getUpdateMetadataForState:(MSAssetsUpdateState)updateState
-                 currentPackageGettingError:(NSError * __autoreleasing *)error {
+                 withError:(NSError * __autoreleasing *)error {
     NSError *__autoreleasing internalError;
     MSAssetsLocalPackage *package = [[self updateManager] getCurrentPackage:&internalError];
     if (internalError){
@@ -433,7 +486,7 @@ static BOOL isRunningBinaryVersion = NO;
 
 - (MSAssetsLocalPackage *)getCurrentPackage {
     NSError *error;
-    MSAssetsLocalPackage *currentPackage = [self getUpdateMetadataForState:MSAssetsUpdateStateLatest currentPackageGettingError:&error];
+    MSAssetsLocalPackage *currentPackage = [self getUpdateMetadataForState:MSAssetsUpdateStateLatest withError:&error];
     if (error){
         MSLogInfo([MSAssets logTag], @"An error occured: %@", [error localizedDescription]);
         return nil;
@@ -499,10 +552,10 @@ static BOOL isRunningBinaryVersion = NO;
                                    return;
                                }
                                entryPoint = [[strongSelf updateManager] mergeDiffWithNewUpdateFolder:newUpdateFolderPath
-                                                                         newUpdateMetadataPath:newUpdateMetadataPath
-                                                                                 newUpdateHash:[updatePackage packageHash]
-                                                                               publicKeyString: strongSelf->_publicKey
-                                                                    expectedEntryPointFileName:strongSelf->_entryPoint
+                                                                               newUpdateMetadataPath:newUpdateMetadataPath
+                                                                                       newUpdateHash:[updatePackage packageHash]
+                                                                                     publicKeyString: strongSelf->_publicKey
+                                                                          expectedEntryPointFileName:strongSelf->_entryPoint
                                                                                                error:&error];
                                if (error) {
                                    completeHandler(nil, error);
@@ -517,12 +570,12 @@ static BOOL isRunningBinaryVersion = NO;
                                }
                            }
                            MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithPackage:updatePackage
-                                                                                          failedInstall:NO
-                                                                                             isFirstRun: NO
-                                                                                              isPending:YES
-                                                                                            isDebugOnly:NO
-                                                                                             entryPoint: entryPoint];                           
-                           [localPackage setBinaryModifiedTime: [NSString stringWithFormat:@"%f", [[strongSelf platformInstance] getBinaryResourcesModifiedTime]]];
+                                                                                                      failedInstall:NO
+                                                                                                         isFirstRun: NO
+                                                                                                          isPending:YES
+                                                                                                        isDebugOnly:NO
+                                                                                                         entryPoint: entryPoint];                           
+                           [localPackage setBinaryModifiedTime: [NSString stringWithFormat:@"%ld", [[strongSelf platformInstance] getBinaryResourcesModifiedTime]]];
                            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[localPackage serializeToDictionary] options:NSJSONWritingPrettyPrinted error:&error];
                            if (error) {
                                completeHandler(nil, error);
@@ -569,8 +622,8 @@ static BOOL isRunningBinaryVersion = NO;
             label = @"";
         }
         MSAssetsDownloadStatusReport *report = [[MSAssetsDownloadStatusReport alloc] initReportWithLabel:label
-                                                                                    deviceId:[configuration clientUniqueId]
-                                                                            andDeploymentKey:[configuration deploymentKey]];
+                                                                                                deviceId:[configuration clientUniqueId]
+                                                                                        andDeploymentKey:[configuration deploymentKey]];
         [[strongSelf acquisitionManager] reportDownloadStatus:report withConfiguration:configuration];
         MSAssetsInstallMode resolvedInstallMode = [downloadedPackage isMandatory] ? [syncOptions mandatoryInstallMode] : [syncOptions installMode];
         [[strongSelf instanceState] setCurrentInstallMode:resolvedInstallMode];
@@ -587,6 +640,16 @@ static BOOL isRunningBinaryVersion = NO;
         } else {
             [[strongSelf restartManager] clearPendingRestarts];
         }
+        
+        if (resolvedInstallMode == MSAssetsInstallModeImmediate) {
+            if ([syncOptions shouldRestart]) {
+                [[strongSelf restartManager] restartAppOnlyIfUpdateIsPending:NO];
+            } else {
+                self.instanceState.didUpdate = YES;
+                [[strongSelf restartManager] clearPendingRestarts];
+            }
+        }
+        
         handler(nil);
     }];
 }
@@ -654,14 +717,14 @@ static BOOL isRunningBinaryVersion = NO;
  * @return error installation error.
  */
 - (NSError *)installUpdate:(MSAssetsLocalPackage*)updatePackage
-          installMode:(MSAssetsInstallMode)installMode
-minimumBackgroundDuration:(int)minimumBackgroundDuration {
+               installMode:(MSAssetsInstallMode)installMode
+ minimumBackgroundDuration:(int)minimumBackgroundDuration {
     NSString *packageHash = [updatePackage packageHash];
     if (packageHash == nil) {
         return [MSAssetsErrorUtils getNoPackageHashToInstallError];
     }
     NSError *installError = [[self updateManager] installPackage:[updatePackage packageHash]
-                                   removePendingUpdate:[[self settingManager] isPendingUpdate:[updatePackage packageHash]]];
+                                             removePendingUpdate:[[self settingManager] isPendingUpdate:[updatePackage packageHash]]];
     if (installError) {
         return installError;
     }
@@ -686,4 +749,33 @@ minimumBackgroundDuration:(int)minimumBackgroundDuration {
     return nil;
 }
 
+/**
+ * Retrieves status report for sending.
+ *
+ * @param error error, if occurred.
+ * @return status report for sending.
+ */
+- (MSAssetsDeploymentStatusReport *)getNewStatusReportWithError:(NSError * __autoreleasing *)error {
+    if (self.instanceState.needToReportRollback) {
+        self.instanceState.needToReportRollback = NO;
+        NSArray<MSAssetsPackage *> *failedUpdates = [[self settingManager] getFailedUpdates];
+        if (failedUpdates && failedUpdates.count > 0) {
+            MSAssetsPackage *failedPackage = failedUpdates.lastObject;
+            if (failedPackage) {
+                return [[self telemetryManager] buildRollbackReportWithFailedPackage:failedPackage];
+            }
+        }
+    } else if (self.instanceState.didUpdate) {
+        MSAssetsLocalPackage *localPackage = [[self updateManager] getCurrentPackage:error];
+        if (*error) {
+            return nil;
+        }
+        if (localPackage != nil) {
+            return [[self telemetryManager] buildUpdateReportWithPackage:localPackage];
+        }
+    } else if (self.instanceState.isRunningBinaryVersion) {
+        return [[self telemetryManager] buildBinaryUpdateReportWithAppVersion:_appVersion];
+    }
+    return nil;
+}
 @end

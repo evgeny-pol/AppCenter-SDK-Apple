@@ -8,6 +8,8 @@
  */
 @interface MSAssetsSettingManager : NSObject
 
+- (instancetype)initWithAppName:(nonnull NSString *)appName;
+
 /**
  * Gets an array with containing failed updates info arranged by time of the failure ascending.
  * Each item represents an instance of `MSAssetsPackage` that has failed to update.
@@ -78,9 +80,29 @@
  */
 - (MSAssetsStatusReportIdentifier *)getPreviousStatusReportIdentifier;
 
+/**
+ * Removes information about previous status report.
+ */
+- (void)removePreviousStatusReportIdentifier;
+
+/**
+ * Saves a new dictionary of binary hashes.
+ * Format is: <binary modification date>:<binary hash>.
+ *
+ * @param binaryHash dictionary with hashes.
+ */
 - (void)saveBinaryHash:(NSMutableDictionary *)binaryHash;
 
+/**
+ * Gets dictionary with binary hashes.
+ *
+ * @return dictionary with binary hashes.
+ */
 - (NSMutableDictionary *)getBinaryHash;
+
+/**
+ * Removes dictionary with binary hashes.
+ */
 - (void)removeBinaryHash;
 
 @end

@@ -17,6 +17,9 @@ static NSString *const kMSShouldRestart = @"shouldRestart";
 
 - (instancetype)init {
     self = [super init];
+        self.installMode = MSAssetsInstallModeOnNextRestart;
+        self.mandatoryInstallMode = MSAssetsInstallModeImmediate;
+        self.checkFrequency = MSAssetsCheckFrequencyOnAppStart;
     return self;
 }
 

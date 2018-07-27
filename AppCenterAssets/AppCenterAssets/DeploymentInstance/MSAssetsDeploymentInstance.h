@@ -11,6 +11,7 @@
 #import "MSAssetsRestartManager.h"
 #import "MSAssetsSyncOptions.h"
 #import "MSAssetsiOSSpecificImplementation.h"
+#import "MSAssetsUpdateState.h"
 
 typedef void(^MSAssetsSyncBlock)();
 typedef void(^MSAssetsInstallCompleteBlock)();
@@ -69,18 +70,16 @@ typedef void (^MSAssetsDownloadInstallHandler)(NSError * _Nullable error);
  * @see `MSAssetsiOSSpecificImplementation`.
  * @param error initialization error.
  */
-- (instancetype)initWithEntryPoint:(NSString *)entryPoint
-                         publicKey:(NSString *)publicKey
-                     deploymentKey:(NSString *)deploymentKey
+- (instancetype)initWithEntryPoint:(nullable NSString *)entryPoint
+                         publicKey:(nullable NSString *)publicKey
+                     deploymentKey:(nullable NSString *)deploymentKey
                        inDebugMode:(BOOL)isDebugMode
-                         serverUrl:(NSString *)serverUrl
+                         serverUrl:(nullable NSString *)serverUrl
+                           baseDir:(nullable NSString *)baseDir
+                           appName:(nullable NSString *)appName
+                        appVersion:(nullable NSString *)appVersion
                   platformInstance:(id<MSAssetsPlatformSpecificImplementation>)platformInstance
                          withError:(NSError *__autoreleasing *)error;
-
-- (void) doDownloadAndInstall:(MSAssetsRemotePackage *)remotePackage
-                  syncOptions:(MSAssetsSyncOptions *)syncOptions
-                configuration:(MSAssetsConfiguration *)configuration
-                      handler:(MSAssetsDownloadInstallHandler)handler;
 
 /**
  * Gets native Assets configuration.
@@ -89,10 +88,38 @@ typedef void (^MSAssetsDownloadInstallHandler)(NSError * _Nullable error);
  */
 - (MSAssetsConfiguration *)getConfigurationWithError:(NSError * __autoreleasing*)error;
 
+/**
+ * Gets current package update entry point.
+ *
+ * @return path to update contents.
+ */
 - (NSString *)getCurrentUpdateEntryPoint;
+
+/**
+ * Notifies the runtime that a freshly installed update should be considered successful,
+ * and therefore, an automatic client-side rollback isn't necessary.
+ */
 - (void) notifyApplicationReady;
+
+/**
+ * Retrieves the metadata for an installed update (e.g. description, mandatory)
+ * whose state matches the specified <code>updateState</code> parameter.
+ *
+ * @param updateState current update state.
+ * @return installed update metadata.
+ */
+- (MSAssetsLocalPackage *)getUpdateMetadataForState:(MSAssetsUpdateState)updateState
+                         withError:(NSError * __autoreleasing *)error;
+
+/**
+ * Synchronizes your app assets with the latest release to the configured deployment.
+ *
+ * @param syncOptions sync options.
+ * @see `MSAssetsDelegate->syncStatusChanged`.
+ */
 - (void)sync:(MSAssetsSyncOptions *)syncOptions;
 
+- (void)initializeUpdateAfterRestartWithError:(NSError * __autoreleasing *)error;
 @property (nonatomic, copy, nonnull) NSString *deploymentKey;
 @property (nonatomic, copy, nonnull) NSString *serverUrl;
 //@property (nonatomic, copy, nullable) NSString *updateSubFolder;
@@ -105,8 +132,8 @@ typedef void (^MSAssetsDownloadInstallHandler)(NSError * _Nullable error);
 @property (nonatomic, nullable) MSAssetsDownloadHandler *downloadHandler;
 @property (nonatomic, readonly, nullable) MSAssetsUpdateUtilities *updateUtilities;
 @property (nonatomic, readonly) MSAssetsUpdateManager *updateManager;
-@property (nonatomic, readonly) MSAssetsAcquisitionManager *acquisitionManager;
-@property (nonatomic, readonly) MSAssetsSettingManager *settingManager;
+@property (nonatomic) MSAssetsAcquisitionManager *acquisitionManager;
+@property (nonatomic) MSAssetsSettingManager *settingManager;
 @property (nonatomic, readonly) MSAssetsRestartManager *restartManager;
 
 @end

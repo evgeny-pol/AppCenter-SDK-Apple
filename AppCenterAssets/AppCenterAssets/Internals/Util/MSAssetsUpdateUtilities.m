@@ -33,7 +33,7 @@ NSString *const AssetsFolderName = @"assets";
         return NO;
     }
     for (NSURL *content in contents) {
-        NSString *fileName = [[content absoluteString] lastPathComponent];
+        NSString *fileName = [[[content absoluteString] lastPathComponent] stringByReplacingOccurrencesOfString:@"%20" withString:@" "];
         NSString *fullFilePath = [folderPath stringByAppendingPathComponent:fileName];
         NSString *relativePath = pathPrefix.length == 0 ? fileName : [pathPrefix stringByAppendingPathComponent:fileName];
         if ([self isHashIgnoredFor:relativePath]) {
@@ -198,8 +198,7 @@ NSString *const AssetsFolderName = @"assets";
 }
 
 - (NSString *)findEntryPointInFolder:(NSString *)folderPath
-                    expectedFileName:(NSString *)expectedFileName
-                               error:(NSError * __autoreleasing *)error {
+                    expectedFileName:(NSString *)expectedFileName {
     NSArray<NSURL *>* folderFiles = [MSUtility contentsOfDirectory:folderPath propertiesForKeys:nil];
     if (!folderFiles) {
         return nil;
@@ -211,9 +210,7 @@ NSString *const AssetsFolderName = @"assets";
         BOOL isDir;
         NSString *fullPath;
         if ((fullPath = [file path]) && [[NSFileManager defaultManager] fileExistsAtPath:fullPath isDirectory:&isDir] && isDir) {
-            NSString *mainBundlePathInFolder = [self findEntryPointInFolder:fullFilePath
-                                                           expectedFileName:expectedFileName
-                                                                      error:error];
+            NSString *mainBundlePathInFolder = [self findEntryPointInFolder:fullFilePath expectedFileName:expectedFileName];
             if (mainBundlePathInFolder) {
                 return [fileName stringByAppendingPathComponent:mainBundlePathInFolder];
             }

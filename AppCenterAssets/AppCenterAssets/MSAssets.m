@@ -17,6 +17,7 @@ static NSString *const kMSGroupId = @"Assets";
 // Singleton
 static MSAssets *sharedInstance = nil;
 static dispatch_once_t onceToken;
+static id<MSAssetsPlatformSpecificImplementation> platformImpl;
 
 @implementation MSAssets
 
@@ -24,7 +25,7 @@ static dispatch_once_t onceToken;
 
 - (instancetype)init {
   if ((self = [super init])) {
-      
+      platformImpl = [[MSAssetsiOSSpecificImplementation alloc] init];
   }
   return self;
 }
@@ -35,16 +36,16 @@ static dispatch_once_t onceToken;
     MSAssetsBuilder *builder = [MSAssetsBuilder new];
     updateBlock(builder);
     MSAssetsDeploymentInstance *assetsDeploymentInstance = [[MSAssetsDeploymentInstance alloc] initWithEntryPoint:builder.updateSubFolder
-                                                                                                        publicKey:builder.publicKey
-                                                                                                    deploymentKey:builder.deploymentKey
-                                                                                                      inDebugMode:NO
-                                                                                                        serverUrl:builder.serverUrl
-                                                                                                 platformInstance:[[MSAssetsiOSSpecificImplementation alloc] init]
-                                                                                                        withError:error];
-    if (error) {
- //       return nil;
+                                    publicKey:builder.publicKey deploymentKey:builder.deploymentKey inDebugMode:NO serverUrl:builder.serverUrl baseDir:builder.baseDir appName:builder.appName appVersion:builder.appVersion platformInstance:platformImpl withError:error];
+    if (*error) {
+        return nil;
     }
     return assetsDeploymentInstance;
+}
+
+// The ability to override platform specific implementation in other platforms (react, cordova).
++ (void) setPlatformImplementation:(id<MSAssetsPlatformSpecificImplementation>)impl {
+    platformImpl = impl;
 }
 
 #pragma mark - MSServiceInternal

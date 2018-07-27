@@ -4,20 +4,36 @@
 
 #import "MSAssetsViewController.h"
 #import "AppCenterAssets.h"
+#import "MSLogger.h"
+#import "MSUtility+File.h"
+#import "MSAlertController.h"
+
+#define kDeploymentKey "X0s3Jrpp7TBLmMe5x_UG0b8hf-a8SknGZWL7Q"
+#define kDeploymentKey2 "ZeJoy__Sai95nlorTIUaIELCya0eSy-VwNsQ7"
+
 
 @interface MSAssetsViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *updatePathView;
+@property (weak, nonatomic) IBOutlet UILabel *updatePathView2;
 @property (weak, nonatomic) IBOutlet UILabel *syncStatus;
 @property (weak, nonatomic) IBOutlet UISwitch *enabled;
 @property (weak, nonatomic) IBOutlet UILabel *result;
 @property (weak, nonatomic) IBOutlet UITableViewCell *cellCheckForUpdate;
+@property (weak, nonatomic) IBOutlet UITableViewCell *cellCheckForUpdate2;
 @property (weak, nonatomic) IBOutlet UITableViewCell *cellDownloadStatus;
 @property (weak, nonatomic) IBOutlet UITableViewCell *cellSync;
+@property (weak, nonatomic) IBOutlet UITableViewCell *cellSync2;
 @property (weak, nonatomic) IBOutlet UITableViewCell *cellSyncStatus;
 @property (weak, nonatomic) IBOutlet UITableViewCell *cellUpdatePath;
+@property (weak, nonatomic) IBOutlet UITableViewCell *cellUpdatePath2;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView2;
+
 
 @property (nonatomic) MSAssetsDeploymentInstance *assetsDeployment;
+@property (nonatomic) MSAssetsDeploymentInstance *assetsDeployment2;
+
 
 @end
 
@@ -28,26 +44,40 @@
     self.enabled.on = [MSAssets isEnabled];
     
     NSError *error = nil;
-    _assetsDeployment = [MSAssets makeDeploymentInstanceWithBuilder:^(MSAssetsBuilder *builder) {
-        [builder setServerUrl:@"https://codepush.azurewebsites.net/"];
+    self.assetsDeployment = [MSAssets makeDeploymentInstanceWithBuilder:^(MSAssetsBuilder *builder) {
+        builder.deploymentKey = @kDeploymentKey;
     } error:&error];
     
     if (error) {
         NSLog(@"%@", [error localizedDescription]);
     } else {
-        [_assetsDeployment setDelegate:self];
+        [self.assetsDeployment setDelegate:self];
     }
+
+    self.assetsDeployment2 = [MSAssets makeDeploymentInstanceWithBuilder:^(MSAssetsBuilder *builder) {
+        builder.deploymentKey = @kDeploymentKey2;
+    } error:&error];
+
+    if (error) {
+        NSLog(@"%@", [error localizedDescription]);
+    } else {
+        [self.assetsDeployment2 setDelegate:self];
+    }
+
     [self updatePath];
     [self updateCells];
+    [self updateImage];
 }
 
-- (void)updateCells
-{
+- (void)updateCells {
     [self.cellCheckForUpdate setUserInteractionEnabled:[MSAssets isEnabled]];
+    [self.cellCheckForUpdate2 setUserInteractionEnabled:[MSAssets isEnabled]];
     [self.cellDownloadStatus setUserInteractionEnabled:[MSAssets isEnabled]];
     [self.cellSync setUserInteractionEnabled:[MSAssets isEnabled]];
+    [self.cellSync2 setUserInteractionEnabled:[MSAssets isEnabled]];
     [self.cellSyncStatus setUserInteractionEnabled:[MSAssets isEnabled]];
     [self.cellUpdatePath setUserInteractionEnabled:[MSAssets isEnabled]];
+    [self.cellUpdatePath2 setUserInteractionEnabled:[MSAssets isEnabled]];
 }
 
 - (IBAction)enabledSwitchUpdated:(UISwitch *)sender {
@@ -58,18 +88,65 @@
 
 -(void)sync {
     MSAssetsSyncOptions *syncOptions = [MSAssetsSyncOptions new];
-    [syncOptions setDeploymentKey:@"4VnyrkITHiZ6Qroh19nsQkebgfZLSyNJucKym"];
+    [syncOptions setDeploymentKey:@kDeploymentKey];
     [syncOptions setUpdateDialog:[MSAssetsUpdateDialog new]];
-    [_assetsDeployment sync:syncOptions];
+    [syncOptions setInstallMode:MSAssetsInstallModeImmediate];
+    [syncOptions setShouldRestart:NO];
+    [self.assetsDeployment sync:syncOptions];
+}
+
+-(void)sync2 {
+    MSAssetsSyncOptions *syncOptions = [MSAssetsSyncOptions new];
+    [syncOptions setDeploymentKey:@kDeploymentKey2];
+    [syncOptions setUpdateDialog:[MSAssetsUpdateDialog new]];
+    [self.assetsDeployment2 sync:syncOptions];
 }
 
 -(void)updatePath {
-    NSString *path = [_assetsDeployment getCurrentUpdateEntryPoint];
-    self.updatePathView.text = path;
+    self.updatePathView.text = [self.assetsDeployment getCurrentUpdateEntryPoint];
+    self.updatePathView2.text = [self.assetsDeployment2 getCurrentUpdateEntryPoint];;
+}
+
+- (void)updateImage {
+    MSLogInfo([MSAssets logTag], @"Puppet: update image");
+    NSString *path = [[self.assetsDeployment getCurrentUpdateEntryPoint] stringByAppendingPathComponent:@"cp_assets/square.png"];
+    if (path) {
+        MSLogInfo([MSAssets logTag], @"%@", path);
+        NSData *data = [MSUtility loadDataForPathComponent:path];
+        if (data) {
+            MSLogInfo([MSAssets logTag], @"File exists");
+        } else {
+            MSLogInfo([MSAssets logTag], @"File not found");
+        }
+        UIImage *image = [UIImage imageWithData:data];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (image) [self.imageView setImage:image];
+        });
+    }
+
+
+    NSString *path2 = [[self.assetsDeployment2 getCurrentUpdateEntryPoint] stringByAppendingPathComponent:@"cp_assets2/square.png"];
+    if (path2) {
+        MSLogInfo([MSAssets logTag], @"%@", path2);
+        NSData *data = [MSUtility loadDataForPathComponent:path2];
+        if (data) {
+            MSLogInfo([MSAssets logTag], @"File exists");
+        } else {
+            MSLogInfo([MSAssets logTag], @"File not found");
+        }
+        UIImage *image = [UIImage imageWithData:data];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (image) [self.imageView2 setImage:image];
+        });
+    }
 }
 
 - (void)checkForUpdate {
-    [_assetsDeployment checkForUpdate:@"4VnyrkITHiZ6Qroh19nsQkebgfZLSyNJucKym"];
+    [self.assetsDeployment checkForUpdate:@kDeploymentKey];
+}
+
+- (void)checkForUpdate2 {
+    [self.assetsDeployment2 checkForUpdate:@kDeploymentKey2];
 }
 
 - (void)didReceiveRemotePackageOnCheckForUpdate:(MSAssetsRemotePackage *)package {
@@ -78,24 +155,17 @@
             self.syncStatus.text = @"No update available";
         });
     } else {
-        NSMutableString *info = @"";
-        NSMutableDictionary *dict = package.serializeToDictionary;
-        for(NSString *key in dict) {
-            info = [info stringByAppendingString:key];
-            info = [info stringByAppendingString:@":"];
-            if ([dict objectForKey:key])
-                info = [info stringByAppendingString:[[dict objectForKey:key] description]];
-            else
-                info = [info stringByAppendingString:@"[no value]"];
-            info = [info stringByAppendingString:@"\n"];
-        }
-
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[package serializeToDictionary] options: NSJSONWritingPrettyPrinted error:nil];
+        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        jsonString = [jsonString stringByReplacingOccurrencesOfString:@"\\/" withString:@"/"];
+        jsonString = [jsonString stringByReplacingOccurrencesOfString:@"{" withString:@""];
+        jsonString = [jsonString stringByReplacingOccurrencesOfString:@"}" withString:@""];
+       
         dispatch_async(dispatch_get_main_queue(), ^{
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Check for update results"
-                                                            message:info
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
+            MSAlertController *alert = [MSAlertController alertControllerWithTitle:@"Check for update results" message:jsonString preferredStyle:UIAlertControllerStyleAlert];
+            [alert.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            [alert addAction:defaultAction];
             [alert show];
         });
     }
@@ -115,7 +185,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
     switch ([indexPath section]) {
         case 1: {
             switch (indexPath.row) {
@@ -123,9 +192,34 @@
                     [self checkForUpdate];
                     break;
                 }
-                case 1:
+                case 1: {
                     [self sync];
                     break;
+                }
+                case 2: {
+                    [self checkForUpdate2];
+                    break;
+                }
+                case 3: {
+                    [self sync2];
+                    break;
+                }
+                case 4: {
+                    MSAlertController *alert = [MSAlertController alertControllerWithTitle:@"Path to 1-st update" message:[self.assetsDeployment getCurrentUpdateEntryPoint] preferredStyle:UIAlertControllerStyleAlert];
+                    [alert.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+                    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                    [alert addAction:defaultAction];
+                    [alert show];
+                    break;
+                }
+                case 5: {
+                    MSAlertController *alert = [MSAlertController alertControllerWithTitle:@"Path to 2-nd update" message:[self.assetsDeployment2 getCurrentUpdateEntryPoint] preferredStyle:UIAlertControllerStyleAlert];
+                    [alert.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+                    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                    [alert addAction:defaultAction];
+                    [alert show];
+                    break;
+                }
                 default:
                     break;
             }
@@ -152,7 +246,8 @@
             case MSAssetsSyncStatusUpdateInstalled:
                 syncStatusString = @"Update installed";
                 [self updatePath];
-                [_assetsDeployment notifyApplicationReady];
+                [self updateImage];
+                [self.assetsDeployment notifyApplicationReady];
                 break;
             case MSAssetsSyncStatusInstallingUpdate:
                 syncStatusString = @"Installing update";
@@ -179,4 +274,16 @@
         self.result.text = error.description;
     });
 }
+
+- (void)handleBinaryVersionMismatchCallback
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        MSAlertController *alert = [MSAlertController alertControllerWithTitle:@"Check for update results" message:@"Binary mismatch" preferredStyle:UIAlertControllerStyleAlert];
+        [alert.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        [alert addAction:defaultAction];
+        [alert show];
+    });
+}
+
 @end
